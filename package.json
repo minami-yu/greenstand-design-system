@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build-tokens": "node build.js",
+    "generate-icons": "node scripts/generate-icon-registry.mjs",
     "start": "expo start",
     "storybook": "cross-env STORYBOOK_ENABLED=true expo start",
     "storybook:web": "storybook dev -p 6006 -c .storybook-web",
@@ -14,6 +15,7 @@
     "@expo-google-fonts/inter": "^0.4.2",
     "@expo-google-fonts/montserrat": "^0.4.2",
     "@gorhom/bottom-sheet": "^4.6.4",
+    "@mdi/js": "^7.4.47",
     "expo": "~51.0.0",
     "expo-font": "~12.0.10",
     "expo-status-bar": "~1.12.1",
@@ -21,6 +23,7 @@
     "react-native": "^0.74.5",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-reanimated": "~3.10.1",
+    "react-native-svg": "15.2.0",
     "typescript": "~5.3.3"
   },
   "devDependencies": {

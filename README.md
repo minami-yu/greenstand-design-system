@@ -85,3 +85,20 @@ const t = useTheme();
 
 - `theme.typography` — the mobile set (React Native default). Spread composite sets straight into `Text` styles: `<Text style={theme.typography['heading-m']} />`.
 - `typographies.mobile` / `typographies.desktop` — both device classes, e.g. for tablet/large-screen layouts.
+
+## Icons
+
+Icons from the Figma **Icons** frame (`12663:7261`) are registered in `src/components/Icon/icons.ts`:
+
+```tsx
+import { Icon } from './src/components/Icon/Icon';
+
+<Icon name="close" size="md" color="neutral.primary" />
+```
+
+- **Sizes** — `theme.icon.*` (`xs` → `3xl`), default `md`
+- **Colors** — `theme.color.icon.*` via `color="neutral.primary"` etc.
+- **83 MDI** icons keyed by Figma title suffix (`mdi:close` → `name="close"`)
+- **2 custom** — `outline-wifi` (`ic:outline-wifi`), `offline` (`wordpress:offline`) in `Icon/custom.ts`
+
+When icons are added to Figma, update `scripts/generate-icon-registry.mjs` and run `npm run generate-icons`.
