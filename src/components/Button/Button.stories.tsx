@@ -15,6 +15,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { theme } from '../../theme/tokens';
 import { useTheme } from '../../theme/useTheme';
 import type { IconName } from '../Icon/icons';
+import { icons } from '../Icon/icons';
 import { Button, type ButtonProps } from './Button';
 import type {
   ButtonIconPosition,
@@ -38,6 +39,7 @@ const visualStates: ButtonVisualState[] = ['default', 'hover', 'pressed', 'disab
 
 const sizes: ButtonSize[] = ['medium', 'small'];
 
+const iconNames = Object.keys(icons).sort() as IconName[];
 const demoIcon: IconName = 'heart-outline';
 
 const autoVisualState = 'auto' as const;
@@ -77,7 +79,7 @@ const meta = {
     icon: {
       control: 'select',
       description: 'Icon asset when iconPosition is leading or trailing.',
-      options: [demoIcon]
+      options: iconNames
     },
     disabled: { control: 'boolean' },
     visualState: {
