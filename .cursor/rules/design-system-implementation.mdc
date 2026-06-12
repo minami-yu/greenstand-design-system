@@ -1,0 +1,67 @@
+---
+description: Design system implementation rules — tokens, Figma MCP, component patterns
+alwaysApply: true
+---
+
+# Design System Implementation Rules
+
+## Source of Truth
+
+- `src/theme/tokens.ts` is the source of truth for all design values in components.
+- Generated from Figma via Style Dictionary (`tokens/variables/` + `tokens/styles/` → `build.js`).
+- Never hardcode colors, spacing, typography, radius, shadows, stroke, blur, depth, or sizing.
+- Never manually edit `src/theme/tokens.ts`.
+- If a required token does not exist, report it before implementing — do not guess from Figma pixels.
+
+## Figma MCP
+
+- Use Figma MCP for structure, hierarchy, variants, and layout — not raw style values.
+- Map Figma variables to tokens from `src/theme/tokens.ts`.
+- Prefer variable-to-token mapping over visual approximation.
+
+## Token Usage
+
+```tsx
+import { theme } from '../theme/tokens';
+import { useTheme } from '../theme/useTheme';
+import { getShadow } from '../theme/getShadow';
+
+const t = useTheme();
+
+// ✅ mode-aware colors
+backgroundColor: t.color.background.neutral.surface
+color: t.color.text.neutral.primary
+
+// ✅ layout (Box props or theme.space / theme.radius)
+<Box p="400" gap="200" radius="md" />
+
+// ✅ typography — spread composite sets
+<Text style={[t.typography['heading-m'], { color: t.color.text.neutral.primary }]} />
+
+// ✅ shadows — use adapter
+style={getShadow(t.elevation.sm)}
+
+// ❌ never
+backgroundColor: '#FF6600'
+padding: 16
+borderRadius: 8
+```
+
+Key namespaces: `color.*` (semantic + `palette`), `typography.*` (composites), `space`, `radius`, `stroke`, `elevation`. Space keys are `"100"`/`"400"`/`"n200"`, not `"md"`.
+
+## Components
+
+- `src/components/<Name>/<Name>.tsx` + `<Name>.stories.tsx` (CSF, both Storybooks).
+- Use `<Box />` for layout; type-safe `keyof typeof theme.space` / `theme.radius`.
+- Token-driven styling only; reuse existing components; web-compatible RN primitives only.
+- Gate on `useAppFonts()` where fonts are needed.
+
+## Missing Tokens
+
+Stop → report missing token + suggested name/category → wait for confirmation before adding to `tokens/styles/value.json` or requesting a Figma export.
+
+## Workflow
+
+1. Inspect in Figma (MCP) → 2. Map tokens → 3. Build component + props → 4. Add story → 5. Report gaps.
+
+After any `tokens/` or `build.js` change, run `npm run build-tokens`.
