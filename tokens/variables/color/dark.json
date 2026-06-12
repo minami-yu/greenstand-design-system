@@ -1,0 +1,1091 @@
+{
+  "fill": {
+    "neutral": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.700}",
+        "$description": "Color for neutral fill components such as button with high emphasis"
+      },
+      "default-hover": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.600}",
+        "$description": "Hover state for the interactive component that uses the fill default color"
+      },
+      "subtle": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.900}",
+        "$description": "Color for neutral fill components such as button with less emphasis than subtle"
+      },
+      "subtle-hover": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.800}",
+        "$description": "Hover state for the interactive component that uses the fill subtle color"
+      },
+      "default-selected": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.500}",
+        "$description": "Selected state for the interactive component that uses the fill default color"
+      },
+      "subtle-selected": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.700}",
+        "$description": "Selected state for the interactive component that uses the fill subtle color"
+      },
+      "inverse": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.200}",
+        "$description": "Used for containers and components that require a contrasting surface against the default background"
+      },
+      "inverse-hover": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.300}",
+        "$description": "Hover state for the interactive component that uses the fill inverse color"
+      },
+      "inverse-selected": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.400}",
+        "$description": "Selected state for the interactive component that uses the fill inverse color"
+      },
+      "disabled": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.900}",
+        "$description": "Disabled state color that fill any components, such as buttons"
+      }
+    },
+    "brand": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{brand-green.300}",
+        "$description": "Color for primary fill components such as primary button"
+      },
+      "subtle": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{brand-green.900}",
+        "$description": "Used for backgrounds that communicate brand association with low visual emphasis."
+      },
+      "hover": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{brand-green.400}",
+        "$description": "Hover state for the interactive component that uses the fill brand color"
+      },
+      "selected": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{brand-green.500}",
+        "$description": "Selected state for the interactive component that uses the fill brand color"
+      },
+      "accent": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{brand-green.500}",
+        "$description": "Used for promotional or highlighted navigation actions that require greater visibility than surrounding navigation items without competing with primary actions within content."
+      },
+      "subtle-hover": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{brand-green.800}",
+        "$description": "Hover state for the interactive component that uses the fill brand subtle color"
+      },
+      "subtle-selected": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{brand-green.700}",
+        "$description": "Selected state for the interactive component that uses the fill brand subtle color"
+      }
+    },
+    "error": {
+      "subtle": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{red.900}",
+        "$description": "Inline error alert, form field error bg"
+      },
+      "emphasis": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{red.500}",
+        "$description": "Critical error banner, system-wide alert"
+      },
+      "emphasis-hover": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{red.400}",
+        "$description": "Critical error banner, system-wide alert"
+      },
+      "emphasis-selected": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{red.300}",
+        "$description": "Critical error banner, system-wide alert"
+      },
+      "subtle-hover": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{red.800}",
+        "$description": "Inline error alert, form field error bg"
+      },
+      "subtle-selected": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{red.700}",
+        "$description": "Inline error alert, form field error bg"
+      }
+    },
+    "warning": {
+      "subtle": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{yellow.900}",
+        "$description": "Inline caution alert, advisory notice bg"
+      },
+      "emphasis": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{yellow.400}",
+        "$description": "Critical warning banner like Uber surge pricing"
+      }
+    },
+    "success": {
+      "subtle": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{green.900}",
+        "$description": "Inline confirmation, completed state bg"
+      },
+      "emphasis": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{green.500}",
+        "$description": "Critical success banner, system confirmation"
+      }
+    },
+    "info": {
+      "subtle": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{blue.900}",
+        "$description": "Inline informational alert, tooltip bg"
+      },
+      "emphasis": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{blue.500}",
+        "$description": "Critical info banner, system-wide notice"
+      }
+    },
+    "accent": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{orange.600}",
+        "$description": "Secondary accent fills, promotional elements"
+      },
+      "subtle": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{orange.900}",
+        "$description": "Light orange tint for accent surfaces"
+      },
+      "hover": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{orange.500}",
+        "$description": "Hover state on accent elements"
+      },
+      "selected": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{orange.400}",
+        "$description": "Pressed state on accent elements"
+      }
+    }
+  },
+  "text": {
+    "neutral": {
+      "primary": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{white.1000}",
+        "$description": "Headings, body copy, default labels, highest contrast"
+      },
+      "secondary": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.400}",
+        "$description": "Supporting text, metadata, timestamps, medium emphasis"
+      },
+      "tertiary": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.600}",
+        "$description": "Hint text, helper labels, lowest emphasis copy"
+      },
+      "inverse": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.950}",
+        "$description": "Text on dark or vivid colored fills, tooltips, bold banners, colored buttons"
+      },
+      "disabled": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.700}",
+        "$description": "Text inside disabled elements"
+      },
+      "placeholder": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.600}",
+        "$description": "Placeholder text inside empty input fields"
+      }
+    },
+    "brand": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{brand-green.200}",
+        "$description": "Brand-colored text, active nav labels, branded emphasis"
+      },
+      "on-brand": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.950}",
+        "$description": "Text sitting directly on brand-colored fills"
+      }
+    },
+    "success": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{green.200}",
+        "$description": "Confirmation copy, positive feedback on light or tinted backgrounds"
+      },
+      "on-emphasis": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.950}",
+        "$description": "Text on vivid emerald bold banner"
+      }
+    },
+    "error": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{red.200}",
+        "$description": "Error messages, form validation text, destructive action labels"
+      },
+      "on-emphasis": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{white.1000}",
+        "$description": "Text on vivid red bold banner"
+      }
+    },
+    "warning": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{yellow.200}",
+        "$description": "Caution labels, advisory copy on light or yellow-tinted backgrounds"
+      },
+      "on-emphasis": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.950}",
+        "$description": "Text on vivid yellow bold banner"
+      }
+    },
+    "info": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{blue.200}",
+        "$description": "Informational copy inside info banners and tooltips"
+      },
+      "on-emphasis": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{white.1000}",
+        "$description": "Text on vivid blue bold banner"
+      }
+    },
+    "accent": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{orange.300}",
+        "$description": "Orange accent text, promotional labels, secondary brand moments"
+      },
+      "on-accent": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{orange.950}",
+        "$description": "Text on vivid orange fills, always dark for contrast"
+      }
+    }
+  },
+  "border": {
+    "neutral": {
+      "subtle": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.700}",
+        "$description": "Section separators, list item dividers"
+      },
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.400}",
+        "$description": "Standard border for cards, inputs, containers"
+      },
+      "strong": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.200}",
+        "$description": "Emphasized border for active inputs, hover states, selected neutral items"
+      },
+      "disabled": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.800}",
+        "$description": "Border for disabled inputs and non-interactive form controls"
+      },
+      "inverse": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.950}"
+      }
+    },
+    "brand": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{brand-green.500}",
+        "$description": "Selected cards, active tabs, brand-accented component borders"
+      },
+      "subtle": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{brand-green.800}",
+        "$description": "For callouts and highlighted sections"
+      }
+    },
+    "accent": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{orange.500}",
+        "$description": "Accent outlined component borders for promotional elements"
+      },
+      "subtle": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{orange.800}",
+        "$description": "For callouts"
+      }
+    },
+    "error": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{red.700}",
+        "$description": "Inline error states, invalid inputs, error alert components"
+      },
+      "emphasis": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{red.500}",
+        "$description": "Critical error banners, system-wide alerts, destructive dialogs"
+      }
+    },
+    "warning": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{yellow.700}",
+        "$description": "Inline caution alerts and advisory input states"
+      },
+      "emphasis": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{yellow.400}",
+        "$description": "Critical warning banners and system-wide caution notices"
+      }
+    },
+    "success": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{green.600}",
+        "$description": "Inline confirmation alerts and success input states"
+      },
+      "emphasis": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{green.400}",
+        "$description": "Critical success banners and system confirmations"
+      }
+    },
+    "info": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{blue.600}",
+        "$description": "Inline informational alerts and tooltip components"
+      },
+      "emphasis": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{blue.500}",
+        "$description": "Critical informational banners and system-wide notices"
+      }
+    }
+  },
+  "icon": {
+    "neutral": {
+      "primary": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{white.1000}",
+        "$description": "Primary standalone icons, icon buttons"
+      },
+      "secondary": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.300}",
+        "$description": "Supporting icons next to secondary text, inactive nav icons"
+      },
+      "tertiary": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.400}",
+        "$description": "Decorative icons, placeholder icons, lowest emphasis"
+      },
+      "disabled": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.500}",
+        "$description": "Icons inside disabled buttons and non-interactive elements"
+      },
+      "inverse": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.950}",
+        "$description": "Icons on dark or colored fills, tooltips, filled buttons"
+      },
+      "on-disabled": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.700}",
+        "$description": "Icons inside disabled buttons and non-interactive elements"
+      }
+    },
+    "brand": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{brand-green.300}",
+        "$description": "Brand-colored icons, active nav icons"
+      },
+      "on-brand": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.950}",
+        "$description": "Icons on brand fill"
+      }
+    },
+    "accent": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{orange.300}",
+        "$description": "Accent icons"
+      },
+      "on-accent": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{orange.950}",
+        "$description": "Icon on accent fill"
+      }
+    },
+    "error": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{red.200}",
+        "$description": "Error icons, destructive action indicators"
+      },
+      "on-emphasis": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{white.1000}",
+        "$description": "Icons on error fill"
+      }
+    },
+    "success": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{green.200}",
+        "$description": "Positive status indicators"
+      },
+      "on-emphasis": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{white.1000}",
+        "$description": "Icon of success fill"
+      }
+    },
+    "info": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{blue.200}",
+        "$description": "Info icons, tooltip triggers, system status indicators"
+      },
+      "on-emphasis": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{white.1000}",
+        "$description": "Icon of info fill"
+      }
+    },
+    "warning": {
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{yellow.500}",
+        "$description": "Caution icons, advisory indicators"
+      },
+      "on-emphasis": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{neutral.950}",
+        "$description": "Icon on warning fill"
+      }
+    }
+  },
+  "shadow": {
+    "sm": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "color",
+      "$value": "{white.100}"
+    },
+    "md": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "color",
+      "$value": "{white.100}"
+    },
+    "lg": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "color",
+      "$value": "{white.200}"
+    }
+  },
+  "background": {
+    "neutral": {
+      "base": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{black.1000}",
+        "$description": "Alternative app background"
+      },
+      "surface": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{black.1000}",
+        "$description": "Background used for cards, panels, modals, drawers"
+      },
+      "overlay": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{black.500}",
+        "$description": "Scrim behind modals and drawers"
+      },
+      "default": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{black.1000}",
+        "$description": "Default app background"
+      }
+    }
+  }
+}

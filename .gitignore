@@ -1,0 +1,17 @@
+node_modules/
+.expo/
+dist/
+web-build/
+
+# Storybook web static build output
+storybook-static/
+
+# Storybook React Native generated requires
+.storybook/storybook.requires.ts
+
+# macOS
+.DS_Store
+
+# Logs
+npm-debug.*
+*.log

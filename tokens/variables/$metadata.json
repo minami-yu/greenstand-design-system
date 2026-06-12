@@ -1,0 +1,11 @@
+{
+  "tokenSetOrder": [
+    "",
+    "color_primitive/value",
+    "color/light",
+    "color/dark",
+    "typography/mobile",
+    "typography/desktop",
+    "size/value"
+  ]
+}

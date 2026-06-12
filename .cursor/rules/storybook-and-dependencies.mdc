@@ -1,0 +1,30 @@
+---
+description: Storybook dual-setup (on-device + web) and dependency version constraints
+alwaysApply: true
+---
+
+# Storybook Setups
+
+This project has TWO Storybook environments sharing the same `src/components/**/*.stories.tsx` files:
+
+| Environment | Config folder | Command | Renders |
+|---|---|---|---|
+| On-device (Storybook RN v8) | `.storybook/` | `npm run storybook` | Native, inside Expo via `App.tsx` + `STORYBOOK_ENABLED=true` |
+| Desktop web (react-native-web + Vite) | `.storybook-web/` | `npm run storybook:web` | Browser at localhost:6006 |
+
+- `npm run storybook:web:build` outputs a deployable static site to `storybook-static/` (gitignored).
+- `.storybook-web/preview.tsx` re-exports `.storybook/preview.tsx` — keep decorators defined ONCE in `.storybook/preview.tsx` so both environments stay in sync.
+- New components must ship with a `.stories.tsx` file using CSF (`Meta`/`StoryObj` from `@storybook/react`) so they appear in both Storybooks.
+- Components must only use web-compatible RN primitives (`View`, `Text`, `StyleSheet`, etc.). Avoid native-only modules or the web Storybook breaks.
+
+# Dependency Version Constraints
+
+Versions are deliberately pinned for Expo SDK 51 compatibility. Do NOT bump these independently:
+
+- `react-native@0.74.5` — required by Expo 51 AND `@storybook/react-native-web-vite` (needs >=0.74.5).
+- `react-native-reanimated@~3.10.1`, `react-native-gesture-handler@~2.16.1`, `@gorhom/bottom-sheet@^4` — peer deps of `@storybook/react-native`'s on-device UI, pinned to avoid ERESOLVE conflicts (bottom-sheet v5 pulls reanimated 4.x which requires RN 0.83+). They are not imported by app code.
+- Storybook packages stay on the same minor line (currently 8.6.x) — `@storybook/react-native`, `storybook`, `@storybook/react-native-web-vite`, `@storybook/addon-essentials` must match.
+
+If npm fails with ERESOLVE, fix by pinning compatible versions in a single `npm install` pass — never use `--force` or `--legacy-peer-deps`.
+
+Upgrading Expo SDK requires re-evaluating ALL of the above together.
