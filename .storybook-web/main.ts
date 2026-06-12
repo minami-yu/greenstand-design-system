@@ -6,6 +6,12 @@ const config: StorybookConfig = {
   framework: {
     name: '@storybook/react-native-web-vite',
     options: {}
+  },
+  async viteFinal(config, { configType }) {
+    if (configType === 'PRODUCTION' && process.env.STORYBOOK_BASE_PATH) {
+      config.base = process.env.STORYBOOK_BASE_PATH;
+    }
+    return config;
   }
 };
 

@@ -18,7 +18,41 @@ npm run start          # normal Expo app view
 | `npm run start` | Starts the normal Expo application view. |
 | `npm run storybook` | Starts Expo with the **on-device** Storybook UI (open on a simulator or in Expo Go). |
 | `npm run storybook:web` | Starts the **desktop web** Storybook at [localhost:6006](http://localhost:6006). |
-| `npm run storybook:web:build` | Builds the web Storybook into `storybook-static/` as a deployable static site. |
+| `npm run storybook:web:build` | Builds the web Storybook into `storybook-static/` as a deployable static site. Used by CI for GitHub Pages. |
+
+## Storybook
+
+### Run locally
+
+**On-device (Expo / simulator):**
+
+```bash
+npm run storybook
+```
+
+**Desktop web (browser at [localhost:6006](http://localhost:6006)):**
+
+```bash
+npm run storybook:web
+```
+
+### Build static site
+
+```bash
+npm run storybook:web:build
+```
+
+Output is written to `storybook-static/` (gitignored). This is the same build the GitHub Actions workflow publishes.
+
+### Deployed site (GitHub Pages)
+
+On every push to `main`, [.github/workflows/deploy-storybook.yml](.github/workflows/deploy-storybook.yml) builds Storybook and deploys it to GitHub Pages.
+
+**URL:** [https://minami-yu.github.io/greenstand-design-system/](https://minami-yu.github.io/greenstand-design-system/)
+
+General format: `https://<github-username>.github.io/<repo-name>/`
+
+**One-time repo setup:** In the repository **Settings → Pages**, set **Source** to **GitHub Actions** (not “Deploy from a branch”).
 
 ## Folder Structure
 
