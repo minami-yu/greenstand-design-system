@@ -52,6 +52,16 @@ type ButtonStoryArgs = Omit<ButtonProps, 'visualState'> & {
 
 const meta = {
   title: 'Components/Button',
+  component: Button,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Primary action component with variant, size, icon, and interaction state props aligned to Figma.'
+      }
+    }
+  },
   args: {
     label: 'Save',
     variant: 'primary',

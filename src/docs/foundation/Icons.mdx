@@ -1,0 +1,25 @@
+import { Meta } from '@storybook/blocks';
+import { IconGallery, iconNames } from './partials';
+import { MdxDocPage, DocSection, TokenCatalog } from '../ui';
+import { buildScaleCatalogEntries } from '../utils/buildCatalogEntries';
+
+export const iconSizes = buildScaleCatalogEntries('icon', 'icon');
+export const parameters = {
+  controls: { disable: true },
+  docsPage: true
+};
+
+<Meta title="Foundation/Icons" parameters={parameters} />
+
+<MdxDocPage
+  description="MDI icons from the Figma Icons frame, registered in src/components/Icon/icons.ts."
+  title="Icons"
+>
+  <DocSection description="Size tokens for the Icon component." title="Sizes">
+    <TokenCatalog entries={iconSizes} />
+  </DocSection>
+
+  <DocSection description={`${iconNames.length} icons currently registered.`} title="Catalog">
+    <IconGallery />
+  </DocSection>
+</MdxDocPage>

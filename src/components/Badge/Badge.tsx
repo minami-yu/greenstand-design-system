@@ -34,11 +34,12 @@ export function Badge({
     alignItems: 'center',
     backgroundColor: colors.backgroundColor,
     borderRadius: layout.borderRadius,
+    height: layout.height,
     justifyContent: 'center',
     minWidth: layout.minWidth,
     overflow: 'hidden',
     paddingHorizontal: layout.paddingHorizontal,
-    ...(layout.height ? { height: layout.height, width: layout.width } : { minHeight: layout.minHeight })
+    ...(layout.width ? { width: layout.width } : {})
   };
 
   const resolvedAccessibilityRole = accessibilityRole ?? (badge === 'dot' ? 'none' : 'text');

@@ -1,0 +1,19 @@
+import { Meta } from '@storybook/blocks';
+import { ColorCatalog } from './catalogs';
+import { MdxDocPage } from '../ui';
+import { buildColorCatalogEntries } from '../utils/buildCatalogEntries';
+
+export const colors = buildColorCatalogEntries();
+export const parameters = {
+  controls: { disable: true },
+  docsPage: true
+};
+
+<Meta title="Foundation/Colors" parameters={parameters} />
+
+<MdxDocPage
+  description="Semantic color tokens from tokens/variables/color/light.json with compiled light-mode values."
+  title="Colors"
+>
+  <ColorCatalog entries={colors} />
+</MdxDocPage>

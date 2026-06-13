@@ -1,4 +1,4 @@
 export default {
-  stories: ['../src/components/**/*.stories.tsx'],
+  stories: ['../src/docs/**/*.mdx', '../src/components/**/*.stories.tsx'],
   addons: []
 };

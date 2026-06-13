@@ -1,0 +1,15 @@
+import { Meta } from '@storybook/blocks';
+import { DocCallout, MdxDocPage, DocSection } from '../ui';
+
+export const parameters = {
+  controls: { disable: true },
+  docsPage: true
+};
+
+<Meta title="Foundation/Logo" parameters={parameters} />
+
+<MdxDocPage description="Brand logo usage and asset guidelines." title="Logo">
+  <DocSection title="Status">
+    <DocCallout text="Logo assets and usage rules are not yet exported to this repository. Add brand marks to the design system when Figma logo components and export specs are finalized." />
+  </DocSection>
+</MdxDocPage>

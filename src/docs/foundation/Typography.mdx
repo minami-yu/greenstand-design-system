@@ -1,0 +1,19 @@
+import { Meta } from '@storybook/blocks';
+import { TypographyCatalog } from './catalogs';
+import { MdxDocPage } from '../ui';
+import { buildTypographyCatalogEntries } from '../utils/buildCatalogEntries';
+
+export const typography = buildTypographyCatalogEntries();
+export const parameters = {
+  controls: { disable: true },
+  docsPage: true
+};
+
+<Meta title="Foundation/Typography" parameters={parameters} />
+
+<MdxDocPage
+  description="Composite text styles from tokens/styles/value.json — spread into React Native Text styles."
+  title="Typography"
+>
+  <TypographyCatalog entries={typography} />
+</MdxDocPage>

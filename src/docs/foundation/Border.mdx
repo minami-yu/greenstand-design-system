@@ -1,0 +1,18 @@
+import { Meta } from '@storybook/blocks';
+import { MdxDocPage, TokenCatalog } from '../ui';
+import { buildScaleCatalogEntries } from '../utils/buildCatalogEntries';
+
+export const borders = buildScaleCatalogEntries('stroke', 'stroke');
+export const parameters = {
+  controls: { disable: true },
+  docsPage: true
+};
+
+<Meta title="Foundation/Border" parameters={parameters} />
+
+<MdxDocPage
+  description="Border width tokens (stroke) from tokens/variables/size/value.json."
+  title="Border"
+>
+  <TokenCatalog entries={borders} />
+</MdxDocPage>

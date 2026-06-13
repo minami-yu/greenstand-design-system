@@ -16,6 +16,15 @@ const sizes: BadgeSize[] = ['medium', 'large'];
 const meta = {
   title: 'Components/Badge',
   component: Badge,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Notification badge with label or dot variants. Maps to Figma Badge component set (12918:1005) at node 13148:62280.'
+      }
+    }
+  },
   args: {
     badge: 'label',
     size: 'medium',
@@ -118,6 +127,7 @@ export const Variants: Story = {
 
 /** Common notification counts for label badges. */
 export const LabelValues: Story = {
+  name: 'Label Values',
   parameters: {
     controls: { disable: true }
   },

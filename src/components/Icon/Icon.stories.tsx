@@ -10,6 +10,14 @@ const iconNames = Object.keys(icons).sort() as IconName[];
 const meta = {
   title: 'Components/Icon',
   component: Icon,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'MDI-based icon component with token sizes and semantic colors.'
+      }
+    }
+  },
   args: {
     name: 'close',
     size: 'md',

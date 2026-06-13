@@ -142,7 +142,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 18
+      "$value": 24
     },
     "paragraph-s": {
       "$extensions": {
@@ -162,7 +162,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 24
+      "$value": 32
     },
     "numeric-s": {
       "$extensions": {

@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import StorybookUI from './.storybook';
-import { Card } from './src/components/Card/Card';
 import { useAppFonts } from './src/theme/fonts';
 import { theme } from './src/theme/tokens';
 import { useTheme } from './src/theme/useTheme';
@@ -19,7 +18,22 @@ function App() {
   return (
     <SafeAreaView style={[styles.screen, { backgroundColor: t.color.background.neutral.base }]}>
       <StatusBar style="auto" />
-      <Card />
+      <View
+        style={[
+          styles.panel,
+          {
+            backgroundColor: t.color.background.neutral.default,
+            borderColor: t.color.border.neutral.subtle
+          }
+        ]}
+      >
+        <Text style={[t.typography['heading-s'], { color: t.color.text.neutral.primary }]}>
+          Greenstand Design System
+        </Text>
+        <Text style={[t.typography['paragraph-m'], { color: t.color.text.neutral.secondary }]}>
+          Run Storybook to browse components, tokens, and documentation.
+        </Text>
+      </View>
     </SafeAreaView>
   );
 }
@@ -29,6 +43,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
+    padding: theme.space['400']
+  },
+  panel: {
+    borderRadius: theme.radius.md,
+    borderWidth: theme.stroke.sm,
+    gap: theme.space['200'],
+    maxWidth: 360,
     padding: theme.space['400']
   }
 });

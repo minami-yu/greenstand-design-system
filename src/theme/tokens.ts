@@ -867,16 +867,16 @@ export type ThemeMode = keyof typeof themes;
 const desktopTypography = {
   "heading-m": {
     "fontFamily": "Montserrat_700Bold",
-    "lineHeight": 31.2,
-    "fontSize": 24,
+    "lineHeight": 41.6,
+    "fontSize": 32,
     "letterSpacing": 0,
     "textTransform": "none",
     "textDecorationLine": "none"
   },
   "heading-s": {
     "fontFamily": "Montserrat_700Bold",
-    "lineHeight": 25.2,
-    "fontSize": 18,
+    "lineHeight": 33.6,
+    "fontSize": 24,
     "letterSpacing": 0,
     "textTransform": "none",
     "textDecorationLine": "none"
@@ -1011,9 +1011,9 @@ const desktopTypography = {
     "label-l": 16,
     "paragraph-m": 14,
     "paragraph-l": 16,
-    "heading-s": 18,
+    "heading-s": 24,
     "paragraph-s": 12,
-    "heading-m": 24,
+    "heading-m": 32,
     "numeric-s": 40,
     "numeric-m": 40
   }

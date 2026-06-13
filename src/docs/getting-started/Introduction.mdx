@@ -1,0 +1,37 @@
+import { Meta } from '@storybook/blocks';
+import { DocBulletList, DocCallout, MdxDocPage, DocSection } from '../ui';
+
+export const parameters = {
+  controls: { disable: true },
+  docsPage: true
+};
+
+<Meta title="Getting started/Introduction" parameters={parameters} />
+
+<MdxDocPage
+  description="Greenstand design system sandbox — tokens from Figma, components in React Native, documented in Storybook."
+  title="Getting started"
+>
+  <DocSection title="What this is">
+    <DocBulletList
+      items={[
+        'Design tokens compiled from Figma via Style Dictionary',
+        'React Native components previewed on-device and on web',
+        'Storybook as the shared catalog for designers and engineers'
+      ]}
+    />
+  </DocSection>
+
+  <DocSection title="Run locally">
+    <DocBulletList
+      items={[
+        'npm install',
+        'npm run build-tokens',
+        'npm run storybook:web — desktop catalog at localhost:6006',
+        'npm run storybook — on-device Storybook inside Expo'
+      ]}
+    />
+  </DocSection>
+
+  <DocCallout text="Use Foundation pages for tokens. Use Components for API docs and playgrounds. Switch light/dark mode from the Storybook toolbar." />
+</MdxDocPage>
