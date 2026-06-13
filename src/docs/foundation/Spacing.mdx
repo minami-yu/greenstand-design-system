@@ -1,0 +1,19 @@
+import { Meta } from '@storybook/blocks';
+import { SpacingCatalog } from './catalogs';
+import { MdxDocPage } from '../ui';
+import { buildScaleCatalogEntries } from '../utils/buildCatalogEntries';
+
+export const spacing = buildScaleCatalogEntries('space', 'space');
+export const parameters = {
+  controls: { disable: true },
+  docsPage: true
+};
+
+<Meta title="Foundation/Spacing" parameters={parameters} />
+
+<MdxDocPage
+  description="Spacing scale from tokens/variables/size/value.json. Use theme.space in code."
+  title="Spacing"
+>
+  <SpacingCatalog entries={spacing} />
+</MdxDocPage>

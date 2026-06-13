@@ -1,7 +1,10 @@
 import type { Preview } from '@storybook/react';
 import { useColorScheme, View } from 'react-native';
 import { useAppFonts } from '../src/theme/fonts';
-import { ThemeProvider, type ThemeModePreference } from '../src/theme/ThemeProvider';
+import {
+  ThemeProvider,
+  type ThemeModePreference
+} from '../src/theme/ThemeProvider';
 import { themes } from '../src/theme/tokens';
 
 export const parameters = {
@@ -17,8 +20,7 @@ export const parameters = {
         ['Introduction'],
         'Foundation',
         [
-          'Design token',
-          ["What's a design token", 'How to sync design token'],
+          'Design tokens',
           'Colors',
           'Typography',
           'Spacing',
@@ -33,11 +35,7 @@ export const parameters = {
         [
           'Badge',
           ['*'],
-          'Box',
-          ['*'],
           'Button',
-          ['*'],
-          'Card',
           ['*'],
           'Icon',
           ['*']
@@ -88,7 +86,7 @@ function StorybookThemeDecorator({
   }
 
   return (
-    <ThemeProvider mode={mode}>
+    <ThemeProvider mode={mode} typographyMode={docsPage ? 'desktop' : 'mobile'}>
       <View
         style={{
           alignItems: docsPage ? 'stretch' : 'center',

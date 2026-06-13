@@ -2,7 +2,7 @@ import colorLightJson from '../../../tokens/variables/color/light.json';
 import sizeJson from '../../../tokens/variables/size/value.json';
 import stylesJson from '../../../tokens/styles/value.json';
 import { themes } from '../../theme/tokens';
-import type { TokenCatalogEntry } from '../components/TokenCatalog';
+import type { TokenCatalogEntry } from '../ui';
 import { flattenDtcgTokens, getByPath } from './parseDtcgTokens';
 
 function resolveThemeValue(path: string): string {
@@ -63,10 +63,7 @@ export function buildScaleCatalogEntries(
       name: key,
       value: `${resolved}px`,
       description: token.description,
-      usage:
-        themePath === 'space'
-          ? `<Box p="${key}" /> or theme.space['${key}']`
-          : `theme.${themePath}.${key}`
+      usage: `theme.${themePath}.${key}`
     };
   });
 }

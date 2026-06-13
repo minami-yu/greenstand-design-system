@@ -1,0 +1,19 @@
+import { Meta } from '@storybook/blocks';
+import { ElevationCatalog } from './catalogs';
+import { MdxDocPage } from '../ui';
+import { buildElevationCatalogEntries } from '../utils/buildCatalogEntries';
+
+export const elevation = buildElevationCatalogEntries();
+export const parameters = {
+  controls: { disable: true },
+  docsPage: true
+};
+
+<Meta title="Foundation/Elevation" parameters={parameters} />
+
+<MdxDocPage
+  description="Multi-layer shadow tokens from tokens/styles/value.json. Use getShadow() in components."
+  title="Elevation"
+>
+  <ElevationCatalog entries={elevation} />
+</MdxDocPage>

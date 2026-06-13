@@ -1,6 +1,6 @@
 import { useColorScheme } from 'react-native';
-import { themes, type ThemeMode } from './tokens';
-import { useThemeModePreference } from './ThemeProvider';
+import { themes, typographies, type ThemeMode } from './tokens';
+import { useThemeModePreference, useTypographyMode } from './ThemeProvider';
 
 function resolveThemeMode(
   preference: ReturnType<typeof useThemeModePreference>,
@@ -19,8 +19,13 @@ function resolveThemeMode(
  */
 export function useTheme() {
   const preference = useThemeModePreference();
+  const typographyMode = useTypographyMode();
   const scheme = useColorScheme();
   const mode = resolveThemeMode(preference, scheme);
+  const activeTheme = themes[mode];
 
-  return themes[mode];
+  return {
+    ...activeTheme,
+    typography: typographies[typographyMode]
+  };
 }

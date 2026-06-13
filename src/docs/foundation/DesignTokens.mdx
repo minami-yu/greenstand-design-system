@@ -1,0 +1,61 @@
+import { Meta } from '@storybook/blocks';
+import { DocBulletList, DocCallout, DocCode, MdxDocPage, DocSection } from '../ui';
+
+export const parameters = {
+  controls: { disable: true },
+  docsPage: true
+};
+
+<Meta title="Foundation/Design tokens" parameters={parameters} />
+
+<MdxDocPage
+  description="Single sources of truth for color, type, spacing, radius, and more — shared between Figma and code."
+  title="Design tokens"
+>
+  <DocSection title="Definition">
+    <DocBulletList
+      items={[
+        'A named design decision (e.g. color.text.neutral.primary, space.400, radius.md)',
+        'Stored as W3C Design Tokens in tokens/ and compiled to src/theme/tokens.ts',
+        'Never hardcode raw hex, px, or font sizes in components when a token exists'
+      ]}
+    />
+  </DocSection>
+
+  <DocSection title="Source layout">
+    <DocBulletList
+      items={[
+        'tokens/variables/ — Figma variable export (Token Studio). Do not hand-edit.',
+        'tokens/styles/value.json — hand-maintained typography and elevation styles',
+        'src/theme/tokens.ts — generated output. Never edit manually.'
+      ]}
+    />
+  </DocSection>
+
+  <DocSection title="Sync workflow">
+    <DocBulletList
+      items={[
+        'Open Tokens Studio in Figma and remove stale token sets',
+        'Import variables (leave “Convert numbers to dimensions” unchecked)',
+        'Export to multiple files and replace tokens/variables/',
+        'Run npm run build-tokens and review src/theme/tokens.ts'
+      ]}
+    />
+  </DocSection>
+
+  <DocSection title="Styles">
+    <DocBulletList
+      items={[
+        'Figma styles are not part of the variable export',
+        'Update tokens/styles/value.json manually when text or shadow styles change',
+        'Run npm run build-tokens after editing styles JSON'
+      ]}
+    />
+  </DocSection>
+
+  <DocSection title="Build command">
+    <DocCode code="npm run build-tokens" />
+  </DocSection>
+
+  <DocCallout text="Never hand-edit tokens/variables/ or src/theme/tokens.ts — always regenerate through the pipeline." />
+</MdxDocPage>

@@ -1,0 +1,64 @@
+import { Text, View } from 'react-native';
+import { getShadow } from '../../../theme/getShadow';
+import { theme } from '../../../theme/tokens';
+import { useTheme } from '../../../theme/useTheme';
+import type { TokenCatalogEntry } from '../../ui';
+
+type ElevationCatalogProps = {
+  entries: TokenCatalogEntry[];
+};
+
+export function ElevationCatalog({ entries }: ElevationCatalogProps) {
+  const t = useTheme();
+
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: theme.space['400'],
+        width: '100%'
+      }}
+    >
+      {entries.map((entry) => {
+        const elevation = t.elevation[entry.name as keyof typeof t.elevation];
+
+        return (
+          <View
+            key={entry.name}
+            style={{
+              alignItems: 'center',
+              gap: theme.space['200'],
+              width: 140
+            }}
+          >
+            <View
+              style={[
+                {
+                  backgroundColor: t.color.background.neutral.surface,
+                  borderRadius: theme.radius.sm,
+                  height: 72,
+                  width: 112
+                },
+                getShadow(elevation)
+              ]}
+            />
+            <Text style={[t.typography['label-s-strong'], { color: t.color.text.neutral.primary }]}>
+              {entry.name}
+            </Text>
+            {entry.usage ? (
+              <Text
+                style={[
+                  t.typography['label-s'],
+                  { color: t.color.text.brand.default, fontFamily: 'monospace', textAlign: 'center' }
+                ]}
+              >
+                {entry.usage}
+              </Text>
+            ) : null}
+          </View>
+        );
+      })}
+    </View>
+  );
+}

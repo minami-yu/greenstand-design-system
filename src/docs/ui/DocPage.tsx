@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import { ScrollView, Text, View } from 'react-native';
+import { ThemeProvider } from '../../theme/ThemeProvider';
 import { theme } from '../../theme/tokens';
 import { useTheme } from '../../theme/useTheme';
 
@@ -32,6 +33,14 @@ export function DocPage({ title, description, children }: DocPageProps) {
       </View>
       {children}
     </ScrollView>
+  );
+}
+
+export function MdxDocPage(props: DocPageProps) {
+  return (
+    <ThemeProvider mode="light" typographyMode="desktop">
+      <DocPage {...props} />
+    </ThemeProvider>
   );
 }
 

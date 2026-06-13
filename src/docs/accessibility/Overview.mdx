@@ -1,0 +1,36 @@
+import { Meta } from '@storybook/blocks';
+import { DocBulletList, DocCallout, MdxDocPage, DocSection } from '../ui';
+
+export const parameters = {
+  controls: { disable: true },
+  docsPage: true
+};
+
+<Meta title="Accessibility/Overview" parameters={parameters} />
+
+<MdxDocPage
+  description="Accessibility expectations for React Native components in this design system."
+  title="Accessibility"
+>
+  <DocSection title="Component expectations">
+    <DocBulletList
+      items={[
+        'Interactive components expose accessibilityRole and accessibilityLabel where needed',
+        'Text contrast follows semantic color tokens for light and dark modes',
+        'Touch targets should meet platform minimums — use size tokens, not arbitrary pixels'
+      ]}
+    />
+  </DocSection>
+
+  <DocSection title="Testing">
+    <DocBulletList
+      items={[
+        'Verify with VoiceOver (iOS) and TalkBack (Android) on-device Storybook',
+        'Check focus order and labels on web Storybook for shared components',
+        'Audit new components before shipping to product apps'
+      ]}
+    />
+  </DocSection>
+
+  <DocCallout text="Accessibility guidance will expand as components add more states and platform-specific behavior." />
+</MdxDocPage>

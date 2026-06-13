@@ -16,7 +16,7 @@ export const storybookTheme = create({
   colorSecondary: theme.color.fill.brand.default,
 
   // UI
-  appBg: theme.color.fill.neutral.subtle,
+  appBg: theme.color.background.neutral.surface,
   appBorderColor: theme.color.border.neutral.subtle,
   appBorderRadius: theme.radius.sm,
   appContentBg: theme.color.background.neutral.default,
