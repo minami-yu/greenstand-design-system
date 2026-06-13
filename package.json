@@ -27,6 +27,7 @@
     "typescript": "~5.3.3"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^8.6.4",
     "@storybook/addon-essentials": "^8.6.4",
     "@storybook/react-native": "^8.0.0",
     "@storybook/react-native-web-vite": "^8.6.4",

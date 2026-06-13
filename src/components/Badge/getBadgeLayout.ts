@@ -11,8 +11,7 @@ type TypographyKey = 'label-s' | 'label-m';
 
 export type BadgeLayout = {
   borderRadius: number;
-  height?: number;
-  minHeight?: number;
+  height: number;
   minWidth: number;
   paddingHorizontal: number;
   typography: TypographyKey | null;
@@ -45,17 +44,18 @@ export function getBadgeLayout(badge: BadgeType, size: BadgeSize): BadgeLayout {
     };
   }
 
+  const height = size === 'large' ? theme.icon.md : theme.space['400'];
+  const minWidth = size === 'large' ? theme.icon.md : theme.space['400'];
+  const paddingHorizontal =
+    size === 'large'
+      ? theme.space['050'] + theme.space['100']
+      : theme.space['100'];
+
   return {
     borderRadius: theme.radius.full,
-    minHeight:
-      size === 'large'
-        ? theme.space['400'] + theme.space['100']
-        : theme.space['400'],
-    minWidth: theme.space['400'],
-    paddingHorizontal:
-      size === 'large'
-        ? theme.space['050'] + theme.space['100']
-        : theme.space['100'],
+    height,
+    minWidth,
+    paddingHorizontal,
     typography: size === 'large' ? 'label-m' : 'label-s'
   };
 }

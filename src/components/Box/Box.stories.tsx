@@ -5,6 +5,14 @@ import { Box } from './Box';
 const meta = {
   title: 'Components/Box',
   component: Box,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'Layout primitive with token-typed spacing and radius props.'
+      }
+    }
+  },
   args: {
     p: '4',
     gap: '2',

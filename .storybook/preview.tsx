@@ -4,10 +4,76 @@ import { useAppFonts } from '../src/theme/fonts';
 import { ThemeProvider, type ThemeModePreference } from '../src/theme/ThemeProvider';
 import { themes } from '../src/theme/tokens';
 
+export const parameters = {
+  backgrounds: { disable: true },
+  controls: { expanded: true },
+  docs: {
+    autodocs: 'tag'
+  },
+  options: {
+    storySort: {
+      order: [
+        'Getting started',
+        ['Introduction'],
+        'Foundation',
+        [
+          'Design token',
+          ["What's a design token", 'How to sync design token'],
+          'Colors',
+          'Typography',
+          'Spacing',
+          'Icons',
+          'Radius',
+          'Border',
+          'Elevation',
+          'Logo',
+          'Layout'
+        ],
+        'Components',
+        [
+          'Badge',
+          ['*'],
+          'Box',
+          ['*'],
+          'Button',
+          ['*'],
+          'Card',
+          ['*'],
+          'Icon',
+          ['*']
+        ],
+        'Accessibility',
+        ['Overview'],
+        'Implementation',
+        ['MCP'],
+        '*'
+      ]
+    }
+  }
+} satisfies Preview['parameters'];
+
+export const globalTypes = {
+  themeMode: {
+    description: 'Design token color mode (overrides OS appearance in stories)',
+    defaultValue: 'light',
+    toolbar: {
+      dynamicTitle: true,
+      icon: 'circlehollow',
+      items: [
+        { value: 'light', icon: 'sun', title: 'Light' },
+        { value: 'dark', icon: 'moon', title: 'Dark' },
+        { value: 'system', icon: 'browser', title: 'System' }
+      ]
+    }
+  }
+} satisfies Preview['globalTypes'];
+
 function StorybookThemeDecorator({
+  docsPage,
   mode,
   children
 }: {
+  docsPage?: boolean;
   mode: ThemeModePreference;
   children: React.ReactNode;
 }) {
@@ -25,12 +91,14 @@ function StorybookThemeDecorator({
     <ThemeProvider mode={mode}>
       <View
         style={{
-          alignItems: 'center',
+          alignItems: docsPage ? 'stretch' : 'center',
+          alignSelf: docsPage ? 'stretch' : 'center',
           backgroundColor: t.color.background.neutral.default,
           flex: 1,
-          justifyContent: 'center',
-          minHeight: '100%',
-          padding: t.space['400']
+          justifyContent: docsPage ? 'flex-start' : 'center',
+          minHeight: docsPage ? undefined : '100%',
+          padding: t.space['400'],
+          width: docsPage ? '100%' : undefined
         }}
       >
         {children}
@@ -39,33 +107,21 @@ function StorybookThemeDecorator({
   );
 }
 
+export const decorators: Preview['decorators'] = [
+  (Story, { globals, parameters }) => (
+    <StorybookThemeDecorator
+      docsPage={parameters.docsPage === true}
+      mode={globals.themeMode ?? 'light'}
+    >
+      <Story />
+    </StorybookThemeDecorator>
+  )
+];
+
 const preview: Preview = {
-  parameters: {
-    // Use token background from the decorator; avoid Storybook's default gray canvas.
-    backgrounds: { disable: true }
-  },
-  globalTypes: {
-    themeMode: {
-      description: 'Design token color mode (overrides OS appearance in stories)',
-      defaultValue: 'light',
-      toolbar: {
-        dynamicTitle: true,
-        icon: 'circlehollow',
-        items: [
-          { value: 'light', icon: 'sun', title: 'Light' },
-          { value: 'dark', icon: 'moon', title: 'Dark' },
-          { value: 'system', icon: 'browser', title: 'System' }
-        ]
-      }
-    }
-  },
-  decorators: [
-    (Story, { globals }) => (
-      <StorybookThemeDecorator mode={globals.themeMode ?? 'light'}>
-        <Story />
-      </StorybookThemeDecorator>
-    )
-  ]
+  decorators,
+  globalTypes,
+  parameters
 };
 
 export default preview;
