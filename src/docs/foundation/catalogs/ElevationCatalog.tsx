@@ -2,7 +2,7 @@ import { Text, View } from 'react-native';
 import { getShadow } from '../../../theme/getShadow';
 import { theme } from '../../../theme/tokens';
 import { useTheme } from '../../../theme/useTheme';
-import type { TokenCatalogEntry } from '../../ui';
+import { InlineCode, sbTypography, type TokenCatalogEntry } from '../../ui';
 
 type ElevationCatalogProps = {
   entries: TokenCatalogEntry[];
@@ -43,18 +43,17 @@ export function ElevationCatalog({ entries }: ElevationCatalogProps) {
                 getShadow(elevation)
               ]}
             />
-            <Text style={[t.typography['label-s-strong'], { color: t.color.text.neutral.primary }]}>
+            <Text style={[sbTypography['label-s-strong'], { color: t.color.text.neutral.primary }]}>
               {entry.name}
             </Text>
             {entry.usage ? (
-              <Text
-                style={[
-                  t.typography['label-s'],
-                  { color: t.color.text.brand.default, fontFamily: 'monospace', textAlign: 'center' }
-                ]}
+              <InlineCode
+                containerStyle={{ alignSelf: 'center' }}
+                size="mono-body-m"
+                style={{ textAlign: 'center' }}
               >
                 {entry.usage}
-              </Text>
+              </InlineCode>
             ) : null}
           </View>
         );

@@ -7,6 +7,28 @@ const config: StorybookConfig = {
     name: '@storybook/react-native-web-vite',
     options: {}
   },
+  managerHead: (head) => `
+    ${head}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+  `,
+  previewHead: (head) => `
+    ${head}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+      .sbdocs.sbdocs-wrapper {
+        padding: 48px 32px;
+      }
+
+      .sbdocs.sbdocs-content {
+        max-width: 1000px;
+        width: 100%;
+      }
+    </style>
+  `,
   async viteFinal(config, { configType }) {
     if (configType === 'PRODUCTION' && process.env.STORYBOOK_BASE_PATH) {
       config.base = process.env.STORYBOOK_BASE_PATH;

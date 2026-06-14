@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
 import { theme } from '../../../theme/tokens';
 import { useTheme } from '../../../theme/useTheme';
-import type { TokenCatalogEntry } from '../../ui';
+import { InlineCode, sbTypography, type TokenCatalogEntry } from '../../ui';
 
 type SpacingCatalogProps = {
   entries: TokenCatalogEntry[];
@@ -27,7 +27,7 @@ export function SpacingCatalog({ entries }: SpacingCatalogProps) {
               width: '100%'
             }}
           >
-            <Text style={[t.typography['label-m-strong'], { color: t.color.text.neutral.primary }]}>
+            <Text style={[sbTypography['label-m-strong'], { color: t.color.text.neutral.primary }]}>
               {entry.name} · {entry.value}
             </Text>
             <View
@@ -39,20 +39,11 @@ export function SpacingCatalog({ entries }: SpacingCatalogProps) {
               }}
             />
             {entry.description ? (
-              <Text style={[t.typography['paragraph-s'], { color: t.color.text.neutral.secondary }]}>
+              <Text style={[sbTypography['paragraph-s'], { color: t.color.text.neutral.secondary }]}>
                 {entry.description}
               </Text>
             ) : null}
-            {entry.usage ? (
-              <Text
-                style={[
-                  t.typography['label-s'],
-                  { color: t.color.text.brand.default, fontFamily: 'monospace' }
-                ]}
-              >
-                {entry.usage}
-              </Text>
-            ) : null}
+            {entry.usage ? <InlineCode size="mono-body-m">{entry.usage}</InlineCode> : null}
           </View>
         );
       })}

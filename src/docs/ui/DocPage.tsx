@@ -1,35 +1,38 @@
 import type { PropsWithChildren } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, View, type TextStyle, type ViewStyle } from 'react-native';
 import { ThemeProvider } from '../../theme/ThemeProvider';
+import { useAppFonts } from '../../theme/fonts';
 import { theme } from '../../theme/tokens';
 import { useTheme } from '../../theme/useTheme';
+import {
+  storybookCodeStyles,
+  sbTypography,
+  type StorybookMonoTypography
+} from './sbTypography';
 
 type DocPageProps = PropsWithChildren<{
-  description?: string;
   title: string;
 }>;
 
-export function DocPage({ title, description, children }: DocPageProps) {
+export function DocPage({ title, children }: DocPageProps) {
   const t = useTheme();
 
   return (
     <ScrollView
       contentContainerStyle={{
-        gap: theme.space['600'],
-        paddingBottom: theme.space['800'],
+        alignSelf: 'center',
+        gap: theme.space['1200'],
+        maxWidth: theme.responsive.xl,
+        paddingBottom: theme.space['1600'],
+        paddingHorizontal: theme.space['400'],
         width: '100%'
       }}
-      style={{ alignSelf: 'stretch', flex: 1, width: '100%' }}
+      style={{ alignSelf: 'center', flex: 1, width: '100%' }}
     >
-      <View style={{ gap: theme.space['200'] }}>
-        <Text style={[t.typography['heading-m'], { color: t.color.text.neutral.primary }]}>
+      <View>
+        <Text style={[sbTypography['heading-m'], { color: t.color.text.neutral.primary }]}>
           {title}
         </Text>
-        {description ? (
-          <Text style={[t.typography['paragraph-m'], { color: t.color.text.neutral.secondary }]}>
-            {description}
-          </Text>
-        ) : null}
       </View>
       {children}
     </ScrollView>
@@ -37,6 +40,12 @@ export function DocPage({ title, description, children }: DocPageProps) {
 }
 
 export function MdxDocPage(props: DocPageProps) {
+  const fontsLoaded = useAppFonts();
+
+  if (!fontsLoaded) {
+    return <View />;
+  }
+
   return (
     <ThemeProvider mode="light" typographyMode="desktop">
       <DocPage {...props} />
@@ -45,25 +54,17 @@ export function MdxDocPage(props: DocPageProps) {
 }
 
 type DocSectionProps = PropsWithChildren<{
-  description?: string;
   title: string;
 }>;
 
-export function DocSection({ title, description, children }: DocSectionProps) {
+export function DocSection({ title, children }: DocSectionProps) {
   const t = useTheme();
 
   return (
     <View style={{ gap: theme.space['300'], width: '100%' }}>
-      <View style={{ gap: theme.space['100'] }}>
-        <Text style={[t.typography['heading-s'], { color: t.color.text.neutral.primary }]}>
-          {title}
-        </Text>
-        {description ? (
-          <Text style={[t.typography['paragraph-s'], { color: t.color.text.neutral.secondary }]}>
-            {description}
-          </Text>
-        ) : null}
-      </View>
+      <Text style={[sbTypography['heading-s'], { color: t.color.text.neutral.primary }]}>
+        {title}
+      </Text>
       {children}
     </View>
   );
@@ -79,14 +80,14 @@ export function DocCallout({ text }: DocCalloutProps) {
   return (
     <View
       style={{
-        backgroundColor: t.color.background.neutral.subtle,
+        backgroundColor: t.color.fill.neutral.subtle,
         borderColor: t.color.border.neutral.subtle,
         borderRadius: theme.radius.sm,
         borderWidth: theme.stroke.sm,
-        padding: theme.space['400']
+        padding: theme.space['600']
       }}
     >
-      <Text style={[t.typography['paragraph-s'], { color: t.color.text.neutral.secondary }]}>
+      <Text style={[sbTypography['paragraph-s'], { color: t.color.text.neutral.secondary }]}>
         {text}
       </Text>
     </View>
@@ -95,26 +96,61 @@ export function DocCallout({ text }: DocCalloutProps) {
 
 type DocCodeProps = {
   code: string;
+  size?: StorybookMonoTypography;
 };
 
-export function DocCode({ code }: DocCodeProps) {
+export function DocCode({ code, size = 'mono-body-m' }: DocCodeProps) {
   const t = useTheme();
 
   return (
     <View
       style={{
-        backgroundColor: t.color.background.neutral.inverse,
-        borderRadius: theme.radius.sm,
-        padding: theme.space['400']
+        ...storybookCodeStyles.blockContainer,
+        backgroundColor: t.color.fill.neutral.subtle,
       }}
     >
       <Text
         style={[
-          t.typography['label-s'],
-          { color: t.color.text.neutral.inverse, fontFamily: 'monospace' }
+          sbTypography[size],
+          { color: t.color.text.neutral.inverse }
         ]}
       >
         {code}
+      </Text>
+    </View>
+  );
+}
+
+type InlineCodeProps = PropsWithChildren<{
+  containerStyle?: ViewStyle;
+  size?: StorybookMonoTypography;
+  style?: TextStyle;
+}>;
+
+export function InlineCode({
+  children,
+  containerStyle,
+  size = 'mono-body-l',
+  style
+}: InlineCodeProps) {
+  const t = useTheme();
+
+  return (
+    <View
+      style={[
+        storybookCodeStyles.inlineContainer,
+        { backgroundColor: t.color.fill.neutral.subtle },
+        containerStyle
+      ]}
+    >
+      <Text
+        style={[
+          sbTypography[size],
+          { color: t.color.text.neutral.primary },
+          style
+        ]}
+      >
+        {children}
       </Text>
     </View>
   );
@@ -128,11 +164,11 @@ export function DocBulletList({ items }: DocBulletListProps) {
   const t = useTheme();
 
   return (
-    <View style={{ gap: theme.space['100'] }}>
+    <View style={{ gap: theme.space['200'] }}>
       {items.map((item) => (
         <Text
           key={item}
-          style={[t.typography['paragraph-m'], { color: t.color.text.neutral.secondary }]}
+          style={[sbTypography['paragraph-m'], { color: t.color.text.neutral.secondary }]}
         >
           • {item}
         </Text>

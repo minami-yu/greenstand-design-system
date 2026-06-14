@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
 import { theme } from '../../../theme/tokens';
 import { useTheme } from '../../../theme/useTheme';
-import type { TokenCatalogEntry } from '../../ui';
+import { sbTypography, type TokenCatalogEntry } from '../../ui';
 
 type RadiusCatalogProps = {
   entries: TokenCatalogEntry[];
@@ -43,7 +43,7 @@ export function RadiusCatalog({ entries }: RadiusCatalogProps) {
             />
             <Text
               style={[
-                t.typography['label-s-strong'],
+                sbTypography['label-s-strong'],
                 { color: t.color.text.neutral.primary, textAlign: 'center' }
               ]}
             >
@@ -51,7 +51,7 @@ export function RadiusCatalog({ entries }: RadiusCatalogProps) {
             </Text>
             <Text
               style={[
-                t.typography['label-s'],
+                sbTypography['label-s'],
                 { color: t.color.text.neutral.secondary, textAlign: 'center' }
               ]}
             >

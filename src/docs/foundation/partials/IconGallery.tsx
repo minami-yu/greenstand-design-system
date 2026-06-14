@@ -3,6 +3,7 @@ import { Icon } from '../../../components/Icon/Icon';
 import { icons, type IconName } from '../../../components/Icon/icons';
 import { theme } from '../../../theme/tokens';
 import { useTheme } from '../../../theme/useTheme';
+import { sbTypography } from '../../ui';
 
 export const iconNames = Object.keys(icons).sort() as IconName[];
 
@@ -29,7 +30,7 @@ export function IconGallery() {
           <Icon color="neutral.primary" name={name} size="md" />
           <Text
             style={[
-              t.typography['label-s'],
+              sbTypography['label-s'],
               { color: t.color.text.neutral.secondary, textAlign: 'center' }
             ]}
           >
