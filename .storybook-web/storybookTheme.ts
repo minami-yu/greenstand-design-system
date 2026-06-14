@@ -9,7 +9,7 @@ export const storybookTheme = create({
 
   // Typography
   fontBase: 'Inter_400Regular, Inter, sans-serif',
-  fontCode: 'monospace',
+  fontCode: 'Roboto Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',
 
   // Color palette
   colorPrimary: theme.color.fill.brand.default,
