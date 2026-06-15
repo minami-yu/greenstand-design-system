@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/blocks';
+import { LayoutExample } from './partials';
+import { storybookPageParameters as parameters } from '../storybookPageParameters';
+
+<Meta title="Foundation/Layout" parameters={parameters} />
+
+# Layout
+
+## Overview
+TBD
+
+
+## Layout tokens
+
+- Use `theme.space` for padding, margin, and gap values
+- Use `theme.radius` for corner radius values
+- Prefer shared tokens instead of arbitrary layout numbers
+
+```tsx
+<View style={{ padding: theme.space['400'], gap: theme.space['200'], borderRadius: theme.radius.md }}>
+  {children}
+</View>
+```
+
+## Example
+
+<LayoutExample />
+
+> See **Foundation/Spacing** for the full space scale.

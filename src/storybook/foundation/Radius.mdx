@@ -1,0 +1,16 @@
+import { Meta } from '@storybook/blocks';
+import { RadiusCatalog } from './catalogs';
+import { buildScaleCatalogEntries } from '../utils/buildCatalogEntries';
+import { storybookPageParameters as parameters } from '../storybookPageParameters';
+
+export const radius = buildScaleCatalogEntries('radius', 'radius');
+
+<Meta title="Foundation/Radius" parameters={parameters} />
+
+# Radius
+## Overview
+TBD
+
+## Preview
+
+<RadiusCatalog entries={radius} />

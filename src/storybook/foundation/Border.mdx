@@ -1,0 +1,15 @@
+import { Meta } from '@storybook/blocks';
+import { TokenCatalog } from '../ui';
+import { buildScaleCatalogEntries } from '../utils/buildCatalogEntries';
+import { storybookPageParameters as parameters } from '../storybookPageParameters';
+
+export const borders = buildScaleCatalogEntries('stroke', 'stroke');
+
+<Meta title="Foundation/Border" parameters={parameters} />
+
+# Border
+## Overview
+TBD
+
+## Preview
+<TokenCatalog entries={borders} />

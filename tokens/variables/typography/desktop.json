@@ -104,16 +104,6 @@
       "$type": "number",
       "$value": 14
     },
-    "label-l": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 16
-    },
     "paragraph-m": {
       "$extensions": {
         "com.figma.scopes": [

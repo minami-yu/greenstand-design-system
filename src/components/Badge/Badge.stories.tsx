@@ -16,15 +16,6 @@ const sizes: BadgeSize[] = ['medium', 'large'];
 const meta = {
   title: 'Components/Badge',
   component: Badge,
-  tags: ['autodocs'],
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Notification badge with label or dot variants. Maps to Figma Badge component set (12918:1005) at node 13148:62280.'
-      }
-    }
-  },
   args: {
     badge: 'label',
     size: 'medium',
@@ -33,16 +24,17 @@ const meta = {
   argTypes: {
     badge: {
       control: 'select',
-      description: 'Figma `badge` property.',
+      description: 'Figma `badge` property — label shows a count, dot is indicator-only.',
       options: badgeTypes
     },
     size: {
       control: 'select',
+      description: 'Badge dimensions from getBadgeLayout token map.',
       options: sizes
     },
     value: {
       control: 'text',
-      description: 'Shown when badge="label".'
+      description: 'Numeric label when badge is "label". Keep short (e.g. 1, 9, 99).'
     }
   }
 } satisfies Meta<typeof Badge>;

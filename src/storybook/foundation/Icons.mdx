@@ -1,0 +1,23 @@
+import { Meta } from '@storybook/blocks';
+import { IconGallery } from './partials';
+import { TokenCatalog } from '../ui';
+import { buildScaleCatalogEntries } from '../utils/buildCatalogEntries';
+import { storybookPageParameters as parameters } from '../storybookPageParameters';
+
+export const iconSizes = buildScaleCatalogEntries('icon', 'icon');
+
+<Meta title="Foundation/Icons" parameters={parameters} />
+
+# Icons
+
+## Overview
+TBD
+
+
+## Sizes
+
+<TokenCatalog entries={iconSizes} />
+
+## Catalog
+
+<IconGallery />

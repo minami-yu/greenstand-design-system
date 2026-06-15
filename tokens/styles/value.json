@@ -109,7 +109,7 @@
     "$type": "typography",
     "$value": {
       "fontFamily": "{family.body}",
-      "fontWeight": "{weight.medium}",
+      "fontWeight": "{weight.regular}",
       "lineHeight": 1.4,
       "fontSize": "{size.paragraph-l}",
       "letterSpacing": "0px",
@@ -148,7 +148,7 @@
     "$type": "typography",
     "$value": {
       "fontFamily": "{family.body}",
-      "fontWeight": "{weight.medium}",
+      "fontWeight": "{weight.semibold}",
       "lineHeight": 1.4,
       "fontSize": "{size.paragraph-m}",
       "letterSpacing": "0px",
@@ -169,32 +169,6 @@
       "textDecoration": "none"
     },
     "$description": "For low-priority supporting information such as disclaimers, legal text and image captions"
-  },
-  "label-l": {
-    "$type": "typography",
-    "$value": {
-      "fontFamily": "{family.body}",
-      "fontWeight": "{weight.medium}",
-      "lineHeight": 1.4,
-      "fontSize": "{size.label-l}",
-      "letterSpacing": "0px",
-      "textCase": "none",
-      "textDecoration": "none"
-    },
-    "$description": "Primary button text, main nav items, and input field text."
-  },
-  "label-l-strong": {
-    "$type": "typography",
-    "$value": {
-      "fontFamily": "{family.body}",
-      "fontWeight": "{weight.semibold}",
-      "lineHeight": 1.4,
-      "fontSize": "{size.label-l}",
-      "letterSpacing": "0px",
-      "textCase": "none",
-      "textDecoration": "none"
-    },
-    "$description": "Active or selected state, nav item, focused input, or high-emphasis button."
   },
   "label-m": {
     "$type": "typography",

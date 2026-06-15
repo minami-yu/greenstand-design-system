@@ -1,0 +1,16 @@
+import { Meta } from '@storybook/blocks';
+import { SpacingCatalog } from './catalogs';
+import { buildScaleCatalogEntries } from '../utils/buildCatalogEntries';
+import { storybookPageParameters as parameters } from '../storybookPageParameters';
+
+export const spacing = buildScaleCatalogEntries('space', 'space');
+
+<Meta title="Foundation/Spacing" parameters={parameters} />
+
+# Spacing
+## Overview
+TBD
+
+## Preview
+
+<SpacingCatalog entries={spacing} />

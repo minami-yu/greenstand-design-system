@@ -10,14 +10,6 @@ const iconNames = Object.keys(icons).sort() as IconName[];
 const meta = {
   title: 'Components/Icon',
   component: Icon,
-  tags: ['autodocs'],
-  parameters: {
-    docs: {
-      description: {
-        component: 'MDI-based icon component with token sizes and semantic colors.'
-      }
-    }
-  },
   args: {
     name: 'close',
     size: 'md',
@@ -26,14 +18,17 @@ const meta = {
   argTypes: {
     name: {
       control: 'select',
+      description: 'Icon glyph key from icons.ts (Figma frame Icons 12663:7261).',
       options: iconNames
     },
     size: {
       control: 'select',
+      description: 'Icon dimension from theme.icon scale.',
       options: Object.keys(theme.icon)
     },
     color: {
       control: 'select',
+      description: 'Semantic icon color resolved via resolveIconColor.',
       options: [
         'neutral.primary',
         'neutral.secondary',
@@ -53,6 +48,7 @@ export const Playground: Story = {};
 
 function IconGallery() {
   const t = useTheme();
+  const cellSize = theme.space['1600'] + theme.space['800'];
 
   return (
     <ScrollView
@@ -68,12 +64,16 @@ function IconGallery() {
           key={name}
           style={{
             alignItems: 'center',
-            gap: theme.space['100'],
-            width: 96
+            gap: theme.space['200'],
+            height: cellSize,
+            justifyContent: 'center',
+            padding: theme.space['300'],
+            width: cellSize
           }}
         >
-          <Icon color="neutral.primary" name={name} size="md" />
+          <Icon color="neutral.primary" name={name} size="lg" />
           <Text
+            numberOfLines={2}
             style={[
               t.typography['label-s'],
               { color: t.color.text.neutral.secondary, textAlign: 'center' }

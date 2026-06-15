@@ -1,0 +1,17 @@
+import { Meta } from '@storybook/blocks';
+import { ElevationCatalog } from './catalogs';
+import { buildElevationCatalogEntries } from '../utils/buildCatalogEntries';
+import { storybookPageParameters as parameters } from '../storybookPageParameters';
+
+export const elevation = buildElevationCatalogEntries();
+
+<Meta title="Foundation/Elevation" parameters={parameters} />
+
+# Elevation
+
+## Overview
+TBD
+
+## Preview
+
+<ElevationCatalog entries={elevation} />

@@ -47,9 +47,9 @@ export function getButtonStyles(
           state === 'disabled'
             ? t.color.fill.neutral.disabled
             : state === 'pressed'
-              ? t.color.fill.brand.selected
+              ? t.color.fill.brand['default-selected']
               : state === 'hover'
-                ? t.color.fill.brand.hover
+                ? t.color.fill.brand['default-hover']
                 : t.color.fill.brand.default,
         borderWidth: 0,
         textColor:
@@ -119,7 +119,7 @@ export function getButtonStyles(
           state === 'disabled'
             ? t.color.fill.neutral.disabled
             : state === 'pressed'
-              ? t.color.fill.error['subtle-selected']
+              ? t.color.fill.error.subtle - selected
               : state === 'hover'
                 ? t.color.fill.error['subtle-hover']
                 : t.color.fill.error.subtle,

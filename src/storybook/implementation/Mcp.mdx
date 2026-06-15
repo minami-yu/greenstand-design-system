@@ -1,0 +1,22 @@
+import { Meta } from '@storybook/blocks';
+import { storybookPageParameters as parameters } from '../storybookPageParameters';
+
+<Meta title="Implementation/MCP" parameters={parameters} />
+
+# MCP
+## Overview
+TBD
+
+
+## Workflow
+
+- Inspect component structure and variants in Figma via MCP
+- Map Figma variables to tokens in `src/theme/tokens.ts` — never paste raw Figma values
+- Implement or update React Native components and Storybook stories
+- Report missing tokens before adding guessed values
+
+## Figma file
+
+`Yuri New Roots Design System 1.0`
+
+> Use `get_design_context` for design-to-code. Use `use_figma` for updating Figma from code or token audits.

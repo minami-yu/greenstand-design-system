@@ -1,0 +1,39 @@
+import { Meta } from '@storybook/blocks';
+import { storybookPageParameters as parameters } from '../storybookPageParameters';
+
+<Meta title="Foundation/Design tokens" parameters={parameters} />
+
+# Design tokens
+
+## Definition
+
+- A named design decision (e.g. `color.text.neutral.primary`, `space.400`, `radius.md`)
+- Stored as W3C Design Tokens in `tokens/` and compiled to `src/theme/tokens.ts`
+- Never hardcode raw hex, px, or font sizes in components when a token exists
+
+## Source layout
+
+- `tokens/variables/` — Figma variable export (Token Studio). Do not hand-edit.
+- `tokens/styles/value.json` — hand-maintained typography and elevation styles
+- `src/theme/tokens.ts` — generated output. Never edit manually.
+
+## Sync workflow
+
+1. Open Tokens Studio in Figma and remove stale token sets
+2. Import variables (leave “Convert numbers to dimensions” unchecked)
+3. Export to multiple files and replace `tokens/variables/`
+4. Run `npm run build-tokens` and review `src/theme/tokens.ts`
+
+## Styles
+
+- Figma styles are not part of the variable export
+- Update `tokens/styles/value.json` manually when text or shadow styles change
+- Run `npm run build-tokens` after editing styles JSON
+
+## Build command
+
+```bash
+npm run build-tokens
+```
+
+> Never hand-edit `tokens/variables/` or `src/theme/tokens.ts` — always regenerate through the pipeline.

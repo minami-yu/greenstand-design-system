@@ -7,17 +7,21 @@ import {
 } from '../src/theme/ThemeProvider';
 import { themes } from '../src/theme/tokens';
 
-export const parameters = {
+/** Shared preview parameters — web merges `storybookDocsParameters` over `docs`. */
+export const storybookPreviewParameters = {
   backgrounds: { disable: true },
   controls: { expanded: true },
   docs: {
-    autodocs: 'tag'
+    autodocs: 'tag',
+    source: { type: 'code', state: 'none' },
+    canvas: { sourceState: 'none' }
   },
+  // Keep in sync with the inline `options.storySort` in `.storybook-web/preview.tsx`.
   options: {
     storySort: {
       order: [
         'Getting started',
-        ['Introduction'],
+        ['Introduction', 'Set up'],
         'Foundation',
         [
           'Design tokens',
@@ -44,6 +48,8 @@ export const parameters = {
         ['Overview'],
         'Implementation',
         ['MCP'],
+        'Support & Help',
+        ['Resources', 'Contact'],
         '*'
       ]
     }
@@ -52,7 +58,7 @@ export const parameters = {
 
 export const globalTypes = {
   themeMode: {
-    description: 'Design token color mode (overrides OS appearance in stories)',
+    description: 'Design token color mode for story previews',
     defaultValue: 'light',
     toolbar: {
       dynamicTitle: true,
@@ -119,7 +125,7 @@ export const decorators: Preview['decorators'] = [
 const preview: Preview = {
   decorators,
   globalTypes,
-  parameters
+  parameters: storybookPreviewParameters
 };
 
 export default preview;
