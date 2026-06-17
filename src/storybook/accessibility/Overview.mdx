@@ -3,18 +3,104 @@ import { storybookPageParameters as parameters } from '../storybookPageParameter
 
 <Meta title="Accessibility/Overview" parameters={parameters} />
 
+
 # Accessibility
 
-## Component expectations
+## Overview
 
-- Interactive components expose `accessibilityRole` and `accessibilityLabel` where needed
-- Text contrast follows semantic color tokens for light and dark modes
-- Touch targets should meet platform minimums — use size tokens, not arbitrary pixels
+Accessibility helps ensure Treetracker can be used by as many people as possible, regardless of ability, device, language, or environment.
+
+Accessibility is not limited to disabilities. It also includes designing for real world challenges such as bright sunlight, limited literacy, low end devices, shared devices, and unreliable internet connectivity.
+
+Accessibility considerations are built into the Greenstand Design System's foundations, components, and content guidelines.
+
+## What is Accessibility?
+Accessibility is the practice of creating products that are usable by people with diverse needs and circumstances.
+
+People may experience barriers due to visual, hearing, motor, cognitive, language, environmental, or device related limitations. By considering accessibility throughout the design and development process, we can create experiences that are more inclusive, understandable, and effective for everyone.
+
+The Greenstand Design System follows **WCAG 2.2 AA** guidelines as a baseline while also addressing the unique challenges of Treetracker users, including outdoor usage, limited literacy, low end devices, and unreliable connectivity.
+
+## Key Considerations
+
+### Outdoor Usage
+
+Many users interact with Treetracker outdoors in bright sunlight.
+
+* Maintain sufficient color contrast.
+* Prioritize readability and clarity.
+* Avoid relying on subtle visual differences.
+* Ensure important information remains visible in varying lighting conditions.
+
+### Literacy & Language
+
+Users may have varying levels of literacy and language proficiency.
+
+* Use simple and concise language.
+* Support content with icons and visual cues.
+* Avoid jargon and technical terminology.
+* Use familiar and predictable interaction patterns.
+
+### Connectivity
+
+Internet access may be slow, intermittent, or unavailable.
+
+* Clearly communicate connection status.
+* Provide clear feedback for uploads and synchronization.
+* Make error messages actionable and understandable.
+* Design important workflows to handle connection interruptions gracefully.
+
+### Device Constraints
+
+Treetracker supports a wide range of Android devices, including older and lower end hardware.
+
+* Prioritize simplicity and performance.
+* Avoid unnecessary complexity.
+* Ensure critical actions remain easy to discover and complete.
+* Test layouts across supported device sizes.
+
+## Color & Contrast
+
+The Greenstand Design System follows WCAG AA contrast requirements.
+
+* Normal text: 4.5:1 minimum
+* Large text: 3:1 minimum
+* User interface elements: 3:1 minimum
+
+Do not rely on color alone to communicate meaning. Important information should be supported with text, icons, or other visual indicators.
+
+For additional guidance, refer to the Color documentation.
+
+## Touch Targets
+
+Interactive elements should be easy to use across devices and abilities.
+
+* Minimum touch target size: 44 × 44 px
+* Maintain sufficient spacing between adjacent controls
+* Avoid placing critical actions too close together
+
+## Component Expectations
+
+All components should include accessibility considerations by default.
+
+* Interactive components should provide appropriate accessibility labels and roles where needed.
+* Components should support screen readers and assistive technologies when applicable.
+* Touch targets should meet accessibility requirements.
+* Text and UI elements should use approved semantic color tokens.
+* Important information should not rely solely on color.
+* Loading, success, and error states should be communicated clearly.
 
 ## Testing
 
-- Verify with VoiceOver (iOS) and TalkBack (Android) on-device Storybook
-- Check focus order and labels on web Storybook for shared components
-- Audit new components before shipping to product apps
+* Verify components with VoiceOver (iOS) and TalkBack (Android).
+* Validate accessibility labels and announcements.
+* Check color contrast and readability.
+* Test touch target sizes and spacing.
+* Test layouts at the minimum supported viewport width. Refer to the Layout documentation for viewport guidelines.
+* Check readability and usability in outdoor viewing conditions when possible.
+* Review new components for accessibility before adoption.
 
-> Accessibility guidance will expand as components add more states and platform-specific behavior.
+## Resources
+
+Accessibility is a shared responsibility between design and engineering. Teams should consider accessibility throughout the design and implementation process and reference WCAG 2.2 AA guidelines when building new experiences.
+
