@@ -149,10 +149,19 @@ export const storybookMdStyles = `
     font-size: 14px;
   }
 
-  .sbdocs .docblock-source,
-  .sbdocs .source-block,
-  .sbdocs pre[class*='language-'],
-  .sbdocs .sbdocs-preview .docblock-code-toggle {
-    display: none !important;
+  .sbdocs .docblock-source {
+    margin: ${theme.space['400']}px 0;
+  }
+
+  .sbdocs .docblock-source pre,
+  .sbdocs .docblock-source pre code {
+    background: ${theme.color.fill.neutral.subtle};
+    color: ${theme.color.text.neutral.primary};
+    font-family: Roboto Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 14px;
+  }
+
+  .sbdocs .docblock-source .token {
+    color: ${theme.color.text.neutral.primary};
   }
 `;

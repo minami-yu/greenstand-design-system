@@ -6,6 +6,7 @@ export const theme = {
       "neutral": {
         "default": "#e8e8e8",
         "defaultHover": "#d4d4d4",
+        "surface": "#ffffff",
         "subtle": "#f2f2f2",
         "subtleHover": "#e8e8e8",
         "defaultSelected": "#a0a0a0",
@@ -155,7 +156,6 @@ export const theme = {
     "background": {
       "neutral": {
         "base": "#f2f2f2",
-        "surface": "#ffffff",
         "overlay": "#0c0c0d66",
         "default": "#ffffff"
       }
@@ -541,6 +541,7 @@ const darkColors = {
     "neutral": {
       "default": "#585858",
       "defaultHover": "#6c6c6c",
+      "surface": "#0c0c0d",
       "subtle": "#232323",
       "subtleHover": "#3d3c3c",
       "defaultSelected": "#7c7c7c",
@@ -690,7 +691,6 @@ const darkColors = {
   "background": {
     "neutral": {
       "base": "#0c0c0d",
-      "surface": "#0c0c0d",
       "overlay": "#0c0c0d99",
       "default": "#0c0c0d"
     }

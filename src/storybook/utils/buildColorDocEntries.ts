@@ -2,7 +2,7 @@ import colorLightJson from '../../../tokens/variables/color/light.json';
 import colorPrimitiveJson from '../../../tokens/variables/color_primitive/value.json';
 import { theme, themes, type ThemeMode } from '../../theme/tokens';
 import { flattenDtcgTokens, getByPath } from './parseDtcgTokens';
-import { camelCasePath, formatThemeAccess, kebabToCamel } from './tokenKey';
+import { camelCasePath, formatTokenPath, kebabToCamel } from './tokenKey';
 
 const ALIAS_PATTERN = /^\{([^}]+)\}$/;
 
@@ -42,9 +42,9 @@ function formatTokenName(path: string): string {
   return camelCasePath(`color.${path}`);
 }
 
-function formatColorUsage(root: 't' | 'theme', path: string): string {
+function formatColorUsage(path: string): string {
   const normalized = path.startsWith('color.') ? path : `color.${path}`;
-  return formatThemeAccess(root, normalized);
+  return formatTokenPath(normalized);
 }
 
 function parseAlias(rawValue: unknown): string | undefined {
@@ -122,7 +122,7 @@ export function buildSemanticColorDocEntries(
         resolvedValue: resolveThemeColor(path, mode).toLowerCase(),
         primitiveName,
         primitiveValue,
-        usage: formatColorUsage('t', path)
+        usage: formatColorUsage(path)
       };
     });
 
@@ -160,7 +160,7 @@ export function buildPrimitiveColorDocEntries(group?: string): PrimitiveColorDoc
         group: tokenGroup,
         path: `color.palette.${token.path}`,
         tokenName: `color.palette.${token.path}`,
-        usage: formatColorUsage('theme', `color.palette.${token.path}`),
+        usage: formatColorUsage(`color.palette.${token.path}`),
         value:
           typeof token.rawValue === 'string'
             ? token.rawValue.toLowerCase()

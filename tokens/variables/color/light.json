@@ -23,6 +23,17 @@
         "$value": "{neutral.300}",
         "$description": "Hover state for the interactive component that uses the fill default color"
       },
+      "surface": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{white.1000}",
+        "$description": "Background used for cards, panels, modals, drawers"
+      },
       "subtle": {
         "$extensions": {
           "com.figma.scopes": [
@@ -1020,17 +1031,6 @@
         "$type": "color",
         "$value": "{neutral.100}",
         "$description": "Alternative app background"
-      },
-      "surface": {
-        "$extensions": {
-          "com.figma.scopes": [
-            "ALL_SCOPES"
-          ],
-          "com.figma.hiddenFromPublishing": false
-        },
-        "$type": "color",
-        "$value": "{white.1000}",
-        "$description": "Background used for cards, panels, modals, drawers"
       },
       "overlay": {
         "$extensions": {

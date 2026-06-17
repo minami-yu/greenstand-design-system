@@ -13,8 +13,7 @@ export const storybookPreviewParameters = {
   controls: { expanded: true },
   docs: {
     autodocs: 'tag',
-    source: { type: 'code', state: 'none' },
-    canvas: { sourceState: 'none' }
+    canvas: { sourceState: 'shown', withToolbar: true }
   },
   // Keep in sync with the inline `options.storySort` in `.storybook-web/preview.tsx`.
   options: {
@@ -42,6 +41,8 @@ export const storybookPreviewParameters = {
           'Button',
           ['*'],
           'Icon',
+          ['*'],
+          'Toggle',
           ['*']
         ],
         'Accessibility',
