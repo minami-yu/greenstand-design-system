@@ -16,15 +16,6 @@ const sizes: BadgeSize[] = ['medium', 'large'];
 const meta = {
   title: 'Components/Badge',
   component: Badge,
-  tags: ['autodocs'],
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Notification badge with label or dot variants. Maps to Figma Badge component set (12918:1005) at node 13148:62280.'
-      }
-    }
-  },
   args: {
     badge: 'label',
     size: 'medium',
@@ -33,16 +24,17 @@ const meta = {
   argTypes: {
     badge: {
       control: 'select',
-      description: 'Figma `badge` property.',
+      description: 'Figma `badge` property — label shows a count, dot is indicator-only.',
       options: badgeTypes
     },
     size: {
       control: 'select',
+      description: 'Badge dimensions from getBadgeLayout token map.',
       options: sizes
     },
     value: {
       control: 'text',
-      description: 'Shown when badge="label".'
+      description: 'Numeric label when badge is "label". Keep short (e.g. 1, 9, 99).'
     }
   }
 } satisfies Meta<typeof Badge>;
@@ -64,7 +56,7 @@ function VariantsMatrix() {
         padding: theme.space['400']
       }}
     >
-      <Text style={[t.typography['label-s'], { color: t.color.text.neutral.secondary }]}>
+      <Text style={[t.typography.labelS, { color: t.color.text.neutral.secondary }]}>
         badge × size · Figma component set (12918:1005)
       </Text>
 
@@ -79,7 +71,7 @@ function VariantsMatrix() {
           <Text
             key={size}
             style={[
-              t.typography['label-s-strong'],
+              t.typography.labelSStrong,
               { color: t.color.text.neutral.secondary, flex: 1, textAlign: 'center' }
             ]}
           >
@@ -99,7 +91,7 @@ function VariantsMatrix() {
         >
           <Text
             style={[
-              t.typography['label-s-strong'],
+              t.typography.labelSStrong,
               { color: t.color.text.neutral.primary, width: 80 }
             ]}
           >
@@ -139,7 +131,7 @@ export const LabelValues: Story = {
         {['1', '9', '99'].map((value) => (
           <View key={value} style={{ alignItems: 'center', gap: theme.space['100'] }}>
             <Badge badge="label" size="medium" value={value} />
-            <Text style={[t.typography['label-s'], { color: t.color.text.neutral.secondary }]}>
+            <Text style={[t.typography.labelS, { color: t.color.text.neutral.secondary }]}>
               {value}
             </Text>
           </View>

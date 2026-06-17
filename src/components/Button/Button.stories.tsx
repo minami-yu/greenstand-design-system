@@ -53,15 +53,6 @@ type ButtonStoryArgs = Omit<ButtonProps, 'visualState'> & {
 const meta = {
   title: 'Components/Button',
   component: Button,
-  tags: ['autodocs'],
-  parameters: {
-    docs: {
-      description: {
-        component:
-          'Primary action component with variant, size, icon, and interaction state props aligned to Figma.'
-      }
-    }
-  },
   args: {
     label: 'Save',
     variant: 'primary',
@@ -72,13 +63,18 @@ const meta = {
     visualState: autoVisualState
   },
   argTypes: {
-    label: { control: 'text' },
+    label: {
+      control: 'text',
+      description: 'Visible button label. Required — icon-only buttons are not supported.'
+    },
     variant: {
       control: 'select',
+      description: 'Visual style mapped to getButtonStyles fill, border, and text tokens.',
       options: variants
     },
     size: {
       control: 'select',
+      description: 'Medium or small layout from getButtonLayout.',
       options: sizes
     },
     iconPosition: {
@@ -91,7 +87,10 @@ const meta = {
       description: 'Icon asset when iconPosition is leading or trailing.',
       options: iconNames
     },
-    disabled: { control: 'boolean' },
+    disabled: {
+      control: 'boolean',
+      description: 'Prevents interaction and applies disabled fill/text tokens.'
+    },
     visualState: {
       control: 'select',
       description:
@@ -124,8 +123,8 @@ function StatesGallery() {
 
   return (
     <View style={{ alignItems: 'flex-start', gap: theme.space['400'] }}>
-      <Text style={[t.typography['label-s'], { color: t.color.text.neutral.secondary }]}>
-        Primary · medium · forced via <Text style={t.typography['label-s-strong']}>visualState</Text>
+      <Text style={[t.typography.labelS, { color: t.color.text.neutral.secondary }]}>
+        Primary · medium · forced via <Text style={t.typography.labelSStrong}>visualState</Text>
       </Text>
       <View style={{ gap: theme.space['300'] }}>
         {visualStates.map((state) => (
@@ -139,7 +138,7 @@ function StatesGallery() {
           >
             <Text
               style={[
-                t.typography['label-s-strong'],
+                t.typography.labelSStrong,
                 { color: t.color.text.neutral.secondary, width: 72 }
               ]}
             >
@@ -180,7 +179,7 @@ function VariantsMatrix() {
         padding: theme.space['400']
       }}
     >
-      <Text style={[t.typography['label-s'], { color: t.color.text.neutral.secondary }]}>
+      <Text style={[t.typography.labelS, { color: t.color.text.neutral.secondary }]}>
         All variants × iconPosition · medium · default state
       </Text>
 
@@ -195,7 +194,7 @@ function VariantsMatrix() {
           <Text
             key={position}
             style={[
-              t.typography['label-s-strong'],
+              t.typography.labelSStrong,
               {
                 color: t.color.text.neutral.secondary,
                 flex: 1,
@@ -220,7 +219,7 @@ function VariantsMatrix() {
         >
           <Text
             style={[
-              t.typography['label-s-strong'],
+              t.typography.labelSStrong,
               { color: t.color.text.neutral.primary, width: 120 }
             ]}
           >

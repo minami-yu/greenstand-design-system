@@ -1,0 +1,20 @@
+import { Meta } from '@storybook/blocks';
+import { storybookPageParameters as parameters } from '../storybookPageParameters';
+
+<Meta title="Accessibility/Overview" parameters={parameters} />
+
+# Accessibility
+
+## Component expectations
+
+- Interactive components expose `accessibilityRole` and `accessibilityLabel` where needed
+- Text contrast follows semantic color tokens for light and dark modes
+- Touch targets should meet platform minimums — use size tokens, not arbitrary pixels
+
+## Testing
+
+- Verify with VoiceOver (iOS) and TalkBack (Android) on-device Storybook
+- Check focus order and labels on web Storybook for shared components
+- Audit new components before shipping to product apps
+
+> Accessibility guidance will expand as components add more states and platform-specific behavior.

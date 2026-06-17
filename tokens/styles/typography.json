@@ -1,0 +1,184 @@
+{
+  "heading-m": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{family.title}",
+      "fontWeight": "{weight.bold}",
+      "lineHeight": 1.3,
+      "fontSize": "{size.heading-m}",
+      "letterSpacing": "0px",
+      "textCase": "none",
+      "textDecoration": "none"
+    },
+    "$description": "Primary page title or major section heading."
+  },
+  "heading-s": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{family.title}",
+      "fontWeight": "{weight.bold}",
+      "lineHeight": 1.4,
+      "fontSize": "{size.heading-s}",
+      "letterSpacing": "0px",
+      "textCase": "none",
+      "textDecoration": "none"
+    },
+    "$description": "Section heading used to group related content."
+  },
+  "paragraph-l": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{family.body}",
+      "fontWeight": "{weight.regular}",
+      "lineHeight": 1.4,
+      "fontSize": "{size.paragraph-l}",
+      "letterSpacing": "0px",
+      "textCase": "none",
+      "textDecoration": "none"
+    },
+    "$description": "Primary descriptions, introductions, and important messages."
+  },
+  "paragraph-l-strong": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{family.body}",
+      "fontWeight": "{weight.semibold}",
+      "lineHeight": 1.4,
+      "fontSize": "{size.paragraph-l}",
+      "letterSpacing": "0px",
+      "textCase": "none",
+      "textDecoration": "none"
+    },
+    "$description": "Emphasized text within Paragraph L."
+  },
+  "paragraph-m": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{family.body}",
+      "fontWeight": "{weight.regular}",
+      "lineHeight": 1.4,
+      "fontSize": "{size.paragraph-m}",
+      "letterSpacing": "0px",
+      "textCase": "none",
+      "textDecoration": "none"
+    },
+    "$description": "Default body text for descriptions and content. "
+  },
+  "paragraph-m-strong": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{family.body}",
+      "fontWeight": "{weight.semibold}",
+      "lineHeight": 1.4,
+      "fontSize": "{size.paragraph-m}",
+      "letterSpacing": "0px",
+      "textCase": "none",
+      "textDecoration": "none"
+    },
+    "$description": "Emphasized text within Paragraph M."
+  },
+  "paragraph-s": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{family.body}",
+      "fontWeight": "{weight.regular}",
+      "lineHeight": 1.4,
+      "fontSize": "{size.paragraph-s}",
+      "letterSpacing": "0px",
+      "textCase": "none",
+      "textDecoration": "none"
+    },
+    "$description": "For low-priority supporting information such as captions, and helper text, disclaimers, legal text and image captions."
+  },
+  "label-m": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{family.body}",
+      "fontWeight": "{weight.medium}",
+      "lineHeight": 1.4,
+      "fontSize": "{size.label-m}",
+      "letterSpacing": "0px",
+      "textCase": "none",
+      "textDecoration": "none"
+    },
+    "$description": "Buttons, input labels, tabs, navigation items, and status labels."
+  },
+  "label-m-strong": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{family.body}",
+      "fontWeight": "{weight.semibold}",
+      "lineHeight": 1.4,
+      "fontSize": "{size.label-m}",
+      "letterSpacing": "0px",
+      "textCase": "none",
+      "textDecoration": "none"
+    },
+    "$description": "Active, selected, or emphasized labels."
+  },
+  "label-s": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{family.body}",
+      "fontWeight": "{weight.medium}",
+      "lineHeight": 1.4,
+      "fontSize": "{size.label-s}",
+      "letterSpacing": "0px",
+      "textCase": "none",
+      "textDecoration": "none"
+    },
+    "$description": "Compact controls, tags, badges, and secondary labels."
+  },
+  "label-s-strong": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{family.body}",
+      "fontWeight": "{weight.semibold}",
+      "lineHeight": 1.4,
+      "fontSize": "{size.label-s}",
+      "letterSpacing": "0px",
+      "textCase": "none",
+      "textDecoration": "none"
+    },
+    "$description": "Active, selected, or emphasized compact labels."
+  },
+  "numeric-l": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{family.body}",
+      "fontWeight": "{weight.semibold}",
+      "lineHeight": 1.2,
+      "fontSize": "{size.numeric-l}",
+      "letterSpacing": "0px",
+      "textCase": "none",
+      "textDecoration": "none"
+    },
+    "$description": "Primary metrics and key statistics."
+  },
+  "numeric-m": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{family.body}",
+      "fontWeight": "{weight.semibold}",
+      "lineHeight": 1.2,
+      "fontSize": "{size.numeric-m}",
+      "letterSpacing": "0px",
+      "textCase": "none",
+      "textDecoration": "none"
+    },
+    "$description": "Secondary metrics and statistics."
+  },
+  "numeric-s": {
+    "$type": "typography",
+    "$value": {
+      "fontFamily": "{family.body}",
+      "fontWeight": "{weight.semibold}",
+      "lineHeight": 1.4,
+      "fontSize": "{size.numeric-s}",
+      "letterSpacing": "0px",
+      "textCase": "none",
+      "textDecoration": "none"
+    },
+    "$description": "Counts, compact metrics, and numerical values."
+  }
+}

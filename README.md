@@ -2,6 +2,124 @@
 
 An Expo React Native design system sandbox. Design tokens (W3C format) are compiled with Style Dictionary v4 and rendered as components in Storybook.
 
+## Architecture
+
+This repo uses **one React Native component codebase** viewed in two Storybook environments. The stack splits into product code, tokens, docs authoring, and Storybook chrome.
+
+### Product
+
+| Layer | Technology |
+|---|---|
+| UI | React Native (`View`, `Text`, `Pressable`, …) |
+| App | Expo SDK 51 |
+| Design values | Style Dictionary v4 → `src/theme/tokens.ts` |
+| Fonts | Expo Google Fonts via `useAppFonts()` |
+
+Components in `src/components/` are written for RN. They must use web-compatible primitives so both Storybooks work.
+
+### Design tokens
+
+| Source | Output |
+|---|---|
+| `tokens/variables/` | Figma / Token Studio export (When variables are updated, replace old files and foloders with new ones, no manual edit needed.) |
+| `tokens/styles/typography.json` | Hand-maintained typography text styles |
+| `tokens/styles/elevation.json` | Hand-maintained elevation shadow styles |
+| `npm run build-tokens` | Generates `src/theme/tokens.ts` (never edit by hand) |
+
+Use `useTheme()` for mode-aware colors and `theme.*` for layout scales in components and docs.
+
+### Two Storybook environments
+
+Both read the same `src/components/**/*.stories.tsx` and `src/storybook/**/*.mdx` files.
+
+| | On-device | Web |
+|---|---|---|
+| **Command** | `npm run storybook` | `npm run storybook:web` |
+| **Config** | `.storybook/` | `.storybook-web/` |
+| **Preview** | `.storybook/preview.tsx` | Re-exports preview + adds web docs params |
+| **Where it runs** | Expo / simulator / Expo Go | Browser at localhost:6006 |
+| **Component runtime** | Real React Native (native views) | **react-native-web** (RN → DOM) |
+| **Package** | `@storybook/react-native` | `@storybook/react-native-web-vite` |
+
+**Preview config:** Decorators and story sort live in `.storybook/preview.tsx` only. `.storybook-web/preview.tsx` imports that file and merges `storybookDocsParameters` (theme + docs settings) for web.
+
+**Story canvas in docs:** The shared decorator uses `viewMode === 'docs'` so `<Primary />` / `<Canvas />` in component MDX render full-width with desktop typography. Canvas tab stories stay mobile-centered.
+
+**react-native-web** is a compatibility layer: it renders RN components in the browser by translating `View` / `Text` into HTML. It is not a separate UI framework — same source files, different runtime.
+
+### Docs pages (MDX)
+
+Docs are MDX files. Authored content and previews use different layers.
+
+| Content | Stack | Examples |
+|---|---|---|
+| **MDX prose** (all pages) | Markdown → HTML + CSS | `# Title`, `## Overview`, lists, blockquotes |
+| **Component docs** | Storybook blocks + markdown | `<Title />`, `<ArgTypes />`, `<Primary />` |
+| **Token catalogs / demos** | RN → react-native-web | `TypographyCatalog`, `SemanticColorList`, `TokenCatalog`, … (theme built in) |
+| **Storybook shell** | HTML + CSS | Sidebar, toolbar, preview frame chrome |
+
+**Component MDX pattern:**
+
+```mdx
+<Meta of={BadgeStories} />
+
+<Title />
+
+## Overview
+
+TBD
+
+## Props
+
+<ArgTypes of={BadgeStories} />
+
+## Preview
+
+<Primary />
+```
+
+**Foundation MDX pattern** — markdown for prose, RN only for catalogs:
+
+```mdx
+<Meta title="Foundation/Typography" />
+
+# Typography
+
+## Preview
+
+<TypographyCatalog entries={typography} />
+```
+
+**RN catalogs vs Storybook theming:** [Storybook theming](https://storybook.js.org/docs/configure/user-interface/theming) covers HTML docs chrome (`storybookTheme`, `storybookMdStyles`). Preview decorators only wrap `<Story />` blocks (`<Primary />`, `<Canvas />`), not arbitrary MDX components. Token catalogs therefore include an internal `CatalogThemeProvider` (theme + fonts) — the standard pattern for embedded react-native-web content, similar to Storybook’s documented CSS escape hatch for content the theme API does not reach.
+
+**Docs styling (web Storybook):**
+
+| File | Applied to |
+|---|---|
+| `.storybook-web/storybookMdStyles.ts` | MDX markdown + Storybook HTML blocks (`h1`, `p`, `<ArgTypes />`, …) |
+| `src/storybook/ui/storybookRnTypography.ts` | RN typography inside catalog components (react-native-web) |
+| `src/storybook/ui/storybookTable.tsx` | RN table layout for token catalogs |
+| `.storybook-web/storybookTheme.ts` | Storybook shell + Docs tab chrome (wired in `manager.ts` and `storybookDocsParameters.ts`) |
+| `.storybook-web/storybookDocsParameters.ts` | Docs tab settings (theme, hide source, controls sort) |
+| `.storybook/preview.tsx` | Shared decorators, story sort, theme toolbar (web re-exports) |
+
+- **Prop descriptions** live in `*.stories.tsx` → `argTypes.description`.
+- Do not add `tags: ['autodocs']` on CSF when a paired `Component.mdx` exists.
+
+### Stack at a glance
+
+```
+tokens (Style Dictionary)
+        ↓
+React Native components + docs UI (MDX)
+        ↓
+┌─────────────────────────┬──────────────────────────┐
+│  Web Storybook          │  On-device Storybook     │
+│  react-native-web       │  native RN               │
+│  Storybook 8.6 + Vite   │  @storybook/react-native │
+└─────────────────────────┴──────────────────────────┘
+```
+
 ## Getting Started
 
 ```bash
@@ -21,6 +139,8 @@ npm run start          # normal Expo app view
 | `npm run storybook:web:build` | Builds the web Storybook into `storybook-static/` as a deployable static site. Used by CI for GitHub Pages. |
 
 ## Storybook
+
+See [Architecture](#architecture) for how RN, react-native-web, MDX docs, and Storybook chrome fit together.
 
 ### Run locally
 
@@ -61,16 +181,17 @@ tokens/
   variables/         Figma variable export (Token Studio) — DO NOT edit by hand
     color/           Semantic colors, one file per mode (light.json / dark.json)
     color_primitive/ Raw palettes
-    size/            Space, radius, stroke, icon, blur, depth scales
+    size/            Space, radius, border, icon, blur, depth scales
     typography/      Font variables, one file per device class (mobile / desktop)
-  styles/            Hand-maintained W3C DTCG styles (text styles, elevation shadows)
+  styles/            Hand-maintained W3C DTCG styles (typography.json, elevation.json)
 build.js             Style Dictionary pipeline that compiles tokens
 src/
   theme/tokens.ts    GENERATED by build-tokens — never edit by hand
   theme/fonts.ts     useAppFonts() — loads the font variants the tokens reference
   theme/getShadow.ts Adapts multi-layer token shadows to RN shadow styles
   theme/useTheme.ts  useTheme() — light/dark theme selection
-  components/        Components (Box, Card, ...) + their .stories.tsx files
+  components/        RN components (Badge, Button, Icon, …) + *.stories.tsx + *.mdx
+  storybook/           Foundation MDX, shared docs UI, and static assets (`asset/`)
 .storybook/          Config for the ON-DEVICE Storybook (runs inside Expo on a phone)
 .storybook-web/      Config for the DESKTOP WEB Storybook (Vite + react-native-web)
 storybook-static/    Build output of storybook:web:build — generated, gitignored
@@ -94,13 +215,13 @@ Never hand-edit anything inside `tokens/variables/` — it is always overwritten
 
 ### Syncing styles (text styles & effects)
 
-Figma **styles** (text styles, elevation/shadow effects) are not part of the variable export. When they change in Figma, **manually update `tokens/styles/value.json`** to match, keeping the W3C DTCG format (`$type: "typography"` / `"shadow"`, `{alias}` references to variables, ratio `lineHeight`, `px` dimensions). Then run `npm run build-tokens`.
+Figma **styles** (text styles, elevation/shadow effects) are not part of the variable export. When they change in Figma, **manually update `tokens/styles/typography.json`** and **`tokens/styles/elevation.json`** to match, keeping the W3C DTCG format (`$type: "typography"` / `"shadow"`, `{alias}` references to variables, ratio `lineHeight`, `px` dimensions). Then run `npm run build-tokens`.
 
 ### Consuming tokens
 
 Use the regenerated `theme` / `themes` / `typographies` from `src/theme/tokens.ts` in components — never edit that file manually.
 
-## Light & Dark Mode
+## Light & dark mode
 
 The build compiles both color modes from `tokens/variables/color/light.json` and `dark.json`:
 

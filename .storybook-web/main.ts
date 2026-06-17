@@ -1,7 +1,12 @@
 import type { StorybookConfig } from '@storybook/react-native-web-vite';
+import { storybookMdStyles } from './storybookMdStyles';
 
 const config: StorybookConfig = {
-  stories: ['../src/docs/**/*.mdx', '../src/components/**/*.stories.tsx'],
+  stories: [
+    '../src/storybook/**/*.mdx',
+    '../src/components/**/*.mdx',
+    '../src/components/**/*.stories.tsx'
+  ],
   addons: ['@storybook/addon-essentials', '@storybook/addon-a11y'],
   framework: {
     name: '@storybook/react-native-web-vite',
@@ -11,22 +16,16 @@ const config: StorybookConfig = {
     ${head}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
   `,
   previewHead: (head) => `
     ${head}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+    <!-- CSS for MDX markdown + Storybook HTML blocks — see storybookMdStyles.ts -->
     <style>
-      .sbdocs.sbdocs-wrapper {
-        padding: 48px 32px;
-      }
-
-      .sbdocs.sbdocs-content {
-        max-width: 1000px;
-        width: 100%;
-      }
+      ${storybookMdStyles}
     </style>
   `,
   async viteFinal(config, { configType }) {

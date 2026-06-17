@@ -5,55 +5,55 @@ export const theme = {
     "fill": {
       "neutral": {
         "default": "#e8e8e8",
-        "default-hover": "#d4d4d4",
+        "defaultHover": "#d4d4d4",
         "subtle": "#f2f2f2",
-        "subtle-hover": "#e8e8e8",
-        "default-selected": "#a0a0a0",
-        "subtle-selected": "#d4d4d4",
+        "subtleHover": "#e8e8e8",
+        "defaultSelected": "#a0a0a0",
+        "subtleSelected": "#d4d4d4",
         "inverse": "#3d3c3c",
-        "inverse-hover": "#585858",
-        "inverse-selected": "#6c6c6c",
+        "inverseHover": "#585858",
+        "inverseSelected": "#6c6c6c",
         "disabled": "#f7f7f7"
       },
       "brand": {
-        "default": "#3a7d12",
+        "default": "#2b6409",
         "subtle": "#eef8e6",
-        "hover": "#295c0a",
-        "selected": "#1a3d04",
-        "accent": "#6aae28",
-        "subtle-hover": "#d4f0b0",
-        "subtle-selected": "#c5f78d"
+        "defaultHover": "#1d4305",
+        "defaultSelected": "#173504",
+        "OLDaccent": "#66b039",
+        "subtleHover": "#d4f0b0",
+        "subtleSelected": "#c5f78d"
       },
       "error": {
         "subtle": "#fff0ee",
         "emphasis": "#d91400",
-        "emphasis-hover": "#be1414",
-        "emphasis-selected": "#a81414",
-        "subtle-hover": "#ffd5cf",
-        "subtle-selected": "#ffaa9f"
+        "emphasisHover": "#be1414",
+        "emphasisSelected": "#a81414",
+        "subtleHover": "#ffd5cf",
+        "subtleSelected": "#ffaa9f"
       },
       "warning": {
-        "subtle": "#fdf1dc",
-        "emphasis": "#f6bc2f"
+        "default": "#fdf1dc",
+        "OLDemphasis": "#f6bc2f"
       },
       "success": {
         "subtle": "#eef8e6",
         "emphasis": "#3a7d12"
       },
       "info": {
-        "subtle": "#e3f2fd",
-        "emphasis": "#2196f3"
+        "default": "#e3f2fd",
+        "OLDemphasis": "#0d47a1"
       },
       "accent": {
-        "default": "#ff7b02",
-        "subtle": "#fff8ee",
-        "hover": "#e56200",
-        "selected": "#c44d01"
+        "OLDdefault": "#ff7b02",
+        "OLDsubtle": "#fff8ee",
+        "OLDdefaultHover": "#e56200",
+        "OLDdefaultSelected": "#c44d01"
       }
     },
     "text": {
       "neutral": {
-        "primary": "#131313",
+        "primary": "#232323",
         "secondary": "#585858",
         "tertiary": "#7c7c7c",
         "inverse": "#ffffff",
@@ -61,28 +61,28 @@ export const theme = {
         "placeholder": "#7c7c7c"
       },
       "brand": {
-        "default": "#3a7d12",
-        "on-brand": "#ffffff"
+        "default": "#2b6409",
+        "onBrand": "#ffffff"
       },
       "success": {
         "default": "#295c0a",
-        "on-emphasis": "#ffffff"
+        "onEmphasis": "#ffffff"
       },
       "error": {
         "default": "#d91400",
-        "on-emphasis": "#ffffff"
+        "onEmphasis": "#ffffff"
       },
       "warning": {
         "default": "#4a3003",
-        "on-emphasis": "#131313"
+        "onEmphasis": "#131313"
       },
       "info": {
         "default": "#0d47a1",
-        "on-emphasis": "#ffffff"
+        "onEmphasis": "#ffffff"
       },
       "accent": {
-        "default": "#ff7b02",
-        "on-accent": "#ffffff"
+        "default": "#c44d01",
+        "onAccent": "#131313"
       }
     },
     "border": {
@@ -91,31 +91,31 @@ export const theme = {
         "default": "#d4d4d4",
         "strong": "#585858",
         "disabled": "#d4d4d4",
-        "inverse": "#ffffff"
+        "OLDinverse": "#ffffff"
       },
       "brand": {
-        "default": "#3a7d12",
-        "subtle": "#c5f78d"
+        "default": "#2b6409",
+        "OLDsubtle": "#c5f78d"
       },
       "accent": {
-        "default": "#ff7b02",
-        "subtle": "#ffd599"
+        "OLDdefault": "#ff7b02",
+        "OLDsubtle": "#ffd599"
       },
       "error": {
-        "default": "#d91400",
-        "emphasis": "#f52020"
+        "OLDdefault": "#d91400",
+        "default": "#f52020"
       },
       "warning": {
-        "default": "#fdebc7",
-        "emphasis": "#9a6b08"
+        "OLDdefault": "#9a6b08",
+        "OLDemphasis": "#9a6b08"
       },
       "success": {
-        "default": "#a8dc6e",
-        "emphasis": "#47ad08"
+        "OLDdefault": "#a8dc6e",
+        "OLDemphasis": "#47ad08"
       },
       "info": {
-        "default": "#90caf9",
-        "emphasis": "#1976d2"
+        "OLDdefault": "#1976d2",
+        "OLDemphasis": "#1976d2"
       }
     },
     "icon": {
@@ -125,37 +125,32 @@ export const theme = {
         "tertiary": "#a0a0a0",
         "disabled": "#d4d4d4",
         "inverse": "#ffffff",
-        "on-disabled": "#a0a0a0"
+        "onDisabled": "#a0a0a0"
       },
       "brand": {
-        "default": "#3a7d12",
-        "on-brand": "#ffffff"
+        "default": "#2b6409",
+        "onBrand": "#ffffff"
       },
       "accent": {
         "default": "#c44d01",
-        "on-accent": "#6b2800"
+        "onAccent": "#6b2800"
       },
       "error": {
         "default": "#d91400",
-        "on-emphasis": "#ffffff"
+        "onEmphasis": "#ffffff"
       },
       "success": {
-        "default": "#47ad08",
-        "on-emphasis": "#ffffff"
+        "default": "#3a7d12",
+        "onEmphasis": "#ffffff"
       },
       "info": {
         "default": "#1565c0",
-        "on-emphasis": "#ffffff"
+        "onEmphasis": "#ffffff"
       },
       "warning": {
         "default": "#e5aa1a",
-        "on-emphasis": "#131313"
+        "onEmphasis": "#131313"
       }
-    },
-    "shadow": {
-      "sm": "#0c0c0d0d",
-      "md": "#0c0c0d14",
-      "lg": "#0c0c0d1a"
     },
     "background": {
       "neutral": {
@@ -178,16 +173,16 @@ export const theme = {
         "800": "#0d47a1",
         "900": "#072d6b"
       },
-      "brand-green": {
+      "brandGreen": {
         "50": "#eef8e6",
         "100": "#d4f0b0",
         "200": "#c5f78d",
-        "300": "#86c232",
-        "400": "#6aae28",
-        "500": "#52a320",
-        "600": "#3a7d12",
-        "700": "#295c0a",
-        "800": "#1a3d04",
+        "300": "#a8de5c",
+        "400": "#66b039",
+        "500": "#48911c",
+        "600": "#2b6409",
+        "700": "#1d4305",
+        "800": "#173504",
         "900": "#0d2001"
       },
       "neutral": {
@@ -281,7 +276,7 @@ export const theme = {
     }
   },
   "typography": {
-    "heading-m": {
+    "headingM": {
       "fontFamily": "Montserrat_700Bold",
       "lineHeight": 31.2,
       "fontSize": 24,
@@ -289,7 +284,7 @@ export const theme = {
       "textTransform": "none",
       "textDecorationLine": "none"
     },
-    "heading-s": {
+    "headingS": {
       "fontFamily": "Montserrat_700Bold",
       "lineHeight": 25.2,
       "fontSize": 18,
@@ -297,15 +292,15 @@ export const theme = {
       "textTransform": "none",
       "textDecorationLine": "none"
     },
-    "paragraph-l": {
-      "fontFamily": "Inter_500Medium",
+    "paragraphL": {
+      "fontFamily": "Inter_400Regular",
       "lineHeight": 22.4,
       "fontSize": 16,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
     },
-    "paragraph-l-strong": {
+    "paragraphLStrong": {
       "fontFamily": "Inter_600SemiBold",
       "lineHeight": 22.4,
       "fontSize": 16,
@@ -313,7 +308,7 @@ export const theme = {
       "textTransform": "none",
       "textDecorationLine": "none"
     },
-    "paragraph-m": {
+    "paragraphM": {
       "fontFamily": "Inter_400Regular",
       "lineHeight": 19.6,
       "fontSize": 14,
@@ -321,15 +316,15 @@ export const theme = {
       "textTransform": "none",
       "textDecorationLine": "none"
     },
-    "paragraph-m-strong": {
-      "fontFamily": "Inter_500Medium",
+    "paragraphMStrong": {
+      "fontFamily": "Inter_600SemiBold",
       "lineHeight": 19.6,
       "fontSize": 14,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
     },
-    "paragraph-s": {
+    "paragraphS": {
       "fontFamily": "Inter_400Regular",
       "lineHeight": 16.8,
       "fontSize": 12,
@@ -337,23 +332,7 @@ export const theme = {
       "textTransform": "none",
       "textDecorationLine": "none"
     },
-    "label-l": {
-      "fontFamily": "Inter_500Medium",
-      "lineHeight": 22.4,
-      "fontSize": 16,
-      "letterSpacing": 0,
-      "textTransform": "none",
-      "textDecorationLine": "none"
-    },
-    "label-l-strong": {
-      "fontFamily": "Inter_600SemiBold",
-      "lineHeight": 22.4,
-      "fontSize": 16,
-      "letterSpacing": 0,
-      "textTransform": "none",
-      "textDecorationLine": "none"
-    },
-    "label-m": {
+    "labelM": {
       "fontFamily": "Inter_500Medium",
       "lineHeight": 19.6,
       "fontSize": 14,
@@ -361,7 +340,7 @@ export const theme = {
       "textTransform": "none",
       "textDecorationLine": "none"
     },
-    "label-m-strong": {
+    "labelMStrong": {
       "fontFamily": "Inter_600SemiBold",
       "lineHeight": 19.6,
       "fontSize": 14,
@@ -369,7 +348,7 @@ export const theme = {
       "textTransform": "none",
       "textDecorationLine": "none"
     },
-    "label-s": {
+    "labelS": {
       "fontFamily": "Inter_500Medium",
       "lineHeight": 16.8,
       "fontSize": 12,
@@ -377,7 +356,7 @@ export const theme = {
       "textTransform": "none",
       "textDecorationLine": "none"
     },
-    "label-s-strong": {
+    "labelSStrong": {
       "fontFamily": "Inter_600SemiBold",
       "lineHeight": 16.8,
       "fontSize": 12,
@@ -385,7 +364,7 @@ export const theme = {
       "textTransform": "none",
       "textDecorationLine": "none"
     },
-    "numeric-l": {
+    "numericL": {
       "fontFamily": "Inter_600SemiBold",
       "lineHeight": 57.6,
       "fontSize": 48,
@@ -393,7 +372,7 @@ export const theme = {
       "textTransform": "none",
       "textDecorationLine": "none"
     },
-    "numeric-m": {
+    "numericM": {
       "fontFamily": "Inter_600SemiBold",
       "lineHeight": 38.4,
       "fontSize": 32,
@@ -401,7 +380,7 @@ export const theme = {
       "textTransform": "none",
       "textDecorationLine": "none"
     },
-    "numeric-s": {
+    "numericS": {
       "fontFamily": "Inter_600SemiBold",
       "lineHeight": 28,
       "fontSize": 20,
@@ -421,92 +400,24 @@ export const theme = {
       "bold": 700
     },
     "size": {
-      "numeric-l": 48,
-      "label-s": 12,
-      "label-m": 14,
-      "label-l": 16,
-      "paragraph-m": 14,
-      "paragraph-l": 16,
-      "heading-s": 18,
-      "paragraph-s": 12,
-      "heading-m": 24,
-      "numeric-s": 20,
-      "numeric-m": 32
+      "numericL": 48,
+      "labelS": 12,
+      "labelM": 14,
+      "paragraphM": 14,
+      "paragraphL": 16,
+      "headingS": 18,
+      "paragraphS": 12,
+      "headingM": 24,
+      "numericS": 20,
+      "numericM": 32
     }
   },
-  "elevation": {
-    "sm": [
-      {
-        "color": "#0c0c0d14",
-        "offsetX": 0,
-        "offsetY": 1,
-        "blur": 4,
-        "spread": 0
-      },
-      {
-        "color": "#0c0c0d1a",
-        "offsetX": 0,
-        "offsetY": 2,
-        "blur": 1,
-        "spread": 0
-      },
-      {
-        "color": "#0c0c0d0d",
-        "offsetX": 0,
-        "offsetY": 1,
-        "blur": 8,
-        "spread": 0
-      }
-    ],
-    "md": [
-      {
-        "color": "#0c0c0d14",
-        "offsetX": 0,
-        "offsetY": 2,
-        "blur": 6,
-        "spread": 0
-      },
-      {
-        "color": "#0c0c0d14",
-        "offsetX": 0,
-        "offsetY": 2,
-        "blur": 4,
-        "spread": 0
-      },
-      {
-        "color": "#0c0c0d0d",
-        "offsetX": 0,
-        "offsetY": 1,
-        "blur": 8,
-        "spread": 0
-      }
-    ],
-    "lg": [
-      {
-        "color": "#0c0c0d14",
-        "offsetX": 0,
-        "offsetY": 4,
-        "blur": 12,
-        "spread": 0
-      },
-      {
-        "color": "#0c0c0d14",
-        "offsetX": 0,
-        "offsetY": 8,
-        "blur": 16,
-        "spread": 0
-      },
-      {
-        "color": "#0c0c0d0d",
-        "offsetX": 0,
-        "offsetY": 2,
-        "blur": 6,
-        "spread": 0
-      }
-    ]
+  "border": {
+    "sm": 1,
+    "md": 2
   },
   "icon": {
-    "xs": 12,
+    "xs": 14,
     "sm": 16,
     "md": 20,
     "lg": 24,
@@ -532,43 +443,93 @@ export const theme = {
   },
   "radius": {
     "none": 0,
-    "xs": 4,
-    "sm": 8,
+    "sm": 4,
+    "md": 8,
     "lg": 16,
     "full": 9999,
-    "md": 12,
-    "xl": 24
-  },
-  "stroke": {
-    "sm": 1,
-    "md": 2
-  },
-  "blur": {
-    "100": 1,
-    "200": 2,
-    "400": 4,
-    "600": 6,
-    "800": 8,
-    "1200": 12,
-    "1600": 16
-  },
-  "depth": {
-    "0": 0,
-    "100": 4,
-    "200": 8,
-    "400": 16,
-    "025": 1,
-    "050": 2
+    "xl": 32
   },
   "responsive": {
-    "xs": 280,
-    "md": 375,
-    "sm": 360,
-    "lg": 768,
-    "xl": 1024
+    "sm": 768,
+    "md": 1024
   },
-  "margin": {
-    "default": 16
+  "layout": {
+    "marginX": 16,
+    "gutterX": 8
+  },
+  "elevation": {
+    "sm": {
+      "figma": [
+        {
+          "blur": 4,
+          "color": "#0C0C0D",
+          "offsetX": 0,
+          "offsetY": 1,
+          "opacity": 0.08,
+          "spread": 0
+        }
+      ],
+      "ios": {
+        "shadowColor": "#0C0C0D",
+        "shadowOpacity": 0.08,
+        "shadowOffset": {
+          "width": 0,
+          "height": 1
+        },
+        "shadowRadius": 4
+      },
+      "android": {
+        "elevation": 2
+      }
+    },
+    "md": {
+      "figma": [
+        {
+          "blur": 8,
+          "color": "#0C0C0D",
+          "offsetX": 0,
+          "offsetY": 2,
+          "opacity": 0.1,
+          "spread": 0
+        }
+      ],
+      "ios": {
+        "shadowColor": "#0C0C0D",
+        "shadowOpacity": 0.1,
+        "shadowOffset": {
+          "width": 0,
+          "height": 2
+        },
+        "shadowRadius": 8
+      },
+      "android": {
+        "elevation": 4
+      }
+    },
+    "lg": {
+      "figma": [
+        {
+          "blur": 16,
+          "color": "#0C0C0D",
+          "offsetX": 0,
+          "offsetY": 4,
+          "opacity": 0.12,
+          "spread": 0
+        }
+      ],
+      "ios": {
+        "shadowColor": "#0C0C0D",
+        "shadowOpacity": 0.12,
+        "shadowOffset": {
+          "width": 0,
+          "height": 4
+        },
+        "shadowRadius": 16
+      },
+      "android": {
+        "elevation": 8
+      }
+    }
   }
 } as const;
 
@@ -579,50 +540,50 @@ const darkColors = {
   "fill": {
     "neutral": {
       "default": "#585858",
-      "default-hover": "#6c6c6c",
+      "defaultHover": "#6c6c6c",
       "subtle": "#232323",
-      "subtle-hover": "#3d3c3c",
-      "default-selected": "#7c7c7c",
-      "subtle-selected": "#585858",
+      "subtleHover": "#3d3c3c",
+      "defaultSelected": "#7c7c7c",
+      "subtleSelected": "#585858",
       "inverse": "#e8e8e8",
-      "inverse-hover": "#d4d4d4",
-      "inverse-selected": "#a0a0a0",
+      "inverseHover": "#d4d4d4",
+      "inverseSelected": "#a0a0a0",
       "disabled": "#232323"
     },
     "brand": {
-      "default": "#86c232",
+      "default": "#a8de5c",
       "subtle": "#0d2001",
-      "hover": "#6aae28",
-      "selected": "#52a320",
-      "accent": "#52a320",
-      "subtle-hover": "#1a3d04",
-      "subtle-selected": "#295c0a"
+      "defaultHover": "#66b039",
+      "defaultSelected": "#48911c",
+      "OLDaccent": "#48911c",
+      "subtleHover": "#173504",
+      "subtleSelected": "#1d4305"
     },
     "error": {
       "subtle": "#7d1010",
       "emphasis": "#d91400",
-      "emphasis-hover": "#f52020",
-      "emphasis-selected": "#ff5252",
-      "subtle-hover": "#921212",
-      "subtle-selected": "#a81414"
+      "emphasisHover": "#f52020",
+      "emphasisSelected": "#ff5252",
+      "subtleHover": "#921212",
+      "subtleSelected": "#a81414"
     },
     "warning": {
-      "subtle": "#4a3003",
-      "emphasis": "#f6bc2f"
+      "default": "#4a3003",
+      "OLDemphasis": "#f6bc2f"
     },
     "success": {
       "subtle": "#0d2001",
       "emphasis": "#47ad08"
     },
     "info": {
-      "subtle": "#072d6b",
-      "emphasis": "#2196f3"
+      "default": "#072d6b",
+      "OLDemphasis": "#2196f3"
     },
     "accent": {
-      "default": "#ff7b02",
-      "subtle": "#963a00",
-      "hover": "#ff8c03",
-      "selected": "#ffa503"
+      "OLDdefault": "#ff7b02",
+      "OLDsubtle": "#963a00",
+      "OLDdefaultHover": "#ff8c03",
+      "OLDdefaultSelected": "#ffa503"
     }
   },
   "text": {
@@ -636,27 +597,27 @@ const darkColors = {
     },
     "brand": {
       "default": "#c5f78d",
-      "on-brand": "#131313"
+      "onBrand": "#131313"
     },
     "success": {
       "default": "#a8dc6e",
-      "on-emphasis": "#131313"
+      "onEmphasis": "#131313"
     },
     "error": {
       "default": "#ffaa9f",
-      "on-emphasis": "#ffffff"
+      "onEmphasis": "#ffffff"
     },
     "warning": {
       "default": "#fdebc7",
-      "on-emphasis": "#131313"
+      "onEmphasis": "#131313"
     },
     "info": {
       "default": "#90caf9",
-      "on-emphasis": "#ffffff"
+      "onEmphasis": "#ffffff"
     },
     "accent": {
       "default": "#ffba5c",
-      "on-accent": "#6b2800"
+      "onAccent": "#6b2800"
     }
   },
   "border": {
@@ -665,31 +626,31 @@ const darkColors = {
       "default": "#a0a0a0",
       "strong": "#e8e8e8",
       "disabled": "#3d3c3c",
-      "inverse": "#131313"
+      "OLDinverse": "#131313"
     },
     "brand": {
-      "default": "#52a320",
-      "subtle": "#1a3d04"
+      "default": "#48911c",
+      "OLDsubtle": "#173504"
     },
     "accent": {
-      "default": "#ff8c03",
-      "subtle": "#c44d01"
+      "OLDdefault": "#ff8c03",
+      "OLDsubtle": "#c44d01"
     },
     "error": {
-      "default": "#a81414",
-      "emphasis": "#d91400"
+      "OLDdefault": "#a81414",
+      "default": "#d91400"
     },
     "warning": {
-      "default": "#9a6b08",
-      "emphasis": "#f6bc2f"
+      "OLDdefault": "#f6bc2f",
+      "OLDemphasis": "#f6bc2f"
     },
     "success": {
-      "default": "#3a7d12",
-      "emphasis": "#78d023"
+      "OLDdefault": "#3a7d12",
+      "OLDemphasis": "#78d023"
     },
     "info": {
-      "default": "#1976d2",
-      "emphasis": "#2196f3"
+      "OLDdefault": "#2196f3",
+      "OLDemphasis": "#2196f3"
     }
   },
   "icon": {
@@ -699,37 +660,32 @@ const darkColors = {
       "tertiary": "#a0a0a0",
       "disabled": "#7c7c7c",
       "inverse": "#131313",
-      "on-disabled": "#585858"
+      "onDisabled": "#585858"
     },
     "brand": {
-      "default": "#86c232",
-      "on-brand": "#131313"
+      "default": "#a8de5c",
+      "onBrand": "#131313"
     },
     "accent": {
       "default": "#ffba5c",
-      "on-accent": "#6b2800"
+      "onAccent": "#6b2800"
     },
     "error": {
       "default": "#ffaa9f",
-      "on-emphasis": "#ffffff"
+      "onEmphasis": "#ffffff"
     },
     "success": {
       "default": "#a8dc6e",
-      "on-emphasis": "#ffffff"
+      "onEmphasis": "#ffffff"
     },
     "info": {
       "default": "#90caf9",
-      "on-emphasis": "#ffffff"
+      "onEmphasis": "#ffffff"
     },
     "warning": {
       "default": "#e5aa1a",
-      "on-emphasis": "#131313"
+      "onEmphasis": "#131313"
     }
-  },
-  "shadow": {
-    "sm": "#ffffff0d",
-    "md": "#ffffff0d",
-    "lg": "#ffffff1a"
   },
   "background": {
     "neutral": {
@@ -752,16 +708,16 @@ const darkColors = {
       "800": "#0d47a1",
       "900": "#072d6b"
     },
-    "brand-green": {
+    "brandGreen": {
       "50": "#eef8e6",
       "100": "#d4f0b0",
       "200": "#c5f78d",
-      "300": "#86c232",
-      "400": "#6aae28",
-      "500": "#52a320",
-      "600": "#3a7d12",
-      "700": "#295c0a",
-      "800": "#1a3d04",
+      "300": "#a8de5c",
+      "400": "#66b039",
+      "500": "#48911c",
+      "600": "#2b6409",
+      "700": "#1d4305",
+      "800": "#173504",
       "900": "#0d2001"
     },
     "neutral": {
@@ -865,15 +821,15 @@ export type ThemeMode = keyof typeof themes;
 // Typography device classes: `theme.typography` is the mobile set
 // (the React Native default); desktop is provided for large screens.
 const desktopTypography = {
-  "heading-m": {
+  "headingM": {
     "fontFamily": "Montserrat_700Bold",
-    "lineHeight": 41.6,
-    "fontSize": 32,
+    "lineHeight": 52,
+    "fontSize": 40,
     "letterSpacing": 0,
     "textTransform": "none",
     "textDecorationLine": "none"
   },
-  "heading-s": {
+  "headingS": {
     "fontFamily": "Montserrat_700Bold",
     "lineHeight": 33.6,
     "fontSize": 24,
@@ -881,15 +837,31 @@ const desktopTypography = {
     "textTransform": "none",
     "textDecorationLine": "none"
   },
-  "paragraph-l": {
-    "fontFamily": "Inter_500Medium",
+  "paragraphL": {
+    "fontFamily": "Inter_400Regular",
+    "lineHeight": 25.2,
+    "fontSize": 18,
+    "letterSpacing": 0,
+    "textTransform": "none",
+    "textDecorationLine": "none"
+  },
+  "paragraphLStrong": {
+    "fontFamily": "Inter_600SemiBold",
+    "lineHeight": 25.2,
+    "fontSize": 18,
+    "letterSpacing": 0,
+    "textTransform": "none",
+    "textDecorationLine": "none"
+  },
+  "paragraphM": {
+    "fontFamily": "Inter_400Regular",
     "lineHeight": 22.4,
     "fontSize": 16,
     "letterSpacing": 0,
     "textTransform": "none",
     "textDecorationLine": "none"
   },
-  "paragraph-l-strong": {
+  "paragraphMStrong": {
     "fontFamily": "Inter_600SemiBold",
     "lineHeight": 22.4,
     "fontSize": 16,
@@ -897,7 +869,7 @@ const desktopTypography = {
     "textTransform": "none",
     "textDecorationLine": "none"
   },
-  "paragraph-m": {
+  "paragraphS": {
     "fontFamily": "Inter_400Regular",
     "lineHeight": 19.6,
     "fontSize": 14,
@@ -905,23 +877,7 @@ const desktopTypography = {
     "textTransform": "none",
     "textDecorationLine": "none"
   },
-  "paragraph-m-strong": {
-    "fontFamily": "Inter_500Medium",
-    "lineHeight": 19.6,
-    "fontSize": 14,
-    "letterSpacing": 0,
-    "textTransform": "none",
-    "textDecorationLine": "none"
-  },
-  "paragraph-s": {
-    "fontFamily": "Inter_400Regular",
-    "lineHeight": 16.8,
-    "fontSize": 12,
-    "letterSpacing": 0,
-    "textTransform": "none",
-    "textDecorationLine": "none"
-  },
-  "label-l": {
+  "labelM": {
     "fontFamily": "Inter_500Medium",
     "lineHeight": 22.4,
     "fontSize": 16,
@@ -929,7 +885,7 @@ const desktopTypography = {
     "textTransform": "none",
     "textDecorationLine": "none"
   },
-  "label-l-strong": {
+  "labelMStrong": {
     "fontFamily": "Inter_600SemiBold",
     "lineHeight": 22.4,
     "fontSize": 16,
@@ -937,7 +893,7 @@ const desktopTypography = {
     "textTransform": "none",
     "textDecorationLine": "none"
   },
-  "label-m": {
+  "labelS": {
     "fontFamily": "Inter_500Medium",
     "lineHeight": 19.6,
     "fontSize": 14,
@@ -945,7 +901,7 @@ const desktopTypography = {
     "textTransform": "none",
     "textDecorationLine": "none"
   },
-  "label-m-strong": {
+  "labelSStrong": {
     "fontFamily": "Inter_600SemiBold",
     "lineHeight": 19.6,
     "fontSize": 14,
@@ -953,42 +909,26 @@ const desktopTypography = {
     "textTransform": "none",
     "textDecorationLine": "none"
   },
-  "label-s": {
-    "fontFamily": "Inter_500Medium",
-    "lineHeight": 16.8,
-    "fontSize": 12,
+  "numericL": {
+    "fontFamily": "Inter_600SemiBold",
+    "lineHeight": 57.6,
+    "fontSize": 48,
     "letterSpacing": 0,
     "textTransform": "none",
     "textDecorationLine": "none"
   },
-  "label-s-strong": {
+  "numericM": {
     "fontFamily": "Inter_600SemiBold",
-    "lineHeight": 16.8,
-    "fontSize": 12,
+    "lineHeight": 38.4,
+    "fontSize": 32,
     "letterSpacing": 0,
     "textTransform": "none",
     "textDecorationLine": "none"
   },
-  "numeric-l": {
+  "numericS": {
     "fontFamily": "Inter_600SemiBold",
-    "lineHeight": 48,
-    "fontSize": 40,
-    "letterSpacing": 0,
-    "textTransform": "none",
-    "textDecorationLine": "none"
-  },
-  "numeric-m": {
-    "fontFamily": "Inter_600SemiBold",
-    "lineHeight": 48,
-    "fontSize": 40,
-    "letterSpacing": 0,
-    "textTransform": "none",
-    "textDecorationLine": "none"
-  },
-  "numeric-s": {
-    "fontFamily": "Inter_600SemiBold",
-    "lineHeight": 56,
-    "fontSize": 40,
+    "lineHeight": 28,
+    "fontSize": 20,
     "letterSpacing": 0,
     "textTransform": "none",
     "textDecorationLine": "none"
@@ -1005,17 +945,16 @@ const desktopTypography = {
     "bold": 700
   },
   "size": {
-    "numeric-l": 40,
-    "label-s": 12,
-    "label-m": 14,
-    "label-l": 16,
-    "paragraph-m": 14,
-    "paragraph-l": 16,
-    "heading-s": 24,
-    "paragraph-s": 12,
-    "heading-m": 32,
-    "numeric-s": 40,
-    "numeric-m": 40
+    "numericL": 48,
+    "labelS": 14,
+    "labelM": 16,
+    "paragraphM": 16,
+    "paragraphL": 18,
+    "headingS": 24,
+    "paragraphS": 14,
+    "headingM": 40,
+    "numericS": 20,
+    "numericM": 32
   }
 } as const;
 

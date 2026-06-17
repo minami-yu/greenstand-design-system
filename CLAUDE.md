@@ -15,7 +15,8 @@ This project translates standard W3C Design Tokens via Style Dictionary v4 and u
 ## Token Source Layout
 
 - `tokens/variables/` — Figma variable export (Token Studio). Do not hand-edit; replace via export (see README).
-- `tokens/styles/value.json` — Hand-maintained W3C DTCG text styles and elevation shadows.
+- `tokens/styles/typography.json` — Hand-maintained W3C DTCG text styles.
+- `tokens/styles/elevation.json` — Hand-maintained W3C DTCG elevation shadows.
 - DO NOT TOUCH MANUALLY: `src/theme/tokens.ts` is entirely managed by Style Dictionary.
 
 ## Design System Implementation Rules
@@ -23,7 +24,7 @@ This project translates standard W3C Design Tokens via Style Dictionary v4 and u
 ### Source of truth
 
 - `src/theme/tokens.ts` is the source of truth for all design values in components.
-- Never hardcode colors, spacing, typography, radius, shadows, stroke, blur, depth, or sizing values.
+- Never hardcode colors, spacing, typography, radius, shadows, border, blur, depth, or sizing values.
 - If a required token does not exist, report the missing token before implementation.
 - Never recreate values from Figma measurements if a token exists.
 
@@ -65,7 +66,7 @@ Never use raw hex, pixel numbers, or guessed values when a token exists.
 
 - `theme.color.*` — semantic colors + `color.palette.*` for raw ramps
 - `theme.typography.*` — composite sets (`heading-m`, `label-m`, …)
-- `theme.space`, `theme.radius`, `theme.stroke`, `theme.elevation`, `theme.blur`, `theme.depth`
+- `theme.space`, `theme.radius`, `theme.border`, `theme.elevation`, `theme.blur`, `theme.depth`
 - `useTheme()` for light/dark color modes
 - `typographies.mobile` / `typographies.desktop` for device typography
 
@@ -85,7 +86,7 @@ If a design requires a value not in `src/theme/tokens.ts`:
 
 1. Stop implementation.
 2. Report the missing token with suggested name and category.
-3. Wait for confirmation before adding to `tokens/styles/value.json` or requesting a Figma export.
+3. Wait for confirmation before adding to `tokens/styles/typography.json`, `tokens/styles/elevation.json`, or requesting a Figma export.
 
 ### Expected workflow
 

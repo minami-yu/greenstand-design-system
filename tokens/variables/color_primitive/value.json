@@ -98,7 +98,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "color",
-      "$value": "#86c232",
+      "$value": "#a8de5c",
       "$description": "Logo color"
     },
     "400": {
@@ -106,35 +106,35 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "color",
-      "$value": "#6aae28"
+      "$value": "#66b039"
     },
     "500": {
       "$extensions": {
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "color",
-      "$value": "#52a320"
+      "$value": "#48911c"
     },
     "600": {
       "$extensions": {
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "color",
-      "$value": "#3a7d12"
+      "$value": "#2b6409"
     },
     "700": {
       "$extensions": {
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "color",
-      "$value": "#295c0a"
+      "$value": "#1d4305"
     },
     "800": {
       "$extensions": {
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "color",
-      "$value": "#1a3d04"
+      "$value": "#173504"
     },
     "900": {
       "$extensions": {

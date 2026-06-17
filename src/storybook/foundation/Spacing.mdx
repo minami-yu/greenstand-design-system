@@ -1,0 +1,18 @@
+import { Meta } from '@storybook/blocks';
+import { SpacingCatalog } from './sections';
+import { buildScaleCatalogEntries } from '../utils/buildCatalogEntries';
+import { storybookPageParameters as parameters } from '../storybookPageParameters';
+
+export const spacing = buildScaleCatalogEntries('space', 'space');
+
+<Meta title="Foundation/Spacing" parameters={parameters} />
+
+# Spacing
+## Overview
+Spacing tokens define the space between interface elements. Consistent spacing helps create visual hierarchy, improve readability, and maintain a cohesive layout across the product.
+
+
+## Tokens
+Use the following tokens to set the space between interface elements. Negative spacing tokens create intentional overlap between elements. Common use cases include stacked avatars and overlapping cards.
+<br/>
+<SpacingCatalog entries={spacing} />

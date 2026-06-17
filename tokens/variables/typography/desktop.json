@@ -82,7 +82,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 40
+      "$value": 48
     },
     "label-s": {
       "$extensions": {
@@ -92,19 +92,9 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 12
-    },
-    "label-m": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
       "$value": 14
     },
-    "label-l": {
+    "label-m": {
       "$extensions": {
         "com.figma.scopes": [
           "ALL_SCOPES"
@@ -122,7 +112,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 14
+      "$value": 16
     },
     "paragraph-l": {
       "$extensions": {
@@ -132,7 +122,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 16
+      "$value": 18
     },
     "heading-s": {
       "$extensions": {
@@ -152,7 +142,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 12
+      "$value": 14
     },
     "heading-m": {
       "$extensions": {
@@ -162,7 +152,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 32
+      "$value": 40
     },
     "numeric-s": {
       "$extensions": {
@@ -172,7 +162,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 40
+      "$value": 20
     },
     "numeric-m": {
       "$extensions": {
@@ -182,7 +172,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 40
+      "$value": 32
     }
   }
 }

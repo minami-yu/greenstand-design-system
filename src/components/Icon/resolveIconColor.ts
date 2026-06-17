@@ -9,19 +9,19 @@ export type IconColorPath =
   | 'neutral.tertiary'
   | 'neutral.disabled'
   | 'neutral.inverse'
-  | 'neutral.on-disabled'
+  | 'neutral.onDisabled'
   | 'brand.default'
-  | 'brand.on-brand'
+  | 'brand.onBrand'
   | 'accent.default'
-  | 'accent.on-accent'
+  | 'accent.onAccent'
   | 'error.default'
-  | 'error.on-emphasis'
+  | 'error.onEmphasis'
   | 'success.default'
-  | 'success.on-emphasis'
+  | 'success.onEmphasis'
   | 'info.default'
-  | 'info.on-emphasis'
+  | 'info.onEmphasis'
   | 'warning.default'
-  | 'warning.on-emphasis';
+  | 'warning.onEmphasis';
 
 const COLOR_LOOKUP: Record<IconColorPath, (theme: ThemeTokens) => string> = {
   'neutral.primary': (t) => t.color.icon.neutral.primary,
@@ -29,19 +29,19 @@ const COLOR_LOOKUP: Record<IconColorPath, (theme: ThemeTokens) => string> = {
   'neutral.tertiary': (t) => t.color.icon.neutral.tertiary,
   'neutral.disabled': (t) => t.color.icon.neutral.disabled,
   'neutral.inverse': (t) => t.color.icon.neutral.inverse,
-  'neutral.on-disabled': (t) => t.color.icon.neutral['on-disabled'],
+  'neutral.onDisabled': (t) => t.color.icon.neutral.onDisabled,
   'brand.default': (t) => t.color.icon.brand.default,
-  'brand.on-brand': (t) => t.color.icon.brand['on-brand'],
+  'brand.onBrand': (t) => t.color.icon.brand.onBrand,
   'accent.default': (t) => t.color.icon.accent.default,
-  'accent.on-accent': (t) => t.color.icon.accent['on-accent'],
+  'accent.onAccent': (t) => t.color.icon.accent.onAccent,
   'error.default': (t) => t.color.icon.error.default,
-  'error.on-emphasis': (t) => t.color.icon.error['on-emphasis'],
+  'error.onEmphasis': (t) => t.color.icon.error.onEmphasis,
   'success.default': (t) => t.color.icon.success.default,
-  'success.on-emphasis': (t) => t.color.icon.success['on-emphasis'],
+  'success.onEmphasis': (t) => t.color.icon.success.onEmphasis,
   'info.default': (t) => t.color.icon.info.default,
-  'info.on-emphasis': (t) => t.color.icon.info['on-emphasis'],
+  'info.onEmphasis': (t) => t.color.icon.info.onEmphasis,
   'warning.default': (t) => t.color.icon.warning.default,
-  'warning.on-emphasis': (t) => t.color.icon.warning['on-emphasis']
+  'warning.onEmphasis': (t) => t.color.icon.warning.onEmphasis
 };
 
 export function resolveIconColor(theme: ThemeTokens, color: IconColorPath): string {

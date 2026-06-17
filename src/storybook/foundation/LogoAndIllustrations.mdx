@@ -1,0 +1,43 @@
+import { Meta } from '@storybook/blocks';
+import { StorybookImage } from '../ui';
+import { storybookPageParameters as parameters } from '../storybookPageParameters';
+import logoSample from '../asset/foundation/logo-sample.png';
+
+<Meta id="foundation-logo" title="Foundation/Logo & Illustrations" parameters={parameters} />
+
+# Logo & Illustrations
+
+## Overview
+Logos and illustrations help communicate the Treetracker brand and support user understanding. They should be used consistently across the product to maintain a cohesive visual experience.
+
+## Logo
+The Treetracker logo represents the product and organization and should be displayed consistently across all touchpoints.
+
+### Variants
+The Treetracker brand includes multiple logo variants for different contexts.
+
+- **Full Logo**: Includes both the symbol and logotype. Use when the logotype remains clearly legible.
+- **Symbol**: Uses the icon only. Use in compact spaces or when the Full Logo becomes difficult to read.
+
+<StorybookImage
+  alt="Treetracker full logo and symbol variants"
+  background={false}
+  outline={false}
+  src={logoSample}
+/>
+
+### Usage
+- Place the logo on neutral backgrounds such as `color.background.default` or `color.background.surface`.
+- Maintain adequate clear space around the logo.
+- Do not stretch, rotate, recolor, or modify the logo.
+
+## Illustrations
+Illustrations help communicate concepts, onboarding content, empty states, and educational information. Many Treetracker users operate in challenging environments and may have limited literacy. Illustrations should reinforce meaning and help users understand content, but should never be the sole method of communication.
+
+### Style
+* Keep illustrations simple and easy to understand.
+* Prioritize clarity over decoration.
+* Maintain a consistent visual style across the product.
+
+### Gallery
+Coming soon...

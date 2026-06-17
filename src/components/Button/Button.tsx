@@ -99,7 +99,7 @@ export function Button({
             {label ? (
               <Text
                 style={[
-                  t.typography['label-m-strong'],
+                  t.typography.labelMStrong,
                   { color: colors.textColor, textAlign: 'center' }
                 ]}
               >

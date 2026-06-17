@@ -7,7 +7,7 @@ export type BadgeType = 'label' | 'dot';
 
 export type BadgeSize = 'medium' | 'large';
 
-type TypographyKey = 'label-s' | 'label-m';
+type TypographyKey = 'labelS' | 'labelM';
 
 export type BadgeLayout = {
   borderRadius: number;
@@ -26,7 +26,7 @@ export type BadgeStyleTokens = {
 export function getBadgeStyles(t: ThemeTokens): BadgeStyleTokens {
   return {
     backgroundColor: t.color.fill.error.emphasis,
-    textColor: t.color.text.info['on-emphasis']
+    textColor: t.color.text.info.onEmphasis
   };
 }
 
@@ -56,6 +56,6 @@ export function getBadgeLayout(badge: BadgeType, size: BadgeSize): BadgeLayout {
     height,
     minWidth,
     paddingHorizontal,
-    typography: size === 'large' ? 'label-m' : 'label-s'
+    typography: size === 'large' ? 'labelM' : 'labelS'
   };
 }

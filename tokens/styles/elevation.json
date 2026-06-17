@@ -1,0 +1,64 @@
+{
+  "elevation": {
+    "sm": {
+      "$description": "Subtle separation from the background. Cards, floating sections, and elevated containers.",
+      "figma": [
+        {
+          "color": "#0C0C0D",
+          "opacity": 0.08,
+          "offsetX": 0,
+          "offsetY": 1,
+          "blur": 4,
+          "spread": 0
+        }
+      ],
+      "ios": {
+        "shadowColor": "#0C0C0D",
+        "shadowOpacity": 0.08,
+        "shadowOffset": { "width": 0, "height": 1 },
+        "shadowRadius": 4
+      },
+      "android": 2
+    },
+    "md": {
+      "$description": "Stronger emphasis for dropdowns, popovers, and temporary surfaces.",
+      "figma": [
+        {
+          "color": "#0C0C0D",
+          "opacity": 0.1,
+          "offsetX": 0,
+          "offsetY": 2,
+          "blur": 8,
+          "spread": 0
+        }
+      ],
+      "ios": {
+        "shadowColor": "#0C0C0D",
+        "shadowOpacity": 0.1,
+        "shadowOffset": { "width": 0, "height": 2 },
+        "shadowRadius": 8
+      },
+      "android": 4
+    },
+    "lg": {
+      "$description": "Highest emphasis for dialogs, modals, and critical overlays.",
+      "figma": [
+        {
+          "color": "#0C0C0D",
+          "opacity": 0.12,
+          "offsetX": 0,
+          "offsetY": 4,
+          "blur": 16,
+          "spread": 0
+        }
+      ],
+      "ios": {
+        "shadowColor": "#0C0C0D",
+        "shadowOpacity": 0.12,
+        "shadowOffset": { "width": 0, "height": 4 },
+        "shadowRadius": 16
+      },
+      "android": 8
+    }
+  }
+}
