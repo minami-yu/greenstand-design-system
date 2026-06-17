@@ -14,10 +14,9 @@ const preview: Preview = {
       storySort: {
         order: [
           'Getting started',
-          ['Introduction', 'Set up'],
+          ['Introduction'],
           'Foundation',
           [
-            'Design tokens',
             'Colors',
             'Typography',
             'Spacing',
@@ -27,7 +26,7 @@ const preview: Preview = {
             'Elevation',
             'Logo & Illustrations',
             'Layout',
-            'UX Writing'
+            'UX writing'
           ],
           'Components',
           [
