@@ -5,12 +5,9 @@ import { storybookTheme } from './storybookTheme';
 export const storybookDocsParameters = {
   autodocs: 'tag',
   theme: storybookTheme,
-  source: {
-    type: 'code',
-    state: 'none'
-  },
   canvas: {
-    sourceState: 'none'
+    sourceState: 'shown',
+    withToolbar: true
   },
   controls: {
     sort: 'requiredFirst'

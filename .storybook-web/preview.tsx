@@ -35,6 +35,8 @@ const preview: Preview = {
             'Button',
             ['*'],
             'Icon',
+            ['*'],
+            'Toggle',
             ['*']
           ],
           'Accessibility',

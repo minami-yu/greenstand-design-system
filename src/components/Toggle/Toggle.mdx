@@ -1,0 +1,24 @@
+import { ArgTypes, Canvas, Meta, Source, Title } from '@storybook/blocks';
+import * as ToggleStories from './Toggle.stories';
+
+<Meta of={ToggleStories} />
+
+<Title />
+
+## Overview
+
+Binary on/off control for settings and preferences. Maps to Figma Toggle (`13571:25414`) with `toggled` and `disabled` properties.
+
+## Props
+
+<ArgTypes of={ToggleStories} />
+
+## Preview
+
+<Canvas of={ToggleStories.Playground} sourceState="shown" withToolbar />
+
+<Source of={ToggleStories.Playground} />
+
+## States
+
+<Canvas of={ToggleStories.States} sourceState="shown" withToolbar />

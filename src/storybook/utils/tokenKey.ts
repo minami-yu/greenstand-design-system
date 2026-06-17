@@ -12,6 +12,11 @@ export function camelCasePath(path: string): string {
   return path.split('.').map(kebabToCamel).join('.');
 }
 
+/** Dot path for catalog display (no `t.` / `theme.` prefix). */
+export function formatTokenPath(path: string): string {
+  return camelCasePath(path);
+}
+
 /** Builds dot/bracket access for compiled theme paths. */
 export function formatThemeAccess(root: string, path: string): string {
   const segments = camelCasePath(path).split('.');

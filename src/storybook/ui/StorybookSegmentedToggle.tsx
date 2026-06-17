@@ -68,7 +68,7 @@ export function StorybookSegmentedToggle<T extends string>({
                 onPress={() => onChange(option.value)}
                 style={({ pressed }) => ({
                   backgroundColor: selected
-                    ? colors.color.background.neutral.surface
+                    ? colors.color.fill.neutral.surface
                     : 'transparent',
                   borderRadius: theme.radius.full,
                   opacity: pressed ? 0.85 : 1,

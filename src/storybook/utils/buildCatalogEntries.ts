@@ -4,7 +4,7 @@ import { theme, themes } from '../../theme/tokens';
 import type { ElevationToken } from '../../theme/getShadow';
 import type { TokenCatalogEntry } from '../ui';
 import { flattenDtcgTokens, getByPath } from './parseDtcgTokens';
-import { camelCasePath, kebabToCamel } from './tokenKey';
+import { camelCasePath, formatTokenPath, kebabToCamel } from './tokenKey';
 
 const elevationLevels = ['sm', 'md', 'lg'] as const;
 
@@ -24,7 +24,7 @@ export function buildTypographyCatalogEntries(): TokenCatalogEntry[] {
         name: key,
         value: sample ? formatTypographyValue(sample) : token.path,
         description: token.description,
-        usage: `t.typography.${key}`
+        usage: formatTokenPath(`typography.${key}`)
       };
     });
 }
@@ -55,7 +55,7 @@ export function buildScaleCatalogEntries(
       name: key,
       value: `${resolved}px`,
       description: token.description,
-      usage: `theme.${themePath}.${key}`
+      usage: formatTokenPath(`${themePath}.${key}`)
     };
   });
 }
@@ -79,7 +79,7 @@ export function buildElevationCatalogEntries(): ElevationCatalogEntry[] {
 
     return {
       name: key,
-      token: `theme.elevation.${key}`,
+      token: formatTokenPath(`elevation.${key}`),
       androidValue: formatAndroidElevationValue(token),
       iosValue: formatIosElevationValue(token)
     };
@@ -122,7 +122,7 @@ export function buildLayoutCatalogEntries(): LayoutCatalogEntry[] {
       description: token.description,
       name: key,
       resolvedPx: Number(resolved) || 0,
-      usage: `theme.layout.${key}`,
+      usage: formatTokenPath(`layout.${key}`),
       value: `${resolved}px`
     };
   });
