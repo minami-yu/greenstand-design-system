@@ -1,0 +1,53 @@
+import { Meta } from '@storybook/blocks';
+import { StorybookImage } from '../ui';
+import { storybookPageParameters as parameters } from '../storybookPageParameters';
+import designSystemWorkflow from '../asset/implementation/design-system-workflow.png';
+
+<Meta id="implementation-mcp" title="Implementation/Sync design system" parameters={parameters} />
+
+# Sync Design System
+
+## Overview
+Treetracker uses a token-driven workflow to keep design and code aligned. Design tokens are defined in Figma, exported through Tokens Studio, transformed with Style Dictionary, and consumed by the application through generated token files. Components are implemented using Figma MCP & AI agent workflows while relying on design tokens as the source of truth.
+
+<StorybookImage
+  alt="Workflow diagram showing Figma variables exported to token.json via Token Studio, transformed to token.ts via Style Dictionary, and Figma components generated to Component.tsx via Figma MCP and AI"
+  background={false}
+  outline={false}
+  src={designSystemWorkflow}
+/>
+
+## How to sync tokens
+Design tokens are managed in Figma Variables and exported through Tokens Studio as a JSON file. Style Dictionary transforms the token file into platform specific outputs, including TypeScript tokens used by the application.
+
+**Figma Styles (Typography and elevation) needs to be updated manually** as Token Studio does not export these styles well.
+
+### When Figma Variables are updated
+1. Export the latest token file from Tokens Studio Figma plugin (no manual edits needed).
+- Open Tokens Studio Figma plugin
+- Remove existing tokens from the sidebar of Token Studio
+- Go to `Styles & Variables` > `Import variables` > `Export` (Don't check convert numbers to dimensions.)
+- Go to `Load and Export` > `Export to file/folder` > Set Export token to `Multiple files` > `Export`.
+2. Replace the file in `/tokens/variables`.
+3. Run `npm run build-tokens`.
+4. Verify the generated token outputs (`/src/theme/tokens.ts`) before committing changes.
+
+<br/>
+
+### When typography or elevation are updated
+1. Update the corresponding JSON files in `/tokens/styles`.
+2. Run `npm run build-tokens`.
+3. Verify the generated token outputs (`/src/theme/tokens.ts`) before committing changes.
+
+For detailed setup instructions, token generation workflows, and implementation guidelines, refer to the project README.md.
+
+
+## How to sync components
+Components are designed in Figma and implemented using Figma MCP and AI agents (Claude, Cursor, Codex etc) development workflows. AI agnets draft component codes based on Figma component structure and design tokens information provided by Figma MCP.
+
+### Flow
+1. Setup Figma MCP and AI agents (Claude, Cursor, Codex etc)
+2. Copy Figma component frame URL
+3. Paste URL into AI agent prompt and ask it to generate the component code and storybook documentation. (For example, `/figma-use implement {{frame-url}} component and generate storybook documentation`).
+4. Review the code and make any necessary adjustments.
+
