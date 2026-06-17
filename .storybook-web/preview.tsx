@@ -41,8 +41,8 @@ const preview: Preview = {
           'Accessibility',
           ['Overview'],
           'Implementation',
-          ['MCP'],
-          'Support & Help',
+          ['Sync design system'],
+          'Support & help',
           ['Resources', 'Contact'],
           '*'
         ]

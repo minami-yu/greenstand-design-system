@@ -48,8 +48,8 @@ export const storybookPreviewParameters = {
         'Accessibility',
         ['Overview'],
         'Implementation',
-        ['MCP'],
-        'Support & Help',
+        ['Sync design system'],
+        'Support & help',
         ['Resources', 'Contact'],
         '*'
       ]
