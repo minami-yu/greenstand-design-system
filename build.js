@@ -14,6 +14,7 @@
 import { mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import StyleDictionary from 'style-dictionary';
+import { camelCaseKeys } from './tokenKey.js';
 
 /** Matches a full-string DTCG alias reference, e.g. "{neutral.200}". */
 const ALIAS_PATTERN = /^\{([^}]+)\}$/;
@@ -356,6 +357,93 @@ function normalizeWeights(node, inWeightContext = false) {
 }
 
 /**
+ * Unwraps an optional DTCG `$value` wrapper (figma/ios/android may use it).
+ */
+function unwrapTokenValue(node) {
+  if (node && typeof node === 'object' && !Array.isArray(node) && '$value' in node) {
+    return node.$value;
+  }
+
+  return node;
+}
+
+function resolveElevationScalar(value, sourceTree) {
+  if (typeof value === 'string') {
+    return resolveValue(value, sourceTree);
+  }
+
+  return value;
+}
+
+/**
+ * Platform-specific elevation tokens in tokens/styles/elevation.json.
+ * Schema per level (sm / md / lg):
+ *   $description  — docs / catalog copy
+ *   figma[]       — design reference layers (color + opacity + offsets)
+ *   ios           — React Native iOS shadow props
+ *   android       — Android elevation dp (number or { elevation: n })
+ *
+ * Plain objects are re-attached here because partitionTokens drops them.
+ */
+function normalizeElevationPlatform(elevationGroup, sourceTree) {
+  if (!elevationGroup || typeof elevationGroup !== 'object') {
+    return {};
+  }
+
+  return Object.fromEntries(
+    Object.entries(elevationGroup)
+      .filter(([key]) => !key.startsWith('$'))
+      .map(([level, config]) => {
+        if (!config || typeof config !== 'object' || Array.isArray(config)) {
+          return [level, config];
+        }
+
+        if ('$value' in config) {
+          return [level, config];
+        }
+
+        const figmaLayers = unwrapTokenValue(config.figma);
+        const ios = unwrapTokenValue(config.ios) ?? {};
+        const androidRaw = unwrapTokenValue(config.android);
+        const androidElevation =
+          typeof androidRaw === 'number'
+            ? androidRaw
+            : typeof androidRaw === 'object' && androidRaw
+              ? androidRaw.elevation ?? 0
+              : 0;
+
+        return [
+          level,
+          {
+            figma: Array.isArray(figmaLayers)
+              ? figmaLayers.map((layer) => ({
+                  blur: layer.blur ?? 0,
+                  color: resolveElevationScalar(layer.color, sourceTree),
+                  offsetX: layer.offsetX ?? 0,
+                  offsetY: layer.offsetY ?? 0,
+                  opacity: layer.opacity ?? 1,
+                  spread: layer.spread ?? 0
+                }))
+              : [],
+            ios: {
+              shadowColor: resolveElevationScalar(ios.shadowColor, sourceTree) ?? 'transparent',
+              shadowOpacity: ios.shadowOpacity ?? 0,
+              shadowOffset: {
+                width: ios.shadowOffset?.width ?? 0,
+                height: ios.shadowOffset?.height ?? 0
+              },
+              shadowRadius: ios.shadowRadius ?? 0
+            },
+            android: {
+              elevation: androidElevation
+            }
+          }
+        ];
+      })
+  );
+}
+
+/**
  * Custom parser: Token Studio / Figma exports ship non-DTCG sidecar files
  * ("$metadata.json" with the token-set order, "$themes.json" with theme
  * configs — the latter is a bare JSON array). Feeding those into the deep
@@ -394,9 +482,10 @@ for (const [parserName, excludedFiles] of [
  * Output shape:
  *   color:      semantic sets (fill, text, border, ...) + color.palette.*
  *   typography: composite sets (heading-m, ...) + font primitives
- *   space, radius, blur, depth, stroke, icon, margin, ...: size scales
+ *   space, radius, blur, depth, border, icon, margin, ...: size scales
  */
 function composeTheme(tokens) {
+  const elevationSource = tokens.elevation;
   const { color, typography, rest } = partitionTokens(tokens);
 
   // Typography groups whose tokens carry generic $types (family/weight/size
@@ -423,11 +512,19 @@ function composeTheme(tokens) {
 
   // Aliases still resolve against the ORIGINAL merged tree, so
   // {neutral.200}-style paths keep working after restructuring.
-  return normalizeTypography(
-    normalizeWeights(
-      toThemeObject({ color: colorNamespace, typography, ...rest }, tokens)
+  const theme = camelCaseKeys(
+    normalizeTypography(
+      normalizeWeights(
+        toThemeObject({ color: colorNamespace, typography, ...rest }, tokens)
+      )
     )
   );
+
+  if (elevationSource) {
+    theme.elevation = normalizeElevationPlatform(elevationSource, tokens);
+  }
+
+  return theme;
 }
 
 /**

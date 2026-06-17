@@ -1,84 +1,4 @@
 {
-  "elevation": {
-    "sm": {
-      "$type": "shadow",
-      "$value": [
-        {
-          "color": "#0c0c0d14",
-          "offsetX": "0px",
-          "offsetY": "1px",
-          "blur": "4px",
-          "spread": "0px"
-        },
-        {
-          "color": "#0c0c0d1a",
-          "offsetX": "0px",
-          "offsetY": "2px",
-          "blur": "1px",
-          "spread": "0px"
-        },
-        {
-          "color": "#0c0c0d0d",
-          "offsetX": "0px",
-          "offsetY": "1px",
-          "blur": "8px",
-          "spread": "0px"
-        }
-      ]
-    },
-    "md": {
-      "$type": "shadow",
-      "$value": [
-        {
-          "color": "#0c0c0d14",
-          "offsetX": "0px",
-          "offsetY": "2px",
-          "blur": "6px",
-          "spread": "0px"
-        },
-        {
-          "color": "#0c0c0d14",
-          "offsetX": "0px",
-          "offsetY": "2px",
-          "blur": "4px",
-          "spread": "0px"
-        },
-        {
-          "color": "#0c0c0d0d",
-          "offsetX": "0px",
-          "offsetY": "1px",
-          "blur": "8px",
-          "spread": "0px"
-        }
-      ]
-    },
-    "lg": {
-      "$type": "shadow",
-      "$value": [
-        {
-          "color": "#0c0c0d14",
-          "offsetX": "0px",
-          "offsetY": "4px",
-          "blur": "12px",
-          "spread": "0px"
-        },
-        {
-          "color": "#0c0c0d14",
-          "offsetX": "0px",
-          "offsetY": "8px",
-          "blur": "16px",
-          "spread": "0px"
-        },
-        {
-          "color": "#0c0c0d0d",
-          "offsetX": "0px",
-          "offsetY": "2px",
-          "blur": "6px",
-          "spread": "0px"
-        }
-      ]
-    }
-  },
   "heading-m": {
     "$type": "typography",
     "$value": {
@@ -90,7 +10,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Sheet title"
+    "$description": "Primary page title or major section heading."
   },
   "heading-s": {
     "$type": "typography",
@@ -103,7 +23,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Section header, groups related content within a page."
+    "$description": "Section heading used to group related content."
   },
   "paragraph-l": {
     "$type": "typography",
@@ -116,7 +36,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Primary body text for main descriptions, instructions"
+    "$description": "Primary descriptions, introductions, and important messages."
   },
   "paragraph-l-strong": {
     "$type": "typography",
@@ -129,7 +49,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Emphasized body text, key sentence or word that needs to stand out."
+    "$description": "Emphasized text within Paragraph L."
   },
   "paragraph-m": {
     "$type": "typography",
@@ -142,7 +62,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Secondary description, supporting text."
+    "$description": "Default body text for descriptions and content. "
   },
   "paragraph-m-strong": {
     "$type": "typography",
@@ -155,7 +75,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Key value or status within a secondary description that needs emphasis."
+    "$description": "Emphasized text within Paragraph M."
   },
   "paragraph-s": {
     "$type": "typography",
@@ -168,7 +88,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "For low-priority supporting information such as disclaimers, legal text and image captions"
+    "$description": "For low-priority supporting information such as captions, and helper text, disclaimers, legal text and image captions."
   },
   "label-m": {
     "$type": "typography",
@@ -181,7 +101,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Form labels, secondary buttons, tab labels, and badge text."
+    "$description": "Buttons, input labels, tabs, navigation items, and status labels."
   },
   "label-m-strong": {
     "$type": "typography",
@@ -194,7 +114,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Active tab, selected list item, or table column header."
+    "$description": "Active, selected, or emphasized labels."
   },
   "label-s": {
     "$type": "typography",
@@ -207,7 +127,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Helper text, error messages, tooltips, and overline tags."
+    "$description": "Compact controls, tags, badges, and secondary labels."
   },
   "label-s-strong": {
     "$type": "typography",
@@ -220,7 +140,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Helper text, error messages, tooltips, and overline tags."
+    "$description": "Active, selected, or emphasized compact labels."
   },
   "numeric-l": {
     "$type": "typography",
@@ -233,7 +153,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Large stats, numbers"
+    "$description": "Primary metrics and key statistics."
   },
   "numeric-m": {
     "$type": "typography",
@@ -246,7 +166,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Large stats, numbers"
+    "$description": "Secondary metrics and statistics."
   },
   "numeric-s": {
     "$type": "typography",
@@ -259,6 +179,6 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Medium sized stats or number"
+    "$description": "Counts, compact metrics, and numerical values."
   }
 }

@@ -1,7 +1,13 @@
 import { Meta } from '@storybook/blocks';
-import { TypographyCatalog, TypographyUsageTable } from './catalogs';
+import { TypographyCatalog, TypographyUsageTable } from './sections';
 import { buildTypographyCatalogEntries } from '../utils/buildCatalogEntries';
 import { storybookPageParameters as parameters } from '../storybookPageParameters';
+import { StorybookImage, StorybookDoDont, StorybookDoDontCard } from '../ui';
+import interDiagram from '../asset/foundation/type-inter.png';
+import montserratDiagram from '../asset/foundation/type-montserrat.png';
+import typeDoCase from '../asset/foundation/type-do-case.png';
+import typeDontCase from '../asset/foundation/type-dont-case.png';
+
 
 export const typography = buildTypographyCatalogEntries();
 
@@ -9,14 +15,67 @@ export const typography = buildTypographyCatalogEntries();
 
 # Typography
 
-## Overview
+## Principles
+Typography establishes hierarchy, improves readability, and creates consistency across the product.
 
-Composite text styles from `tokens/styles/value.json` — spread into React Native `Text` styles.
+- **Readability**: Use appropriate typography sizes and weights to ensure content remains readable across devices and environments.
 
-## Preview
+- **Hierarchy**: Use heading styles, typography weights, and color consistently to establish clear visual hierarchy.
+
+- **Consistency**: Use predefined typography tokens instead of creating custom text styles. Consistent usage makes interfaces easier to scan, maintain, and implement.
+
+- **Accessibility**: Ensure sufficient contrast between text and background colors.
+
+
+
+## Font family
+### Montserrat
+Used for headings. Montserrat provides a distinctive visual voice and helps establish page structure and hierarchy.
+  <StorybookImage
+    alt="Montserrat family"
+    outline={false}
+    src={montserratDiagram}
+    background={true}
+  />
+
+### Inter
+Used for body text, labels, and numeric values. Inter is optimized for user interfaces and provides excellent readability across a wide range of screen sizes.
+  <StorybookImage
+    alt="Inter family"
+    outline={false}
+    src={interDiagram}
+    background={true}
+  />
+
+
+
+
+## Tokens
+
+The typography system consists of 4 categories:
+- **Heading** for page and section structure
+- **Paragraph** for readable content and descriptions
+- **Label** for controls and interface elements
+- **Numeric** for metrics and quantitative data
+
 
 <TypographyCatalog entries={typography} />
 
 ## Usage
-
+Use the guidance below to select the most appropriate typography token for each use case.
 <TypographyUsageTable entries={typography} />
+
+
+## Typogrpahy styling
+### Sentence Case
+Use sentence case by default for all typography styles unless a proper noun, acronym, or brand name requires otherwise.
+
+- ✅ Upload photos
+- ❌ Upload Photos
+- ❌ UPLOAD PHOTOS
+
+
+
+### Text Decoration
+- Reserve underlines for links and interactive text. 
+- Avoid using italic text unless required for a specific use case.

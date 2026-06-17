@@ -1,0 +1,84 @@
+import { Meta } from '@storybook/blocks';
+import { IconCatalog, IconGallery } from './sections';
+import { buildScaleCatalogEntries } from '../utils/buildCatalogEntries';
+import { StorybookDoDont, StorybookDoDontCard, StorybookImage } from '../ui';
+import { storybookPageParameters as parameters } from '../storybookPageParameters';
+import iconDoConsistency from '../asset/foundation/icon-do-consistency.png';
+import iconDoFill from '../asset/foundation/icon-do-fill.png';
+import iconDontConsistency from '../asset/foundation/icon-dont-consistency.png';
+import iconDontFill from '../asset/foundation/icon-dont-fill.png';
+import iconIconify from '../asset/foundation/icon-iconify.png';
+
+export const iconSizes = buildScaleCatalogEntries('icon', 'icon');
+
+<Meta title="Foundation/Iconography" parameters={parameters} />
+
+# Iconography
+
+## Overview
+Icons help communicate actions, navigation, and status while reducing reliance on text. Icons are especially important in Treetracker because users often have limited literacy or may not be able to read the application's primary language. Clear and recognizable icons help users understand actions and navigation more easily and reduce reliance on text alone.
+
+## Style
+
+### Filled vs outline
+The icon system primarily uses **outline icons** with consistent visual weight and stroke appearance. **Filled icons** should be reserved for states that require emphasis, such as selected navigation items or active states.
+
+<StorybookDoDont>
+  <StorybookDoDontCard
+    alt="Filled icon used on the currently selected navigation menu item"
+    description="Use filled icons to communicate active, selected, or emphasized states."
+    src={iconDoFill}
+    type="do"
+  />
+  <StorybookDoDontCard
+    alt="Mixed filled and outline icons within the same navigation context"
+    description="Don't mix filled and outline icons arbitrarily within the same context."
+    src={iconDontFill}
+    type="dont"
+  />
+</StorybookDoDont>
+
+### Style Consistency
+Icons should appear as part of the same family. Choose icons with consistent stroke weights, corner treatments, and visual styles to maintain a cohesive interface.
+
+<StorybookDoDont>
+  <StorybookDoDontCard
+    alt="Icons with consistent visual style and stroke weight"
+    description="Use icons with a consistent visual style and stroke weight."
+    src={iconDoConsistency}
+    type="do"
+  />
+  <StorybookDoDontCard
+    alt="Icons with inconsistent corner roundness and stroke weight"
+    description="Avoid mismatched corner roundness, stroke weight, and overall style between icons."
+    src={iconDontConsistency}
+    type="dont"
+  />
+</StorybookDoDont>
+
+## Icon library
+Treetracker primarily uses Material Design icons for development efficiency and consistency. If a suitable Material Design icon is unavailable, icons from other libraries may be used. When doing so, choose icons that closely match the visual style of the existing icon set.
+
+## Sizes
+Use the predefined icon sizes defined in the tokens below. Choose the size that best fits the context while maintaining clarity and visual balance. Icon sizes inside components may be used when necessary to achieve visual balance within a component.
+
+<IconCatalog entries={iconSizes} />
+
+## Colors
+Icon colors are defined through color tokens. Refer to the Color documentation for guidance on icon color usage.
+
+## Figma usage
+Icons should be added as the component so it can be used for component swap. In Figma, Iconify plugin is useful for searching and adding icons. Use the Material Design icon set (search with prefix: mdi in Iconify) whenever possible to maintain visual consistency across the product.
+
+<br />
+<StorybookImage
+  alt="Iconify plugin in Figma with mdi prefix search"
+  background={false}
+  outline={false}
+  src={iconIconify}
+/>
+
+## Gallery
+Browse available icons and usage examples below.
+
+<IconGallery />

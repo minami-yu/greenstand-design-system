@@ -19,6 +19,10 @@ style.textContent = `
   #storybook-explorer-tree .sidebar-item[data-selected='true'] svg {
     color: ${sidebarIconColorSelected};
   }
+
+  #storybook-explorer-tree .sidebar-item[data-selected='true'] a {
+    color: ${sidebarIconColorSelected} !important;
+  }
 `;
 
 document.head.appendChild(style);

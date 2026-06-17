@@ -14,19 +14,26 @@ type StorybookTableProps = PropsWithChildren<{
   minWidth?: keyof typeof theme.responsive;
 }>;
 
-export function StorybookTable({ children, columns, minWidth = 'lg' }: StorybookTableProps) {
+export function StorybookTable({ children, columns, minWidth }: StorybookTableProps) {
   const t = useTheme();
+  const enableHorizontalScroll = minWidth != null;
 
   return (
-    <ScrollView horizontal contentContainerStyle={{ minWidth: '100%' }} style={{ width: '100%' }}>
+    <ScrollView
+      horizontal={enableHorizontalScroll}
+      scrollEnabled={enableHorizontalScroll}
+      contentContainerStyle={{ minWidth: '100%' }}
+      style={{ marginVertical: theme.space['600'], width: '100%' }}
+    >
       <View
         style={{
+          backgroundColor: t.color.background.neutral.default,
           borderColor: t.color.border.neutral.subtle,
           borderRadius: theme.radius.sm,
-          borderWidth: theme.stroke.sm,
-          minWidth: theme.responsive[minWidth],
+          borderWidth: theme.border.sm,
           overflow: 'hidden',
-          width: '100%'
+          width: '100%',
+          ...(minWidth ? { minWidth: theme.responsive[minWidth] } : {})
         }}
       >
         <StorybookTableHeader columns={columns} />
@@ -42,15 +49,15 @@ function StorybookTableHeader({ columns }: { columns: StorybookTableColumn[] }) 
   return (
     <View
       style={{
-        backgroundColor: t.color.background.neutral.subtle,
+        backgroundColor: t.color.fill.neutral.subtle,
         borderBottomColor: t.color.border.neutral.subtle,
-        borderBottomWidth: theme.stroke.sm,
+        borderBottomWidth: theme.border.sm,
         flexDirection: 'row'
       }}
     >
       {columns.map((column) => (
         <StorybookTableCell flex={column.flex} key={column.label}>
-          <Text style={[storybookRnTypography['label-s-strong'], { color: t.color.text.neutral.secondary }]}>
+          <Text style={[storybookRnTypography.labelSStrong, { color: t.color.text.neutral.secondary }]}>
             {column.label}
           </Text>
         </StorybookTableCell>
@@ -70,8 +77,9 @@ export function StorybookTableRow({ children, style }: StorybookTableRowProps) {
     <View
       style={[
         {
+          backgroundColor: t.color.background.neutral.default,
           borderTopColor: t.color.border.neutral.subtle,
-          borderTopWidth: theme.stroke.sm,
+          borderTopWidth: theme.border.sm,
           flexDirection: 'row'
         },
         style
@@ -93,7 +101,9 @@ export function StorybookTableCell({ children, flex, justifyContent }: Storybook
     <View
       style={{
         flex,
+        flexShrink: 1,
         justifyContent,
+        minWidth: 0,
         paddingHorizontal: theme.space['400'],
         paddingVertical: theme.space['300']
       }}
@@ -111,13 +121,13 @@ export function StorybookTableGroupRow({ label }: { label: string }) {
       style={{
         backgroundColor: t.color.fill.neutral.subtle,
         borderTopColor: t.color.border.neutral.subtle,
-        borderTopWidth: theme.stroke.sm,
+        borderTopWidth: theme.border.sm,
         paddingHorizontal: theme.space['400'],
         paddingVertical: theme.space['200'],
         width: '100%'
       }}
     >
-      <Text style={[storybookRnTypography['label-m-strong'], { color: t.color.text.neutral.primary }]}>
+      <Text style={[storybookRnTypography.labelSStrong, { color: t.color.text.neutral.primary }]}>
         {label}
       </Text>
     </View>

@@ -10,7 +10,7 @@ export function StorybookDivider() {
     <View
       style={{
         backgroundColor: t.color.border.neutral.subtle,
-        height: theme.stroke.sm,
+        height: theme.border.sm,
         width: '100%'
       }}
     />
@@ -29,8 +29,8 @@ export function ColorSwatch({ value }: ColorSwatchProps) {
       style={{
         backgroundColor: value,
         borderColor: t.color.border.neutral.subtle,
-        borderRadius: theme.radius.xs,
-        borderWidth: theme.stroke.sm,
+        borderRadius: theme.radius.sm,
+        borderWidth: theme.border.sm,
         height: theme.space['1200'],
         width: theme.space['1200']
       }}

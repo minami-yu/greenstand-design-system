@@ -388,7 +388,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.950}",
+        "$value": "{neutral.900}",
         "$description": "Headings, body copy, default labels, highest contrast"
       },
       "secondary": {
@@ -638,7 +638,7 @@
         "$value": "{neutral.300}",
         "$description": "Border for disabled inputs and non-interactive form controls"
       },
-      "inverse": {
+      "OLDinverse": {
         "$extensions": {
           "com.figma.scopes": [
             "ALL_SCOPES"
@@ -1006,38 +1006,6 @@
         "$value": "{neutral.950}",
         "$description": "Icon on warning fill"
       }
-    }
-  },
-  "shadow": {
-    "sm": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "color",
-      "$value": "{black.50}"
-    },
-    "md": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "color",
-      "$value": "{black.100}"
-    },
-    "lg": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "color",
-      "$value": "{black.200}"
     }
   },
   "background": {

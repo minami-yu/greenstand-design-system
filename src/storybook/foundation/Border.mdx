@@ -1,15 +1,17 @@
 import { Meta } from '@storybook/blocks';
-import { TokenCatalog } from '../ui';
+import { BorderCatalog } from './sections';
 import { buildScaleCatalogEntries } from '../utils/buildCatalogEntries';
 import { storybookPageParameters as parameters } from '../storybookPageParameters';
 
-export const borders = buildScaleCatalogEntries('stroke', 'stroke');
+export const borders = buildScaleCatalogEntries('border', 'border');
 
 <Meta title="Foundation/Border" parameters={parameters} />
 
 # Border
 ## Overview
-TBD
+Border tokens define the thickness of outlines and dividers used throughout the product. Use 1px borders for most components and layout dividers, and 2px borders when additional emphasis is needed, such as active, or focused states.
 
-## Preview
-<TokenCatalog entries={borders} />
+## Scale
+Use the following tokens to set the thickness of outlines and dividers.
+<br/>
+<BorderCatalog entries={borders} />

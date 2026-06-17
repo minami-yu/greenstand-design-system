@@ -36,7 +36,7 @@ function TokenCatalogView({ entries }: TokenCatalogProps) {
           style={{
             borderColor: t.color.border.neutral.subtle,
             borderRadius: theme.radius.sm,
-            borderWidth: theme.stroke.sm,
+            borderWidth: theme.border.sm,
             gap: theme.space['200'],
             padding: theme.space['400'],
             width: '100%'
@@ -45,20 +45,20 @@ function TokenCatalogView({ entries }: TokenCatalogProps) {
           <View style={{ alignItems: 'center', flexDirection: 'row', gap: theme.space['300'] }}>
             {entry.preview ? <View>{entry.preview}</View> : null}
             <View style={{ flex: 1, gap: theme.space['050'] }}>
-              <Text style={[storybookRnTypography['label-m-strong'], { color: t.color.text.neutral.primary }]}>
+              <Text style={[storybookRnTypography.labelMStrong, { color: t.color.text.neutral.primary }]}>
                 {entry.name}
               </Text>
-              <Text style={[storybookRnTypography['label-s'], { color: t.color.text.neutral.secondary }]}>
+              <Text style={[storybookRnTypography.labelS, { color: t.color.text.neutral.secondary }]}>
                 {entry.value}
               </Text>
             </View>
           </View>
           {entry.description ? (
-            <Text style={[storybookRnTypography['paragraph-s'], { color: t.color.text.neutral.secondary }]}>
+            <Text style={[storybookRnTypography.paragraphS, { color: t.color.text.neutral.secondary }]}>
               {entry.description}
             </Text>
           ) : null}
-          {entry.usage ? <InlineCode size="mono-body-m">{entry.usage}</InlineCode> : null}
+          {entry.usage ? <InlineCode size="monoBodyM">{entry.usage}</InlineCode> : null}
         </View>
       ))}
     </View>

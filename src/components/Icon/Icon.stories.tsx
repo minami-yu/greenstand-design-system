@@ -75,7 +75,7 @@ function IconGallery() {
           <Text
             numberOfLines={2}
             style={[
-              t.typography['label-s'],
+              t.typography.labelS,
               { color: t.color.text.neutral.secondary, textAlign: 'center' }
             ]}
           >

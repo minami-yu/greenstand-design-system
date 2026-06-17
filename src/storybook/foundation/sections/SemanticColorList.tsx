@@ -3,7 +3,7 @@ import { theme } from '../../../theme/tokens';
 import { useTheme } from '../../../theme/useTheme';
 import { CatalogThemeProvider } from '../../ui/CatalogThemeProvider';
 import { useColorDocsMode } from '../../ui/ColorDocsShell';
-import { storybookRnTypography } from '../../ui';
+import { InlineCode, storybookRnTypography } from '../../ui';
 import { ColorSwatch, StorybookDocRow } from '../../ui/storybookDocRow';
 import type { SemanticColorCategory, SemanticColorDocEntry } from '../../utils/buildColorDocEntries';
 import { buildSemanticColorDocEntries } from '../../utils/buildColorDocEntries';
@@ -37,22 +37,20 @@ function SemanticColorListView({ category, group, entries }: SemanticColorListPr
         <StorybookDocRow key={entry.path} showDivider={index < rows.length - 1}>
           <ColorSwatch value={entry.resolvedValue} />
           <View style={{ flex: 1, gap: theme.space['100'] }}>
-            <Text style={[storybookRnTypography['label-m-strong'], { color: t.color.text.neutral.primary }]}>
-              {entry.tokenName}
-            </Text>
+            <InlineCode size="monoBodyS">{entry.usage}</InlineCode>
             {entry.description ? (
-              <Text style={[storybookRnTypography['paragraph-s'], { color: t.color.text.neutral.secondary }]}>
+              <Text style={[storybookRnTypography.paragraphS, { color: t.color.text.neutral.secondary }]}>
                 {entry.description}
               </Text>
             ) : null}
           </View>
-          <View style={{ gap: theme.space['300'], minWidth: 120 }}>
+          <View style={{ gap: theme.space['100'], minWidth: 120 }}>
             {entry.primitiveName ? (
-              <Text style={[storybookRnTypography['label-s'], { color: t.color.text.neutral.secondary }]}>
+              <Text style={[storybookRnTypography.labelS, { color: t.color.text.neutral.secondary }]}>
                 {entry.primitiveName}
               </Text>
             ) : null}
-            <Text style={[storybookRnTypography['label-s'], { color: t.color.text.neutral.secondary }]}>
+            <Text style={[storybookRnTypography.labelS, { color: t.color.text.neutral.secondary }]}>
               {entry.resolvedValue}
             </Text>
           </View>

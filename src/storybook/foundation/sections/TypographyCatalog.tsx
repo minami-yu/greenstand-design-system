@@ -57,8 +57,8 @@ function formatPx(value: number | undefined) {
 }
 
 const typographyColumnFlex = {
-  preview: 38,
-  tokenName: 34,
+  preview: 32,
+  usage: 38,
   fontWeight: 10,
   fontSize: 9,
   lineHeight: 9
@@ -66,27 +66,27 @@ const typographyColumnFlex = {
 
 const typographyTableColumns = [
   { label: 'Preview', flex: typographyColumnFlex.preview },
-  { label: 'Token name', flex: typographyColumnFlex.tokenName },
+  { label: 'Usage in code', flex: typographyColumnFlex.usage },
   { label: 'Font weight', flex: typographyColumnFlex.fontWeight },
   { label: 'Font size', flex: typographyColumnFlex.fontSize },
   { label: 'Line height', flex: typographyColumnFlex.lineHeight }
 ] satisfies StorybookTableColumn[];
 
 const typographyUsageColumnFlex = {
-  tokenName: 33,
-  description: 67
+  usage: 40,
+  description: 60
 } as const;
 
 const typographyUsageTableColumns = [
-  { label: 'Token name', flex: typographyUsageColumnFlex.tokenName },
+  { label: 'Usage in code', flex: typographyUsageColumnFlex.usage },
   { label: 'Description', flex: typographyUsageColumnFlex.description }
 ] satisfies StorybookTableColumn[];
 
 const typographyGroups = [
-  { label: 'Heading', prefix: 'heading-' },
-  { label: 'Paragraph', prefix: 'paragraph-' },
-  { label: 'Label', prefix: 'label-' },
-  { label: 'Numeric', prefix: 'numeric-' }
+  { label: 'Heading', prefix: 'heading' },
+  { label: 'Paragraph', prefix: 'paragraph' },
+  { label: 'Label', prefix: 'label' },
+  { label: 'Numeric', prefix: 'numeric' }
 ] as const;
 
 export function TypographyCatalog({ entries }: TypographyCatalogProps) {
@@ -102,7 +102,7 @@ function TypographyCatalogView({ entries }: TypographyCatalogProps) {
   const t = useTheme();
 
   return (
-    <View style={{ gap: theme.space['400'], width: '100%' }}>
+    <View style={{ gap: theme.space['0'], width: '100%' }}>
       <StorybookSegmentedToggle
         marginTop="0"
         onChange={setMode}
@@ -110,7 +110,7 @@ function TypographyCatalogView({ entries }: TypographyCatalogProps) {
         value={mode}
       />
 
-      <StorybookTable columns={typographyTableColumns} minWidth="lg">
+      <StorybookTable columns={typographyTableColumns}>
         {typographyGroups.map((group) => {
           const groupEntries = entries.filter((entry) => entry.name.startsWith(group.prefix));
 
@@ -119,34 +119,45 @@ function TypographyCatalogView({ entries }: TypographyCatalogProps) {
               <StorybookTableGroupRow label={group.label} />
               {groupEntries.map((entry) => {
                 const style = getTypographyStyle(mode, entry.name);
-                const sample = entry.name.startsWith('numeric-') ? '123456790' : 'The quick brown fox';
+                const sample = entry.name.startsWith('numeric') ? '123456790' : 'The quick brown fox';
 
                 return (
                   <StorybookTableRow key={entry.name}>
                     <StorybookTableCell flex={typographyColumnFlex.preview}>
                       {style ? (
-                        <Text style={[style, { color: t.color.text.neutral.primary }]}>{sample}</Text>
+                        <Text
+                          style={[
+                            style,
+                            { color: t.color.text.neutral.primary, flexShrink: 1 }
+                          ]}
+                        >
+                          {sample}
+                        </Text>
                       ) : (
-                        <Text style={[storybookRnTypography['paragraph-s'], { color: t.color.text.neutral.secondary }]}>
+                        <Text style={[storybookRnTypography.paragraphS, { color: t.color.text.neutral.secondary }]}>
                           —
                         </Text>
                       )}
                     </StorybookTableCell>
-                    <StorybookTableCell flex={typographyColumnFlex.tokenName} justifyContent="center">
-                      <InlineCode size="mono-body-s">{`typography.${entry.name}`}</InlineCode>
+                    <StorybookTableCell flex={typographyColumnFlex.usage} justifyContent="center">
+                      {entry.usage ? (
+                        <InlineCode size="monoBodyS">{entry.usage}</InlineCode>
+                      ) : (
+                        <InlineCode size="monoBodyS">{entry.name}</InlineCode>
+                      )}
                     </StorybookTableCell>
                     <StorybookTableCell flex={typographyColumnFlex.fontWeight} justifyContent="center">
-                      <Text style={[storybookRnTypography['paragraph-s'], { color: t.color.text.neutral.primary }]}>
+                      <Text style={[storybookRnTypography.paragraphS, { color: t.color.text.neutral.primary }]}>
                         {getFontWeight(style)}
                       </Text>
                     </StorybookTableCell>
                     <StorybookTableCell flex={typographyColumnFlex.fontSize} justifyContent="center">
-                      <Text style={[storybookRnTypography['paragraph-s'], { color: t.color.text.neutral.primary }]}>
+                      <Text style={[storybookRnTypography.paragraphS, { color: t.color.text.neutral.primary }]}>
                         {formatPx(style?.fontSize)}
                       </Text>
                     </StorybookTableCell>
                     <StorybookTableCell flex={typographyColumnFlex.lineHeight} justifyContent="center">
-                      <Text style={[storybookRnTypography['paragraph-s'], { color: t.color.text.neutral.primary }]}>
+                      <Text style={[storybookRnTypography.paragraphS, { color: t.color.text.neutral.primary }]}>
                         {formatPx(style?.lineHeight)}
                       </Text>
                     </StorybookTableCell>
@@ -173,19 +184,25 @@ function TypographyUsageTableView({ entries }: TypographyCatalogProps) {
   const t = useTheme();
 
   return (
-    <StorybookTable columns={typographyUsageTableColumns}>
-      {entries.map((entry) => (
-        <StorybookTableRow key={entry.name}>
-          <StorybookTableCell flex={typographyUsageColumnFlex.tokenName} justifyContent="center">
-            <InlineCode size="mono-body-s">{`typography.${entry.name}`}</InlineCode>
-          </StorybookTableCell>
-          <StorybookTableCell flex={typographyUsageColumnFlex.description} justifyContent="center">
-            <Text style={[storybookRnTypography['paragraph-s'], { color: t.color.text.neutral.secondary }]}>
-              {entry.description ?? '—'}
-            </Text>
-          </StorybookTableCell>
-        </StorybookTableRow>
-      ))}
-    </StorybookTable>
+    <View style={{ alignSelf: 'stretch', width: '100%' }}>
+      <StorybookTable columns={typographyUsageTableColumns}>
+        {entries.map((entry) => (
+          <StorybookTableRow key={entry.name}>
+            <StorybookTableCell flex={typographyUsageColumnFlex.usage}>
+              {entry.usage ? (
+                <InlineCode size="monoBodyS">{entry.usage}</InlineCode>
+              ) : (
+                <InlineCode size="monoBodyS">{entry.name}</InlineCode>
+              )}
+            </StorybookTableCell>
+            <StorybookTableCell flex={typographyUsageColumnFlex.description}>
+              <Text style={[storybookRnTypography.paragraphS, { color: t.color.text.neutral.primary }]}>
+                {entry.description ?? '—'}
+              </Text>
+            </StorybookTableCell>
+          </StorybookTableRow>
+        ))}
+      </StorybookTable>
+    </View>
   );
 }

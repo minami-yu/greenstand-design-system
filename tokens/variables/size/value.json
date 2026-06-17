@@ -19,8 +19,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 4,
-      "$description": "icon-to-label gap, tight internal padding."
+      "$value": 4
     },
     "200": {
       "$extensions": {
@@ -30,8 +29,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 8,
-      "$description": "compact padding inside components."
+      "$value": 8
     },
     "300": {
       "$extensions": {
@@ -53,7 +51,7 @@
       },
       "$type": "number",
       "$value": 16,
-      "$description": "default padding, cards, buttons, list items."
+      "$description": "Default spacing."
     },
     "600": {
       "$extensions": {
@@ -63,8 +61,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 24,
-      "$description": "section padding, gap between cards."
+      "$value": 24
     },
     "800": {
       "$extensions": {
@@ -74,8 +71,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 32,
-      "$description": "large section gap."
+      "$value": 32
     },
     "1200": {
       "$extensions": {
@@ -85,8 +81,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 48,
-      "$description": "section separation on content-heavy screens."
+      "$value": 48
     },
     "1600": {
       "$extensions": {
@@ -96,8 +91,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 64,
-      "$description": "maximum spacing, page-level vertical rhythm."
+      "$value": 64
     },
     "n200": {
       "$extensions": {
@@ -107,8 +101,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": -8,
-      "$description": "compact padding inside components."
+      "$value": -8
     },
     "n400": {
       "$extensions": {
@@ -118,8 +111,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": -16,
-      "$description": "compact padding inside components."
+      "$value": -16
     },
     "n800": {
       "$extensions": {
@@ -151,8 +143,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 2,
-      "$description": "no spacing"
+      "$value": 2
     }
   },
   "radius": {
@@ -165,18 +156,7 @@
       },
       "$type": "number",
       "$value": 0,
-      "$description": "no rounding. Dividers, full-width elements."
-    },
-    "xs": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 4,
-      "$description": "subtle rounding. Badges, tags, small chips."
+      "$description": "Sharp corners with no rounding."
     },
     "sm": {
       "$extensions": {
@@ -186,8 +166,19 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
+      "$value": 4,
+      "$description": "Small rounding for compact elements."
+    },
+    "md": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
       "$value": 8,
-      "$description": "Default rounding. Buttons, inputs, cards, menus."
+      "$description": "Default rounding for controls and small components."
     },
     "lg": {
       "$extensions": {
@@ -198,7 +189,7 @@
       },
       "$type": "number",
       "$value": 16,
-      "$description": "large rounding. Bottom sheets, modals, dialogs."
+      "$description": "Large rounding for prominent surfaces."
     },
     "full": {
       "$extensions": {
@@ -209,18 +200,7 @@
       },
       "$type": "number",
       "$value": 9999,
-      "$description": "fully rounded. Pills, avatars, toggle switches."
-    },
-    "md": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 12,
-      "$description": "Default rounding. Buttons, inputs, cards, menus."
+      "$description": "Fully rounded elements such as avatars, badges, and pills."
     },
     "xl": {
       "$extensions": {
@@ -230,11 +210,11 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 24,
-      "$description": "large rounding. Bottom sheets, modals, dialogs."
+      "$value": 32,
+      "$description": "Medium rounding for cards and containers."
     }
   },
-  "stroke": {
+  "border": {
     "sm": {
       "$extensions": {
         "com.figma.scopes": [
@@ -255,7 +235,7 @@
       },
       "$type": "number",
       "$value": 2,
-      "$description": "emphasis border. Focused inputs, selected states."
+      "$description": "Emphasized border width for focus states, selections, and prominent elements."
     }
   },
   "icon": {
@@ -267,7 +247,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 12,
+      "$value": 14,
       "$description": "inline icon inside a label or badge."
     },
     "sm": {
@@ -337,172 +317,8 @@
       "$description": "extra large icon. Onboarding illustrations."
     }
   },
-  "blur": {
-    "100": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 1
-    },
-    "200": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 2
-    },
-    "400": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 4
-    },
-    "600": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 6
-    },
-    "800": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 8
-    },
-    "1200": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 12
-    },
-    "1600": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 16
-    }
-  },
-  "depth": {
-    "0": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 0
-    },
-    "100": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 4
-    },
-    "200": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 8
-    },
-    "400": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 16
-    },
-    "025": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 1
-    },
-    "050": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 2
-    }
-  },
   "responsive": {
-    "xs": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 280
-    },
-    "md": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 375
-    },
     "sm": {
-      "$extensions": {
-        "com.figma.scopes": [
-          "ALL_SCOPES"
-        ],
-        "com.figma.hiddenFromPublishing": false
-      },
-      "$type": "number",
-      "$value": 360
-    },
-    "lg": {
       "$extensions": {
         "com.figma.scopes": [
           "ALL_SCOPES"
@@ -512,7 +328,7 @@
       "$type": "number",
       "$value": 768
     },
-    "xl": {
+    "md": {
       "$extensions": {
         "com.figma.scopes": [
           "ALL_SCOPES"
@@ -523,8 +339,8 @@
       "$value": 1024
     }
   },
-  "margin": {
-    "default": {
+  "layout": {
+    "margin-x": {
       "$extensions": {
         "com.figma.scopes": [
           "ALL_SCOPES"
@@ -532,7 +348,19 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": "{space.400}"
+      "$value": "{space.400}",
+      "$description": "Horizontal spacing between the screen edge and content."
+    },
+    "gutter-x": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
+      "$value": "{space.200}",
+      "$description": "Spacing between columns and adjacent content areas"
     }
   }
 }

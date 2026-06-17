@@ -38,8 +38,8 @@ export const storybookMdStyles = `
     font-weight: 700;
     line-height: 32px;
     color: ${theme.color.text.neutral.primary};
-    margin-top: ${theme.space['1200']}px;
-    margin-bottom: ${theme.space['300']}px;
+    margin-top: ${theme.space['1600']}px;
+    margin-bottom: ${theme.space['600']}px;
   }
 
   .sbdocs.sbdocs-content h3 {
@@ -78,7 +78,7 @@ export const storybookMdStyles = `
 
   .sbdocs.sbdocs-content ul,
   .sbdocs.sbdocs-content ol {
-    margin: 0;
+    margin-vertical: ${theme.space['300']}px;
     padding-left: ${theme.space['600']}px;
   }
 
@@ -87,7 +87,7 @@ export const storybookMdStyles = `
   }
 
   .sbdocs.sbdocs-content blockquote {
-    border-left: ${theme.stroke.md}px solid ${theme.color.border.brand.default};
+    border-left: ${theme.border.md}px solid ${theme.color.border.brand.default};
     margin: ${theme.space['400']}px 0;
     padding-left: ${theme.space['400']}px;
     color: ${theme.color.text.neutral.secondary};
@@ -98,7 +98,7 @@ export const storybookMdStyles = `
   }
 
   .sbdocs.sbdocs-content a:hover {
-    color: ${theme.color.fill.brand.hover};
+    color: ${theme.color.fill.brand.defaultHover};
   }
 
   .sbdocs.sbdocs-content code {
@@ -126,7 +126,7 @@ export const storybookMdStyles = `
   .sbdocs .docblock-argstable,
   .sbdocs table.docblock-argstable {
     font-family: Inter_400Regular, Inter, sans-serif;
-    border: ${theme.stroke.sm}px solid ${theme.color.border.neutral.subtle};
+    border: ${theme.border.sm}px solid ${theme.color.border.neutral.subtle};
     border-radius: ${theme.radius.sm}px;
     overflow: hidden;
   }
@@ -140,7 +140,7 @@ export const storybookMdStyles = `
   .sbdocs .docblock-argstable-body td {
     font-size: 14px;
     color: ${theme.color.text.neutral.secondary};
-    border-top: ${theme.stroke.sm}px solid ${theme.color.border.neutral.subtle};
+    border-top: ${theme.border.sm}px solid ${theme.color.border.neutral.subtle};
   }
 
   .sbdocs .docblock-argstable-body td:first-of-type {

@@ -123,8 +123,8 @@ function StatesGallery() {
 
   return (
     <View style={{ alignItems: 'flex-start', gap: theme.space['400'] }}>
-      <Text style={[t.typography['label-s'], { color: t.color.text.neutral.secondary }]}>
-        Primary · medium · forced via <Text style={t.typography['label-s-strong']}>visualState</Text>
+      <Text style={[t.typography.labelS, { color: t.color.text.neutral.secondary }]}>
+        Primary · medium · forced via <Text style={t.typography.labelSStrong}>visualState</Text>
       </Text>
       <View style={{ gap: theme.space['300'] }}>
         {visualStates.map((state) => (
@@ -138,7 +138,7 @@ function StatesGallery() {
           >
             <Text
               style={[
-                t.typography['label-s-strong'],
+                t.typography.labelSStrong,
                 { color: t.color.text.neutral.secondary, width: 72 }
               ]}
             >
@@ -179,7 +179,7 @@ function VariantsMatrix() {
         padding: theme.space['400']
       }}
     >
-      <Text style={[t.typography['label-s'], { color: t.color.text.neutral.secondary }]}>
+      <Text style={[t.typography.labelS, { color: t.color.text.neutral.secondary }]}>
         All variants × iconPosition · medium · default state
       </Text>
 
@@ -194,7 +194,7 @@ function VariantsMatrix() {
           <Text
             key={position}
             style={[
-              t.typography['label-s-strong'],
+              t.typography.labelSStrong,
               {
                 color: t.color.text.neutral.secondary,
                 flex: 1,
@@ -219,7 +219,7 @@ function VariantsMatrix() {
         >
           <Text
             style={[
-              t.typography['label-s-strong'],
+              t.typography.labelSStrong,
               { color: t.color.text.neutral.primary, width: 120 }
             ]}
           >

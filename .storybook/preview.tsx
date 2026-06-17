@@ -28,12 +28,13 @@ export const storybookPreviewParameters = {
           'Colors',
           'Typography',
           'Spacing',
-          'Icons',
           'Radius',
           'Border',
+          'Iconography',
           'Elevation',
-          'Logo',
-          'Layout'
+          'Logo & Illustrations',
+          'Layout',
+          'UX Writing'
         ],
         'Components',
         [
@@ -83,16 +84,17 @@ function StorybookThemeDecorator({
 }) {
   const fontsLoaded = useAppFonts();
   const scheme = useColorScheme();
+  const effectiveMode: ThemeModePreference = docsPage ? 'light' : mode;
   const resolvedMode =
-    mode === 'system' ? (scheme === 'dark' ? 'dark' : 'light') : mode;
+    effectiveMode === 'system' ? (scheme === 'dark' ? 'dark' : 'light') : effectiveMode;
   const t = themes[resolvedMode];
 
-  if (!fontsLoaded) {
+  if (!fontsLoaded && !docsPage) {
     return <View />;
   }
 
   return (
-    <ThemeProvider mode={mode} typographyMode={docsPage ? 'desktop' : 'mobile'}>
+    <ThemeProvider mode={effectiveMode} typographyMode={docsPage ? 'desktop' : 'mobile'}>
       <View
         style={{
           alignItems: docsPage ? 'stretch' : 'center',

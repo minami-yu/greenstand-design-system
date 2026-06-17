@@ -2,7 +2,7 @@ import { Meta } from '@storybook/blocks';
 import {
   PrimitiveColorList,
   SemanticColorList
-} from './catalogs';
+} from './sections';
 import { ColorDocsModeToggle, ColorDocsShell, StorybookDoDont, StorybookDoDontCard, StorybookImage } from '../ui';
 import { storybookPageParameters as parameters } from '../storybookPageParameters';
 import tokenDiagram from '../asset/foundation/ds-token-diagram.png';
@@ -15,14 +15,7 @@ import colorDont2 from '../asset/foundation/color-dont-2.png';
 
 # Colors
 ## Overview
-Colors help communicate hierarchy, state, feedback, and brand identity across the product. The color system is built using a layered token architecture that separates color values from their intended usage, making the system easier to maintain, scale, and adapt over time.
-
-## Foundation
-The color system consists of two layers: Primitive Colors and Semantic Colors. This approach allows color values to evolve without requiring updates throughout designs and code and enhance the maintainability of the color system.
-<br />
-
-- **Primitive Colors**: Primitive colors are the raw color values that form the foundation of the color system (e.g. `color.red-500`). Primitive colors define the available color palette but do not describe how colors should be used.
-- **Semantic Colors**: Semantic colors define the purpose of a color within the product (e.g. `color.text.neutral.primary`). Instead of referencing a raw color value or primitive colors, designers and engineers should reference semantic tokens that communicate intent.
+Colors help communicate hierarchy, state, feedback, and brand identity across the product. The color system consists of two layers: Primitive Colors and Semantic Colors. This approach allows color values to evolve without requiring updates throughout designs and code and enhance the maintainability.
 
 <br />
   <StorybookImage
@@ -32,7 +25,10 @@ The color system consists of two layers: Primitive Colors and Semantic Colors. T
     background={false}
   />
 <br />
+<br />
 
+- **Primitive Colors**: Primitive colors are the foundation of the color system (e.g. `color.red-500`). Primitive colors define the available color palette but do not describe how colors should be used.
+- **Semantic Colors**: Semantic colors define the role of a color (e.g. `color.text.neutral.primary`). Instead of referencing a raw color value or primitive colors, designers and engineers should reference semantic tokens.
 
 <br />
 
@@ -70,155 +66,147 @@ The color system consists of two layers: Primitive Colors and Semantic Colors. T
   />
 </StorybookDoDont>
 
-<ColorDocsShell>
-
-## Semantic Colors
-### Overview
-Semantic colors describe how colors are used throughout the interface. They provide a consistent vocabulary for designers and engineers while supporting future theming and color system updates.
-
-<br />
-<ColorDocsModeToggle />
-
-### Background
-Background colors define the surfaces that content is placed on. They establish visual hierarchy between pages, containers, cards, overlays, and other structural elements.
-
-#### Neutral
-<SemanticColorList category="background" group="neutral" />
-<br />
-
-### Fill
-Fill colors are used for interactive and decorative UI elements such as buttons, badges, status indicators, chips, and selected states. They help communicate emphasis, actions, and feedback.
-
-#### Neutral
-<SemanticColorList category="fill" group="neutral" />
-
-#### Brand
-<SemanticColorList category="fill" group="brand" />
-
-#### Error
-<SemanticColorList category="fill" group="error" />
-
-#### Success
-<SemanticColorList category="fill" group="success" />
-
-#### Warning
-<SemanticColorList category="fill" group="warning" />
-
-#### Info
-<SemanticColorList category="fill" group="info" />
-
-{/* #### Accent
-<SemanticColorList category="fill" group="accent" /> */}
-<br />
-### Text
-Text colors define the visual hierarchy of written content. Different text tokens are provided for primary, secondary, tertiary, inverse, disabled, and semantic messaging states.
-
-#### Neutral
-<SemanticColorList category="text" group="neutral" />
-
-#### Brand
-<SemanticColorList category="text" group="brand" />
-
-#### Error
-<SemanticColorList category="text" group="error" />
-
-#### Success
-<SemanticColorList category="text" group="success" />
-
-#### Warning
-<SemanticColorList category="text" group="warning" />
-
-#### Info
-<SemanticColorList category="text" group="info" />
-
-#### Accent
-<SemanticColorList category="text" group="accent" />
-<br />
-### Icon
-Icon colors define the appearance of icons and pictograms throughout the interface. Icon tokens generally mirror text hierarchy while ensuring visual consistency across different component states.
-
-#### Neutral
-<SemanticColorList category="icon" group="neutral" />
-
-#### Brand
-<SemanticColorList category="icon" group="brand" />
-
-#### Error
-<SemanticColorList category="icon" group="error" />
-
-#### Success
-<SemanticColorList category="icon" group="success" />
-
-#### Warning
-<SemanticColorList category="icon" group="warning" />
-
-#### Info
-<SemanticColorList category="icon" group="info" />
-<br />
-### Border
-Border colors are used to define boundaries, separate content, indicate focus, and communicate component states. They should support structure without competing with content.
-
-#### Neutral
-<SemanticColorList category="border" group="neutral" />
-
-#### Brand
-<SemanticColorList category="border" group="brand" />
-
-#### Error
-<SemanticColorList category="border" group="error" />
-
-<br />
-
-### Shadow
-Shadow colors provide depth and elevation within the interface. They help distinguish layered surfaces such as cards, modals, bottom sheets, and floating elements.
-
-<SemanticColorList category="shadow" />
-
-
-## Primitive Colors
-### Overview
-Primitive colors are the raw color values that are referenced by the semantic layer. In the product, primitive colors should not be used directly.
-
-### Neutral
-<PrimitiveColorList group="neutral" />
-
-### Brand-green
-<PrimitiveColorList group="brand-green" />
-
-### Green
-<PrimitiveColorList group="green" />
-
-### Red
-<PrimitiveColorList group="red" />
-
-### Yellow
-<PrimitiveColorList group="yellow" />
-
-### Blue
-<PrimitiveColorList group="blue" />
-
-### Orange
-<PrimitiveColorList group="orange" />
-
-### Black
-<PrimitiveColorList group="black" />
-
-### White
-<PrimitiveColorList group="white" />
-
-</ColorDocsShell>
-
 ## Accessibility
-### WCAG AA Compliance
+### WCAG AA
 All color combinations used in the product should meet WCAG AA contrast requirements to ensure content remains readable and accessible for a wide range of users.
 
 #### Minimum contrast requirements:
-- Normal text: `4.5:1`
-- Large text (18px+ or 14px bold+): `3:1`
-- Essential UI elements and graphical objects: `3:1`
+- Normal text: **4.5:1**
+- Large text (18px+ or 14px bold+): **3:1**
+- Essential UI elements and graphical objects: **3:1**
 
 
-## Light & Dark Mode
-The current design system is optimized for Light Mode. Treetracker is primarily used outdoors in bright environments where higher screen brightness and stronger contrast improve visibility. For this reason, Light Mode is the primary supported experience.
+## Light & dark mode
+The current design system is optimized for Light Mode because Treetracker is primarily used outdoors in bright environments where higher screen brightness improves visibility. Dark colors may be used in specific contexts such as camera workflows. A user controlled Dark Mode theme is not currently supported.
 
-A Dark Mode token set has been defined to support future expansion and theming needs. However, Dark Mode has not yet been fully validated and is not currently considered part of the supported product experience.
+<ColorDocsShell>
+  ## Semantic colors
+  Semantic colors describe how colors are used throughout the interface. They provide a consistent vocabulary for designers and engineers while supporting future theming and color system updates.
+
+  <br />
+  <ColorDocsModeToggle />
+
+  ### Background
+  Background colors define the surfaces that content is placed on. They establish visual hierarchy between pages, containers, cards, overlays, and other structural elements.
+
+  #### Neutral
+  <SemanticColorList category="background" group="neutral" />
+  <br />
+
+  ### Fill
+  Fill colors are used for interactive and decorative UI elements such as buttons, badges, status indicators, chips, and selected states. They help communicate emphasis, actions, and feedback.
+
+  #### Neutral
+  <SemanticColorList category="fill" group="neutral" />
+
+  #### Brand
+  <SemanticColorList category="fill" group="brand" />
+
+  #### Error
+  <SemanticColorList category="fill" group="error" />
+
+  #### Success
+  <SemanticColorList category="fill" group="success" />
+
+  #### Warning
+  <SemanticColorList category="fill" group="warning" />
+
+  #### Info
+  <SemanticColorList category="fill" group="info" />
+
+  {/* #### Accent
+  <SemanticColorList category="fill" group="accent" /> */}
+  <br />
+  ### Text
+  Text colors define the visual hierarchy of written content. Different text tokens are provided for primary, secondary, tertiary, inverse, disabled, and semantic messaging states.
+
+  #### Neutral
+  <SemanticColorList category="text" group="neutral" />
+
+  #### Brand
+  <SemanticColorList category="text" group="brand" />
+
+  #### Error
+  <SemanticColorList category="text" group="error" />
+
+  #### Success
+  <SemanticColorList category="text" group="success" />
+
+  #### Warning
+  <SemanticColorList category="text" group="warning" />
+
+  #### Info
+  <SemanticColorList category="text" group="info" />
+
+  #### Accent
+  <SemanticColorList category="text" group="accent" />
+  <br />
+  ### Icon
+  Icon colors define the appearance of icons and pictograms throughout the interface. Icon tokens generally mirror text hierarchy while ensuring visual consistency across different component states.
+
+  #### Neutral
+  <SemanticColorList category="icon" group="neutral" />
+
+  #### Brand
+  <SemanticColorList category="icon" group="brand" />
+
+  #### Error
+  <SemanticColorList category="icon" group="error" />
+
+  #### Success
+  <SemanticColorList category="icon" group="success" />
+
+  #### Warning
+  <SemanticColorList category="icon" group="warning" />
+
+  #### Info
+  <SemanticColorList category="icon" group="info" />
+  <br />
+  ### Border
+  Border colors are used to define boundaries, separate content, indicate focus, and communicate component states. They should support structure without competing with content.
+
+  #### Neutral
+  <SemanticColorList category="border" group="neutral" />
+
+  #### Brand
+  <SemanticColorList category="border" group="brand" />
+
+  #### Error
+  <SemanticColorList category="border" group="error" />
+
+  <br />
+
+
+
+  ## Primitive Colors
+  Primitive colors are the raw color values that are referenced by the semantic layer. In the product, primitive colors should not be used directly.
+
+  ### Neutral
+  <PrimitiveColorList group="neutral" />
+
+  ### Brand-green
+  <PrimitiveColorList group="brand-green" />
+
+  ### Green
+  <PrimitiveColorList group="green" />
+
+  ### Red
+  <PrimitiveColorList group="red" />
+
+  ### Yellow
+  <PrimitiveColorList group="yellow" />
+
+  ### Blue
+  <PrimitiveColorList group="blue" />
+
+  ### Orange
+  <PrimitiveColorList group="orange" />
+
+  ### Black
+  <PrimitiveColorList group="black" />
+
+  ### White
+  <PrimitiveColorList group="white" />
+</ColorDocsShell>
+
+

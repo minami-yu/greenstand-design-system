@@ -9,7 +9,7 @@ alwaysApply: true
 
 - `src/theme/tokens.ts` is the source of truth for all design values in components.
 - Generated from Figma via Style Dictionary (`tokens/variables/` + `tokens/styles/` → `build.js`).
-- Never hardcode colors, spacing, typography, radius, shadows, stroke, blur, depth, or sizing.
+- Never hardcode colors, spacing, typography, radius, shadows, border, blur, depth, or sizing.
 - Never manually edit `src/theme/tokens.ts`.
 - If a required token does not exist, report it before implementing — do not guess from Figma pixels.
 
@@ -47,7 +47,7 @@ padding: 16
 borderRadius: 8
 ```
 
-Key namespaces: `color.*` (semantic + `palette`), `typography.*` (composites), `space`, `radius`, `stroke`, `elevation`. Space keys are `"100"`/`"400"`/`"n200"`, not `"md"`.
+Key namespaces: `color.*` (semantic + `palette`), `typography.*` (composites), `space`, `radius`, `border`, `elevation`. Space keys are `"100"`/`"400"`/`"n200"`, not `"md"`.
 
 ## Components
 
@@ -58,7 +58,7 @@ Key namespaces: `color.*` (semantic + `palette`), `typography.*` (composites), `
 
 ## Missing Tokens
 
-Stop → report missing token + suggested name/category → wait for confirmation before adding to `tokens/styles/value.json` or requesting a Figma export.
+Stop → report missing token + suggested name/category → wait for confirmation before adding to `tokens/styles/typography.json`, `tokens/styles/elevation.json`, or requesting a Figma export.
 
 ## Workflow
 

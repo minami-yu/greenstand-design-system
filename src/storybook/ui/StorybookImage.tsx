@@ -79,7 +79,7 @@ export function StorybookImageView({
     backgroundColor: frameBackgroundColor,
     borderColor: outline ? t.color.border.neutral.subtle : 'transparent',
     borderRadius,
-    borderWidth: outline ? theme.stroke.sm : 0,
+    borderWidth: outline ? theme.border.sm : 0,
     marginVertical: embedded ? 0 : theme.space['400'],
     overflow: 'hidden' as const,
     width: '100%' as const

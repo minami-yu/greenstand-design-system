@@ -2,6 +2,7 @@ import colorLightJson from '../../../tokens/variables/color/light.json';
 import colorPrimitiveJson from '../../../tokens/variables/color_primitive/value.json';
 import { theme, themes, type ThemeMode } from '../../theme/tokens';
 import { flattenDtcgTokens, getByPath } from './parseDtcgTokens';
+import { camelCasePath, formatThemeAccess, kebabToCamel } from './tokenKey';
 
 const ALIAS_PATTERN = /^\{([^}]+)\}$/;
 
@@ -23,6 +24,7 @@ export type PrimitiveColorDocEntry = {
   group: string;
   path: string;
   tokenName: string;
+  usage: string;
   value: string;
 };
 
@@ -32,12 +34,17 @@ function isExcludedColorToken(...segments: string[]): boolean {
 
 function resolveThemeColor(path: string, mode: ThemeMode = 'light'): string {
   const colorPath = path.startsWith('color.') ? path : `color.${path}`;
-  const value = getByPath(themes[mode], colorPath);
+  const value = getByPath(themes[mode], camelCasePath(colorPath));
   return typeof value === 'string' ? value : '—';
 }
 
 function formatTokenName(path: string): string {
-  return `color.${path}`;
+  return camelCasePath(`color.${path}`);
+}
+
+function formatColorUsage(root: 't' | 'theme', path: string): string {
+  const normalized = path.startsWith('color.') ? path : `color.${path}`;
+  return formatThemeAccess(root, normalized);
 }
 
 function parseAlias(rawValue: unknown): string | undefined {
@@ -56,9 +63,9 @@ function resolvePrimitiveReference(rawValue: unknown): {
   const [family, step] = alias.split('.');
   if (!family || !step) return { primitiveName: alias.replace('/', '.') };
 
-  const primitiveValue = getByPath(theme.color.palette, `${family}.${step}`);
+  const primitiveValue = getByPath(theme.color.palette, `${kebabToCamel(family)}.${step}`);
   return {
-    primitiveName: `${family}.${step}`,
+    primitiveName: `${kebabToCamel(family)}.${step}`,
     primitiveValue:
       typeof primitiveValue === 'string' ? primitiveValue.toLowerCase() : undefined
   };
@@ -115,7 +122,7 @@ export function buildSemanticColorDocEntries(
         resolvedValue: resolveThemeColor(path, mode).toLowerCase(),
         primitiveName,
         primitiveValue,
-        usage: `t.${path}`
+        usage: formatColorUsage('t', path)
       };
     });
 
@@ -153,6 +160,7 @@ export function buildPrimitiveColorDocEntries(group?: string): PrimitiveColorDoc
         group: tokenGroup,
         path: `color.palette.${token.path}`,
         tokenName: `color.palette.${token.path}`,
+        usage: formatColorUsage('theme', `color.palette.${token.path}`),
         value:
           typeof token.rawValue === 'string'
             ? token.rawValue.toLowerCase()

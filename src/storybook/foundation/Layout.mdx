@@ -1,29 +1,56 @@
 import { Meta } from '@storybook/blocks';
-import { LayoutExample } from './partials';
+import { LayoutCatalog, ViewportCatalog } from './sections';
+import { buildLayoutCatalogEntries, buildViewportCatalogEntries } from '../utils/buildCatalogEntries';
+import { StorybookImage } from '../ui';
 import { storybookPageParameters as parameters } from '../storybookPageParameters';
+import layoutMargin from '../asset/foundation/layout-margin.png';
+import layoutGutter from '../asset/foundation/layout-gutter.png';
+
+export const layout = buildLayoutCatalogEntries();
+export const viewports = buildViewportCatalogEntries();
 
 <Meta title="Foundation/Layout" parameters={parameters} />
 
 # Layout
 
 ## Overview
-TBD
+The layout system provides consistent spacing and structure across Treetracker screens. Because the product is used on a wide range of mobile devices, including older and lower end Android phones, layouts should prioritize readability, simplicity, and resilience on narrow screens.
 
 
-## Layout tokens
+## Grid system
+Treetracker uses a flexible mobile grid. Most screens should use a single column layout by default, with additional columns introduced only when they improve usability.
 
-- Use `theme.space` for padding, margin, and gap values
-- Use `theme.radius` for corner radius values
-- Prefer shared tokens instead of arbitrary layout numbers
+### Columns
+The number of columns may vary depending on the content and available space. Use the simplest layout that supports the content. The default layout for most screens is 1 column.
 
-```tsx
-<View style={{ padding: theme.space['400'], gap: theme.space['200'], borderRadius: theme.radius.md }}>
-  {children}
-</View>
-```
+### Margin
+Margin defines the horizontal spacing between the screen edge and content. Consistent margins help align content and improve readability across screens.
 
-## Example
+<StorybookImage
+  alt="Diagram showing horizontal margin between the screen edge and content"
+  background={false}
+  outline={false}
+  src={layoutMargin}
+/>
 
-<LayoutExample />
+### Gutter
+Gutter defines the spacing between adjacent columns and content areas. Gutters help separate content while maintaining alignment within the grid.
 
-> See **Foundation/Spacing** for the full space scale.
+<StorybookImage
+  alt="Diagram showing gutter spacing between adjacent columns"
+  background={false}
+  outline={false}
+  src={layoutGutter}
+/>
+
+
+## Tokens
+
+Vertical spacing should use spacing tokens rather than dedicated layout margins.
+
+<LayoutCatalog entries={layout} />
+
+## Viewports
+Designs are created using a 360px reference viewport and should also be tested at 320px width to ensure layouts remain usable on narrow screens.
+
+<ViewportCatalog entries={viewports} />

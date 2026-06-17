@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
 import { useTheme } from '../../../theme/useTheme';
 import { CatalogThemeProvider } from '../../ui/CatalogThemeProvider';
-import { storybookRnTypography } from '../../ui';
+import { InlineCode, storybookRnTypography } from '../../ui';
 import { ColorSwatch, StorybookDocRow } from '../../ui/storybookDocRow';
 import type { PrimitiveColorDocEntry } from '../../utils/buildColorDocEntries';
 import { buildPrimitiveColorDocEntries } from '../../utils/buildColorDocEntries';
@@ -33,11 +33,9 @@ function PrimitiveColorListView({ group, entries }: PrimitiveColorListProps) {
         <StorybookDocRow key={entry.path} showDivider={index < rows.length - 1}>
           <ColorSwatch value={entry.value} />
           <View style={{ flex: 1 }}>
-            <Text style={[storybookRnTypography['label-m-strong'], { color: t.color.text.neutral.primary }]}>
-              {entry.tokenName}
-            </Text>
+            <InlineCode size="monoBodyS">{entry.usage}</InlineCode>
           </View>
-          <Text style={[storybookRnTypography['label-m'], { color: t.color.text.neutral.secondary }]}>
+          <Text style={[storybookRnTypography.labelS, { color: t.color.text.neutral.secondary }]}>
             {entry.value}
           </Text>
         </StorybookDocRow>

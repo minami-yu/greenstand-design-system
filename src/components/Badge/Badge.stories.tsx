@@ -56,7 +56,7 @@ function VariantsMatrix() {
         padding: theme.space['400']
       }}
     >
-      <Text style={[t.typography['label-s'], { color: t.color.text.neutral.secondary }]}>
+      <Text style={[t.typography.labelS, { color: t.color.text.neutral.secondary }]}>
         badge × size · Figma component set (12918:1005)
       </Text>
 
@@ -71,7 +71,7 @@ function VariantsMatrix() {
           <Text
             key={size}
             style={[
-              t.typography['label-s-strong'],
+              t.typography.labelSStrong,
               { color: t.color.text.neutral.secondary, flex: 1, textAlign: 'center' }
             ]}
           >
@@ -91,7 +91,7 @@ function VariantsMatrix() {
         >
           <Text
             style={[
-              t.typography['label-s-strong'],
+              t.typography.labelSStrong,
               { color: t.color.text.neutral.primary, width: 80 }
             ]}
           >
@@ -131,7 +131,7 @@ export const LabelValues: Story = {
         {['1', '9', '99'].map((value) => (
           <View key={value} style={{ alignItems: 'center', gap: theme.space['100'] }}>
             <Badge badge="label" size="medium" value={value} />
-            <Text style={[t.typography['label-s'], { color: t.color.text.neutral.secondary }]}>
+            <Text style={[t.typography.labelS, { color: t.color.text.neutral.secondary }]}>
               {value}
             </Text>
           </View>

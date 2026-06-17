@@ -19,14 +19,15 @@ If dependencies are not installed, state that the command could not run and that
 
 ### Token source layout
 - `tokens/variables/` — Figma variable export (Token Studio). **Do not hand-edit.** Replace via Token Studio export (see README).
-- `tokens/styles/value.json` — Hand-maintained W3C DTCG text styles and elevation shadows. Update manually when Figma styles change.
+- `tokens/styles/typography.json` — Hand-maintained W3C DTCG text styles. Update manually when Figma text styles change.
+- `tokens/styles/elevation.json` — Hand-maintained W3C DTCG elevation shadows. Update manually when Figma shadow styles change.
 
 
 ## Design System Implementation Rules
 ### Source of truth
 - `src/theme/tokens.ts` is the source of truth for all design values in components.
 - Tokens are generated from Figma (`tokens/variables/` + `tokens/styles/`) through Style Dictionary (`build.js`).
-- Never hardcode colors, spacing, typography, radius, shadows, stroke, blur, depth, or sizing values in components.
+- Never hardcode colors, spacing, typography, radius, shadows, border, blur, depth, or sizing values in components.
 - If a required token does not exist, report the missing token before implementation.
 - Never recreate values from Figma measurements if a token exists.
 - Never manually edit `src/theme/tokens.ts`.
@@ -57,7 +58,7 @@ borderColor: t.color.border.neutral.subtle
 <Box p="400" gap="200" radius="md" />
 padding: theme.space['400']
 borderRadius: theme.radius.md
-borderWidth: theme.stroke.sm
+borderWidth: theme.border.sm
 ```
 
 **Typography** — spread composite sets (already RN-ready: font variants, absolute line heights):
@@ -83,7 +84,7 @@ fontSize: 14
 ### Token namespaces (current shape)
 - `theme.color.*` — semantic colors (`fill`, `text`, `border`, `icon`, `shadow`, `background`) + `color.palette.*` for raw ramps
 - `theme.typography.*` — composite text styles (`heading-m`, `label-m`, …) + `family` / `weight` / `size` primitives
-- `theme.space`, `theme.radius`, `theme.stroke`, `theme.icon`, `theme.blur`, `theme.depth`, `theme.elevation`
+- `theme.space`, `theme.radius`, `theme.border`, `theme.icon`, `theme.blur`, `theme.depth`, `theme.elevation`
 - `themes.light` / `themes.dark` — color modes (`useTheme()`)
 - `typographies.mobile` / `typographies.desktop` — device typography classes
 
@@ -106,7 +107,7 @@ If a design requires a value that does not exist in `src/theme/tokens.ts`:
 1. Stop implementation.
 2. Report the missing token.
 3. Suggest a token name and category (semantic color, space step, typography set, etc.).
-4. Wait for confirmation before introducing new values in `tokens/styles/value.json` or requesting a Figma variable export.
+4. Wait for confirmation before introducing new values in `tokens/styles/typography.json`, `tokens/styles/elevation.json`, or requesting a Figma variable export.
 
 ### Expected workflow
 1. Inspect the component in Figma via MCP.

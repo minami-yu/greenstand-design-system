@@ -12,7 +12,7 @@ type InlineCodeProps = PropsWithChildren<{
 export function InlineCode({
   children,
   containerStyle,
-  size = 'mono-body-s',
+  size = 'monoBodyS',
   style
 }: InlineCodeProps) {
   const t = useTheme();

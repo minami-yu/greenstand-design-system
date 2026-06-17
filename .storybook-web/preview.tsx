@@ -21,12 +21,13 @@ const preview: Preview = {
             'Colors',
             'Typography',
             'Spacing',
-            'Icons',
             'Radius',
             'Border',
+            'Iconography',
             'Elevation',
-            'Logo',
-            'Layout'
+            'Logo & Illustrations',
+            'Layout',
+            'UX Writing'
           ],
           'Components',
           [

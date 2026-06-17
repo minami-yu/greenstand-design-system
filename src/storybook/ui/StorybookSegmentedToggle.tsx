@@ -57,7 +57,7 @@ export function StorybookSegmentedToggle<T extends string>({
                   style={{
                     backgroundColor: colors.color.border.neutral.subtle,
                     height: theme.space['400'],
-                    width: theme.stroke.sm
+                    width: theme.border.sm
                   }}
                 />
               ) : null}
@@ -79,8 +79,8 @@ export function StorybookSegmentedToggle<T extends string>({
                 <Text
                   style={[
                     selected
-                      ? storybookRnTypography['label-s-strong']
-                      : storybookRnTypography['label-s'],
+                      ? storybookRnTypography.labelSStrong
+                      : storybookRnTypography.labelS,
                     {
                       color: selected
                         ? colors.color.text.neutral.primary

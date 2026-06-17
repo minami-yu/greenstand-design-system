@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/blocks';
-import { RadiusCatalog } from './catalogs';
+import { RadiusCatalog } from './sections';
 import { buildScaleCatalogEntries } from '../utils/buildCatalogEntries';
 import { storybookPageParameters as parameters } from '../storybookPageParameters';
 
@@ -9,8 +9,8 @@ export const radius = buildScaleCatalogEntries('radius', 'radius');
 
 # Radius
 ## Overview
-TBD
+Radius tokens define the corner roundness of components. Using predefined radius values helps maintain visual consistency across components and layouts.
 
-## Preview
-
+## Tokens
+Use the following tokens to set the corner roundness of components.
 <RadiusCatalog entries={radius} />

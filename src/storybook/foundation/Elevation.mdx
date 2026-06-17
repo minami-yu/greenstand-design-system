@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/blocks';
-import { ElevationCatalog } from './catalogs';
+import { ElevationCatalog } from './sections';
 import { buildElevationCatalogEntries } from '../utils/buildCatalogEntries';
 import { storybookPageParameters as parameters } from '../storybookPageParameters';
 
@@ -10,8 +10,25 @@ export const elevation = buildElevationCatalogEntries();
 # Elevation
 
 ## Overview
-TBD
 
-## Preview
+Elevation helps communicate hierarchy, separation, and focus by creating visual depth through shadows. Treetracker uses elevation sparingly. Most interfaces rely on spacing, borders, and color to establish hierarchy, with elevation reserved for elements that need additional emphasis or separation.
+
+## Levels
 
 <ElevationCatalog entries={elevation} />
+
+Previews use the Android elevation model. In app code, `getShadow(theme.elevation.*)` merges both platform values — React Native applies the props each OS supports.
+
+- **small (`sm`)**: Use for subtle separation from the background. Common use cases are cards, floating content sections, and elevated containers.
+
+- **medium (`md`)**: Use for elements that require stronger emphasis or visual prominence. Common use cases are dropdowns, popovers, and temporary surfaces.
+
+- **large (`lg`)**: Use for the highest level of emphasis. Common use cases are dialogs, modals, and critical overlays.
+
+## Best Practices
+
+- Use elevation sparingly.
+- Prefer spacing, borders, and color before introducing shadows.
+- Use stronger elevation only when a clear visual hierarchy is needed.
+- Avoid stacking multiple elevation levels within the same area.
+- Maintain consistent elevation levels across similar components.

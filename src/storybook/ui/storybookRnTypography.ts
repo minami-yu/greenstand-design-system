@@ -10,85 +10,85 @@ import { theme } from '../../theme/tokens';
 const monoFontFamily = 'Roboto Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
 
 export const storybookRnTypography = {
-  'heading-m': {
+  headingM: {
     fontFamily: 'Montserrat_700Bold, Montserrat, sans-serif',
     fontSize: 40,
     fontWeight: '700',
     lineHeight: 40
   },
-  'heading-s': {
+  headingS: {
     fontFamily: 'Montserrat_700Bold, Montserrat, sans-serif',
     fontSize: 24,
     fontWeight: '700',
     lineHeight: 32
   },
-  'heading-xs': {
+  headingXs: {
     fontFamily: 'Montserrat_700Bold, Montserrat, sans-serif',
     fontSize: 20,
     fontWeight: '700',
     lineHeight: 24
   },
-  'paragraph-l': {
+  paragraphL: {
     fontFamily: 'Inter_400Regular, Inter, sans-serif',
     fontSize: 18,
     fontWeight: '400',
     lineHeight: 26
   },
-  'paragraph-l-strong': {
+  paragraphLStrong: {
     fontFamily: 'Inter_600SemiBold, Inter, sans-serif',
     fontSize: 18,
     fontWeight: '600',
     lineHeight: 26
   },
-  'paragraph-m': {
+  paragraphM: {
     fontFamily: 'Inter_400Regular, Inter, sans-serif',
     fontSize: 16,
     fontWeight: '400',
     lineHeight: 24
   },
-  'paragraph-m-strong': {
+  paragraphMStrong: {
     fontFamily: 'Inter_600SemiBold, Inter, sans-serif',
     fontSize: 16,
     fontWeight: '600',
     lineHeight: 24
   },
-  'paragraph-s': {
+  paragraphS: {
     fontFamily: 'Inter_400Regular, Inter, sans-serif',
     fontSize: 14,
     fontWeight: '400',
     lineHeight: 20
   },
-  'label-m': {
+  labelM: {
     fontFamily: 'Inter_500Medium, Inter, sans-serif',
     fontSize: 16,
     fontWeight: '500',
     lineHeight: 24
   },
-  'label-m-strong': {
+  labelMStrong: {
     fontFamily: 'Inter_600SemiBold, Inter, sans-serif',
     fontSize: 16,
     fontWeight: '600',
     lineHeight: 24
   },
-  'label-s': {
+  labelS: {
     fontFamily: 'Inter_500Medium, Inter, sans-serif',
     fontSize: 14,
     fontWeight: '500',
-    lineHeight: 10
+    lineHeight: 20
   },
-  'label-s-strong': {
+  labelSStrong: {
     fontFamily: 'Inter_600SemiBold, Inter, sans-serif',
     fontSize: 14,
     fontWeight: '600',
     lineHeight: 20
   },
-  'mono-body-m': {
+  monoBodyM: {
     fontFamily: monoFontFamily,
     fontSize: 16,
     fontWeight: '400',
     lineHeight: 24
   },
-  'mono-body-s': {
+  monoBodyS: {
     fontFamily: monoFontFamily,
     fontSize: 14,
     fontWeight: '400',
@@ -96,7 +96,7 @@ export const storybookRnTypography = {
   }
 } as const satisfies Record<string, TextStyle>;
 
-export type StorybookRnMonoTypography = 'mono-body-l' | 'mono-body-m';
+export type StorybookRnMonoTypography = 'monoBodyM' | 'monoBodyS';
 
 export const storybookRnCodeStyles = {
   inlineContainer: {

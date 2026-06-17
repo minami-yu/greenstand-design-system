@@ -14,7 +14,8 @@ import { storybookPageParameters as parameters } from '../storybookPageParameter
 ## Source layout
 
 - `tokens/variables/` — Figma variable export (Token Studio). Do not hand-edit.
-- `tokens/styles/value.json` — hand-maintained typography and elevation styles
+- `tokens/styles/typography.json` — hand-maintained typography styles
+- `tokens/styles/elevation.json` — hand-maintained elevation (shadow) styles
 - `src/theme/tokens.ts` — generated output. Never edit manually.
 
 ## Sync workflow
@@ -27,8 +28,24 @@ import { storybookPageParameters as parameters } from '../storybookPageParameter
 ## Styles
 
 - Figma styles are not part of the variable export
-- Update `tokens/styles/value.json` manually when text or shadow styles change
+- Update `tokens/styles/typography.json` when text styles change
+- Update `tokens/styles/elevation.json` when shadow/elevation styles change
 - Run `npm run build-tokens` after editing styles JSON
+
+### Elevation schema (`tokens/styles/elevation.json`)
+
+Each level (`sm`, `md`, `lg`) defines three platform targets:
+
+| Key | Purpose |
+|---|---|
+| `$description` | Guidance copy for docs |
+| `figma` | Design reference layers (color, opacity, offset, blur) |
+| `ios` | React Native iOS shadow props (`shadowColor`, `shadowOpacity`, …) |
+| `android` | Material elevation in dp (plain number, e.g. `2`) |
+
+Optional DTCG wrappers (`"$type"` + `"$value"`) on `figma`, `ios`, or `android` are supported. Color fields may use `{alias}` references like other style tokens.
+
+Compiled output: `theme.elevation.sm.ios`, `theme.elevation.sm.android.elevation`. Use `getShadow(theme.elevation.sm)` in components.
 
 ## Build command
 

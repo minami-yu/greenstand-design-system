@@ -12,10 +12,10 @@ export type StorybookDoDontType = 'do' | 'dont';
 export type StorybookDoDontCardProps = {
   alt: string;
   background?: boolean;
-  description: string;
+  description?: string;
   outline?: boolean;
   src: string;
-  title: string;
+  title?: string;
   type: StorybookDoDontType;
 };
 
@@ -25,14 +25,14 @@ const doDontMeta = {
     pillColor: (t: ReturnType<typeof useTheme>) => t.color.fill.success.emphasis,
     icon: 'check' as const,
     label: 'Do',
-    textColor: (t: ReturnType<typeof useTheme>) => t.color.text.success['on-emphasis']
+    textColor: (t: ReturnType<typeof useTheme>) => t.color.text.success.onEmphasis
   },
   dont: {
     imageBackground: (t: ReturnType<typeof useTheme>) => t.color.fill.error.subtle,
     pillColor: (t: ReturnType<typeof useTheme>) => t.color.fill.error.emphasis,
     icon: 'close' as const,
     label: "Don't",
-    textColor: (t: ReturnType<typeof useTheme>) => t.color.text.error['on-emphasis']
+    textColor: (t: ReturnType<typeof useTheme>) => t.color.text.error.onEmphasis
   }
 };
 
@@ -71,7 +71,7 @@ function StorybookDoDontCardView({
         style={{
           borderColor: outline ? t.color.border.neutral.subtle : 'transparent',
           borderRadius: theme.radius.sm,
-          borderWidth: outline ? theme.stroke.sm : 0,
+          borderWidth: outline ? theme.border.sm : 0,
           overflow: 'hidden',
           width: '100%'
         }}
@@ -103,31 +103,37 @@ function StorybookDoDontCardView({
         <Icon colorValue={meta.textColor(t)} name={meta.icon} size="sm" />
         <Text
           style={[
-            storybookRnTypography['label-s-strong'],
+            storybookRnTypography.labelSStrong,
             { color: meta.textColor(t) }
           ]}
         >
           {meta.label}
         </Text>
       </View>
-      <View style={{ flex: 1, gap: theme.space['100'], minWidth: 0 }}>
-        <Text
-          style={[
-            storybookRnTypography['paragraph-m-strong'],
-            { color: t.color.text.neutral.primary }
-          ]}
-        >
-          {title}
-        </Text>
-        <Text
-          style={[
-            storybookRnTypography['paragraph-s'],
-            { color: t.color.text.neutral.secondary }
-          ]}
-        >
-          {description}
-        </Text>
-      </View>
+      {(title || description) ? (
+        <View style={{ flex: 1, gap: theme.space['100'], minWidth: 0 }}>
+          {title ? (
+            <Text
+              style={[
+                storybookRnTypography.paragraphMStrong,
+                { color: t.color.text.neutral.primary }
+              ]}
+            >
+              {title}
+            </Text>
+          ) : null}
+          {description ? (
+            <Text
+              style={[
+                storybookRnTypography.paragraphS,
+                { color: t.color.text.neutral.secondary }
+              ]}
+            >
+              {description}
+            </Text>
+          ) : null}
+        </View>
+      ) : null}
     </View>
   );
 }

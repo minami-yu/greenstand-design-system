@@ -27,10 +27,10 @@ function App() {
           }
         ]}
       >
-        <Text style={[t.typography['heading-s'], { color: t.color.text.neutral.primary }]}>
+        <Text style={[t.typography.headingS, { color: t.color.text.neutral.primary }]}>
           Greenstand Design System
         </Text>
-        <Text style={[t.typography['paragraph-m'], { color: t.color.text.neutral.secondary }]}>
+        <Text style={[t.typography.paragraphM, { color: t.color.text.neutral.secondary }]}>
           Run Storybook to browse components, tokens, and documentation.
         </Text>
       </View>
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   panel: {
     borderRadius: theme.radius.md,
-    borderWidth: theme.stroke.sm,
+    borderWidth: theme.border.sm,
     gap: theme.space['200'],
     maxWidth: 360,
     padding: theme.space['400']

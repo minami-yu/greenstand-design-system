@@ -47,15 +47,15 @@ export function getButtonStyles(
           state === 'disabled'
             ? t.color.fill.neutral.disabled
             : state === 'pressed'
-              ? t.color.fill.brand['default-selected']
+              ? t.color.fill.brand.defaultSelected
               : state === 'hover'
-                ? t.color.fill.brand['default-hover']
+                ? t.color.fill.brand.defaultHover
                 : t.color.fill.brand.default,
         borderWidth: 0,
         textColor:
           state === 'disabled'
             ? t.color.text.neutral.disabled
-            : t.color.text.brand['on-brand']
+            : t.color.text.brand.onBrand
       };
 
     case 'secondary':
@@ -64,9 +64,9 @@ export function getButtonStyles(
           state === 'disabled'
             ? t.color.fill.neutral.disabled
             : state === 'pressed'
-              ? t.color.fill.neutral['default-selected']
+              ? t.color.fill.neutral.defaultSelected
               : state === 'hover'
-                ? t.color.fill.neutral['default-hover']
+                ? t.color.fill.neutral.defaultHover
                 : t.color.fill.neutral.default,
         borderWidth: 0,
         textColor:
@@ -81,9 +81,9 @@ export function getButtonStyles(
           state === 'disabled'
             ? undefined
             : state === 'pressed'
-              ? t.color.fill.neutral['subtle-selected']
+              ? t.color.fill.neutral.subtleSelected
               : state === 'hover'
-                ? t.color.fill.neutral['subtle-hover']
+                ? t.color.fill.neutral.subtleHover
                 : undefined,
         borderWidth: 0,
         textColor:
@@ -98,7 +98,7 @@ export function getButtonStyles(
           state === 'disabled'
             ? undefined
             : state === 'pressed'
-              ? t.color.fill.brand['subtle-hover']
+              ? t.color.fill.brand.subtleHover
               : state === 'hover'
                 ? t.color.fill.brand.subtle
                 : undefined,
@@ -106,7 +106,7 @@ export function getButtonStyles(
           state === 'disabled'
             ? t.color.border.neutral.disabled
             : t.color.border.brand.default,
-        borderWidth: theme.stroke.sm,
+        borderWidth: theme.border.sm,
         textColor:
           state === 'disabled'
             ? t.color.text.neutral.disabled
@@ -119,9 +119,9 @@ export function getButtonStyles(
           state === 'disabled'
             ? t.color.fill.neutral.disabled
             : state === 'pressed'
-              ? t.color.fill.error.subtle - selected
+              ? t.color.fill.error.subtleSelected
               : state === 'hover'
-                ? t.color.fill.error['subtle-hover']
+                ? t.color.fill.error.subtleHover
                 : t.color.fill.error.subtle,
         borderWidth: 0,
         textColor:
@@ -136,9 +136,9 @@ export function getButtonStyles(
           state === 'disabled'
             ? t.color.fill.neutral.disabled
             : state === 'pressed'
-              ? t.color.fill.error['subtle-selected']
+              ? t.color.fill.error.subtleSelected
               : state === 'hover'
-                ? t.color.fill.error['subtle-hover']
+                ? t.color.fill.error.subtleHover
                 : undefined,
         borderWidth: 0,
         textColor:
@@ -160,7 +160,7 @@ export function getButtonLayout(size: ButtonSize, hasIcon: boolean) {
     paddingHorizontal: isMedium ? theme.space['400'] : theme.space['300'],
     paddingVertical: isMedium ? theme.space['300'] : theme.space['0'],
     gap: hasIcon ? (isMedium ? theme.space['200'] : theme.space['100']) : theme.space['0'],
-    iconSize: isMedium ? theme.icon.md : theme.typography['label-m'].fontSize,
+    iconSize: isMedium ? theme.icon.md : theme.typography.labelM.fontSize,
     borderRadius: theme.radius.sm
   };
 }
