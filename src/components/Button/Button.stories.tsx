@@ -1,28 +1,17 @@
 /**
- * Button stories — CSF catalog for manual QA and visual regression testing.
- *
- * Visual regression workflow:
- * - `States` and `Variants` freeze props (`visualState`, `variant`, `iconPosition`) so each
- *   story renders a deterministic snapshot of the design system surface.
- * - Run `npm run storybook:web:build` to produce a static catalog, then diff captures in CI
- *   (e.g. Chromatic, Percy, or screenshot tests against `storybook-static/`) to catch
- *   unintended token or layout drift when `getButtonStyles` or theme tokens change.
- * - `Playground` stays interactive via args for exploratory testing; it is not ideal for
- *   regression baselines because control values vary.
+ * Button stories — CSF catalog aligned with Figma Button (12618:892).
  */
 import type { Meta, StoryObj } from '@storybook/react';
-import { ScrollView, Text, View } from 'react-native';
-import { theme } from '../../theme/tokens';
-import { useTheme } from '../../theme/useTheme';
+import {
+  StorybookStoryShell,
+  StorybookVariantCell,
+  StorybookVariantRow
+} from '../../storybook/ui';
+import { storybookPlaygroundParameters } from '../../storybook/storybookPageParameters';
 import type { IconName } from '../Icon/icons';
 import { icons } from '../Icon/icons';
 import { Button, type ButtonProps } from './Button';
-import type {
-  ButtonIconPosition,
-  ButtonSize,
-  ButtonVariant,
-  ButtonVisualState
-} from './getButtonStyles';
+import type { ButtonSize, ButtonVariant, ButtonVisualState } from './getButtonStyles';
 
 const variants: ButtonVariant[] = [
   'primary',
@@ -32,8 +21,6 @@ const variants: ButtonVariant[] = [
   'error',
   'error-secondary'
 ];
-
-const iconPositions: ButtonIconPosition[] = ['none', 'leading', 'trailing'];
 
 const visualStates: ButtonVisualState[] = ['default', 'hover', 'pressed', 'disabled'];
 
@@ -57,8 +44,8 @@ const meta = {
     label: 'Save',
     variant: 'primary',
     size: 'medium',
-    iconPosition: 'none',
-    icon: demoIcon,
+    leadingIcon: undefined,
+    trailingIcon: undefined,
     disabled: false,
     visualState: autoVisualState
   },
@@ -69,23 +56,23 @@ const meta = {
     },
     variant: {
       control: 'select',
-      description: 'Visual style mapped to getButtonStyles fill, border, and text tokens.',
+      description: 'Figma `variant` property — fill, border, and text tokens from getButtonStyles.',
       options: variants
     },
     size: {
       control: 'select',
-      description: 'Medium or small layout from getButtonLayout.',
+      description: 'Figma `size` — md (medium) or sm (small) layout from getButtonLayout.',
       options: sizes
     },
-    iconPosition: {
+    leadingIcon: {
       control: 'select',
-      description: 'Figma `iconPosition` property.',
-      options: iconPositions
+      description: 'Icon before the label. Sets Figma `iconPosition=leading` when defined.',
+      options: [undefined, ...iconNames]
     },
-    icon: {
+    trailingIcon: {
       control: 'select',
-      description: 'Icon asset when iconPosition is leading or trailing.',
-      options: iconNames
+      description: 'Icon after the label. Sets Figma `iconPosition=trailing` when defined.',
+      options: [undefined, ...iconNames]
     },
     disabled: {
       control: 'boolean',
@@ -104,154 +91,121 @@ export default meta;
 
 type Story = StoryObj<ButtonStoryArgs>;
 
-function toButtonProps(args: ButtonStoryArgs): ButtonProps {
-  const { visualState, ...rest } = args;
+const docsOnlyParameters = {
+  controls: { disable: true }
+};
 
+function VariantStatesRow({ variant }: { variant: ButtonVariant }) {
+  return (
+    <StorybookStoryShell align="center">
+      <StorybookVariantRow gap="md">
+        {visualStates.map((state) => (
+          <StorybookVariantCell key={state} align="center" label={state} labelPosition="below">
+            <Button label="Save" size="medium" variant={variant} visualState={state} />
+          </StorybookVariantCell>
+        ))}
+      </StorybookVariantRow>
+    </StorybookStoryShell>
+  );
+}
+
+function createVariantStory(variant: ButtonVariant, name: string): Story {
   return {
-    ...rest,
-    visualState: visualState === autoVisualState ? undefined : visualState
+    name,
+    tags: ['!dev'],
+    parameters: docsOnlyParameters,
+    render: () => <VariantStatesRow variant={variant} />
   };
 }
 
 /** Interactive sandbox — toggle every prop from the controls panel. */
 export const Playground: Story = {
-  render: (args) => <Button {...toButtonProps(args)} />
+  parameters: storybookPlaygroundParameters,
+  render: function Playground(args) {
+    const { visualState, ...rest } = args;
+
+    return (
+      <StorybookStoryShell align="center">
+        <Button
+          {...rest}
+          visualState={visualState === autoVisualState ? undefined : visualState}
+        />
+      </StorybookStoryShell>
+    );
+  }
 };
 
-function StatesGallery() {
-  const t = useTheme();
+export const Primary = createVariantStory('primary', 'Primary');
+export const Secondary = createVariantStory('secondary', 'Secondary');
+export const Tertiary = createVariantStory('tertiary', 'Tertiary');
+export const Accent = createVariantStory('accent', 'Accent');
+export const Error = createVariantStory('error', 'Error');
+export const ErrorSecondary = createVariantStory('error-secondary', 'Error secondary');
 
-  return (
-    <View style={{ alignItems: 'flex-start', gap: theme.space['400'] }}>
-      <Text style={[t.typography.labelS, { color: t.color.text.neutral.secondary }]}>
-        Primary · medium · forced via <Text style={t.typography.labelSStrong}>visualState</Text>
-      </Text>
-      <View style={{ gap: theme.space['300'] }}>
-        {visualStates.map((state) => (
-          <View
-            key={state}
-            style={{
-              alignItems: 'center',
-              flexDirection: 'row',
-              gap: theme.space['300']
-            }}
-          >
-            <Text
-              style={[
-                t.typography.labelSStrong,
-                { color: t.color.text.neutral.secondary, width: 72 }
-              ]}
-            >
-              {state}
-            </Text>
-            <Button label="Save" size="medium" variant="primary" visualState={state} />
-          </View>
+/** Primary · medium · text only, leading icon, trailing icon. */
+export const Icons: Story = {
+  name: 'Icons',
+  parameters: docsOnlyParameters,
+  render: () => (
+    <StorybookStoryShell align="center">
+      <StorybookVariantRow gap="md">
+        <StorybookVariantCell align="center" label="Text only" labelPosition="below">
+          <Button label="Save" size="medium" variant="primary" visualState="default" />
+        </StorybookVariantCell>
+        <StorybookVariantCell align="center" label="Leading icon" labelPosition="below">
+          <Button
+            label="Save"
+            leadingIcon={demoIcon}
+            size="medium"
+            variant="primary"
+            visualState="default"
+          />
+        </StorybookVariantCell>
+        <StorybookVariantCell align="center" label="Trailing icon" labelPosition="below">
+          <Button
+            label="Save"
+            size="medium"
+            trailingIcon={demoIcon}
+            variant="primary"
+            visualState="default"
+          />
+        </StorybookVariantCell>
+      </StorybookVariantRow>
+    </StorybookStoryShell>
+  )
+};
+
+/** Primary · default state · medium and small. */
+export const Sizes: Story = {
+  name: 'Sizes',
+  parameters: docsOnlyParameters,
+  render: () => (
+    <StorybookStoryShell align="center">
+      <StorybookVariantRow gap="md">
+        {sizes.map((size) => (
+          <StorybookVariantCell key={size} align="center" label={size} labelPosition="below">
+            <Button label="Save" size={size} variant="primary" visualState="default" />
+          </StorybookVariantCell>
         ))}
-      </View>
-    </View>
-  );
-}
-
-/**
- * Snapshot-friendly: one column per interaction state.
- * Ideal baseline for regression diffs on fill, border, and label color tokens.
- */
-export const States: Story = {
-  parameters: {
-    controls: { disable: true }
-  },
-  render: () => <StatesGallery />
+      </StorybookVariantRow>
+    </StorybookStoryShell>
+  )
 };
 
-const iconPositionLabels: Record<ButtonIconPosition, string> = {
-  none: 'Text only',
-  leading: 'Leading icon',
-  trailing: 'Trailing icon'
-};
-
-function VariantsMatrix() {
-  const t = useTheme();
-
-  return (
-    <ScrollView
-      contentContainerStyle={{
-        gap: theme.space['400'],
-        padding: theme.space['400']
-      }}
-    >
-      <Text style={[t.typography.labelS, { color: t.color.text.neutral.secondary }]}>
-        All variants × iconPosition · medium · default state
-      </Text>
-
-      <View
-        style={{
-          flexDirection: 'row',
-          gap: theme.space['300'],
-          paddingLeft: 120
-        }}
-      >
-        {iconPositions.map((position) => (
-          <Text
-            key={position}
-            style={[
-              t.typography.labelSStrong,
-              {
-                color: t.color.text.neutral.secondary,
-                flex: 1,
-                minWidth: 120,
-                textAlign: 'center'
-              }
-            ]}
-          >
-            {iconPositionLabels[position]}
-          </Text>
+/** All variants · medium · disabled state. */
+export const Disabled: Story = {
+  name: 'Disabled',
+  tags: ['!dev'],
+  parameters: docsOnlyParameters,
+  render: () => (
+    <StorybookStoryShell align="center">
+      <StorybookVariantRow gap="md">
+        {variants.map((variant) => (
+          <StorybookVariantCell key={variant} align="center" label={variant} labelPosition="below">
+            <Button disabled label="Save" size="medium" variant={variant} visualState="disabled" />
+          </StorybookVariantCell>
         ))}
-      </View>
-
-      {variants.map((variant) => (
-        <View
-          key={variant}
-          style={{
-            alignItems: 'center',
-            flexDirection: 'row',
-            gap: theme.space['300']
-          }}
-        >
-          <Text
-            style={[
-              t.typography.labelSStrong,
-              { color: t.color.text.neutral.primary, width: 120 }
-            ]}
-          >
-            {variant}
-          </Text>
-
-          {iconPositions.map((iconPosition) => (
-            <View key={iconPosition} style={{ alignItems: 'center', flex: 1, minWidth: 120 }}>
-              <Button
-                icon={iconPosition === 'none' ? undefined : demoIcon}
-                iconPosition={iconPosition}
-                label="Save"
-                size="medium"
-                variant={variant}
-                visualState="default"
-              />
-            </View>
-          ))}
-        </View>
-      ))}
-    </ScrollView>
-  );
-}
-
-/**
- * Snapshot-friendly: full variant × iconPosition matrix.
- * Catches regressions in layout (gap, padding) and per-variant token resolution.
- */
-export const Variants: Story = {
-  parameters: {
-    controls: { disable: true },
-    layout: 'fullscreen'
-  },
-  render: () => <VariantsMatrix />
+      </StorybookVariantRow>
+    </StorybookStoryShell>
+  )
 };

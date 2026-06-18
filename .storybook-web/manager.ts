@@ -3,6 +3,7 @@ import { storybookTheme } from './storybookTheme';
 import { theme } from '../src/theme/tokens';
 
 addons.setConfig({
+  panelPosition: 'bottom',
   theme: storybookTheme
 });
 

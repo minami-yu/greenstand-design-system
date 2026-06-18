@@ -17,6 +17,15 @@ This project has TWO Storybook environments sharing the same `src/components/**/
 - New components must ship with a `.stories.tsx` file using CSF (`Meta`/`StoryObj` from `@storybook/react`) so they appear in both Storybooks.
 - Components must only use web-compatible RN primitives (`View`, `Text`, `StyleSheet`, etc.). Avoid native-only modules or the web Storybook breaks.
 
+## Storybook docs UI (`src/storybook/ui/`)
+
+Storybook-only RN helpers for MDX docs and token catalogs live in **`src/storybook/ui/`**. Import from `../ui` or the barrel `index.ts`.
+
+- **Folder:** `src/storybook/ui/` — keeps docs/catalog UI separate from `src/components/`.
+- **Files & exports:** `Storybook` prefix (`StorybookTokenCatalog.tsx`, `StorybookInlineCode`, …).
+- **Utilities:** `storybook` prefix (`storybookTable`, `storybookRnTypography`, …).
+- Do not import these into app components — docs/catalog UI only.
+
 # Dependency Version Constraints
 
 Versions are deliberately pinned for Expo SDK 51 compatibility. Do NOT bump these independently:

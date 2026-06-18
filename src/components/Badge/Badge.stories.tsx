@@ -4,8 +4,14 @@
  * Snapshot-friendly stories freeze `badge`, `size`, and `value` for visual regression.
  */
 import type { Meta, StoryObj } from '@storybook/react';
-import { ScrollView, Text, View } from 'react-native';
-import { theme } from '../../theme/tokens';
+import { Text } from 'react-native';
+import {
+  StorybookStoryShell,
+  StorybookVariantCatalog,
+  StorybookVariantCell,
+  StorybookVariantRow
+} from '../../storybook/ui';
+import { storybookPlaygroundParameters } from '../../storybook/storybookPageParameters';
 import { useTheme } from '../../theme/useTheme';
 import { Badge } from './Badge';
 import type { BadgeSize, BadgeType } from './getBadgeLayout';
@@ -43,69 +49,62 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+const matrixColumnWidth = 100;
+const matrixLabelWidth = 80;
+
 /** Interactive sandbox — toggle badge type, size, and value. */
-export const Playground: Story = {};
+export const Playground: Story = {
+  parameters: storybookPlaygroundParameters,
+  render: function Playground(args) {
+    return (
+      <StorybookStoryShell align="center">
+        <Badge {...args} />
+      </StorybookStoryShell>
+    );
+  }
+};
 
 function VariantsMatrix() {
   const t = useTheme();
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        gap: theme.space['400'],
-        padding: theme.space['400']
-      }}
-    >
-      <Text style={[t.typography.labelS, { color: t.color.text.neutral.secondary }]}>
-        badge × size · Figma component set (12918:1005)
-      </Text>
-
-      <View
-        style={{
-          flexDirection: 'row',
-          gap: theme.space['400'],
-          paddingLeft: 80
-        }}
-      >
-        {sizes.map((size) => (
-          <Text
-            key={size}
-            style={[
-              t.typography.labelSStrong,
-              { color: t.color.text.neutral.secondary, flex: 1, textAlign: 'center' }
-            ]}
-          >
-            {size}
-          </Text>
-        ))}
-      </View>
-
-      {badgeTypes.map((badge) => (
-        <View
-          key={badge}
-          style={{
-            alignItems: 'center',
-            flexDirection: 'row',
-            gap: theme.space['400']
-          }}
-        >
-          <Text
-            style={[
-              t.typography.labelSStrong,
-              { color: t.color.text.neutral.primary, width: 80 }
-            ]}
-          >
-            {badge}
-          </Text>
-
+    <StorybookStoryShell align="center">
+      <StorybookVariantCatalog gap="sm">
+        <StorybookVariantRow gap="sm">
+          <StorybookVariantCell columnWidth={matrixLabelWidth} />
           {sizes.map((size) => (
-            <View key={size} style={{ alignItems: 'center', flex: 1 }}>
-              <Badge badge={badge} size={size} value="1" />
-            </View>
+            <StorybookVariantCell key={size} align="center" columnWidth={matrixColumnWidth}>
+              <Text
+                style={[
+                  t.typography.labelS,
+                  { color: t.color.text.neutral.secondary, textAlign: 'center' }
+                ]}
+              >
+                {size}
+              </Text>
+            </StorybookVariantCell>
           ))}
-        </View>
-      ))}
-    </ScrollView>
+        </StorybookVariantRow>
+
+        {badgeTypes.map((badge) => (
+          <StorybookVariantRow key={badge} gap="sm">
+            <StorybookVariantCell columnWidth={matrixLabelWidth} align="start">
+              <Text
+                style={[t.typography.labelS, { color: t.color.text.neutral.primary }]}
+              >
+                {badge}
+              </Text>
+            </StorybookVariantCell>
+
+            {sizes.map((size) => (
+              <StorybookVariantCell key={size} align="center" columnWidth={matrixColumnWidth}>
+                <Badge badge={badge} size={size} value="1" />
+              </StorybookVariantCell>
+            ))}
+          </StorybookVariantRow>
+        ))}
+      </StorybookVariantCatalog>
+    </StorybookStoryShell>
   );
 }
 
@@ -115,28 +114,4 @@ export const Variants: Story = {
     controls: { disable: true }
   },
   render: () => <VariantsMatrix />
-};
-
-/** Common notification counts for label badges. */
-export const LabelValues: Story = {
-  name: 'Label Values',
-  parameters: {
-    controls: { disable: true }
-  },
-  render: () => {
-    const t = useTheme();
-
-    return (
-      <View style={{ flexDirection: 'row', gap: theme.space['200'], padding: theme.space['400'] }}>
-        {['1', '9', '99'].map((value) => (
-          <View key={value} style={{ alignItems: 'center', gap: theme.space['100'] }}>
-            <Badge badge="label" size="medium" value={value} />
-            <Text style={[t.typography.labelS, { color: t.color.text.neutral.secondary }]}>
-              {value}
-            </Text>
-          </View>
-        ))}
-      </View>
-    );
-  }
 };

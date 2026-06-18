@@ -1,9 +1,9 @@
 import { Text, View } from 'react-native';
 import { theme } from '../../../theme/tokens';
 import { useTheme } from '../../../theme/useTheme';
-import { CatalogThemeProvider } from '../../ui/CatalogThemeProvider';
-import { useColorDocsMode } from '../../ui/ColorDocsShell';
-import { InlineCode, storybookRnTypography } from '../../ui';
+import { StorybookCatalogThemeProvider } from '../../ui/StorybookCatalogThemeProvider';
+import { useStorybookColorDocsMode } from '../../ui/StorybookColorDocsShell';
+import { StorybookInlineCode, storybookRnTypography } from '../../ui';
 import { ColorSwatch, StorybookDocRow } from '../../ui/storybookDocRow';
 import type { SemanticColorCategory, SemanticColorDocEntry } from '../../utils/buildColorDocEntries';
 import { buildSemanticColorDocEntries } from '../../utils/buildColorDocEntries';
@@ -16,15 +16,15 @@ type SemanticColorListProps = {
 
 export function SemanticColorList({ category, group, entries }: SemanticColorListProps) {
   return (
-    <CatalogThemeProvider>
+    <StorybookCatalogThemeProvider>
       <SemanticColorListView category={category} group={group} entries={entries} />
-    </CatalogThemeProvider>
+    </StorybookCatalogThemeProvider>
   );
 }
 
 function SemanticColorListView({ category, group, entries }: SemanticColorListProps) {
   const t = useTheme();
-  const mode = useColorDocsMode();
+  const mode = useStorybookColorDocsMode();
   const rows = entries ?? buildSemanticColorDocEntries(category, group, mode);
 
   if (rows.length === 0) {
@@ -37,7 +37,7 @@ function SemanticColorListView({ category, group, entries }: SemanticColorListPr
         <StorybookDocRow key={entry.path} showDivider={index < rows.length - 1}>
           <ColorSwatch value={entry.resolvedValue} />
           <View style={{ flex: 1, gap: theme.space['100'] }}>
-            <InlineCode size="monoBodyS">{entry.usage}</InlineCode>
+            <StorybookInlineCode size="monoBodyS">{entry.usage}</StorybookInlineCode>
             {entry.description ? (
               <Text style={[storybookRnTypography.paragraphS, { color: t.color.text.neutral.secondary }]}>
                 {entry.description}

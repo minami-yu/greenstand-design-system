@@ -2,19 +2,19 @@ import { Text, View } from 'react-native';
 import { Icon } from '../../../components/Icon/Icon';
 import { theme } from '../../../theme/tokens';
 import { useTheme } from '../../../theme/useTheme';
-import { CatalogThemeProvider } from '../../ui/CatalogThemeProvider';
+import { StorybookCatalogThemeProvider } from '../../ui/StorybookCatalogThemeProvider';
 import {
-  InlineCode,
+  StorybookInlineCode,
   StorybookTable,
   StorybookTableCell,
   StorybookTableRow,
   storybookRnTypography,
   type StorybookTableColumn,
-  type TokenCatalogEntry
+  type StorybookTokenCatalogEntry
 } from '../../ui';
 
 type IconCatalogProps = {
-  entries: TokenCatalogEntry[];
+  entries: StorybookTokenCatalogEntry[];
 };
 
 const previewSize = theme.space['1600'];
@@ -33,15 +33,15 @@ const iconTableColumns = [
   { label: 'Description', flex: iconColumnFlex.description }
 ] satisfies StorybookTableColumn[];
 
-function getIconValue(entry: TokenCatalogEntry) {
+function getIconValue(entry: StorybookTokenCatalogEntry) {
   return theme.icon[entry.name as keyof typeof theme.icon] ?? 0;
 }
 
 export function IconCatalog({ entries }: IconCatalogProps) {
   return (
-    <CatalogThemeProvider>
+    <StorybookCatalogThemeProvider>
       <IconCatalogView entries={entries} />
-    </CatalogThemeProvider>
+    </StorybookCatalogThemeProvider>
   );
 }
 
@@ -71,7 +71,7 @@ function IconCatalogView({ entries }: IconCatalogProps) {
               </View>
             </StorybookTableCell>
             <StorybookTableCell flex={iconColumnFlex.tokenName}>
-              {entry.usage ? <InlineCode size="monoBodyS">{entry.usage}</InlineCode> : null}
+              {entry.usage ? <StorybookInlineCode size="monoBodyS">{entry.usage}</StorybookInlineCode> : null}
             </StorybookTableCell>
             <StorybookTableCell flex={iconColumnFlex.value}>
               <Text style={[storybookRnTypography.labelM, { color: t.color.text.neutral.primary }]}>

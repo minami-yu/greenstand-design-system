@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { Icon } from '../../components/Icon/Icon';
 import { theme } from '../../theme/tokens';
 import { useTheme } from '../../theme/useTheme';
-import { CatalogThemeProvider } from './CatalogThemeProvider';
+import { StorybookCatalogThemeProvider } from './StorybookCatalogThemeProvider';
 import { StorybookImageView } from './StorybookImage';
 import { storybookRnTypography } from './storybookRnTypography';
 
@@ -21,14 +21,14 @@ export type StorybookDoDontCardProps = {
 
 const doDontMeta = {
   do: {
-    imageBackground: (t: ReturnType<typeof useTheme>) => t.color.fill.success.subtle,
+    imageBackground: (t: ReturnType<typeof useTheme>) => t.color.fill.neutral.subtle,
     pillColor: (t: ReturnType<typeof useTheme>) => t.color.fill.success.emphasis,
     icon: 'check' as const,
     label: 'Do',
     textColor: (t: ReturnType<typeof useTheme>) => t.color.text.success.onEmphasis
   },
   dont: {
-    imageBackground: (t: ReturnType<typeof useTheme>) => t.color.fill.error.subtle,
+    imageBackground: (t: ReturnType<typeof useTheme>) => t.color.fill.neutral.subtle,
     pillColor: (t: ReturnType<typeof useTheme>) => t.color.fill.error.emphasis,
     icon: 'close' as const,
     label: "Don't",
@@ -38,7 +38,7 @@ const doDontMeta = {
 
 export function StorybookDoDont({ children }: PropsWithChildren) {
   return (
-    <CatalogThemeProvider>
+    <StorybookCatalogThemeProvider>
       <View
         style={{
           flexDirection: 'row',
@@ -49,7 +49,7 @@ export function StorybookDoDont({ children }: PropsWithChildren) {
       >
         {children}
       </View>
-    </CatalogThemeProvider>
+    </StorybookCatalogThemeProvider>
   );
 }
 

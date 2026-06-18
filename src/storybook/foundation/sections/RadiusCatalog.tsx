@@ -1,19 +1,19 @@
 import { Text, View } from 'react-native';
 import { theme } from '../../../theme/tokens';
 import { useTheme } from '../../../theme/useTheme';
-import { CatalogThemeProvider } from '../../ui/CatalogThemeProvider';
+import { StorybookCatalogThemeProvider } from '../../ui/StorybookCatalogThemeProvider';
 import {
-  InlineCode,
+  StorybookInlineCode,
   StorybookTable,
   StorybookTableCell,
   StorybookTableRow,
   storybookRnTypography,
   type StorybookTableColumn,
-  type TokenCatalogEntry
+  type StorybookTokenCatalogEntry
 } from '../../ui';
 
 type RadiusCatalogProps = {
-  entries: TokenCatalogEntry[];
+  entries: StorybookTokenCatalogEntry[];
 };
 
 const radiusColumnFlex = {
@@ -30,15 +30,15 @@ const radiusTableColumns = [
   { label: 'Description', flex: radiusColumnFlex.description }
 ] satisfies StorybookTableColumn[];
 
-function getRadiusValue(entry: TokenCatalogEntry) {
+function getRadiusValue(entry: StorybookTokenCatalogEntry) {
   return theme.radius[entry.name as keyof typeof theme.radius] ?? 0;
 }
 
 export function RadiusCatalog({ entries }: RadiusCatalogProps) {
   return (
-    <CatalogThemeProvider>
+    <StorybookCatalogThemeProvider>
       <RadiusCatalogView entries={entries} />
-    </CatalogThemeProvider>
+    </StorybookCatalogThemeProvider>
   );
 }
 
@@ -65,7 +65,7 @@ function RadiusCatalogView({ entries }: RadiusCatalogProps) {
                 />
               </StorybookTableCell>
               <StorybookTableCell flex={radiusColumnFlex.tokenName}>
-                {entry.usage ? <InlineCode size="monoBodyS">{entry.usage}</InlineCode> : null}
+                {entry.usage ? <StorybookInlineCode size="monoBodyS">{entry.usage}</StorybookInlineCode> : null}
               </StorybookTableCell>
               <StorybookTableCell flex={radiusColumnFlex.value}>
                 <Text style={[storybookRnTypography.labelS, { color: t.color.text.neutral.primary }]}>

@@ -36,7 +36,7 @@ const preview: Preview = {
             ['*'],
             'Icon',
             ['*'],
-            'Toggle',
+            'Switch',
             ['*']
           ],
           'Accessibility',

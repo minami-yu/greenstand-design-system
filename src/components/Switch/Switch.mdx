@@ -1,0 +1,22 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks';
+import * as SwitchStories from './Switch.stories';
+
+<Meta of={SwitchStories} />
+
+# Switch
+## Overview
+Binary on/off control for settings and preferences.
+
+<br />
+<Canvas of={SwitchStories.Playground} />
+
+## Props
+<ArgTypes of={SwitchStories} />
+
+## Variants
+
+### Toggled
+<Canvas of={SwitchStories.Toggled} />
+
+### Disabled
+<Canvas of={SwitchStories.Disabled} />

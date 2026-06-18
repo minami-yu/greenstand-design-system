@@ -3,10 +3,13 @@
  * and RadioGroup (15276:38088).
  */
 import type { Meta, StoryObj } from '@storybook/react';
-import { useState, type ComponentProps, type ReactNode } from 'react';
-import { Text, View } from 'react-native';
-import { theme } from '../../theme/tokens';
-import { useTheme } from '../../theme/useTheme';
+import { useArgs } from '@storybook/preview-api';
+import {
+  StorybookStoryShell,
+  StorybookVariantGrid,
+  StorybookVariantGridItem
+} from '../../storybook/ui';
+import { storybookPlaygroundParameters } from '../../storybook/storybookPageParameters';
 import { RadioButton } from './RadioButton';
 import { RadioGroup } from './RadioGroup';
 
@@ -20,9 +23,6 @@ const defaultOptions = [
 const meta = {
   title: 'Components/RadioGroup',
   component: RadioGroup,
-  parameters: {
-    layout: 'centered'
-  },
   args: {
     error: false,
     errorText: 'Error message',
@@ -36,7 +36,7 @@ const meta = {
   argTypes: {
     error: {
       control: 'boolean',
-      description: 'Figma `error` — red outlines on unselected options and error message with information icon.'
+      description: 'Figma `error` — red indicator styling on all options and error message with information icon.'
     },
     errorText: {
       control: 'text',
@@ -73,92 +73,24 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-function PlaygroundRadioGroup(args: ComponentProps<typeof RadioGroup>) {
-  const [value, setValue] = useState(args.value ?? defaultOptions[0].value);
-
-  return (
-    <RadioGroup
-      {...args}
-      onValueChange={(next) => {
-        setValue(next);
-        args.onValueChange?.(next);
-      }}
-      style={{ width: 360 }}
-      value={value}
-    />
-  );
-}
-
-/** Interactive sandbox — flip error, labels, and selection from the controls panel. */
+/** Interactive sandbox — controls and Code panel stay in sync via Storybook args. */
 export const Playground: Story = {
-  render: (args) => <PlaygroundRadioGroup {...args} />
-};
+  parameters: storybookPlaygroundParameters,
+  render: function Playground(args) {
+    const [, updateArgs] = useArgs();
 
-type VariantWrapperProps = {
-  children: ReactNode;
-  /** Optional caption below the variant. Omit for an unlabeled cell. */
-  label?: string;
-};
-
-function VariantWrapper({ children, label }: VariantWrapperProps) {
-  const t = useTheme();
-
-  return (
-    <View
-      style={{
-        alignItems: 'center',
-        gap: label ? theme.space['200'] : theme.space['0']
-      }}
-    >
-      {children}
-      {label ? (
-        <Text style={[t.typography.labelS, { color: t.color.text.neutral.secondary }]}>{label}</Text>
-      ) : null}
-    </View>
-  );
-}
-
-function VariantRow({ children }: { children: ReactNode }) {
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: theme.space['1600']
-      }}
-    >
-      {children}
-    </View>
-  );
-}
-
-function VariantCatalog({ children }: { children: ReactNode }) {
-  return (
-    <View
-      style={{
-        gap: theme.space['1600'],
-        padding: theme.space['1600']
-      }}
-    >
-      {children}
-    </View>
-  );
-}
-
-/** Figma RadioGroup `error=false, hideLabel=false`. */
-export const Default: Story = {
-  parameters: {
-    controls: { disable: true }
-  },
-  render: () => (
-    <RadioGroup
-      hintText="Hint message"
-      label="Label"
-      options={defaultOptions}
-      style={{ width: 360 }}
-      value="option-1"
-    />
-  )
+    return (
+      <StorybookStoryShell align="center">
+        <RadioGroup
+          {...args}
+          onValueChange={(next) => {
+            updateArgs({ value: next });
+            args.onValueChange?.(next);
+          }}
+        />
+      </StorybookStoryShell>
+    );
+  }
 };
 
 /** Figma RadioGroup `error=true, hideLabel=false`. */
@@ -167,57 +99,58 @@ export const Error: Story = {
     controls: { disable: true }
   },
   render: () => (
-    <RadioGroup
-      error
-      errorText="Error message"
-      label="Label"
-      options={defaultOptions}
-      style={{ width: 360 }}
-    />
+    <StorybookStoryShell align="center">
+      <RadioGroup
+        error
+        errorText="Error message"
+        label="Label"
+        options={defaultOptions}
+      />
+    </StorybookStoryShell>
   )
 };
 
-/** Figma RadioButton (15274:37789) — all atomic variants. */
+/** Figma RadioButton (15274:37789) — all atomic variants. Shown in MDX only. */
 export const RadioButtonStory: Story = {
   name: 'RadioButton',
+  tags: ['!dev'],
   parameters: {
     controls: { disable: true }
   },
   render: () => (
-    <VariantCatalog>
-      <VariantRow>
-        <VariantWrapper label="Selected">
+    <StorybookStoryShell align="center">
+      <StorybookVariantGrid align="center" columnWidth={180} columns={2} gap="lg">
+        <StorybookVariantGridItem align="left" label="Selected">
           <RadioButton selected />
-        </VariantWrapper>
-        <VariantWrapper label="Unselected">
+        </StorybookVariantGridItem>
+        <StorybookVariantGridItem align="left" label="Unselected">
           <RadioButton selected={false} />
-        </VariantWrapper>
-      </VariantRow>
-      <VariantRow>
-        <VariantWrapper label="Disabled selected">
+        </StorybookVariantGridItem>
+        <StorybookVariantGridItem align="left" label="Disabled selected">
           <RadioButton disabled selected />
-        </VariantWrapper>
-        <VariantWrapper label="Disabled unselected">
+        </StorybookVariantGridItem>
+        <StorybookVariantGridItem align="left" label="Disabled unselected">
           <RadioButton disabled selected={false} />
-        </VariantWrapper>
-        <VariantWrapper label="Error unselected">
+        </StorybookVariantGridItem>
+        <StorybookVariantGridItem align="left" label="Error unselected">
           <RadioButton error selected={false} />
-        </VariantWrapper>
-        <VariantWrapper label="Error selected">
+        </StorybookVariantGridItem>
+        <StorybookVariantGridItem align="left" label="Error selected">
           <RadioButton error selected />
-        </VariantWrapper>
-      </VariantRow>
-      <VariantRow>
-        <VariantWrapper label="Hide label selected">
+        </StorybookVariantGridItem>
+        <StorybookVariantGridItem align="left" label="Hide label selected">
           <RadioButton hideLabel selected />
-        </VariantWrapper>
-        <VariantWrapper label="Hide label unselected">
+        </StorybookVariantGridItem>
+        <StorybookVariantGridItem align="left" label="Hide label unselected">
           <RadioButton hideLabel selected={false} />
-        </VariantWrapper>
-        <VariantWrapper label="Hide label error">
+        </StorybookVariantGridItem>
+        <StorybookVariantGridItem align="left" label="Hide label error unselected">
           <RadioButton error hideLabel selected={false} />
-        </VariantWrapper>
-      </VariantRow>
-    </VariantCatalog>
+        </StorybookVariantGridItem>
+        <StorybookVariantGridItem align="left" label="Hide label error selected">
+          <RadioButton error hideLabel selected />
+        </StorybookVariantGridItem>
+      </StorybookVariantGrid>
+    </StorybookStoryShell>
   )
 };

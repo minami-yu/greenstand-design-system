@@ -9,7 +9,7 @@ export const storybookDocSurface = {
 /**
  * CSS for MDX **markdown and Storybook HTML blocks** in the docs tab.
  *
- * Applied to: component MDX, foundation/guide prose (`#`, `##`, lists, `<ArgTypes />`, `<Title />`).
+ * Applied to: component MDX, foundation/guide prose (`#`, `##`, lists, `<ArgTypes />`).
  * Not used for RN catalog tables — those use `src/storybook/ui/storybookRnTypography.ts`.
  */
 export const storybookMdStyles = `

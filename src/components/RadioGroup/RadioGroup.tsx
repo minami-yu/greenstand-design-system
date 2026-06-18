@@ -11,7 +11,7 @@ export type RadioGroupOption = {
 };
 
 export type RadioGroupProps = ViewProps & {
-  /** Figma `error` — red outlines on unselected options and error message styling. */
+  /** Figma `error` — red indicator styling and error message below the options. */
   error?: boolean;
   /** Figma `errorText` — message shown below options when `error` is true. */
   errorText?: string;
@@ -69,7 +69,7 @@ export function RadioGroup({
             <RadioButton
               key={option.value}
               disabled={option.disabled}
-              error={error && !selected}
+              error={error}
               label={option.label}
               onPress={() => onValueChange?.(option.value)}
               selected={selected}
@@ -86,7 +86,13 @@ export function RadioGroup({
             gap: layout.groupHintGap
           }}
         >
-          <Icon color="error.default" name="information" size="md" />
+          <Icon
+            accessibilityElementsHidden
+            color="error.default"
+            importantForAccessibility="no-hide-descendants"
+            name="information"
+            size="md"
+          />
           <Text
             style={[t.typography.paragraphM, { color: t.color.text.error.default, flex: 1 }]}
           >

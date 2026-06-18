@@ -102,6 +102,15 @@ Space keys use the Figma scale (`"100"`, `"200"`, `"400"`, `"n200"`, …), not `
 - Use only web-compatible RN primitives (`View`, `Text`, `StyleSheet`, etc.) so web Storybook works.
 - Prefer React Native array style composition inside primitives.
 
+### Accessibility
+When implementing components, consider accessibility requirements by default.
+
+- Add appropriate `accessibilityRole` for interactive components.
+- Add `accessibilityLabel` when the purpose of a component is not clear from visible content, such as icon-only buttons.
+- Add `accessibilityState` when a component communicates state, such as disabled, selected, checked, or expanded.
+- Ensure components remain compatible with VoiceOver (iOS) and TalkBack (Android).
+- Verify touch targets meet accessibility guidelines.
+
 ### Missing tokens
 If a design requires a value that does not exist in `src/theme/tokens.ts`:
 1. Stop implementation.
@@ -128,6 +137,15 @@ Two environments share `src/components/**/*.stories.tsx`:
 | Desktop web | `npm run storybook:web` |
 
 Keep decorators defined once in `.storybook/preview.tsx` (web re-exports it).
+
+### Storybook docs UI (`src/storybook/ui/`)
+
+Storybook-only React Native helpers for MDX docs and token catalogs live in **`src/storybook/ui/`**. Import from the barrel (`../ui`) or a specific file.
+
+- **Folder:** `src/storybook/ui/` — Storybook-only; never under `src/components/`.
+- **Files & exports:** use a `Storybook` prefix (`StorybookTokenCatalog.tsx`, `StorybookInlineCode`, …).
+- **Utilities:** use a `storybook` prefix (`storybookTable`, `storybookRnTypography`, …).
+- Do not import these into app components — docs/catalog UI only.
 
 
 

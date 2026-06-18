@@ -10,7 +10,7 @@
         },
         "$type": "color",
         "$value": "{neutral.200}",
-        "$description": "Color for neutral fill components such as button with high emphasis"
+        "$description": "Standard fill used for interactive controls"
       },
       "default-hover": {
         "$extensions": {
@@ -43,7 +43,7 @@
         },
         "$type": "color",
         "$value": "{neutral.100}",
-        "$description": "Color for neutral fill components such as button with less emphasis than subtle"
+        "$description": "Quiet fill with lower emphasis"
       },
       "subtle-hover": {
         "$extensions": {
@@ -86,8 +86,8 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.800}",
-        "$description": "Used for containers and components that require a contrasting surface against the default background"
+        "$value": "{neutral.900}",
+        "$description": "Used for containers and components that require higher emphasis"
       },
       "inverse-hover": {
         "$extensions": {
@@ -97,7 +97,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.700}",
+        "$value": "{neutral.800}",
         "$description": "Hover state for the interactive component that uses the fill inverse color"
       },
       "inverse-selected": {
@@ -108,7 +108,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.600}",
+        "$value": "{neutral.700}",
         "$description": "Selected state for the interactive component that uses the fill inverse color"
       },
       "disabled": {
@@ -399,7 +399,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.900}",
+        "$value": "{neutral.950}",
         "$description": "Headings, body copy, default labels, highest contrast"
       },
       "secondary": {
@@ -410,7 +410,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.700}",
+        "$value": "{neutral.800}",
         "$description": "Supporting text, metadata, timestamps, medium emphasis"
       },
       "tertiary": {
@@ -421,7 +421,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.500}",
+        "$value": "{neutral.600}",
         "$description": "Hint text, helper labels, lowest emphasis copy"
       },
       "inverse": {
@@ -443,7 +443,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.400}",
+        "$value": "{neutral.500}",
         "$description": "Text inside disabled elements"
       },
       "placeholder": {
@@ -454,7 +454,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.500}",
+        "$value": "{neutral.600}",
         "$description": "Placeholder text inside empty input fields"
       }
     },
@@ -550,7 +550,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.950}",
+        "$value": "{neutral.1000}",
         "$description": "Text on vivid yellow bold banner"
       }
     },
@@ -598,7 +598,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.950}",
+        "$value": "{neutral.1000}",
         "$description": "Text on vivid orange fills, always dark for contrast"
       }
     }
@@ -635,7 +635,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.700}",
+        "$value": "{neutral.800}",
         "$description": "Emphasized border for active inputs, hover states, selected neutral items"
       },
       "disabled": {
@@ -815,7 +815,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.950}",
+        "$value": "{neutral.1000}",
         "$description": "Primary standalone icons, icon buttons"
       },
       "secondary": {
@@ -826,7 +826,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.700}",
+        "$value": "{neutral.800}",
         "$description": "Supporting icons next to secondary text, inactive nav icons"
       },
       "tertiary": {
@@ -837,7 +837,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.400}",
+        "$value": "{neutral.500}",
         "$description": "Decorative icons, placeholder icons, lowest emphasis"
       },
       "disabled": {
@@ -870,7 +870,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.400}",
+        "$value": "{neutral.500}",
         "$description": "Icons inside disabled buttons and non-interactive elements"
       }
     },
@@ -1014,7 +1014,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.950}",
+        "$value": "{neutral.1000}",
         "$description": "Icon on warning fill"
       }
     }

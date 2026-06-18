@@ -1,11 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ScrollView, Text, View } from 'react-native';
+import {
+  StorybookStoryShell,
+  StorybookVariantGrid,
+  StorybookVariantGridItem
+} from '../../storybook/ui';
+import { storybookPlaygroundParameters } from '../../storybook/storybookPageParameters';
 import { theme } from '../../theme/tokens';
-import { useTheme } from '../../theme/useTheme';
 import { Icon } from './Icon';
 import { icons, type IconName } from './icons';
 
 const iconNames = Object.keys(icons).sort() as IconName[];
+
+
 
 const meta = {
   title: 'Components/Icon',
@@ -44,50 +50,31 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = {};
-
-function IconGallery() {
-  const t = useTheme();
-  const cellSize = theme.space['1600'] + theme.space['800'];
-
-  return (
-    <ScrollView
-      contentContainerStyle={{
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: theme.space['400'],
-        padding: theme.space['400']
-      }}
-    >
-      {iconNames.map((name) => (
-        <View
-          key={name}
-          style={{
-            alignItems: 'center',
-            gap: theme.space['200'],
-            height: cellSize,
-            justifyContent: 'center',
-            padding: theme.space['300'],
-            width: cellSize
-          }}
-        >
-          <Icon color="neutral.primary" name={name} size="lg" />
-          <Text
-            numberOfLines={2}
-            style={[
-              t.typography.labelS,
-              { color: t.color.text.neutral.secondary, textAlign: 'center' }
-            ]}
-          >
-            {name}
-          </Text>
-        </View>
-      ))}
-    </ScrollView>
-  );
-}
+export const Playground: Story = {
+  parameters: storybookPlaygroundParameters,
+  render: function Playground(args) {
+    return (
+      <StorybookStoryShell align="center">
+        <Icon {...args} />
+      </StorybookStoryShell>
+    );
+  }
+};
 
 /** All icons from Figma frame "Icons" (12663:7261), keyed by title suffix. */
 export const Gallery: Story = {
-  render: () => <IconGallery />
+  parameters: {
+    controls: { disable: true }
+  },
+  render: () => (
+    <StorybookStoryShell align="center">
+      <StorybookVariantGrid align="center" columnWidth={100} columns={5} gap="md">
+        {iconNames.map((name) => (
+          <StorybookVariantGridItem key={name} align="center" label={name} labelPosition="below">
+            <Icon color="neutral.primary" name={name} size="lg" />
+          </StorybookVariantGridItem>
+        ))}
+      </StorybookVariantGrid>
+    </StorybookStoryShell>
+  )
 };

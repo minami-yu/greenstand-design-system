@@ -3,7 +3,7 @@ import { Icon } from '../../../components/Icon/Icon';
 import { icons, type IconName } from '../../../components/Icon/icons';
 import { theme } from '../../../theme/tokens';
 import { useTheme } from '../../../theme/useTheme';
-import { CatalogThemeProvider } from '../../ui/CatalogThemeProvider';
+import { StorybookCatalogThemeProvider } from '../../ui/StorybookCatalogThemeProvider';
 import { storybookRnTypography } from '../../ui';
 
 const galleryColumns = 6;
@@ -22,9 +22,9 @@ function chunkIconNames(names: IconName[], size: number): IconName[][] {
 
 export function IconGallery() {
   return (
-    <CatalogThemeProvider>
+    <StorybookCatalogThemeProvider>
       <IconGalleryView />
-    </CatalogThemeProvider>
+    </StorybookCatalogThemeProvider>
   );
 }
 

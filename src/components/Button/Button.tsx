@@ -12,7 +12,7 @@ import type { IconName } from '../Icon/icons';
 import {
   getButtonLayout,
   getButtonStyles,
-  type ButtonIconPosition,
+  resolveButtonIcons,
   type ButtonSize,
   type ButtonVariant,
   type ButtonVisualState
@@ -23,10 +23,10 @@ export type ButtonProps = Omit<PressableProps, 'children' | 'style'> &
     label?: string;
     variant?: ButtonVariant;
     size?: ButtonSize;
-    /** Figma `iconPosition` — none, leading, or trailing. */
-    iconPosition?: ButtonIconPosition;
-    /** Icon shown when `iconPosition` is leading or trailing. */
-    icon?: IconName;
+    /** Icon before the label — maps to Figma `iconPosition=leading`. */
+    leadingIcon?: IconName;
+    /** Icon after the label — maps to Figma `iconPosition=trailing`. */
+    trailingIcon?: IconName;
     /** Force a Figma interaction state (Storybook / previews). */
     visualState?: ButtonVisualState;
     style?: StyleProp<ViewStyle>;
@@ -36,8 +36,8 @@ export function Button({
   label = 'Save',
   variant = 'primary',
   size = 'medium',
-  iconPosition = 'none',
-  icon,
+  leadingIcon,
+  trailingIcon,
   visualState,
   disabled,
   style,
@@ -45,18 +45,17 @@ export function Button({
   ...props
 }: ButtonProps) {
   const t = useTheme();
-  const showIcon = iconPosition !== 'none' && Boolean(icon);
-  const layout = getButtonLayout(size, showIcon);
+  const icons = resolveButtonIcons(leadingIcon, trailingIcon);
+  const layout = getButtonLayout(size, icons.hasIcon);
 
-  const renderIcon = (colors: ReturnType<typeof getButtonStyles>) =>
-    showIcon && icon ? (
-      <Icon
-        colorValue={colors.textColor}
-        name={icon}
-        size={size === 'medium' ? 'md' : 'sm'}
-        style={{ height: layout.iconSize, width: layout.iconSize }}
-      />
-    ) : null;
+  const renderIcon = (name: IconName, colors: ReturnType<typeof getButtonStyles>) => (
+    <Icon
+      colorValue={colors.textColor}
+      name={name}
+      size={size === 'medium' ? 'md' : 'sm'}
+      style={{ height: layout.iconSize, width: layout.iconSize }}
+    />
+  );
 
   return (
     <Pressable
@@ -95,7 +94,7 @@ export function Button({
 
         return (
           <>
-            {iconPosition === 'leading' ? renderIcon(colors) : null}
+            {icons.leading ? renderIcon(icons.leading, colors) : null}
             {label ? (
               <Text
                 style={[
@@ -106,7 +105,7 @@ export function Button({
                 {label}
               </Text>
             ) : null}
-            {iconPosition === 'trailing' ? renderIcon(colors) : null}
+            {icons.trailing ? renderIcon(icons.trailing, colors) : null}
           </>
         );
       }}

@@ -80,6 +80,16 @@ Space keys: `"100"`, `"200"`, `"400"`, `"n200"`, etc. Radius keys: `"xs"`, `"sm"
 - Reuse existing components whenever possible.
 - Web-compatible RN primitives only.
 
+### Accessibility
+
+When implementing components, consider accessibility requirements by default.
+
+- Add appropriate `accessibilityRole` for interactive components.
+- Add `accessibilityLabel` when the purpose of a component is not clear from visible content, such as icon-only buttons.
+- Add `accessibilityState` when a component communicates state, such as disabled, selected, checked, or expanded.
+- Ensure components remain compatible with VoiceOver (iOS) and TalkBack (Android).
+- Verify touch targets meet accessibility guidelines.
+
 ### Missing tokens
 
 If a design requires a value not in `src/theme/tokens.ts`:
@@ -101,3 +111,12 @@ If a design requires a value not in `src/theme/tokens.ts`:
 - Decorators live in `.storybook/preview.tsx` only.
 - Pinned for Expo 51: `react-native@0.74.5`, reanimated 3.10, gesture-handler 2.16, bottom-sheet ^4, Storybook 8.6.x.
 - Never use `--force` / `--legacy-peer-deps` for ERESOLVE fixes.
+
+### Storybook docs UI (`src/storybook/ui/`)
+
+Storybook-only RN helpers for MDX docs and token catalogs live in **`src/storybook/ui/`**. Import via `../ui` or the barrel `index.ts`.
+
+- **Folder:** `src/storybook/ui/` — Storybook-only; never under `src/components/`.
+- **Files & exports:** `Storybook` prefix (`StorybookTokenCatalog.tsx`, `StorybookInlineCode`, …).
+- **Utilities:** `storybook` prefix (`storybookTable`, `storybookRnTypography`, …).
+- Do not import these into design-system components — docs/catalog UI only.

@@ -3,9 +3,9 @@ import { getElevationPreviewStyle } from '../../../theme/getShadow';
 import { theme } from '../../../theme/tokens';
 import { useTheme } from '../../../theme/useTheme';
 import type { ElevationCatalogEntry } from '../../utils/buildCatalogEntries';
-import { CatalogThemeProvider } from '../../ui/CatalogThemeProvider';
+import { StorybookCatalogThemeProvider } from '../../ui/StorybookCatalogThemeProvider';
 import {
-  InlineCode,
+  StorybookInlineCode,
   StorybookTable,
   StorybookTableCell,
   StorybookTableRow,
@@ -44,9 +44,9 @@ function sortElevationEntries(a: ElevationCatalogEntry, b: ElevationCatalogEntry
 
 export function ElevationCatalog({ entries }: ElevationCatalogProps) {
   return (
-    <CatalogThemeProvider>
+    <StorybookCatalogThemeProvider>
       <ElevationCatalogView entries={entries} />
-    </CatalogThemeProvider>
+    </StorybookCatalogThemeProvider>
   );
 }
 
@@ -54,13 +54,13 @@ function ElevationCatalogView({ entries }: ElevationCatalogProps) {
   const t = useTheme();
   const sortedEntries = [...entries].sort(sortElevationEntries);
   const canvasBackground =
-    t.color.background.neutral.base === t.color.background.neutral.surface
+    t.color.background.neutral.base === t.color.fill.neutral.surface
       ? t.color.fill.neutral.subtle
       : t.color.background.neutral.base;
   const surfaceBackground =
-    t.color.background.neutral.base === t.color.background.neutral.surface
+    t.color.background.neutral.base === t.color.fill.neutral.surface
       ? t.color.fill.neutral.default
-      : t.color.background.neutral.surface;
+      : t.color.fill.neutral.surface;
 
   return (
     <StorybookTable columns={elevationTableColumns}>
@@ -95,7 +95,7 @@ function ElevationCatalogView({ entries }: ElevationCatalogProps) {
               </View>
             </StorybookTableCell>
             <StorybookTableCell flex={elevationColumnFlex.token}>
-              <InlineCode size="monoBodyS">{entry.token}</InlineCode>
+              <StorybookInlineCode size="monoBodyS">{entry.token}</StorybookInlineCode>
             </StorybookTableCell>
             <StorybookTableCell flex={elevationColumnFlex.android}>
               <Text
