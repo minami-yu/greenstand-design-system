@@ -4,9 +4,10 @@ import { storybookTheme } from './storybookTheme';
 /** Shared Storybook docs configuration for web preview. */
 export const storybookDocsParameters = {
   autodocs: 'tag',
+  codePanel: false,
   theme: storybookTheme,
   canvas: {
-    sourceState: 'shown',
+    sourceState: 'hidden',
     withToolbar: true
   },
   controls: {

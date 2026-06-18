@@ -56,6 +56,16 @@ Key namespaces: `color.*` (semantic + `palette`), `typography.*` (composites), `
 - Token-driven styling only; reuse existing components; web-compatible RN primitives only.
 - Gate on `useAppFonts()` where fonts are needed.
 
+## Accessibility
+
+When implementing components, consider accessibility requirements by default.
+
+- Add appropriate `accessibilityRole` for interactive components.
+- Add `accessibilityLabel` when the purpose of a component is not clear from visible content, such as icon-only buttons.
+- Add `accessibilityState` when a component communicates state, such as disabled, selected, checked, or expanded.
+- Ensure components remain compatible with VoiceOver (iOS) and TalkBack (Android).
+- Verify touch targets meet accessibility guidelines.
+
 ## Missing Tokens
 
 Stop → report missing token + suggested name/category → wait for confirmation before adding to `tokens/styles/typography.json`, `tokens/styles/elevation.json`, or requesting a Figma export.

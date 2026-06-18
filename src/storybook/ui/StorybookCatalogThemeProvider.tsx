@@ -4,7 +4,7 @@ import { ThemeProvider } from '../../theme/ThemeProvider';
 import { useAppFonts } from '../../theme/fonts';
 
 /** Internal wrapper — catalog components include this so MDX does not need a custom preview shell. */
-export function CatalogThemeProvider({ children }: PropsWithChildren) {
+export function StorybookCatalogThemeProvider({ children }: PropsWithChildren) {
   const fontsLoaded = useAppFonts();
 
   if (!fontsLoaded) {

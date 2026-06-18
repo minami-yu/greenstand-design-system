@@ -3,7 +3,7 @@ import { Image, View, type ImageStyle, type StyleProp } from 'react-native';
 import { storybookDocSurface } from '../../../.storybook-web/storybookMdStyles';
 import { theme } from '../../theme/tokens';
 import { useTheme } from '../../theme/useTheme';
-import { CatalogThemeProvider } from './CatalogThemeProvider';
+import { StorybookCatalogThemeProvider } from './StorybookCatalogThemeProvider';
 
 type ImageLayout = {
   aspectRatio: number;
@@ -29,9 +29,9 @@ export type StorybookImageProps = {
  */
 export function StorybookImage(props: StorybookImageProps) {
   return (
-    <CatalogThemeProvider>
+    <StorybookCatalogThemeProvider>
       <StorybookImageView {...props} />
-    </CatalogThemeProvider>
+    </StorybookCatalogThemeProvider>
   );
 }
 

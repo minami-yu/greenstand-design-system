@@ -2,7 +2,7 @@ import { createContext, useContext, useState, type PropsWithChildren } from 'rea
 import { type ThemeMode } from '../../theme/tokens';
 import { StorybookSegmentedToggle } from './StorybookSegmentedToggle';
 
-type ColorDocsContextValue = {
+type StorybookColorDocsContextValue = {
   mode: ThemeMode;
   setMode: (mode: ThemeMode) => void;
 };
@@ -12,19 +12,19 @@ const colorDocsModeOptions = [
   { accessibilityLabel: 'Dark color set', label: 'Dark', value: 'dark' }
 ] as const satisfies readonly { accessibilityLabel: string; label: string; value: ThemeMode }[];
 
-const ColorDocsModeContext = createContext<ColorDocsContextValue>({
+const StorybookColorDocsModeContext = createContext<StorybookColorDocsContextValue>({
   mode: 'light',
   setMode: () => { }
 });
 
 /** Active color-set mode for semantic swatch / hex values only. */
-export function useColorDocsMode(): ThemeMode {
-  return useContext(ColorDocsModeContext).mode;
+export function useStorybookColorDocsMode(): ThemeMode {
+  return useContext(StorybookColorDocsModeContext).mode;
 }
 
 /** Segmented light/dark control for semantic color-set data (swatch + hex only). */
-export function ColorDocsModeToggle() {
-  const { mode, setMode } = useContext(ColorDocsModeContext);
+export function StorybookColorDocsModeToggle() {
+  const { mode, setMode } = useContext(StorybookColorDocsModeContext);
 
   return (
     <StorybookSegmentedToggle
@@ -36,17 +36,17 @@ export function ColorDocsModeToggle() {
 }
 
 /** Provides color-set mode context for semantic list swatches and hex values. */
-export function ColorDocsShell({ children }: PropsWithChildren) {
+export function StorybookColorDocsShell({ children }: PropsWithChildren) {
   const [mode, setMode] = useState<ThemeMode>('light');
 
   return (
-    <ColorDocsModeContext.Provider
+    <StorybookColorDocsModeContext.Provider
       value={{
         mode,
         setMode
       }}
     >
       {children}
-    </ColorDocsModeContext.Provider>
+    </StorybookColorDocsModeContext.Provider>
   );
 }

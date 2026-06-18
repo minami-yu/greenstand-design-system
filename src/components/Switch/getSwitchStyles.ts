@@ -2,38 +2,46 @@ import { theme, themes, type ThemeMode } from '../../theme/tokens';
 
 export type ThemeTokens = (typeof themes)[ThemeMode];
 
-export type ToggleStyleTokens = {
+export type SwitchStyleTokens = {
   thumbBackgroundColor: string;
   trackBackgroundColor: string;
 };
 
-export type ToggleLayout = {
+export type SwitchLayout = {
   borderRadius: number;
   paddingHorizontal: number;
   paddingVertical: number;
   thumbSize: number;
+  thumbTravel: number;
+  trackHeight: number;
   trackWidth: number;
 };
 
-/** Figma Toggle (13571:25414) — 48×24 track, 20px thumb, pill radius. */
-export function getToggleLayout(): ToggleLayout {
+/** Figma Switch (13571:25414) — 48×24 track, 20px thumb, pill radius. */
+export function getSwitchLayout(): SwitchLayout {
+  const paddingHorizontal = theme.space['050'];
+  const thumbSize = theme.icon.md;
+  const trackWidth = theme.icon['2xl'];
+
   return {
     borderRadius: theme.radius.full,
-    paddingHorizontal: theme.space['050'],
+    paddingHorizontal,
     paddingVertical: theme.space['050'],
-    thumbSize: theme.icon.md,
-    trackWidth: theme.icon['2xl']
+    thumbSize,
+    thumbTravel: trackWidth - paddingHorizontal * 2 - thumbSize,
+    trackHeight: theme.icon.lg,
+    trackWidth
   };
 }
 
-export function getToggleStyles(
+export function getSwitchStyles(
   color: ThemeTokens['color'],
   toggled: boolean,
   disabled: boolean
-): ToggleStyleTokens {
+): SwitchStyleTokens {
   if (disabled) {
     return {
-      trackBackgroundColor: color.fill.neutral.disabled,
+      trackBackgroundColor: color.fill.neutral.default,
       thumbBackgroundColor: color.icon.neutral.onDisabled
     };
   }
@@ -41,12 +49,12 @@ export function getToggleStyles(
   if (toggled) {
     return {
       trackBackgroundColor: color.fill.brand.default,
-      thumbBackgroundColor: color.fill.neutral.surface
+      thumbBackgroundColor: color.icon.neutral.inverse
     };
   }
 
   return {
     trackBackgroundColor: color.fill.neutral.default,
-    thumbBackgroundColor: color.fill.neutral.surface
+    thumbBackgroundColor: color.icon.neutral.inverse
   };
 }

@@ -4,13 +4,13 @@ export const theme = {
   "color": {
     "fill": {
       "neutral": {
-        "default": "#e8e8e8",
-        "defaultHover": "#d4d4d4",
+        "default": "#eaeaea",
+        "defaultHover": "#e6e6e6",
         "surface": "#ffffff",
         "subtle": "#f2f2f2",
-        "subtleHover": "#e8e8e8",
-        "defaultSelected": "#a0a0a0",
-        "subtleSelected": "#d4d4d4",
+        "subtleHover": "#eaeaea",
+        "defaultSelected": "#cacaca",
+        "subtleSelected": "#e6e6e6",
         "inverse": "#3d3c3c",
         "inverseHover": "#585858",
         "inverseSelected": "#6c6c6c",
@@ -56,10 +56,10 @@ export const theme = {
       "neutral": {
         "primary": "#232323",
         "secondary": "#585858",
-        "tertiary": "#7c7c7c",
+        "tertiary": "#707070",
         "inverse": "#ffffff",
-        "disabled": "#a0a0a0",
-        "placeholder": "#7c7c7c"
+        "disabled": "#b2b2b2",
+        "placeholder": "#707070"
       },
       "brand": {
         "default": "#2b6409",
@@ -88,10 +88,10 @@ export const theme = {
     },
     "border": {
       "neutral": {
-        "subtle": "#e8e8e8",
-        "default": "#d4d4d4",
+        "subtle": "#eaeaea",
+        "default": "#e6e6e6",
         "strong": "#585858",
-        "disabled": "#d4d4d4",
+        "disabled": "#e6e6e6",
         "OLDinverse": "#ffffff"
       },
       "brand": {
@@ -123,10 +123,10 @@ export const theme = {
       "neutral": {
         "primary": "#131313",
         "secondary": "#585858",
-        "tertiary": "#a0a0a0",
-        "disabled": "#d4d4d4",
+        "tertiary": "#b2b2b2",
+        "disabled": "#e6e6e6",
         "inverse": "#ffffff",
-        "onDisabled": "#a0a0a0"
+        "onDisabled": "#b2b2b2"
       },
       "brand": {
         "default": "#2b6409",
@@ -188,15 +188,16 @@ export const theme = {
       "neutral": {
         "50": "#f7f7f7",
         "100": "#f2f2f2",
-        "200": "#e8e8e8",
-        "300": "#d4d4d4",
-        "400": "#a0a0a0",
-        "500": "#7c7c7c",
-        "600": "#6c6c6c",
-        "700": "#585858",
-        "800": "#3d3c3c",
-        "900": "#232323",
-        "950": "#131313"
+        "200": "#eaeaea",
+        "300": "#e6e6e6",
+        "400": "#cacaca",
+        "500": "#b2b2b2",
+        "600": "#707070",
+        "700": "#6c6c6c",
+        "800": "#585858",
+        "900": "#3d3c3c",
+        "950": "#232323",
+        "1000": "#131313"
       },
       "green": {
         "50": "#eef8e6",
@@ -544,11 +545,11 @@ const darkColors = {
       "surface": "#0c0c0d",
       "subtle": "#232323",
       "subtleHover": "#3d3c3c",
-      "defaultSelected": "#7c7c7c",
+      "defaultSelected": "#707070",
       "subtleSelected": "#585858",
-      "inverse": "#e8e8e8",
-      "inverseHover": "#d4d4d4",
-      "inverseSelected": "#a0a0a0",
+      "inverse": "#eaeaea",
+      "inverseHover": "#e6e6e6",
+      "inverseSelected": "#b2b2b2",
       "disabled": "#232323"
     },
     "brand": {
@@ -590,7 +591,7 @@ const darkColors = {
   "text": {
     "neutral": {
       "primary": "#ffffff",
-      "secondary": "#a0a0a0",
+      "secondary": "#b2b2b2",
       "tertiary": "#6c6c6c",
       "inverse": "#131313",
       "disabled": "#585858",
@@ -624,8 +625,8 @@ const darkColors = {
   "border": {
     "neutral": {
       "subtle": "#585858",
-      "default": "#a0a0a0",
-      "strong": "#e8e8e8",
+      "default": "#b2b2b2",
+      "strong": "#eaeaea",
       "disabled": "#3d3c3c",
       "OLDinverse": "#131313"
     },
@@ -657,9 +658,9 @@ const darkColors = {
   "icon": {
     "neutral": {
       "primary": "#ffffff",
-      "secondary": "#d4d4d4",
-      "tertiary": "#a0a0a0",
-      "disabled": "#7c7c7c",
+      "secondary": "#e6e6e6",
+      "tertiary": "#b2b2b2",
+      "disabled": "#707070",
       "inverse": "#131313",
       "onDisabled": "#585858"
     },
@@ -723,15 +724,16 @@ const darkColors = {
     "neutral": {
       "50": "#f7f7f7",
       "100": "#f2f2f2",
-      "200": "#e8e8e8",
-      "300": "#d4d4d4",
-      "400": "#a0a0a0",
-      "500": "#7c7c7c",
-      "600": "#6c6c6c",
-      "700": "#585858",
-      "800": "#3d3c3c",
-      "900": "#232323",
-      "950": "#131313"
+      "200": "#eaeaea",
+      "300": "#e6e6e6",
+      "400": "#cacaca",
+      "500": "#b2b2b2",
+      "600": "#707070",
+      "700": "#6c6c6c",
+      "800": "#585858",
+      "900": "#3d3c3c",
+      "950": "#232323",
+      "1000": "#131313"
     },
     "green": {
       "50": "#eef8e6",

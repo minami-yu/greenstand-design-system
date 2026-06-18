@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { theme, typographies, type TypographyMode } from '../../../theme/tokens';
 import { useTheme } from '../../../theme/useTheme';
 import {
-  InlineCode,
+  StorybookInlineCode,
   StorybookSegmentedToggle,
   StorybookTable,
   StorybookTableCell,
@@ -11,12 +11,12 @@ import {
   StorybookTableRow,
   storybookRnTypography,
   type StorybookTableColumn,
-  type TokenCatalogEntry
+  type StorybookTokenCatalogEntry
 } from '../../ui';
-import { CatalogThemeProvider } from '../../ui/CatalogThemeProvider';
+import { StorybookCatalogThemeProvider } from '../../ui/StorybookCatalogThemeProvider';
 
 type TypographyCatalogProps = {
-  entries: TokenCatalogEntry[];
+  entries: StorybookTokenCatalogEntry[];
 };
 
 type TypographyStyle = {
@@ -91,9 +91,9 @@ const typographyGroups = [
 
 export function TypographyCatalog({ entries }: TypographyCatalogProps) {
   return (
-    <CatalogThemeProvider>
+    <StorybookCatalogThemeProvider>
       <TypographyCatalogView entries={entries} />
-    </CatalogThemeProvider>
+    </StorybookCatalogThemeProvider>
   );
 }
 
@@ -141,9 +141,9 @@ function TypographyCatalogView({ entries }: TypographyCatalogProps) {
                     </StorybookTableCell>
                     <StorybookTableCell flex={typographyColumnFlex.usage} justifyContent="center">
                       {entry.usage ? (
-                        <InlineCode size="monoBodyS">{entry.usage}</InlineCode>
+                        <StorybookInlineCode size="monoBodyS">{entry.usage}</StorybookInlineCode>
                       ) : (
-                        <InlineCode size="monoBodyS">{entry.name}</InlineCode>
+                        <StorybookInlineCode size="monoBodyS">{entry.name}</StorybookInlineCode>
                       )}
                     </StorybookTableCell>
                     <StorybookTableCell flex={typographyColumnFlex.fontWeight} justifyContent="center">
@@ -174,9 +174,9 @@ function TypographyCatalogView({ entries }: TypographyCatalogProps) {
 
 export function TypographyUsageTable({ entries }: TypographyCatalogProps) {
   return (
-    <CatalogThemeProvider>
+    <StorybookCatalogThemeProvider>
       <TypographyUsageTableView entries={entries} />
-    </CatalogThemeProvider>
+    </StorybookCatalogThemeProvider>
   );
 }
 
@@ -190,9 +190,9 @@ function TypographyUsageTableView({ entries }: TypographyCatalogProps) {
           <StorybookTableRow key={entry.name}>
             <StorybookTableCell flex={typographyUsageColumnFlex.usage}>
               {entry.usage ? (
-                <InlineCode size="monoBodyS">{entry.usage}</InlineCode>
+                <StorybookInlineCode size="monoBodyS">{entry.usage}</StorybookInlineCode>
               ) : (
-                <InlineCode size="monoBodyS">{entry.name}</InlineCode>
+                <StorybookInlineCode size="monoBodyS">{entry.name}</StorybookInlineCode>
               )}
             </StorybookTableCell>
             <StorybookTableCell flex={typographyUsageColumnFlex.description}>

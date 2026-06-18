@@ -1,4 +1,5 @@
 import { theme, themes, type ThemeMode } from '../../theme/tokens';
+import type { IconName } from '../Icon/icons';
 
 export type ThemeTokens = (typeof themes)[ThemeMode];
 
@@ -11,9 +12,6 @@ export type ButtonVariant =
   | 'error-secondary';
 
 export type ButtonSize = 'medium' | 'small';
-
-/** Matches Figma Button property `iconPosition`. */
-export type ButtonIconPosition = 'none' | 'leading' | 'trailing';
 
 export type ButtonVisualState = 'default' | 'hover' | 'pressed' | 'disabled';
 
@@ -161,6 +159,19 @@ export function getButtonLayout(size: ButtonSize, hasIcon: boolean) {
     paddingVertical: isMedium ? theme.space['300'] : theme.space['0'],
     gap: hasIcon ? (isMedium ? theme.space['200'] : theme.space['100']) : theme.space['0'],
     iconSize: isMedium ? theme.icon.md : theme.typography.labelM.fontSize,
-    borderRadius: theme.radius.sm
+    borderRadius: theme.radius.md
   };
+}
+
+/** Derives icon slots from props — Figma `iconPosition` is leading, trailing, or none. */
+export function resolveButtonIcons(leadingIcon?: IconName, trailingIcon?: IconName) {
+  if (leadingIcon) {
+    return { hasIcon: true, leading: leadingIcon, trailing: undefined };
+  }
+
+  if (trailingIcon) {
+    return { hasIcon: true, leading: undefined, trailing: trailingIcon };
+  }
+
+  return { hasIcon: false, leading: undefined, trailing: undefined };
 }

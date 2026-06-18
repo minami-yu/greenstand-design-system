@@ -1,0 +1,30 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks';
+import * as RadioGroupStories from './RadioGroup.stories';
+
+<Meta of={RadioGroupStories} />
+
+# RadioGroup
+
+## Overview
+
+Single-select option list with group label and helper or error text. Built from the Figma `RadioButton` and `RadioGroup` components.
+
+## Preview
+
+<Canvas of={RadioGroupStories.Playground} />
+
+## Props
+
+<ArgTypes of={RadioGroupStories} />
+
+## Variants
+
+### Error
+
+<Canvas of={RadioGroupStories.Error} />
+
+## RadioButton
+
+Atomic radio control used inside `RadioGroup`. Supports `selected`, `disabled`, `error`, and `hideLabel` to match Figma property names.
+
+<Canvas of={RadioGroupStories.RadioButtonStory} />

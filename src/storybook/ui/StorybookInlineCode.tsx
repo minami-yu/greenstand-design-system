@@ -3,18 +3,18 @@ import { Text, View, type TextStyle, type ViewStyle } from 'react-native';
 import { useTheme } from '../../theme/useTheme';
 import { storybookRnCodeStyles, storybookRnTypography, type StorybookRnMonoTypography } from './storybookRnTypography';
 
-type InlineCodeProps = PropsWithChildren<{
+type StorybookInlineCodeProps = PropsWithChildren<{
   containerStyle?: ViewStyle;
   size?: StorybookRnMonoTypography;
   style?: TextStyle;
 }>;
 
-export function InlineCode({
+export function StorybookInlineCode({
   children,
   containerStyle,
   size = 'monoBodyS',
   style
-}: InlineCodeProps) {
+}: StorybookInlineCodeProps) {
   const t = useTheme();
 
   return (

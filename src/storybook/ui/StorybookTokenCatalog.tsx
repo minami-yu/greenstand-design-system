@@ -1,11 +1,11 @@
 import { Text, View } from 'react-native';
 import { theme } from '../../theme/tokens';
 import { useTheme } from '../../theme/useTheme';
-import { InlineCode } from './InlineCode';
-import { CatalogThemeProvider } from './CatalogThemeProvider';
+import { StorybookInlineCode } from './StorybookInlineCode';
+import { StorybookCatalogThemeProvider } from './StorybookCatalogThemeProvider';
 import { storybookRnTypography } from './storybookRnTypography';
 
-export type TokenCatalogEntry = {
+export type StorybookTokenCatalogEntry = {
   description?: string;
   name: string;
   preview?: React.ReactNode;
@@ -13,19 +13,19 @@ export type TokenCatalogEntry = {
   value: string;
 };
 
-type TokenCatalogProps = {
-  entries: TokenCatalogEntry[];
+type StorybookTokenCatalogProps = {
+  entries: StorybookTokenCatalogEntry[];
 };
 
-export function TokenCatalog({ entries }: TokenCatalogProps) {
+export function StorybookTokenCatalog({ entries }: StorybookTokenCatalogProps) {
   return (
-    <CatalogThemeProvider>
-      <TokenCatalogView entries={entries} />
-    </CatalogThemeProvider>
+    <StorybookCatalogThemeProvider>
+      <StorybookTokenCatalogView entries={entries} />
+    </StorybookCatalogThemeProvider>
   );
 }
 
-function TokenCatalogView({ entries }: TokenCatalogProps) {
+function StorybookTokenCatalogView({ entries }: StorybookTokenCatalogProps) {
   const t = useTheme();
 
   return (
@@ -58,7 +58,7 @@ function TokenCatalogView({ entries }: TokenCatalogProps) {
               {entry.description}
             </Text>
           ) : null}
-          {entry.usage ? <InlineCode size="monoBodyM">{entry.usage}</InlineCode> : null}
+          {entry.usage ? <StorybookInlineCode size="monoBodyM">{entry.usage}</StorybookInlineCode> : null}
         </View>
       ))}
     </View>

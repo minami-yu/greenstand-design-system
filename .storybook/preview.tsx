@@ -11,9 +11,11 @@ import { themes } from '../src/theme/tokens';
 export const storybookPreviewParameters = {
   backgrounds: { disable: true },
   controls: { expanded: true },
+  layout: 'fullscreen',
   docs: {
     autodocs: 'tag',
-    canvas: { sourceState: 'shown', withToolbar: true }
+    codePanel: false,
+    canvas: { sourceState: 'hidden', withToolbar: true }
   },
   // Keep in sync with the inline `options.storySort` in `.storybook-web/preview.tsx`.
   options: {
@@ -42,7 +44,7 @@ export const storybookPreviewParameters = {
           ['*'],
           'Icon',
           ['*'],
-          'Toggle',
+          'Switch',
           ['*']
         ],
         'Accessibility',
@@ -97,14 +99,14 @@ function StorybookThemeDecorator({
     <ThemeProvider mode={effectiveMode} typographyMode={docsPage ? 'desktop' : 'mobile'}>
       <View
         style={{
-          alignItems: docsPage ? 'stretch' : 'center',
-          alignSelf: docsPage ? 'stretch' : 'center',
+          alignItems: 'stretch',
+          alignSelf: 'stretch',
           backgroundColor: t.color.background.neutral.default,
           flex: 1,
-          justifyContent: docsPage ? 'flex-start' : 'center',
+          justifyContent: 'flex-start',
           minHeight: docsPage ? undefined : '100%',
-          padding: t.space['400'],
-          width: docsPage ? '100%' : undefined
+          padding: docsPage ? t.space['400'] : t.space['1600'],
+          width: '100%'
         }}
       >
         {children}

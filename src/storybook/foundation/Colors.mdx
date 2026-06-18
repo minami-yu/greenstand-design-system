@@ -3,7 +3,7 @@ import {
   PrimitiveColorList,
   SemanticColorList
 } from './sections';
-import { ColorDocsModeToggle, ColorDocsShell, StorybookDoDont, StorybookDoDontCard, StorybookImage } from '../ui';
+import { StorybookColorDocsModeToggle, StorybookColorDocsShell, StorybookDoDont, StorybookDoDontCard, StorybookImage } from '../ui';
 import { storybookPageParameters as parameters } from '../storybookPageParameters';
 import tokenDiagram from '../asset/foundation/ds-token-diagram.png';
 import colorDo1 from '../asset/foundation/color-do-1.png';
@@ -79,12 +79,12 @@ All color combinations used in the product should meet WCAG AA contrast requirem
 ## Light & dark mode
 The current design system is optimized for Light Mode because Treetracker is primarily used outdoors in bright environments where higher screen brightness improves visibility. Dark colors may be used in specific contexts such as camera workflows. A user controlled Dark Mode theme is not currently supported.
 
-<ColorDocsShell>
+<StorybookColorDocsShell>
   ## Semantic colors
   Semantic colors describe how colors are used throughout the interface. They provide a consistent vocabulary for designers and engineers while supporting future theming and color system updates.
 
   <br />
-  <ColorDocsModeToggle />
+  <StorybookColorDocsModeToggle />
 
   ### Background
   Background colors define the surfaces that content is placed on. They establish visual hierarchy between pages, containers, cards, overlays, and other structural elements.
@@ -207,6 +207,6 @@ The current design system is optimized for Light Mode because Treetracker is pri
 
   ### White
   <PrimitiveColorList group="white" />
-</ColorDocsShell>
+</StorybookColorDocsShell>
 
 

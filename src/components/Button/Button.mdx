@@ -1,23 +1,62 @@
-import { ArgTypes, Canvas, Meta, Primary, Title } from '@storybook/blocks';
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks';
 import * as ButtonStories from './Button.stories';
 
 <Meta of={ButtonStories} />
 
-<Title />
+# Button
 
 ## Overview
 
-TBD
+Primary action control for forms, dialogs, and toolbars. Maps to Figma Button (12618:892) with `variant`, `size`, `leadingIcon` / `trailingIcon`, and `state` properties.
+<br/>
+<Canvas of={ButtonStories.Playground} />
 
 ## Props
 
 <ArgTypes of={ButtonStories} />
 
-## Preview
+## Variants
 
-<Primary />
+Each variant · medium · interaction states (`default`, `hover`, `pressed`, `disabled`).
 
-## Examples
+### Primary
 
-<Canvas of={ButtonStories.States} />
-<Canvas of={ButtonStories.Variants} />
+<Canvas of={ButtonStories.Primary} />
+
+### Secondary
+
+<Canvas of={ButtonStories.Secondary} />
+
+### Tertiary
+
+<Canvas of={ButtonStories.Tertiary} />
+
+### Accent
+
+<Canvas of={ButtonStories.Accent} />
+
+### Error
+
+<Canvas of={ButtonStories.Error} />
+
+### Error secondary
+
+<Canvas of={ButtonStories.ErrorSecondary} />
+
+## Icons
+
+Primary · medium · text only, leading icon, and trailing icon.
+
+<Canvas of={ButtonStories.Icons} />
+
+## Sizes
+
+Primary · default state · medium and small.
+
+<Canvas of={ButtonStories.Sizes} />
+
+## Disabled
+
+All variants · medium · disabled state.
+
+<Canvas of={ButtonStories.Disabled} />

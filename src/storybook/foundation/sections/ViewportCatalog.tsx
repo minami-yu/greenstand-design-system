@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 import { useTheme } from '../../../theme/useTheme';
-import { CatalogThemeProvider } from '../../ui/CatalogThemeProvider';
+import { StorybookCatalogThemeProvider } from '../../ui/StorybookCatalogThemeProvider';
 import {
   StorybookTable,
   StorybookTableCell,
@@ -28,9 +28,9 @@ const viewportTableColumns = [
 
 export function ViewportCatalog({ entries }: ViewportCatalogProps) {
   return (
-    <CatalogThemeProvider>
+    <StorybookCatalogThemeProvider>
       <ViewportCatalogView entries={entries} />
-    </CatalogThemeProvider>
+    </StorybookCatalogThemeProvider>
   );
 }
 

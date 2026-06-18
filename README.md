@@ -54,8 +54,8 @@ Docs are MDX files. Authored content and previews use different layers.
 | Content | Stack | Examples |
 |---|---|---|
 | **MDX prose** (all pages) | Markdown → HTML + CSS | `# Title`, `## Overview`, lists, blockquotes |
-| **Component docs** | Storybook blocks + markdown | `<Title />`, `<ArgTypes />`, `<Primary />` |
-| **Token catalogs / demos** | RN → react-native-web | `TypographyCatalog`, `SemanticColorList`, `TokenCatalog`, … (theme built in) |
+| **Component docs** | Storybook blocks + markdown | `# Title`, `<ArgTypes />`, `<Canvas />` |
+| **Token catalogs / demos** | RN → react-native-web | `TypographyCatalog`, `SemanticColorList`, `StorybookTokenCatalog`, … (theme built in) |
 | **Storybook shell** | HTML + CSS | Sidebar, toolbar, preview frame chrome |
 
 **Component MDX pattern:**
@@ -63,19 +63,27 @@ Docs are MDX files. Authored content and previews use different layers.
 ```mdx
 <Meta of={BadgeStories} />
 
-<Title />
+# Badge
 
 ## Overview
 
 TBD
 
+- [Preview](#preview)
+- [Props](#props)
+- [Variants](#variants)
+
+## Preview
+
+<Canvas of={BadgeStories.Playground} layout="centered" />
+
 ## Props
 
 <ArgTypes of={BadgeStories} />
 
-## Preview
+## Variants
 
-<Primary />
+<Canvas of={BadgeStories.Variants} layout="centered" />
 ```
 
 **Foundation MDX pattern** — markdown for prose, RN only for catalogs:
@@ -90,7 +98,7 @@ TBD
 <TypographyCatalog entries={typography} />
 ```
 
-**RN catalogs vs Storybook theming:** [Storybook theming](https://storybook.js.org/docs/configure/user-interface/theming) covers HTML docs chrome (`storybookTheme`, `storybookMdStyles`). Preview decorators only wrap `<Story />` blocks (`<Primary />`, `<Canvas />`), not arbitrary MDX components. Token catalogs therefore include an internal `CatalogThemeProvider` (theme + fonts) — the standard pattern for embedded react-native-web content, similar to Storybook’s documented CSS escape hatch for content the theme API does not reach.
+**RN catalogs vs Storybook theming:** [Storybook theming](https://storybook.js.org/docs/configure/user-interface/theming) covers HTML docs chrome (`storybookTheme`, `storybookMdStyles`). Preview decorators only wrap `<Story />` blocks (`<Primary />`, `<Canvas />`), not arbitrary MDX components. Token catalogs therefore include an internal `StorybookCatalogThemeProvider` (theme + fonts) — the standard pattern for embedded react-native-web content, similar to Storybook’s documented CSS escape hatch for content the theme API does not reach.
 
 **Docs styling (web Storybook):**
 

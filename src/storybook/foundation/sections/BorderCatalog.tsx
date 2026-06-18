@@ -1,19 +1,19 @@
 import { Text, View } from 'react-native';
 import { theme } from '../../../theme/tokens';
 import { useTheme } from '../../../theme/useTheme';
-import { CatalogThemeProvider } from '../../ui/CatalogThemeProvider';
+import { StorybookCatalogThemeProvider } from '../../ui/StorybookCatalogThemeProvider';
 import {
-  InlineCode,
+  StorybookInlineCode,
   StorybookTable,
   StorybookTableCell,
   StorybookTableRow,
   storybookRnTypography,
   type StorybookTableColumn,
-  type TokenCatalogEntry
+  type StorybookTokenCatalogEntry
 } from '../../ui';
 
 type BorderCatalogProps = {
-  entries: TokenCatalogEntry[];
+  entries: StorybookTokenCatalogEntry[];
 };
 
 const previewSize = theme.space['1600'];
@@ -32,15 +32,15 @@ const borderTableColumns = [
   { label: 'Description', flex: borderColumnFlex.description }
 ] satisfies StorybookTableColumn[];
 
-function getBorderValue(entry: TokenCatalogEntry) {
+function getBorderValue(entry: StorybookTokenCatalogEntry) {
   return theme.border[entry.name as keyof typeof theme.border] ?? 0;
 }
 
 export function BorderCatalog({ entries }: BorderCatalogProps) {
   return (
-    <CatalogThemeProvider>
+    <StorybookCatalogThemeProvider>
       <BorderCatalogView entries={entries} />
-    </CatalogThemeProvider>
+    </StorybookCatalogThemeProvider>
   );
 }
 
@@ -68,7 +68,7 @@ function BorderCatalogView({ entries }: BorderCatalogProps) {
                 />
               </StorybookTableCell>
               <StorybookTableCell flex={borderColumnFlex.tokenName}>
-                {entry.usage ? <InlineCode size="monoBodyS">{entry.usage}</InlineCode> : null}
+                {entry.usage ? <StorybookInlineCode size="monoBodyS">{entry.usage}</StorybookInlineCode> : null}
               </StorybookTableCell>
               <StorybookTableCell flex={borderColumnFlex.value}>
                 <Text style={[storybookRnTypography.labelS, { color: t.color.text.neutral.primary }]}>

@@ -23,6 +23,7 @@ export function Icon({
   color = 'neutral.primary',
   colorValue,
   style,
+  accessibilityLabel,
   accessibilityRole = 'image',
   ...props
 }: IconProps) {
@@ -35,7 +36,8 @@ export function Icon({
   return (
     <View
       {...props}
-      accessibilityRole={accessibilityRole}
+      accessibilityLabel={accessibilityLabel}
+      accessibilityRole={accessibilityLabel ? accessibilityRole : undefined}
       style={[{ height: dimension, width: dimension }, style]}
     >
       <Svg height={dimension} viewBox={viewBox} width={dimension}>

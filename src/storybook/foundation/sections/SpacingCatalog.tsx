@@ -1,19 +1,19 @@
 import { Text, View } from 'react-native';
 import { theme } from '../../../theme/tokens';
 import { useTheme } from '../../../theme/useTheme';
-import { CatalogThemeProvider } from '../../ui/CatalogThemeProvider';
+import { StorybookCatalogThemeProvider } from '../../ui/StorybookCatalogThemeProvider';
 import {
-  InlineCode,
+  StorybookInlineCode,
   StorybookTable,
   StorybookTableCell,
   StorybookTableRow,
   storybookRnTypography,
   type StorybookTableColumn,
-  type TokenCatalogEntry
+  type StorybookTokenCatalogEntry
 } from '../../ui';
 
 type SpacingCatalogProps = {
-  entries: TokenCatalogEntry[];
+  entries: StorybookTokenCatalogEntry[];
 };
 
 const previewSize = theme.space['1600'];
@@ -32,7 +32,7 @@ const spacingTableColumns = [
   { label: 'Description', flex: spacingColumnFlex.description }
 ] satisfies StorybookTableColumn[];
 
-function getSpaceValue(entry: TokenCatalogEntry) {
+function getSpaceValue(entry: StorybookTokenCatalogEntry) {
   return theme.space[entry.name as keyof typeof theme.space] ?? 0;
 }
 
@@ -40,7 +40,7 @@ function getPreviewSquareSize(spaceValue: number) {
   return Math.min(Math.abs(spaceValue), previewSize) || theme.border.sm;
 }
 
-function sortSpacingEntries(a: TokenCatalogEntry, b: TokenCatalogEntry) {
+function sortSpacingEntries(a: StorybookTokenCatalogEntry, b: StorybookTokenCatalogEntry) {
   const aValue = getSpaceValue(a);
   const bValue = getSpaceValue(b);
   const aIsNegative = aValue < 0;
@@ -59,9 +59,9 @@ function sortSpacingEntries(a: TokenCatalogEntry, b: TokenCatalogEntry) {
 
 export function SpacingCatalog({ entries }: SpacingCatalogProps) {
   return (
-    <CatalogThemeProvider>
+    <StorybookCatalogThemeProvider>
       <SpacingCatalogView entries={entries} />
-    </CatalogThemeProvider>
+    </StorybookCatalogThemeProvider>
   );
 }
 
@@ -100,7 +100,7 @@ function SpacingCatalogView({ entries }: SpacingCatalogProps) {
                 </View>
               </StorybookTableCell>
               <StorybookTableCell flex={spacingColumnFlex.tokenName}>
-                {entry.usage ? <InlineCode size="monoBodyS">{entry.usage}</InlineCode> : null}
+                {entry.usage ? <StorybookInlineCode size="monoBodyS">{entry.usage}</StorybookInlineCode> : null}
               </StorybookTableCell>
               <StorybookTableCell flex={spacingColumnFlex.value}>
                 <Text style={[storybookRnTypography.labelS, { color: t.color.text.neutral.primary }]}>

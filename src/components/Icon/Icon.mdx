@@ -1,9 +1,9 @@
-import { ArgTypes, Canvas, Meta, Primary, Title } from '@storybook/blocks';
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks';
 import * as IconStories from './Icon.stories';
 
 <Meta of={IconStories} />
 
-<Title />
+# Icon
 
 ## Overview
 
@@ -11,19 +11,18 @@ import * as IconStories from './Icon.stories';
 - Standardized MDI glyphs from the design system icon registry
 - Token-driven sizes and semantic icon colors
 
-## Implementation notes
-
-- Registry in `icons.ts` — regenerate with `npm run generate-icons` after Figma updates
-- Custom icons live in `custom.ts` when needed
-- **Gallery** below lists all icons from Figma frame Icons (12663:7261)
+<br />
+<Canvas of={IconStories.Playground} />
 
 ## Props
 
 <ArgTypes of={IconStories} />
 
-## Preview
+## Implementation notes
 
-<Primary />
+- Registry in `icons.ts` — regenerate with `npm run generate-icons` after Figma updates
+- Custom icons live in `custom.ts` when needed
+- **Gallery** below lists all icons from Figma frame Icons (12663:7261)
 
 ## Gallery
 

@@ -2,7 +2,7 @@ import sizeJson from '../../../tokens/variables/size/value.json';
 import typographyJson from '../../../tokens/styles/typography.json';
 import { theme, themes } from '../../theme/tokens';
 import type { ElevationToken } from '../../theme/getShadow';
-import type { TokenCatalogEntry } from '../ui';
+import type { StorybookTokenCatalogEntry } from '../ui';
 import { flattenDtcgTokens, getByPath } from './parseDtcgTokens';
 import { camelCasePath, formatTokenPath, kebabToCamel } from './tokenKey';
 
@@ -13,7 +13,7 @@ function resolveThemeValue(path: string): string {
   return typeof value === 'string' || typeof value === 'number' ? String(value) : '—';
 }
 
-export function buildTypographyCatalogEntries(): TokenCatalogEntry[] {
+export function buildTypographyCatalogEntries(): StorybookTokenCatalogEntry[] {
   return flattenDtcgTokens(typographyJson as Record<string, unknown>)
     .filter((token) => token.type === 'typography')
     .map((token) => {
@@ -44,7 +44,7 @@ function formatTypographyValue(value: unknown): string {
 export function buildScaleCatalogEntries(
   section: 'space' | 'radius' | 'border' | 'icon',
   themePath: 'space' | 'radius' | 'border' | 'icon'
-): TokenCatalogEntry[] {
+): StorybookTokenCatalogEntry[] {
   const sectionNode = (sizeJson as Record<string, unknown>)[section] as Record<string, unknown>;
 
   return flattenDtcgTokens(sectionNode).map((token) => {

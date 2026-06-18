@@ -1,9 +1,9 @@
 import { Text, View } from 'react-native';
 import { theme } from '../../../theme/tokens';
 import { useTheme } from '../../../theme/useTheme';
-import { CatalogThemeProvider } from '../../ui/CatalogThemeProvider';
+import { StorybookCatalogThemeProvider } from '../../ui/StorybookCatalogThemeProvider';
 import {
-  InlineCode,
+  StorybookInlineCode,
   StorybookTable,
   StorybookTableCell,
   StorybookTableRow,
@@ -38,9 +38,9 @@ function getPreviewSquareSize(resolvedPx: number) {
 
 export function LayoutCatalog({ entries }: LayoutCatalogProps) {
   return (
-    <CatalogThemeProvider>
+    <StorybookCatalogThemeProvider>
       <LayoutCatalogView entries={entries} />
-    </CatalogThemeProvider>
+    </StorybookCatalogThemeProvider>
   );
 }
 
@@ -74,11 +74,11 @@ function LayoutCatalogView({ entries }: LayoutCatalogProps) {
                 </View>
               </StorybookTableCell>
               <StorybookTableCell flex={layoutColumnFlex.tokenName}>
-                <InlineCode size="monoBodyS">{entry.usage}</InlineCode>
+                <StorybookInlineCode size="monoBodyS">{entry.usage}</StorybookInlineCode>
               </StorybookTableCell>
               <StorybookTableCell flex={layoutColumnFlex.value}>
                 <View style={{ gap: theme.space['200'] }}>
-                  <InlineCode size="monoBodyS">{entry.alias}</InlineCode>
+                  <StorybookInlineCode size="monoBodyS">{entry.alias}</StorybookInlineCode>
                   <Text style={[storybookRnTypography.labelS, { color: t.color.text.neutral.primary }]}>
                     {entry.value}
                   </Text>

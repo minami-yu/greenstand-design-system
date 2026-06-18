@@ -164,58 +164,65 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "color",
-      "$value": "#e8e8e8"
+      "$value": "#eaeaea"
     },
     "300": {
       "$extensions": {
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "color",
-      "$value": "#d4d4d4"
+      "$value": "#e6e6e6"
     },
     "400": {
       "$extensions": {
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "color",
-      "$value": "#a0a0a0"
+      "$value": "#cacaca"
     },
     "500": {
       "$extensions": {
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "color",
-      "$value": "#7c7c7c"
+      "$value": "#b2b2b2"
     },
     "600": {
       "$extensions": {
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "color",
-      "$value": "#6c6c6c"
+      "$value": "#707070"
     },
     "700": {
       "$extensions": {
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "color",
-      "$value": "#585858"
+      "$value": "#6c6c6c"
     },
     "800": {
       "$extensions": {
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "color",
-      "$value": "#3d3c3c"
+      "$value": "#585858"
     },
     "900": {
       "$extensions": {
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "color",
-      "$value": "#232323"
+      "$value": "#3d3c3c"
     },
     "950": {
+      "$extensions": {
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "color",
+      "$value": "#232323"
+    },
+    "1000": {
       "$extensions": {
         "com.figma.hiddenFromPublishing": false
       },
