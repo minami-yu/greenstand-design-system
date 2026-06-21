@@ -35,7 +35,7 @@ export type ButtonProps = Omit<PressableProps, 'children' | 'style'> &
 export function Button({
   label = 'Save',
   variant = 'primary',
-  size = 'medium',
+  size = 'md',
   leadingIcon,
   trailingIcon,
   visualState,
@@ -52,7 +52,7 @@ export function Button({
     <Icon
       colorValue={colors.textColor}
       name={name}
-      size={size === 'medium' ? 'md' : 'sm'}
+      size={size}
       style={{ height: layout.iconSize, width: layout.iconSize }}
     />
   );

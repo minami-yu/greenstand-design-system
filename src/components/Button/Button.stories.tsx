@@ -24,7 +24,7 @@ const variants: ButtonVariant[] = [
 
 const visualStates: ButtonVisualState[] = ['default', 'hover', 'pressed', 'disabled'];
 
-const sizes: ButtonSize[] = ['medium', 'small'];
+const sizes: ButtonSize[] = ['md', 'sm'];
 
 const iconNames = Object.keys(icons).sort() as IconName[];
 const demoIcon: IconName = 'heart-outline';
@@ -43,7 +43,7 @@ const meta = {
   args: {
     label: 'Save',
     variant: 'primary',
-    size: 'medium',
+    size: 'md',
     leadingIcon: undefined,
     trailingIcon: undefined,
     disabled: false,
@@ -61,7 +61,7 @@ const meta = {
     },
     size: {
       control: 'select',
-      description: 'Figma `size` — md (medium) or sm (small) layout from getButtonLayout.',
+      description: 'Figma `size` — `md` or `sm` layout from getButtonLayout.',
       options: sizes
     },
     leadingIcon: {
@@ -101,7 +101,7 @@ function VariantStatesRow({ variant }: { variant: ButtonVariant }) {
       <StorybookVariantRow gap="md">
         {visualStates.map((state) => (
           <StorybookVariantCell key={state} align="center" label={state} labelPosition="below">
-            <Button label="Save" size="medium" variant={variant} visualState={state} />
+            <Button label="Save" size="md" variant={variant} visualState={state} />
           </StorybookVariantCell>
         ))}
       </StorybookVariantRow>
@@ -142,7 +142,7 @@ export const Accent = createVariantStory('accent', 'Accent');
 export const Error = createVariantStory('error', 'Error');
 export const ErrorSecondary = createVariantStory('error-secondary', 'Error secondary');
 
-/** Primary · medium · text only, leading icon, trailing icon. */
+/** Primary · md · text only, leading icon, trailing icon. */
 export const Icons: Story = {
   name: 'Icons',
   parameters: docsOnlyParameters,
@@ -150,13 +150,13 @@ export const Icons: Story = {
     <StorybookStoryShell align="center">
       <StorybookVariantRow gap="md">
         <StorybookVariantCell align="center" label="Text only" labelPosition="below">
-          <Button label="Save" size="medium" variant="primary" visualState="default" />
+          <Button label="Save" size="md" variant="primary" visualState="default" />
         </StorybookVariantCell>
         <StorybookVariantCell align="center" label="Leading icon" labelPosition="below">
           <Button
             label="Save"
             leadingIcon={demoIcon}
-            size="medium"
+            size="md"
             variant="primary"
             visualState="default"
           />
@@ -164,7 +164,7 @@ export const Icons: Story = {
         <StorybookVariantCell align="center" label="Trailing icon" labelPosition="below">
           <Button
             label="Save"
-            size="medium"
+            size="md"
             trailingIcon={demoIcon}
             variant="primary"
             visualState="default"
@@ -175,7 +175,7 @@ export const Icons: Story = {
   )
 };
 
-/** Primary · default state · medium and small. */
+/** Primary · default state · md and sm. */
 export const Sizes: Story = {
   name: 'Sizes',
   parameters: docsOnlyParameters,
@@ -192,7 +192,7 @@ export const Sizes: Story = {
   )
 };
 
-/** All variants · medium · disabled state. */
+/** All variants · md · disabled state. */
 export const Disabled: Story = {
   name: 'Disabled',
   tags: ['!dev'],
@@ -202,7 +202,7 @@ export const Disabled: Story = {
       <StorybookVariantRow gap="md">
         {variants.map((variant) => (
           <StorybookVariantCell key={variant} align="center" label={variant} labelPosition="below">
-            <Button disabled label="Save" size="medium" variant={variant} visualState="disabled" />
+            <Button disabled label="Save" size="md" variant={variant} visualState="disabled" />
           </StorybookVariantCell>
         ))}
       </StorybookVariantRow>

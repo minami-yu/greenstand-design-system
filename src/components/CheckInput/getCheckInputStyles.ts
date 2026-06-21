@@ -4,7 +4,7 @@ export type ThemeTokens = (typeof themes)[ThemeMode];
 
 export type CheckInputIndicatorStyleTokens = {
   backgroundColor: string;
-  checkColor: 'brand.onBrand' | 'neutral.inverse';
+  checkColor: 'neutral.inverse';
   innerBackgroundColor: string;
   innerSize: number;
 };
@@ -45,16 +45,16 @@ export function getCheckInputIndicatorStyles(
   if (selected) {
     return {
       backgroundColor: color.icon.brand.default,
-      checkColor: 'brand.onBrand',
-      innerBackgroundColor: color.icon.brand.onBrand,
+      checkColor: 'neutral.inverse',
+      innerBackgroundColor: color.icon.neutral.inverse,
       innerSize: ringInnerSize
     };
   }
 
   return {
-    backgroundColor: color.icon.neutral.tertiary,
-    checkColor: 'brand.onBrand',
-    innerBackgroundColor: color.icon.brand.onBrand,
+    backgroundColor: color.icon.neutral.secondary,
+    checkColor: 'neutral.inverse',
+    innerBackgroundColor: color.icon.neutral.inverse,
     innerSize: ringInnerSize
   };
 }
