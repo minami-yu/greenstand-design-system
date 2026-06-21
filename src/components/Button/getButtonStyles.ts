@@ -11,7 +11,7 @@ export type ButtonVariant =
   | 'error'
   | 'error-secondary';
 
-export type ButtonSize = 'medium' | 'small';
+export type ButtonSize = 'md' | 'sm';
 
 export type ButtonVisualState = 'default' | 'hover' | 'pressed' | 'disabled';
 
@@ -148,17 +148,17 @@ export function getButtonStyles(
 }
 
 export function getButtonLayout(size: ButtonSize, hasIcon: boolean) {
-  const isMedium = size === 'medium';
+  const isMd = size === 'md';
 
   return {
-    minHeight: isMedium
+    minHeight: isMd
       ? theme.space['1200']
       : theme.space['300'] + theme.space['600'],
     minWidth: theme.space['1200'],
-    paddingHorizontal: isMedium ? theme.space['400'] : theme.space['300'],
-    paddingVertical: isMedium ? theme.space['300'] : theme.space['0'],
-    gap: hasIcon ? (isMedium ? theme.space['200'] : theme.space['100']) : theme.space['0'],
-    iconSize: isMedium ? theme.icon.md : theme.typography.labelM.fontSize,
+    paddingHorizontal: isMd ? theme.space['400'] : theme.space['300'],
+    paddingVertical: isMd ? theme.space['300'] : theme.space['0'],
+    gap: hasIcon ? (isMd ? theme.space['200'] : theme.space['100']) : theme.space['0'],
+    iconSize: isMd ? theme.icon.md : theme.typography.labelM.fontSize,
     borderRadius: theme.radius.md
   };
 }

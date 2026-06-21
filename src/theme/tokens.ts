@@ -124,7 +124,7 @@ export const theme = {
         "primary": "#131313",
         "secondary": "#585858",
         "tertiary": "#b2b2b2",
-        "disabled": "#e6e6e6",
+        "disabled": "#cacaca",
         "inverse": "#ffffff",
         "onDisabled": "#b2b2b2"
       },
@@ -440,7 +440,12 @@ export const theme = {
     "n400": -16,
     "n800": -32,
     "n1200": -48,
-    "050": 2
+    "050": 2,
+    "n300": -12,
+    "n100": -4,
+    "n050": -2,
+    "n600": -24,
+    "n1600": -64
   },
   "radius": {
     "none": 0,

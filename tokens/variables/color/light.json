@@ -848,7 +848,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.300}",
+        "$value": "{neutral.400}",
         "$description": "Icons inside disabled buttons and non-interactive elements"
       },
       "inverse": {
