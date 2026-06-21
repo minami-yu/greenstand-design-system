@@ -48,7 +48,7 @@ export function RadioGroup({
     <View
       {...props}
       accessibilityRole="radiogroup"
-      style={[{ gap: layout.groupLabelGap }, style]}
+      style={[{ gap: layout.groupLabelGap, overflow: 'visible' }, style]}
     >
       {!hideLabel ? (
         <Text style={[t.typography.labelMStrong, { color: t.color.text.neutral.primary }]}>
@@ -58,8 +58,13 @@ export function RadioGroup({
 
       <View
         style={{
+          alignSelf: 'stretch',
           gap: layout.optionGap,
-          paddingVertical: layout.groupSlotPaddingVertical
+          marginLeft: layout.groupSlotMarginLeft,
+          overflow: 'visible',
+          paddingRight: layout.groupSlotPaddingRight,
+          paddingVertical: layout.groupSlotPaddingVertical,
+          width: '100%'
         }}
       >
         {options.map((option) => {

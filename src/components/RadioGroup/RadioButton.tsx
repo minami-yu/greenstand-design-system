@@ -15,10 +15,11 @@ import { useTheme } from '../../theme/useTheme';
 import {
   getRadioIndicatorStyles,
   getRadioLabelColor,
-  getRadioLayout
+  getRadioLayout,
+  getRadioTouchSize
 } from './getRadioStyles';
 
-const RADIO_ANIMATION_MS = 150;
+const RADIO_ANIMATION_MS = 200;
 const RADIO_TRANSITION_EASING = 'cubic-bezier(0, 0, 0.2, 1)';
 
 type WebTransitionStyle = ViewStyle & {
@@ -81,9 +82,16 @@ function RadioIndicatorWeb({ error, isDisabled, selected }: RadioIndicatorProps)
     <View
       accessibilityElementsHidden
       importantForAccessibility="no-hide-descendants"
-      style={outerStyle}
+      style={{
+        alignItems: 'center',
+        borderRadius: theme.radius.full,
+        justifyContent: 'center',
+        padding: layout.touchTargetPadding
+      }}
     >
-      <View style={innerStyle} />
+      <View style={outerStyle}>
+        <View style={innerStyle} />
+      </View>
     </View>
   );
 }
@@ -126,27 +134,36 @@ function RadioIndicatorNative({ error, isDisabled, selected }: RadioIndicatorPro
   });
 
   return (
-    <Animated.View
+    <View
       accessibilityElementsHidden
       importantForAccessibility="no-hide-descendants"
       style={{
         alignItems: 'center',
-        backgroundColor: animatedOuterBackgroundColor,
         borderRadius: theme.radius.full,
-        height: layout.size,
         justifyContent: 'center',
-        width: layout.size
+        padding: layout.touchTargetPadding
       }}
     >
       <Animated.View
         style={{
-          backgroundColor: animatedInnerBackgroundColor,
+          alignItems: 'center',
+          backgroundColor: animatedOuterBackgroundColor,
           borderRadius: theme.radius.full,
-          height: animatedInnerSize,
-          width: animatedInnerSize
+          height: layout.size,
+          justifyContent: 'center',
+          width: layout.size
         }}
-      />
-    </Animated.View>
+      >
+        <Animated.View
+          style={{
+            backgroundColor: animatedInnerBackgroundColor,
+            borderRadius: theme.radius.full,
+            height: animatedInnerSize,
+            width: animatedInnerSize
+          }}
+        />
+      </Animated.View>
+    </View>
   );
 }
 
@@ -171,6 +188,7 @@ export function RadioButton({
 }: RadioButtonProps) {
   const t = useTheme();
   const layout = getRadioLayout();
+  const touchSize = getRadioTouchSize();
   const isDisabled = Boolean(disabled);
   const labelColor = getRadioLabelColor(t.color, isDisabled);
 
@@ -187,9 +205,12 @@ export function RadioButton({
       style={({ pressed }) => [
         {
           alignItems: 'center',
+          alignSelf: 'stretch',
           flexDirection: 'row',
           gap: layout.gap,
-          opacity: pressed && !isDisabled ? 0.92 : 1
+          minHeight: touchSize,
+          opacity: pressed && !isDisabled ? 0.92 : 1,
+          width: '100%'
         },
         style
       ]}

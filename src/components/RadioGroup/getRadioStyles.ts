@@ -13,23 +13,29 @@ export type RadioLayout = {
   gap: number;
   groupHintGap: number;
   groupLabelGap: number;
+  groupSlotMarginLeft: number;
+  groupSlotPaddingRight: number;
   groupSlotPaddingVertical: number;
   optionGap: number;
   ringInnerSize: number;
   size: number;
+  touchTargetPadding: number;
 };
 
-/** Figma RadioButton (15274:37789) — 20px indicator, 8px selected dot, 16px unselected cutout. */
+/** Figma RadioButton (15274:37789) — 20px indicator with 12px touch target padding. */
 export function getRadioLayout(): RadioLayout {
   return {
     dotSize: theme.space['200'],
-    gap: theme.space['200'],
+    gap: theme.space['0'],
     groupHintGap: theme.space['100'],
     groupLabelGap: theme.space['100'],
-    groupSlotPaddingVertical: theme.space['400'],
-    optionGap: theme.space['400'],
+    groupSlotMarginLeft: theme.space['n300'],
+    groupSlotPaddingRight: theme.space['0'],
+    groupSlotPaddingVertical: theme.space['100'],
+    optionGap: theme.space['0'],
     ringInnerSize: theme.icon.sm,
-    size: theme.icon.md
+    size: theme.icon.md,
+    touchTargetPadding: theme.space['300']
   };
 }
 
@@ -52,7 +58,7 @@ export function getRadioIndicatorStyles(
   if (error && selected) {
     return {
       outerBackgroundColor: color.icon.error.default,
-      innerBackgroundColor: color.icon.error.onEmphasis,
+      innerBackgroundColor: color.icon.brand.onBrand,
       innerSize: dotSize
     };
   }
@@ -74,10 +80,15 @@ export function getRadioIndicatorStyles(
   }
 
   return {
-    outerBackgroundColor: color.icon.neutral.tertiary,
+    outerBackgroundColor: color.icon.neutral.secondary,
     innerBackgroundColor: color.icon.brand.onBrand,
     innerSize: ringInnerSize
   };
+}
+
+export function getRadioTouchSize(): number {
+  const { size, touchTargetPadding } = getRadioLayout();
+  return size + touchTargetPadding * 2;
 }
 
 export function getRadioLabelColor(

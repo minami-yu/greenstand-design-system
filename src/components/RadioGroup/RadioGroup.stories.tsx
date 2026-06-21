@@ -4,12 +4,16 @@
  */
 import type { Meta, StoryObj } from '@storybook/react';
 import { useArgs } from '@storybook/preview-api';
+import type { ReactNode } from 'react';
+import { Text, View } from 'react-native';
 import {
   StorybookStoryShell,
-  StorybookVariantGrid,
-  StorybookVariantGridItem
+  StorybookVariantCatalog,
+  StorybookVariantCell,
+  StorybookVariantRow
 } from '../../storybook/ui';
 import { storybookPlaygroundParameters } from '../../storybook/storybookPageParameters';
+import { useTheme } from '../../theme/useTheme';
 import { RadioButton } from './RadioButton';
 import { RadioGroup } from './RadioGroup';
 
@@ -73,6 +77,25 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+const matrixColumnWidth = 120;
+const matrixLabelWidth = 100;
+
+const selectedStates = [
+  { label: 'selected', selected: true },
+  { label: 'unselected', selected: false }
+] as const;
+
+const enabledColumns = [
+  { disabled: false, error: false, label: 'enabled' },
+  { disabled: true, error: false, label: 'disabled' },
+  { disabled: false, error: true, label: 'error' }
+] as const;
+
+/** Figma RadioGroup reference width (15276:38088). */
+function RadioGroupDemoFrame({ children }: { children: ReactNode }) {
+  return <View style={{ alignSelf: 'stretch', width: 360 }}>{children}</View>;
+}
+
 /** Interactive sandbox — controls and Code panel stay in sync via Storybook args. */
 export const Playground: Story = {
   parameters: storybookPlaygroundParameters,
@@ -81,13 +104,15 @@ export const Playground: Story = {
 
     return (
       <StorybookStoryShell align="center">
-        <RadioGroup
-          {...args}
-          onValueChange={(next) => {
-            updateArgs({ value: next });
-            args.onValueChange?.(next);
-          }}
-        />
+        <RadioGroupDemoFrame>
+          <RadioGroup
+            {...args}
+            onValueChange={(next) => {
+              updateArgs({ value: next });
+              args.onValueChange?.(next);
+            }}
+          />
+        </RadioGroupDemoFrame>
       </StorybookStoryShell>
     );
   }
@@ -100,15 +125,95 @@ export const Error: Story = {
   },
   render: () => (
     <StorybookStoryShell align="center">
-      <RadioGroup
-        error
-        errorText="Error message"
-        label="Label"
-        options={defaultOptions}
-      />
+      <RadioGroupDemoFrame>
+        <RadioGroup
+          error
+          errorText="Error message"
+          label="Label"
+          options={defaultOptions}
+        />
+      </RadioGroupDemoFrame>
     </StorybookStoryShell>
   )
 };
+
+/** Figma RadioGroup `error=false, hideLabel=true` (15286:38517). */
+export const HideLabel: Story = {
+  parameters: {
+    controls: { disable: true }
+  },
+  render: () => (
+    <StorybookStoryShell align="center">
+      <RadioGroupDemoFrame>
+        <RadioGroup hideLabel options={defaultOptions} value="option-1" />
+      </RadioGroupDemoFrame>
+    </StorybookStoryShell>
+  )
+};
+
+/** Figma RadioGroup `error=true, hideLabel=true` (15286:38525). */
+export const ErrorHideLabel: Story = {
+  tags: ['!dev'],
+  parameters: {
+    controls: { disable: true }
+  },
+  render: () => (
+    <StorybookStoryShell align="center">
+      <RadioGroupDemoFrame>
+        <RadioGroup error errorText="Error message" hideLabel options={defaultOptions} />
+      </RadioGroupDemoFrame>
+    </StorybookStoryShell>
+  )
+};
+
+function RadioButtonVariantsMatrix({ hideLabel = false }: { hideLabel?: boolean }) {
+  const t = useTheme();
+
+  return (
+    <StorybookVariantCatalog gap="sm">
+      <StorybookVariantRow gap="sm">
+        <StorybookVariantCell columnWidth={matrixLabelWidth} />
+        {enabledColumns.map(({ label }) => (
+          <StorybookVariantCell key={label} align="center" columnWidth={matrixColumnWidth}>
+            <Text
+              style={[
+                t.typography.labelS,
+                { color: t.color.text.neutral.secondary, textAlign: 'center' }
+              ]}
+            >
+              {label}
+            </Text>
+          </StorybookVariantCell>
+        ))}
+      </StorybookVariantRow>
+
+      {selectedStates.map(({ label, selected }) => (
+        <StorybookVariantRow key={label} gap="sm">
+          <StorybookVariantCell columnWidth={matrixLabelWidth} align="start">
+            <Text style={[t.typography.labelS, { color: t.color.text.neutral.primary }]}>
+              {label}
+            </Text>
+          </StorybookVariantCell>
+
+          {enabledColumns.map(({ disabled, error }) => (
+            <StorybookVariantCell
+              key={`${label}-${disabled}-${error}`}
+              align="center"
+              columnWidth={matrixColumnWidth}
+            >
+              <RadioButton
+                disabled={disabled}
+                error={error}
+                hideLabel={hideLabel}
+                selected={selected}
+              />
+            </StorybookVariantCell>
+          ))}
+        </StorybookVariantRow>
+      ))}
+    </StorybookVariantCatalog>
+  );
+}
 
 /** Figma RadioButton (15274:37789) — all atomic variants. Shown in MDX only. */
 export const RadioButtonStory: Story = {
@@ -119,38 +224,10 @@ export const RadioButtonStory: Story = {
   },
   render: () => (
     <StorybookStoryShell align="center">
-      <StorybookVariantGrid align="center" columnWidth={180} columns={2} gap="lg">
-        <StorybookVariantGridItem align="left" label="Selected">
-          <RadioButton selected />
-        </StorybookVariantGridItem>
-        <StorybookVariantGridItem align="left" label="Unselected">
-          <RadioButton selected={false} />
-        </StorybookVariantGridItem>
-        <StorybookVariantGridItem align="left" label="Disabled selected">
-          <RadioButton disabled selected />
-        </StorybookVariantGridItem>
-        <StorybookVariantGridItem align="left" label="Disabled unselected">
-          <RadioButton disabled selected={false} />
-        </StorybookVariantGridItem>
-        <StorybookVariantGridItem align="left" label="Error unselected">
-          <RadioButton error selected={false} />
-        </StorybookVariantGridItem>
-        <StorybookVariantGridItem align="left" label="Error selected">
-          <RadioButton error selected />
-        </StorybookVariantGridItem>
-        <StorybookVariantGridItem align="left" label="Hide label selected">
-          <RadioButton hideLabel selected />
-        </StorybookVariantGridItem>
-        <StorybookVariantGridItem align="left" label="Hide label unselected">
-          <RadioButton hideLabel selected={false} />
-        </StorybookVariantGridItem>
-        <StorybookVariantGridItem align="left" label="Hide label error unselected">
-          <RadioButton error hideLabel selected={false} />
-        </StorybookVariantGridItem>
-        <StorybookVariantGridItem align="left" label="Hide label error selected">
-          <RadioButton error hideLabel selected />
-        </StorybookVariantGridItem>
-      </StorybookVariantGrid>
+      <StorybookVariantCatalog gap="lg">
+        <RadioButtonVariantsMatrix />
+        <RadioButtonVariantsMatrix hideLabel />
+      </StorybookVariantCatalog>
     </StorybookStoryShell>
   )
 };
