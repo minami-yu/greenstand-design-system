@@ -6,8 +6,10 @@ import * as ButtonStories from './Button.stories';
 # Button
 
 ## Overview
+Buttons allow users to take actions and move through workflows. They should clearly communicate what will happen when selected and provide a clear visual hierarchy based on the importance of the action.
 
-Primary action control for forms, dialogs, and toolbars. Maps to Figma Button (12618:892) with `variant`, `size`, `leadingIcon` / `trailingIcon`, and `state` properties.
+For Greenstand, buttons should prioritize clarity and ease of understanding, especially for users with varying levels of literacy and digital experience.
+
 <br/>
 <Canvas of={ButtonStories.Playground} />
 
@@ -16,38 +18,73 @@ Primary action control for forms, dialogs, and toolbars. Maps to Figma Button (1
 <ArgTypes of={ButtonStories} />
 
 ## Variants
-
-Each variant · `md` · interaction states (`default`, `hover`, `pressed`, `disabled`).
+Choose button variants based on the importance of the action within the current screen.
 
 ### Primary
-
 <Canvas of={ButtonStories.Primary} />
+The most important action on the screen. Use for the main task users are expected to complete.
 
 ### Secondary
+An alternative action with similar importance to the primary action. 
+
+Examples:
+- Continue with WhatsApp (default, primary)
+- Continue with Email (alternative, secondary)
 
 <Canvas of={ButtonStories.Secondary} />
 
 ### Tertiary
+A lower emphasis action that supports the current task. Use for optional or less important actions.
 
 <Canvas of={ButtonStories.Tertiary} />
 
 ### Accent
-
+Use for actions that require visual distinction from the standard hierarchy. Use sparingly and only when a unique action needs additional attention without implying higher importance than the primary action.
 <Canvas of={ButtonStories.Accent} />
 
 ### Error
-
+A high emphasis destructive action. Use for actions that may cause data loss or irreversible changes.
 <Canvas of={ButtonStories.Error} />
 
 ### Error secondary
-
+A destructive action that should be available but not visually dominant. Use when the action is potentially dangerous but not the primary focus of the screen.
 <Canvas of={ButtonStories.ErrorSecondary} />
 
 ## Icons
-
-Primary · `md` · text only, leading icon, and trailing icon.
+Icons can help users quickly understand an action and provide additional context beyond text alone. In Greenstand, icons are encouraged where they improve comprehension, particularly for low literacy users.
 
 <Canvas of={ButtonStories.Icons} />
+
+###Leading icon
+Use a leading icon to reinforce the button's action.
+
+Examples:
+- Upload photo
+- Capture tree
+- Scan QR code
+- Download data
+- Navigate to a location
+
+### Trailing icon
+Use a trailing icon to indicate progression, navigation, or a secondary visual cue.
+
+Examples:
+- Continue
+- Next step
+- Open details
+- Open external link
+
+### Best practices
+
+Do:
+- Use icons that clearly support the button label.
+- Choose familiar and universally recognizable icons.
+- Ensure icons add clarity rather than decoration.
+
+Don't:
+- Use both leading and trailing icons in the same button.
+- Use icons that do not match the button label.
+- Rely on icons alone to communicate meaning.
 
 ## Sizes
 
