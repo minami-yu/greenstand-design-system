@@ -1,6 +1,12 @@
+import colorDarkJson from '../../../tokens/variables/color/dark.json';
 import colorLightJson from '../../../tokens/variables/color/light.json';
 import colorPrimitiveJson from '../../../tokens/variables/color_primitive/value.json';
 import { theme, themes, type ThemeMode } from '../../theme/tokens';
+
+const colorModeJson = {
+  dark: colorDarkJson,
+  light: colorLightJson
+} as const satisfies Record<ThemeMode, typeof colorLightJson>;
 import { flattenDtcgTokens, getByPath } from './parseDtcgTokens';
 import { camelCasePath, formatTokenPath, kebabToCamel } from './tokenKey';
 
@@ -98,7 +104,7 @@ export function buildSemanticColorDocEntries(
   group?: string,
   mode: ThemeMode = 'light'
 ): SemanticColorDocEntry[] {
-  const categoryNode = colorLightJson[category];
+  const categoryNode = colorModeJson[mode][category];
   if (!categoryNode || typeof categoryNode !== 'object') return [];
 
   const entries = flattenDtcgTokens(categoryNode as Record<string, unknown>, String(category))
