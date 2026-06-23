@@ -10,16 +10,16 @@ import {
 
 export type BadgeProps = ViewProps &
   PropsWithChildren<{
-    /** Figma `badge` property — numeric label or dot indicator. */
-    badge?: BadgeType;
+    /** Figma `type` property — numeric label or dot indicator. */
+    type?: BadgeType;
     size?: BadgeSize;
-    /** Label text when `badge="label"`. Figma default: `"1"`. */
+    /** Label text when `type="label"`. Figma default: `"1"`. */
     value?: string;
   }>;
 
 export function Badge({
-  badge = 'label',
-  size = 'medium',
+  type = 'label',
+  size = 'md',
   value = '1',
   style,
   accessibilityRole,
@@ -28,7 +28,7 @@ export function Badge({
 }: BadgeProps) {
   const t = useTheme();
   const colors = getBadgeStyles(t);
-  const layout = getBadgeLayout(badge, size);
+  const layout = getBadgeLayout(type, size);
 
   const containerStyle: ViewStyle = {
     alignItems: 'center',
@@ -42,9 +42,9 @@ export function Badge({
     ...(layout.width ? { width: layout.width } : {})
   };
 
-  const resolvedAccessibilityRole = accessibilityRole ?? (badge === 'dot' ? 'none' : 'text');
+  const resolvedAccessibilityRole = accessibilityRole ?? (type === 'dot' ? 'none' : 'text');
   const resolvedAccessibilityLabel =
-    accessibilityLabel ?? (badge === 'label' ? value : undefined);
+    accessibilityLabel ?? (type === 'label' ? value : undefined);
 
   return (
     <View
@@ -53,7 +53,7 @@ export function Badge({
       accessibilityRole={resolvedAccessibilityRole}
       style={[containerStyle, style]}
     >
-      {badge === 'label' && layout.typography ? (
+      {type === 'label' && layout.typography ? (
         <Text
           style={[
             t.typography[layout.typography],

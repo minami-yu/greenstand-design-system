@@ -5,33 +5,34 @@ export const theme = {
     "fill": {
       "neutral": {
         "default": "#eaeaea",
-        "defaultHover": "#e6e6e6",
+        "defaultActive": "#e6e6e6",
         "surface": "#ffffff",
         "subtle": "#f2f2f2",
-        "subtleHover": "#eaeaea",
-        "defaultSelected": "#cacaca",
-        "subtleSelected": "#e6e6e6",
+        "subtleActive": "#eaeaea",
+        "OLDdefaultSelected": "#cacaca",
+        "OLDsubtleSelected": "#e6e6e6",
         "inverse": "#3d3c3c",
-        "inverseHover": "#585858",
-        "inverseSelected": "#6c6c6c",
+        "inverseActive": "#585858",
+        "OLDinverseSelected": "#6c6c6c",
         "disabled": "#f7f7f7"
       },
       "brand": {
         "default": "#2b6409",
         "subtle": "#eef8e6",
-        "defaultHover": "#1d4305",
-        "defaultSelected": "#173504",
+        "defaultActive": "#1d4305",
+        "OLDdefaultSelected": "#173504",
         "OLDaccent": "#66b039",
-        "subtleHover": "#d4f0b0",
-        "subtleSelected": "#c5f78d"
+        "subtleActive": "#d4f0b0",
+        "OLDsubtleSelected": "#c5f78d",
+        "disabled": "#eef8e6"
       },
       "error": {
         "subtle": "#fff0ee",
         "emphasis": "#d91400",
-        "emphasisHover": "#be1414",
-        "emphasisSelected": "#a81414",
-        "subtleHover": "#ffd5cf",
-        "subtleSelected": "#ffaa9f"
+        "emphasisActive": "#be1414",
+        "OLDemphasisSelected": "#a81414",
+        "subtleActive": "#ffd5cf",
+        "OLDsubtleSelected": "#ffaa9f"
       },
       "warning": {
         "default": "#fdf1dc",
@@ -49,7 +50,8 @@ export const theme = {
         "OLDdefault": "#ff7b02",
         "OLDsubtle": "#fff8ee",
         "OLDdefaultHover": "#e56200",
-        "OLDdefaultSelected": "#c44d01"
+        "OLDdefaultSelected": "#c44d01",
+        "OLDdefaultSelected 2": "#c44d01"
       }
     },
     "text": {
@@ -339,7 +341,7 @@ export const theme = {
       "fontSize": 14,
       "letterSpacing": 0,
       "textTransform": "none",
-      "textDecorationLine": "none"
+      "textDecorationLine": "Text used in interactive controls such as buttons, inputs, tabs, navigation items, and status labels."
     },
     "labelMStrong": {
       "fontFamily": "Inter_600SemiBold",
@@ -463,6 +465,23 @@ export const theme = {
     "marginX": 16,
     "gutterX": 8
   },
+  "size": {
+    "0": 0,
+    "100": 4,
+    "200": 8,
+    "300": 12,
+    "400": 16,
+    "500": 20,
+    "600": 24,
+    "700": 28,
+    "800": 32,
+    "900": 36,
+    "1000": 40,
+    "1100": 44,
+    "1200": 48,
+    "1600": 64,
+    "050": 2
+  },
   "elevation": {
     "sm": {
       "figma": [
@@ -546,33 +565,34 @@ const darkColors = {
   "fill": {
     "neutral": {
       "default": "#585858",
-      "defaultHover": "#6c6c6c",
+      "defaultActive": "#6c6c6c",
       "surface": "#0c0c0d",
       "subtle": "#232323",
-      "subtleHover": "#3d3c3c",
-      "defaultSelected": "#707070",
-      "subtleSelected": "#585858",
+      "subtleActive": "#3d3c3c",
+      "OLDdefaultSelected": "#707070",
+      "OLDsubtleSelected": "#585858",
       "inverse": "#eaeaea",
-      "inverseHover": "#e6e6e6",
-      "inverseSelected": "#b2b2b2",
+      "inverseActive": "#e6e6e6",
+      "OLDinverseSelected": "#b2b2b2",
       "disabled": "#232323"
     },
     "brand": {
       "default": "#a8de5c",
       "subtle": "#0d2001",
-      "defaultHover": "#66b039",
-      "defaultSelected": "#48911c",
+      "defaultActive": "#66b039",
+      "OLDdefaultSelected": "#48911c",
       "OLDaccent": "#48911c",
-      "subtleHover": "#173504",
-      "subtleSelected": "#1d4305"
+      "subtleActive": "#173504",
+      "OLDsubtleSelected": "#1d4305",
+      "disabled": "#2b6409"
     },
     "error": {
       "subtle": "#7d1010",
       "emphasis": "#d91400",
-      "emphasisHover": "#f52020",
-      "emphasisSelected": "#ff5252",
-      "subtleHover": "#921212",
-      "subtleSelected": "#a81414"
+      "emphasisActive": "#f52020",
+      "OLDemphasisSelected": "#ff5252",
+      "subtleActive": "#921212",
+      "OLDsubtleSelected": "#a81414"
     },
     "warning": {
       "default": "#4a3003",
@@ -590,7 +610,8 @@ const darkColors = {
       "OLDdefault": "#ff7b02",
       "OLDsubtle": "#963a00",
       "OLDdefaultHover": "#ff8c03",
-      "OLDdefaultSelected": "#ffa503"
+      "OLDdefaultSelected": "#ffa503",
+      "OLDdefaultSelected 2": "#ffa503"
     }
   },
   "text": {
@@ -890,7 +911,7 @@ const desktopTypography = {
     "fontSize": 16,
     "letterSpacing": 0,
     "textTransform": "none",
-    "textDecorationLine": "none"
+    "textDecorationLine": "Text used in interactive controls such as buttons, inputs, tabs, navigation items, and status labels."
   },
   "labelMStrong": {
     "fontFamily": "Inter_600SemiBold",

@@ -11,6 +11,10 @@ import {
   StorybookVariantRow
 } from '../../storybook/ui';
 import { storybookPlaygroundParameters } from '../../storybook/storybookPageParameters';
+import {
+  storybookDocsArgTypesInclude,
+  storybookArgTypeAccessibilityLabel
+} from '../../storybook/storybookArgTypes';
 import { useTheme } from '../../theme/useTheme';
 import { CheckInput } from './CheckInput';
 
@@ -19,22 +23,37 @@ const meta = {
   component: CheckInput,
   args: {
     selected: true,
-    disabled: false
+    disabled: false,
+    accessibilityLabel: 'Accept terms'
   },
   argTypes: {
     selected: {
       control: 'boolean',
-      description: 'Figma `selected` property — checked or unchecked.'
+      description: 'Figma `selected` property — checked or unchecked.',
+      table: { type: { summary: 'boolean' } }
     },
     disabled: {
       control: 'boolean',
-      description: 'Figma `disabled` — muted ring/fill and white check when selected.'
+      description: 'Figma `disabled` — muted ring/fill and white check when selected.',
+      table: { type: { summary: 'boolean' } }
     },
     onSelectedChange: {
       action: 'selected',
-      description: 'Called with the next selected value when the control is pressed.'
+      description: 'Called with the next selected value when the control is pressed.',
+      table: { type: { summary: '(selected: boolean) => void' } }
+    },
+    accessibilityLabel: {
+      ...storybookArgTypeAccessibilityLabel,
+      description:
+        'Screen reader name when the checkbox has no adjacent visible label (e.g. "Accept terms"). See Accessibility/Overview.'
     }
-  }
+  },
+  parameters: storybookDocsArgTypesInclude([
+    'selected',
+    'disabled',
+    'onSelectedChange',
+    'accessibilityLabel'
+  ])
 } satisfies Meta<typeof CheckInput>;
 
 export default meta;
@@ -45,13 +64,13 @@ const matrixColumnWidth = 100;
 const matrixLabelWidth = 80;
 
 const selectedStates = [
-  { label: 'not selected', selected: false },
-  { label: 'selected', selected: true }
+  { label: 'Selected=True', selected: true },
+  { label: 'Selected=False', selected: false },
 ] as const;
 
 const disabledStates = [
-  { disabled: false, label: 'enabled' },
-  { disabled: true, label: 'disabled' }
+  { disabled: false, label: 'Enabled' },
+  { disabled: true, label: 'Disabled' }
 ] as const;
 
 /** Interactive sandbox — controls and Code panel stay in sync via Storybook args. */

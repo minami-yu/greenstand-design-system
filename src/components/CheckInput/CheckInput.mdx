@@ -5,7 +5,10 @@ import * as CheckInputStories from './CheckInput.stories';
 
 # CheckInput
 ## Overview
-Circular checkbox indicator for binary selection.
+Checkbox allows users to select one or more options from a list or confirm a choice before submitting a form.
+
+Use Checkbox when users need to make multiple selections or explicitly confirm an action, such as accepting terms and conditions. For settings that take effect immediately, use a Switch instead.
+
 
 <br />
 <Canvas of={CheckInputStories.Playground} />
@@ -14,6 +17,7 @@ Circular checkbox indicator for binary selection.
 <ArgTypes of={CheckInputStories} />
 
 ## Variants
-
-### Selected × Disabled
 <Canvas of={CheckInputStories.Variants} />
+
+## Accessibility
+Pass `accessibilityLabel` when the checkbox is used without adjacent visible label text (see **Accessibility/Overview**). Role (`checkbox`) and checked/disabled state are set by the component.

@@ -8,10 +8,14 @@ import {
   StorybookVariantRow
 } from '../../storybook/ui';
 import { storybookPlaygroundParameters } from '../../storybook/storybookPageParameters';
+import {
+  storybookDocsArgTypesInclude,
+  storybookQuotedUnion
+} from '../../storybook/storybookArgTypes';
 import type { IconName } from '../Icon/icons';
 import { icons } from '../Icon/icons';
-import { Button, type ButtonProps } from './Button';
-import type { ButtonSize, ButtonVariant, ButtonVisualState } from './getButtonStyles';
+import { Button } from './Button';
+import type { ButtonSize, ButtonVariant } from './getButtonStyles';
 
 const variants: ButtonVariant[] = [
   'primary',
@@ -22,20 +26,16 @@ const variants: ButtonVariant[] = [
   'error-secondary'
 ];
 
-const visualStates: ButtonVisualState[] = ['default', 'hover', 'pressed', 'disabled'];
+const variantStateExamples = [
+  { label: 'default', props: { state: 'default' as const } },
+  { label: 'active', props: { state: 'active' as const } },
+  { label: 'disabled', props: { disabled: true } }
+] as const;
 
 const sizes: ButtonSize[] = ['md', 'sm'];
 
 const iconNames = Object.keys(icons).sort() as IconName[];
 const demoIcon: IconName = 'heart-outline';
-
-const autoVisualState = 'auto' as const;
-
-type PlaygroundVisualState = typeof autoVisualState | ButtonVisualState;
-
-type ButtonStoryArgs = Omit<ButtonProps, 'visualState'> & {
-  visualState: PlaygroundVisualState;
-};
 
 const meta = {
   title: 'Components/Button',
@@ -46,50 +46,57 @@ const meta = {
     size: 'md',
     leadingIcon: undefined,
     trailingIcon: undefined,
-    disabled: false,
-    visualState: autoVisualState
+    disabled: false
   },
   argTypes: {
     label: {
       control: 'text',
-      description: 'Visible button label. Required.'
+      description: 'Visible button label. Required.',
+      table: { type: { summary: 'string' } }
     },
     variant: {
       control: 'select',
-      description: 'Figma `variant` property — fill, border, and text tokens from getButtonStyles.',
-      options: variants
+      description: 'hierarchy of the button',
+      options: variants,
+      table: { type: { summary: storybookQuotedUnion(variants) } }
     },
     size: {
       control: 'select',
-      description: 'Figma `size` — `md` or `sm` layout from getButtonLayout.',
-      options: sizes
+      description: 'size of the buttons.',
+      options: sizes,
+      table: { type: { summary: storybookQuotedUnion(sizes) } }
     },
     leadingIcon: {
       control: 'select',
-      description: 'Icon before the label. Sets Figma `iconPosition=leading` when defined.',
-      options: [undefined, ...iconNames]
+      description: 'Icon before the label. Used to o reinforce the button action.',
+      options: [undefined, ...iconNames],
+      table: { type: { summary: 'IconName' } }
     },
     trailingIcon: {
       control: 'select',
-      description: 'Icon after the label. Sets Figma `iconPosition=trailing` when defined.',
-      options: [undefined, ...iconNames]
+      description: 'Icon after the label. Used to indicate progression or navigation.',
+      options: [undefined, ...iconNames],
+      table: { type: { summary: 'IconName' } }
     },
     disabled: {
       control: 'boolean',
-      description: 'Prevents interaction and applies disabled fill/text tokens.'
-    },
-    visualState: {
-      control: 'select',
-      description:
-        'Use "auto" for live press behavior. Other values force a Figma interaction state.',
-      options: [autoVisualState, ...visualStates] satisfies PlaygroundVisualState[]
+      description: 'Prevents interaction and applies disabled fill/text tokens.',
+      table: { type: { summary: 'boolean' } }
     }
-  }
-} satisfies Meta<ButtonStoryArgs>;
+  },
+  parameters: storybookDocsArgTypesInclude([
+    'label',
+    'variant',
+    'size',
+    'leadingIcon',
+    'trailingIcon',
+    'disabled'
+  ])
+} satisfies Meta<typeof Button>;
 
 export default meta;
 
-type Story = StoryObj<ButtonStoryArgs>;
+type Story = StoryObj<typeof meta>;
 
 const docsOnlyParameters = {
   controls: { disable: true }
@@ -99,9 +106,9 @@ function VariantStatesRow({ variant }: { variant: ButtonVariant }) {
   return (
     <StorybookStoryShell align="center">
       <StorybookVariantRow gap="md">
-        {visualStates.map((state) => (
-          <StorybookVariantCell key={state} align="center" label={state} labelPosition="below">
-            <Button label="Save" size="md" variant={variant} visualState={state} />
+        {variantStateExamples.map(({ label, props }) => (
+          <StorybookVariantCell key={label} align="center" label={label} labelPosition="below">
+            <Button label="Save" size="md" variant={variant} {...props} />
           </StorybookVariantCell>
         ))}
       </StorybookVariantRow>
@@ -120,16 +127,14 @@ function createVariantStory(variant: ButtonVariant, name: string): Story {
 
 /** Interactive sandbox — toggle every prop from the controls panel. */
 export const Playground: Story = {
-  parameters: storybookPlaygroundParameters,
+  parameters: {
+    ...storybookPlaygroundParameters,
+    controls: { exclude: ['state'] }
+  },
   render: function Playground(args) {
-    const { visualState, ...rest } = args;
-
     return (
       <StorybookStoryShell align="center">
-        <Button
-          {...rest}
-          visualState={visualState === autoVisualState ? undefined : visualState}
-        />
+        <Button {...args} />
       </StorybookStoryShell>
     );
   }
@@ -150,24 +155,24 @@ export const Icons: Story = {
     <StorybookStoryShell align="center">
       <StorybookVariantRow gap="md">
         <StorybookVariantCell align="center" label="Text only" labelPosition="below">
-          <Button label="Save" size="md" variant="primary" visualState="default" />
+          <Button label="Save" size="md" state="default" variant="primary" />
         </StorybookVariantCell>
         <StorybookVariantCell align="center" label="Leading icon" labelPosition="below">
           <Button
             label="Save"
             leadingIcon={demoIcon}
             size="md"
+            state="default"
             variant="primary"
-            visualState="default"
           />
         </StorybookVariantCell>
         <StorybookVariantCell align="center" label="Trailing icon" labelPosition="below">
           <Button
             label="Save"
             size="md"
+            state="default"
             trailingIcon={demoIcon}
             variant="primary"
-            visualState="default"
           />
         </StorybookVariantCell>
       </StorybookVariantRow>
@@ -184,7 +189,7 @@ export const Sizes: Story = {
       <StorybookVariantRow gap="md">
         {sizes.map((size) => (
           <StorybookVariantCell key={size} align="center" label={size} labelPosition="below">
-            <Button label="Save" size={size} variant="primary" visualState="default" />
+            <Button label="Save" size={size} state="default" variant="primary" />
           </StorybookVariantCell>
         ))}
       </StorybookVariantRow>
@@ -202,7 +207,7 @@ export const Disabled: Story = {
       <StorybookVariantRow gap="md">
         {variants.map((variant) => (
           <StorybookVariantCell key={variant} align="center" label={variant} labelPosition="below">
-            <Button disabled label="Save" size="md" variant={variant} visualState="disabled" />
+            <Button disabled label="Save" size="md" variant={variant} />
           </StorybookVariantCell>
         ))}
       </StorybookVariantRow>

@@ -28,6 +28,7 @@ export const storybookPreviewParameters = {
           'Colors',
           'Typography',
           'Spacing',
+          'Sizing',
           'Radius',
           'Border',
           'Iconography',

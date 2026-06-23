@@ -82,13 +82,14 @@ Space keys: `"100"`, `"200"`, `"400"`, `"n200"`, etc. Radius keys: `"xs"`, `"sm"
 
 ### Accessibility
 
-When implementing components, consider accessibility requirements by default.
+When implementing components, consider accessibility requirements by default. See Storybook **Accessibility/Overview** for full guidance.
 
-- Add appropriate `accessibilityRole` for interactive components.
-- Add `accessibilityLabel` when the purpose of a component is not clear from visible content, such as icon-only buttons.
-- Add `accessibilityState` when a component communicates state, such as disabled, selected, checked, or expanded.
+- Set `accessibilityRole` and `accessibilityState` inside design-system components (`switch`, `checkbox`, `button`, `progressbar`, etc.).
+- Callers pass `accessibilityLabel` when purpose is not clear from visible content — e.g. standalone Switch/CheckInput, meaningful icons.
+- Do not add vague default labels on primitives (except Spinner’s `"Loading"`). Use visible labels in composed patterns (RadioGroup `label`, Button `label`) when possible.
+- Document accessibility on **Accessibility/Overview** (source of truth). Only **Switch**, **CheckInput**, and **Icon** also expose `accessibilityLabel` in Storybook ArgTypes.
 - Ensure components remain compatible with VoiceOver (iOS) and TalkBack (Android).
-- Verify touch targets meet accessibility guidelines.
+- Verify touch targets meet accessibility guidelines (44 × 44 px minimum).
 
 ### Missing tokens
 
@@ -120,3 +121,33 @@ Storybook-only RN helpers for MDX docs and token catalogs live in **`src/storybo
 - **Files & exports:** `Storybook` prefix (`StorybookTokenCatalog.tsx`, `StorybookInlineCode`, …).
 - **Utilities:** `storybook` prefix (`storybookTable`, `storybookRnTypography`, …).
 - Do not import these into design-system components — docs/catalog UI only.
+
+### Storybook props table (`<ArgTypes />`)
+
+MDX component docs use `<ArgTypes of={ComponentStories} />`. Docgen often shows **`unknown`** in the Type column for imported unions and inherited `PressableProps` / `ViewProps`.
+
+Use helpers from **`src/storybook/storybookArgTypes.ts`** in every component `.stories.tsx` that documents props:
+
+1. **`description`** + **`control`** / **`options`** on each documented prop.
+2. **`table.type.summary`** — for `select`/`radio` props, derive from the same options array via `storybookQuotedUnion(options)`. Use plain summaries (`'string'`, `'boolean'`, `'IconName'`) elsewhere.
+3. **`parameters: storybookDocsArgTypesInclude([...])`** — list only the design-system API; hides inherited RN props.
+4. **Accessibility ArgTypes** — only for **Switch**, **CheckInput**, and **Icon**: add `storybookArgTypeAccessibilityLabel` and include in `storybookDocsArgTypesInclude`. All other components: document accessibility on **Accessibility/Overview** only.
+
+```ts
+import {
+  storybookArgTypeAccessibilityLabel,
+  storybookDocsArgTypesInclude,
+  storybookQuotedUnion
+} from '../../storybook/storybookArgTypes';
+
+const meta = {
+  component: Switch,
+  argTypes: {
+    toggled: { /* … */ },
+    accessibilityLabel: storybookArgTypeAccessibilityLabel
+  },
+  parameters: storybookDocsArgTypesInclude(['toggled', 'accessibilityLabel'])
+} satisfies Meta<typeof Switch>;
+```
+
+Do not duplicate `include` in MDX — keep it on the story `meta` only.

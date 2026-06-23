@@ -8,8 +8,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 0,
-      "$description": "no spacing"
+      "$value": 0
     },
     "100": {
       "$extensions": {
@@ -39,8 +38,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 12,
-      "$description": "gap between form elements."
+      "$value": 12
     },
     "400": {
       "$extensions": {
@@ -50,8 +48,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 16,
-      "$description": "Default spacing."
+      "$value": 16
     },
     "600": {
       "$extensions": {
@@ -121,8 +118,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": -32,
-      "$description": "compact padding inside components."
+      "$value": -32
     },
     "n1200": {
       "$extensions": {
@@ -132,8 +128,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": -48,
-      "$description": "compact padding inside components."
+      "$value": -48
     },
     "050": {
       "$extensions": {
@@ -193,8 +188,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": -64,
-      "$description": "compact padding inside components."
+      "$value": -64
     }
   },
   "radius": {
@@ -309,8 +303,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 16,
-      "$description": "small icon. Inline with text, inputs, table rows."
+      "$value": 16
     },
     "md": {
       "$extensions": {
@@ -320,8 +313,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 20,
-      "$description": "default icon. Buttons, nav items, list items."
+      "$value": 20
     },
     "lg": {
       "$extensions": {
@@ -331,8 +323,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 24,
-      "$description": "standard icon. Tab bar, toolbar, card actions."
+      "$value": 24
     },
     "xl": {
       "$extensions": {
@@ -342,8 +333,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 32,
-      "$description": "large icon. Empty states, feature highlights."
+      "$value": 32
     },
     "2xl": {
       "$extensions": {
@@ -353,8 +343,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 48,
-      "$description": "extra large icon. Onboarding illustrations."
+      "$value": 48
     },
     "3xl": {
       "$extensions": {
@@ -364,8 +353,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 64,
-      "$description": "extra large icon. Onboarding illustrations."
+      "$value": 64
     }
   },
   "responsive": {
@@ -412,6 +400,158 @@
       "$type": "number",
       "$value": "{space.200}",
       "$description": "Spacing between columns and adjacent content areas"
+    }
+  },
+  "size": {
+    "0": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
+      "$value": 0
+    },
+    "100": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
+      "$value": 4
+    },
+    "200": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
+      "$value": 8
+    },
+    "300": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
+      "$value": 12
+    },
+    "400": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
+      "$value": 16
+    },
+    "500": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
+      "$value": 20
+    },
+    "600": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
+      "$value": 24
+    },
+    "700": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
+      "$value": 28
+    },
+    "800": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
+      "$value": 32
+    },
+    "900": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
+      "$value": 36
+    },
+    "1000": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
+      "$value": 40
+    },
+    "1100": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
+      "$value": 44
+    },
+    "1200": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
+      "$value": 48
+    },
+    "1600": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
+      "$value": 64
+    },
+    "050": {
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      },
+      "$type": "number",
+      "$value": 2
     }
   }
 }

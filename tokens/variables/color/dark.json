@@ -10,9 +10,9 @@
         },
         "$type": "color",
         "$value": "{neutral.800}",
-        "$description": "Standard fill used for interactive controls"
+        "$description": "Default fill for neutral interactive components"
       },
-      "default-hover": {
+      "default-active": {
         "$extensions": {
           "com.figma.scopes": [
             "ALL_SCOPES"
@@ -21,7 +21,7 @@
         },
         "$type": "color",
         "$value": "{neutral.700}",
-        "$description": "Hover state for the interactive component that uses the fill default color"
+        "$description": "Active state for the default color"
       },
       "surface": {
         "$extensions": {
@@ -43,9 +43,9 @@
         },
         "$type": "color",
         "$value": "{neutral.950}",
-        "$description": "Quiet fill with lower emphasis"
+        "$description": "Low emphasis neutral fill"
       },
-      "subtle-hover": {
+      "subtle-active": {
         "$extensions": {
           "com.figma.scopes": [
             "ALL_SCOPES"
@@ -54,9 +54,9 @@
         },
         "$type": "color",
         "$value": "{neutral.900}",
-        "$description": "Hover state for the interactive component that uses the fill subtle color"
+        "$description": "Active state for the subtle color"
       },
-      "default-selected": {
+      "OLDdefault-selected": {
         "$extensions": {
           "com.figma.scopes": [
             "ALL_SCOPES"
@@ -67,7 +67,7 @@
         "$value": "{neutral.600}",
         "$description": "Selected state for the interactive component that uses the fill default color"
       },
-      "subtle-selected": {
+      "OLDsubtle-selected": {
         "$extensions": {
           "com.figma.scopes": [
             "ALL_SCOPES"
@@ -87,9 +87,9 @@
         },
         "$type": "color",
         "$value": "{neutral.200}",
-        "$description": "Used for containers and components that require higher emphasis"
+        "$description": "High emphasis neutral fill"
       },
-      "inverse-hover": {
+      "inverse-active": {
         "$extensions": {
           "com.figma.scopes": [
             "ALL_SCOPES"
@@ -98,9 +98,9 @@
         },
         "$type": "color",
         "$value": "{neutral.300}",
-        "$description": "Hover state for the interactive component that uses the fill inverse color"
+        "$description": "Active state for the inverse color"
       },
-      "inverse-selected": {
+      "OLDinverse-selected": {
         "$extensions": {
           "com.figma.scopes": [
             "ALL_SCOPES"
@@ -120,7 +120,7 @@
         },
         "$type": "color",
         "$value": "{neutral.950}",
-        "$description": "Disabled state color that fill any components, such as buttons"
+        "$description": "Disabled state color that fill  disabled components, such as buttons"
       }
     },
     "brand": {
@@ -133,7 +133,7 @@
         },
         "$type": "color",
         "$value": "{brand-green.300}",
-        "$description": "Color for primary fill components such as primary button"
+        "$description": "Primary brand fill for key actions and components"
       },
       "subtle": {
         "$extensions": {
@@ -144,9 +144,9 @@
         },
         "$type": "color",
         "$value": "{brand-green.900}",
-        "$description": "Used for backgrounds that communicate brand association with low visual emphasis."
+        "$description": "Low emphasis brand fill"
       },
-      "default-hover": {
+      "default-active": {
         "$extensions": {
           "com.figma.scopes": [
             "ALL_SCOPES"
@@ -155,9 +155,9 @@
         },
         "$type": "color",
         "$value": "{brand-green.400}",
-        "$description": "Hover state for the interactive component that uses the fill brand color"
+        "$description": "Active state for the default color"
       },
-      "default-selected": {
+      "OLDdefault-selected": {
         "$extensions": {
           "com.figma.scopes": [
             "ALL_SCOPES"
@@ -179,7 +179,7 @@
         "$value": "{brand-green.500}",
         "$description": "Used for promotional or highlighted navigation actions that require greater visibility than surrounding navigation items without competing with primary actions within content."
       },
-      "subtle-hover": {
+      "subtle-active": {
         "$extensions": {
           "com.figma.scopes": [
             "ALL_SCOPES"
@@ -188,9 +188,9 @@
         },
         "$type": "color",
         "$value": "{brand-green.800}",
-        "$description": "Hover state for the interactive component that uses the fill brand subtle color"
+        "$description": "Active state for the subtle color"
       },
-      "subtle-selected": {
+      "OLDsubtle-selected": {
         "$extensions": {
           "com.figma.scopes": [
             "ALL_SCOPES"
@@ -200,6 +200,17 @@
         "$type": "color",
         "$value": "{brand-green.700}",
         "$description": "Selected state for the interactive component that uses the fill brand subtle color"
+      },
+      "disabled": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{brand-green.600}",
+        "$description": "Disabled brand fill"
       }
     },
     "error": {
@@ -212,7 +223,7 @@
         },
         "$type": "color",
         "$value": "{red.900}",
-        "$description": "Inline error alert, form field error bg"
+        "$description": "Low emphasis error fill"
       },
       "emphasis": {
         "$extensions": {
@@ -223,9 +234,9 @@
         },
         "$type": "color",
         "$value": "{red.500}",
-        "$description": "Critical error banner, system-wide alert"
+        "$description": "High emphasis error fill"
       },
-      "emphasis-hover": {
+      "emphasis-active": {
         "$extensions": {
           "com.figma.scopes": [
             "ALL_SCOPES"
@@ -234,9 +245,9 @@
         },
         "$type": "color",
         "$value": "{red.400}",
-        "$description": "Critical error banner, system-wide alert"
+        "$description": "Active state of emphasis error fills"
       },
-      "emphasis-selected": {
+      "OLDemphasis-selected": {
         "$extensions": {
           "com.figma.scopes": [
             "ALL_SCOPES"
@@ -247,7 +258,7 @@
         "$value": "{red.300}",
         "$description": "Critical error banner, system-wide alert"
       },
-      "subtle-hover": {
+      "subtle-active": {
         "$extensions": {
           "com.figma.scopes": [
             "ALL_SCOPES"
@@ -256,9 +267,9 @@
         },
         "$type": "color",
         "$value": "{red.800}",
-        "$description": "Inline error alert, form field error bg"
+        "$description": "Active state of subtle error fills"
       },
-      "subtle-selected": {
+      "OLDsubtle-selected": {
         "$extensions": {
           "com.figma.scopes": [
             "ALL_SCOPES"
@@ -280,7 +291,7 @@
         },
         "$type": "color",
         "$value": "{yellow.900}",
-        "$description": "Inline caution alert, advisory notice bg"
+        "$description": "Fill used for warning and caution states"
       },
       "OLDemphasis": {
         "$extensions": {
@@ -304,7 +315,7 @@
         },
         "$type": "color",
         "$value": "{green.900}",
-        "$description": "Inline confirmation, completed state bg"
+        "$description": "Low emphasis success fill"
       },
       "emphasis": {
         "$extensions": {
@@ -315,7 +326,7 @@
         },
         "$type": "color",
         "$value": "{green.500}",
-        "$description": "Critical success banner, system confirmation"
+        "$description": "High emphasis success fill"
       }
     },
     "info": {
@@ -328,7 +339,7 @@
         },
         "$type": "color",
         "$value": "{blue.900}",
-        "$description": "Inline informational alert, tooltip bg"
+        "$description": "Fill used for informational states."
       },
       "OLDemphasis": {
         "$extensions": {
@@ -386,6 +397,17 @@
         "$type": "color",
         "$value": "{orange.400}",
         "$description": "Pressed state on accent elements"
+      },
+      "OLDdefault-selected 2": {
+        "$extensions": {
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.hiddenFromPublishing": false
+        },
+        "$type": "color",
+        "$value": "{orange.400}",
+        "$description": "Pressed state on accent elements"
       }
     }
   },
@@ -400,7 +422,7 @@
         },
         "$type": "color",
         "$value": "{white.1000}",
-        "$description": "Headings, body copy, default labels, highest contrast"
+        "$description": "Primary text color"
       },
       "secondary": {
         "$extensions": {
@@ -411,7 +433,7 @@
         },
         "$type": "color",
         "$value": "{neutral.500}",
-        "$description": "Supporting text, metadata, timestamps, medium emphasis"
+        "$description": "Secondary text color. Supporting text, metadata, timestamps, medium emphasis"
       },
       "tertiary": {
         "$extensions": {
@@ -422,7 +444,7 @@
         },
         "$type": "color",
         "$value": "{neutral.700}",
-        "$description": "Hint text, helper labels, lowest emphasis copy"
+        "$description": "Tertiary text color. Hint text, helper labels, lowest emphasis copy"
       },
       "inverse": {
         "$extensions": {

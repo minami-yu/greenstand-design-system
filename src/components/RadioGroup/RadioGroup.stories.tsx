@@ -13,6 +13,7 @@ import {
   StorybookVariantRow
 } from '../../storybook/ui';
 import { storybookPlaygroundParameters } from '../../storybook/storybookPageParameters';
+import { storybookDocsArgTypesInclude } from '../../storybook/storybookArgTypes';
 import { useTheme } from '../../theme/useTheme';
 import { RadioButton } from './RadioButton';
 import { RadioGroup } from './RadioGroup';
@@ -38,39 +39,63 @@ const meta = {
     value: 'option-1'
   },
   argTypes: {
-    error: {
-      control: 'boolean',
-      description: 'Figma `error` — red indicator styling on all options and error message with information icon.'
-    },
-    errorText: {
+    label: {
       control: 'text',
-      description: 'Figma `errorText` — message shown when `error` is true.'
-    },
-    hint: {
-      control: 'boolean',
-      description: 'Figma `hint` — show helper text below the options.'
-    },
-    hintText: {
-      control: 'text',
-      description: 'Figma `hintText` — helper copy below the options.'
+      description: 'Label for the radio group.',
+      table: { type: { summary: 'string' } }
     },
     hideLabel: {
       control: 'boolean',
-      description: 'Figma `hideLabel` — omit the group label above the options.'
+      description: 'If true, the group label is not displayed.',
+      table: { type: { summary: 'boolean' } }
     },
-    label: {
-      control: 'text',
-      description: 'Group label rendered with label-m-strong typography.'
-    },
-    onValueChange: {
-      action: 'valueChange',
-      description: 'Called with the next option value when a radio button is pressed.'
+    options: {
+      control: 'object',
+      description: 'Radio options — each entry has `label`, `value`, and optional `disabled`.',
+      table: { type: { summary: 'RadioGroupOption[]' } }
     },
     value: {
       control: 'text',
-      description: 'Currently selected option value.'
+      description: 'Currently selected option value.',
+      table: { type: { summary: 'string' } }
+    },
+    onValueChange: {
+      action: 'valueChange',
+      description: 'Called with the next option value when a radio button is pressed.',
+      table: { type: { summary: '(value: string) => void' } }
+    },
+    error: {
+      control: 'boolean',
+      description: 'Whether the group is in an error state.',
+      table: { type: { summary: 'boolean' } }
+    },
+    errorText: {
+      control: 'text',
+      description: 'The error text messages.',
+      table: { type: { summary: 'string' } }
+    },
+    hint: {
+      control: 'boolean',
+      description: 'If true, the hint text is displayed.',
+      table: { type: { summary: 'boolean' } }
+    },
+    hintText: {
+      control: 'text',
+      description: 'The hint text message.',
+      table: { type: { summary: 'string' } }
     }
-  }
+  },
+  parameters: storybookDocsArgTypesInclude([
+    'label',
+    'hideLabel',
+    'options',
+    'value',
+    'onValueChange',
+    'error',
+    'errorText',
+    'hint',
+    'hintText'
+  ])
 } satisfies Meta<typeof RadioGroup>;
 
 export default meta;
@@ -81,14 +106,14 @@ const matrixColumnWidth = 120;
 const matrixLabelWidth = 100;
 
 const selectedStates = [
-  { label: 'selected', selected: true },
-  { label: 'unselected', selected: false }
+  { label: 'Selected', selected: true },
+  { label: 'Unselected', selected: false }
 ] as const;
 
 const enabledColumns = [
-  { disabled: false, error: false, label: 'enabled' },
-  { disabled: true, error: false, label: 'disabled' },
-  { disabled: false, error: true, label: 'error' }
+  { disabled: false, error: false, label: 'Enabled' },
+  { disabled: true, error: false, label: 'Disabled' },
+  { disabled: false, error: true, label: 'Error' }
 ] as const;
 
 /** Figma RadioGroup reference width (15276:38088). */

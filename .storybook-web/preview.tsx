@@ -20,6 +20,7 @@ const preview: Preview = {
             'Colors',
             'Typography',
             'Spacing',
+            'Sizing',
             'Radius',
             'Border',
             'Iconography',

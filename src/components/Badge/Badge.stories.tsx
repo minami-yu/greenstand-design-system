@@ -1,7 +1,7 @@
 /**
  * Badge stories — CSF catalog aligned with Figma Badge (13148:62280).
  *
- * Snapshot-friendly stories freeze `badge`, `size`, and `value` for visual regression.
+ * Snapshot-friendly stories freeze `type`, `size`, and `value` for visual regression.
  */
 import type { Meta, StoryObj } from '@storybook/react';
 import { Text } from 'react-native';
@@ -12,37 +12,45 @@ import {
   StorybookVariantRow
 } from '../../storybook/ui';
 import { storybookPlaygroundParameters } from '../../storybook/storybookPageParameters';
+import {
+  storybookDocsArgTypesInclude,
+  storybookQuotedUnion
+} from '../../storybook/storybookArgTypes';
 import { useTheme } from '../../theme/useTheme';
 import { Badge } from './Badge';
 import type { BadgeSize, BadgeType } from './getBadgeLayout';
 
-const badgeTypes: BadgeType[] = ['label', 'dot'];
-const sizes: BadgeSize[] = ['medium', 'large'];
+const types: BadgeType[] = ['label', 'dot'];
+const sizes: BadgeSize[] = ['md', 'lg'];
 
 const meta = {
   title: 'Components/Badge',
   component: Badge,
   args: {
-    badge: 'label',
-    size: 'medium',
+    type: 'label',
+    size: 'md',
     value: '1'
   },
   argTypes: {
-    badge: {
+    type: {
       control: 'select',
-      description: 'Figma `badge` property — label shows a count, dot is indicator-only.',
-      options: badgeTypes
+      description: 'Whether the badge shows a count or just adot.',
+      options: types,
+      table: { type: { summary: storybookQuotedUnion(types) } }
     },
     size: {
       control: 'select',
       description: 'Badge dimensions from getBadgeLayout token map.',
-      options: sizes
+      options: sizes,
+      table: { type: { summary: storybookQuotedUnion(sizes) } }
     },
     value: {
       control: 'text',
-      description: 'Numeric label when badge is "label". Keep short (e.g. 1, 9, 99).'
+      description: 'Numeric label when type is "label".',
+      table: { type: { summary: 'string' } }
     }
-  }
+  },
+  parameters: storybookDocsArgTypesInclude(['type', 'size', 'value'])
 } satisfies Meta<typeof Badge>;
 
 export default meta;
@@ -86,19 +94,19 @@ function VariantsMatrix() {
           ))}
         </StorybookVariantRow>
 
-        {badgeTypes.map((badge) => (
-          <StorybookVariantRow key={badge} gap="sm">
+        {types.map((badgeType) => (
+          <StorybookVariantRow key={badgeType} gap="sm">
             <StorybookVariantCell columnWidth={matrixLabelWidth} align="start">
               <Text
                 style={[t.typography.labelS, { color: t.color.text.neutral.primary }]}
               >
-                {badge}
+                {badgeType}
               </Text>
             </StorybookVariantCell>
 
             {sizes.map((size) => (
               <StorybookVariantCell key={size} align="center" columnWidth={matrixColumnWidth}>
-                <Badge badge={badge} size={size} value="1" />
+                <Badge size={size} type={badgeType} value="1" />
               </StorybookVariantCell>
             ))}
           </StorybookVariantRow>

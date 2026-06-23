@@ -6,11 +6,11 @@ import * as RadioGroupStories from './RadioGroup.stories';
 # RadioGroup
 
 ## Overview
+Radio Group allows users to choose one option from a predefined set of choices. Selecting an option automatically deselects any previously selected option.
 
-Single-select option list with group label and helper or error text. Built from the Figma `RadioButton` and `RadioGroup` components.
+Use Radio Group when users need to make a single selection from a small number of visible options. For multiple selections, use Checkbox.
 
-## Preview
-
+<br/>
 <Canvas of={RadioGroupStories.Playground} />
 
 ## Props
@@ -29,6 +29,6 @@ Single-select option list with group label and helper or error text. Built from 
 
 ## RadioButton
 
-Atomic radio control used inside `RadioGroup`. Supports `selected`, `disabled`, `error`, and `hideLabel` to match Figma property names.
+Atomic radio control used inside `RadioGroup`.
 
 <Canvas of={RadioGroupStories.RadioButtonStory} />

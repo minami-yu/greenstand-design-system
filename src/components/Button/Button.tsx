@@ -13,9 +13,10 @@ import {
   getButtonLayout,
   getButtonStyles,
   resolveButtonIcons,
+  type ButtonPreviewState,
   type ButtonSize,
-  type ButtonVariant,
-  type ButtonVisualState
+  type ButtonState,
+  type ButtonVariant
 } from './getButtonStyles';
 
 export type ButtonProps = Omit<PressableProps, 'children' | 'style'> &
@@ -27,8 +28,8 @@ export type ButtonProps = Omit<PressableProps, 'children' | 'style'> &
     leadingIcon?: IconName;
     /** Icon after the label — maps to Figma `iconPosition=trailing`. */
     trailingIcon?: IconName;
-    /** Force a Figma interaction state (Storybook / previews). */
-    visualState?: ButtonVisualState;
+    /** Freeze default or active in Storybook variant previews only — not part of the public API. */
+    state?: ButtonPreviewState;
     style?: StyleProp<ViewStyle>;
   }>;
 
@@ -38,7 +39,7 @@ export function Button({
   size = 'md',
   leadingIcon,
   trailingIcon,
-  visualState,
+  state,
   disabled,
   style,
   accessibilityRole = 'button',
@@ -50,7 +51,7 @@ export function Button({
 
   const renderIcon = (name: IconName, colors: ReturnType<typeof getButtonStyles>) => (
     <Icon
-      colorValue={colors.textColor}
+      color={colors.textColor}
       name={name}
       size={size}
       style={{ height: layout.iconSize, width: layout.iconSize }}
@@ -64,8 +65,8 @@ export function Button({
       accessibilityState={{ disabled: Boolean(disabled) }}
       disabled={disabled}
       style={({ pressed }) => {
-        const resolvedState: ButtonVisualState =
-          visualState ?? (disabled ? 'disabled' : pressed ? 'pressed' : 'default');
+        const resolvedState: ButtonState =
+          disabled ? 'disabled' : (state ?? (pressed ? 'active' : 'default'));
         const colors = getButtonStyles(t, variant, resolvedState);
 
         return [
@@ -88,8 +89,8 @@ export function Button({
       }}
     >
       {({ pressed }) => {
-        const resolvedState: ButtonVisualState =
-          visualState ?? (disabled ? 'disabled' : pressed ? 'pressed' : 'default');
+        const resolvedState: ButtonState =
+          disabled ? 'disabled' : (state ?? (pressed ? 'active' : 'default'));
         const colors = getButtonStyles(t, variant, resolvedState);
 
         return (
@@ -98,7 +99,7 @@ export function Button({
             {label ? (
               <Text
                 style={[
-                  t.typography.labelMStrong,
+                  t.typography.labelM,
                   { color: colors.textColor, textAlign: 'center' }
                 ]}
               >

@@ -6,21 +6,24 @@ import * as BadgeStories from './Badge.stories';
 # Badge
 
 ## Overview
-
-- Unread counts on navigation items, tabs, or icons
-- Status indicators that need a numeric label (1–99) or a dot-only alert
-- Compact overlays anchored to avatars, icons, or list rows
+Badge is used to communicate the presence of new activity, updates, or items that require attention. It provides a lightweight visual indicator without interrupting the user's workflow.
+Badge can display either a dot indicator or a numeric count depending on the context and importance of the information.
 
 <br />
 <Canvas of={BadgeStories.Playground} />
 
-## Props
+## Usage
+Use Badge to:
+- Indicate unread messages, notifications, or updates
+- Highlight new activity that may require attention
+- Provide a count of pending items when the number is meaningful
 
+## Props
 <ArgTypes of={BadgeStories} />
 
 
-
-
 ## Variants
-
 <Canvas of={BadgeStories.Variants} />
+
+- **Label**: Used when the number of unread items or pending actions provides meaningful context.
+- **Dot**: Used when users only need to know that new activity exists and the exact quantity is not important.

@@ -21,7 +21,7 @@ export type SwitchLayout = {
 export function getSwitchLayout(): SwitchLayout {
   const paddingHorizontal = theme.space['050'];
   const thumbSize = theme.icon.md;
-  const trackWidth = theme.icon['2xl'];
+  const trackWidth = theme.size[1200];
 
   return {
     borderRadius: theme.radius.full,

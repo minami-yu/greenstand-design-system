@@ -2,10 +2,10 @@ import { theme, themes, type ThemeMode } from '../../theme/tokens';
 
 type ThemeTokens = (typeof themes)[ThemeMode];
 
-/** Matches Figma Badge property `badge`. */
+/** Matches Figma Badge property `type`. */
 export type BadgeType = 'label' | 'dot';
 
-export type BadgeSize = 'medium' | 'large';
+export type BadgeSize = 'md' | 'lg';
 
 type TypographyKey = 'labelS' | 'labelM';
 
@@ -30,9 +30,9 @@ export function getBadgeStyles(t: ThemeTokens): BadgeStyleTokens {
   };
 }
 
-export function getBadgeLayout(badge: BadgeType, size: BadgeSize): BadgeLayout {
-  if (badge === 'dot') {
-    const dimension = size === 'large' ? theme.icon.sm : theme.icon.xs;
+export function getBadgeLayout(type: BadgeType, size: BadgeSize): BadgeLayout {
+  if (type === 'dot') {
+    const dimension = size === 'lg' ? theme.icon.sm : theme.icon.xs;
 
     return {
       borderRadius: theme.radius.full,
@@ -44,11 +44,11 @@ export function getBadgeLayout(badge: BadgeType, size: BadgeSize): BadgeLayout {
     };
   }
 
-  const height = size === 'large' ? theme.icon.md : theme.space['400'];
-  const minWidth = size === 'large' ? theme.icon.md : theme.space['400'];
+  const height = size === 'lg' ? theme.icon.md : theme.space['400'];
+  const minWidth = size === 'lg' ? theme.icon.md : theme.space['400'];
   const paddingHorizontal =
-    size === 'large'
-      ? theme.space['050'] + theme.space['100']
+    size === 'lg'
+      ? theme.space['100']
       : theme.space['100'];
 
   return {
@@ -56,6 +56,6 @@ export function getBadgeLayout(badge: BadgeType, size: BadgeSize): BadgeLayout {
     height,
     minWidth,
     paddingHorizontal,
-    typography: size === 'large' ? 'labelM' : 'labelS'
+    typography: size === 'lg' ? 'labelM' : 'labelS'
   };
 }

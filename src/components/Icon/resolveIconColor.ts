@@ -23,6 +23,9 @@ export type IconColorPath =
   | 'warning.default'
   | 'warning.onEmphasis';
 
+/** Token path (e.g. `neutral.primary`) or an explicit color value. */
+export type IconColor = IconColorPath | (string & {});
+
 const COLOR_LOOKUP: Record<IconColorPath, (theme: ThemeTokens) => string> = {
   'neutral.primary': (t) => t.color.icon.neutral.primary,
   'neutral.secondary': (t) => t.color.icon.neutral.secondary,
@@ -44,6 +47,17 @@ const COLOR_LOOKUP: Record<IconColorPath, (theme: ThemeTokens) => string> = {
   'warning.onEmphasis': (t) => t.color.icon.warning.onEmphasis
 };
 
-export function resolveIconColor(theme: ThemeTokens, color: IconColorPath): string {
-  return COLOR_LOOKUP[color](theme);
+/** All semantic icon color paths, in resolver definition order. */
+export const iconColorPaths = Object.keys(COLOR_LOOKUP) as IconColorPath[];
+
+function isIconColorPath(color: string): color is IconColorPath {
+  return color in COLOR_LOOKUP;
+}
+
+export function resolveIconColor(theme: ThemeTokens, color: IconColor): string {
+  if (isIconColorPath(color)) {
+    return COLOR_LOOKUP[color](theme);
+  }
+
+  return color;
 }

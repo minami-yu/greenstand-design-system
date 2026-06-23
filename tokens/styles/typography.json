@@ -23,7 +23,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Section heading used to group related content."
+    "$description": "Section heading used to organize related content."
   },
   "paragraph-l": {
     "$type": "typography",
@@ -36,7 +36,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Primary descriptions, introductions, and important messages."
+    "$description": "Large body text used when the message is a primary focus of the screen or section, such as onboarding, empty states, success states, introductions, and important explanatory content."
   },
   "paragraph-l-strong": {
     "$type": "typography",
@@ -49,7 +49,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Emphasized text within Paragraph L."
+    "$description": "Emphasized text within Paragraph L. Use sparingly to highlight key words or phrases."
   },
   "paragraph-m": {
     "$type": "typography",
@@ -62,7 +62,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Default body text for descriptions and content. "
+    "$description": "Default body text for descriptions, instructions, dialog content, form guidance, settings, and most product copy."
   },
   "paragraph-m-strong": {
     "$type": "typography",
@@ -75,7 +75,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Emphasized text within Paragraph M."
+    "$description": "Emphasized text within Paragraph M. Use to draw attention to important information without changing size."
   },
   "paragraph-s": {
     "$type": "typography",
@@ -88,7 +88,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "For low-priority supporting information such as captions, and helper text, disclaimers, legal text and image captions."
+    "$description": "Secondary and supporting information such as helper text, captions, metadata, timestamps, disclaimers, and legal content."
   },
   "label-m": {
     "$type": "typography",
@@ -99,7 +99,7 @@
       "fontSize": "{size.label-m}",
       "letterSpacing": "0px",
       "textCase": "none",
-      "textDecoration": "none"
+      "textDecoration": "Text used in interactive controls such as buttons, inputs, tabs, navigation items, and status labels."
     },
     "$description": "Buttons, input labels, tabs, navigation items, and status labels."
   },
@@ -127,7 +127,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Compact controls, tags, badges, and secondary labels."
+    "$description": "Text for compact controls, tags, badges, chips, and secondary labels."
   },
   "label-s-strong": {
     "$type": "typography",
@@ -153,7 +153,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Primary metrics and key statistics."
+    "$description": "Large metrics, key statistics, and primary numerical values."
   },
   "numeric-m": {
     "$type": "typography",
@@ -166,7 +166,7 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Secondary metrics and statistics."
+    "$description": "Secondary metrics and supporting statistics."
   },
   "numeric-s": {
     "$type": "typography",
@@ -179,6 +179,6 @@
       "textCase": "none",
       "textDecoration": "none"
     },
-    "$description": "Counts, compact metrics, and numerical values."
+    "$description": "Compact metrics, counts, and numerical values displayed in limited space."
   }
 }

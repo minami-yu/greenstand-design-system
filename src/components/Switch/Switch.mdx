@@ -5,7 +5,7 @@ import * as SwitchStories from './Switch.stories';
 
 # Switch
 ## Overview
-Binary on/off control for settings and preferences.
+Switch allows users to turn a setting or feature on and off. It is best used for immediate actions where the change takes effect instantly. Use Switch for binary options such as enabling notifications, auto upload, or location services. For choices that require confirmation or form submission, consider using a CheckInput instead.
 
 <br />
 <Canvas of={SwitchStories.Playground} />
@@ -20,3 +20,6 @@ Binary on/off control for settings and preferences.
 
 ### Disabled
 <Canvas of={SwitchStories.Disabled} />
+
+## Accessibility
+Pass `accessibilityLabel` when the switch is used without adjacent visible label text (see **Accessibility/Overview**). Role (`switch`) and checked/disabled state are set by the component.

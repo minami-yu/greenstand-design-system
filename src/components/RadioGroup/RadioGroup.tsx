@@ -11,6 +11,12 @@ export type RadioGroupOption = {
 };
 
 export type RadioGroupProps = ViewProps & {
+  label?: string;
+  /** Figma `hideLabel` — omit the group label above the options. */
+  hideLabel?: boolean;
+  options: RadioGroupOption[];
+  value?: string;
+  onValueChange?: (value: string) => void;
   /** Figma `error` — red indicator styling and error message below the options. */
   error?: boolean;
   /** Figma `errorText` — message shown below options when `error` is true. */
@@ -19,26 +25,20 @@ export type RadioGroupProps = ViewProps & {
   hint?: boolean;
   /** Figma `hintText` — helper copy below the options. */
   hintText?: string;
-  /** Figma `hideLabel` — omit the group label above the options. */
-  hideLabel?: boolean;
-  label?: string;
-  onValueChange?: (value: string) => void;
-  options: RadioGroupOption[];
   style?: StyleProp<ViewStyle>;
-  value?: string;
 };
 
 export function RadioGroup({
+  label = 'Label',
+  hideLabel = false,
+  options,
+  value,
+  onValueChange,
+  style,
   error = false,
   errorText = 'Error message',
   hint = true,
   hintText = 'Hint message',
-  hideLabel = false,
-  label = 'Label',
-  onValueChange,
-  options,
-  style,
-  value,
   ...props
 }: RadioGroupProps) {
   const t = useTheme();

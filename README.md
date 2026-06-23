@@ -260,7 +260,7 @@ import { Icon } from './src/components/Icon/Icon';
 ```
 
 - **Sizes** — `theme.icon.*` (`xs` → `3xl`), default `md`
-- **Colors** — `theme.color.icon.*` via `color="neutral.primary"` etc.
+- **Colors** — `theme.color.icon.*` via `color="neutral.primary"` etc., or pass an explicit value
 - **83 MDI** icons keyed by Figma title suffix (`mdi:close` → `name="close"`)
 - **2 custom** — `outline-wifi` (`ic:outline-wifi`), `offline` (`wordpress:offline`) in `Icon/custom.ts`
 

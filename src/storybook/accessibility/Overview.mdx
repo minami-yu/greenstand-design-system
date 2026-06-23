@@ -1,4 +1,5 @@
 import { Meta } from '@storybook/blocks';
+import { AccessibilityApiTable, ComponentLabelGuidanceTable } from './sections/AccessibilityTables';
 import { storybookPageParameters as parameters } from '../storybookPageParameters';
 
 <Meta title="Accessibility/Overview" parameters={parameters} />
@@ -89,6 +90,30 @@ All components should include accessibility considerations by default.
 * Text and UI elements should use approved semantic color tokens.
 * Important information should not rely solely on color.
 * Loading, success, and error states should be communicated clearly.
+
+## React Native accessibility API
+
+React Native does not use `aria-*` props directly. Use the accessibility API on components — `react-native-web` maps these to ARIA on web.
+
+<AccessibilityApiTable />
+
+### Labels at the call site
+
+Design-system primitives set **role** and **state** internally. **Labels** are usually supplied by the product screen:
+
+```tsx
+<Switch
+  toggled={enabled}
+  onToggledChange={setEnabled}
+  accessibilityLabel="Wi-Fi"
+/>
+
+<Icon name="close" accessibilityLabel="Close" />
+```
+
+<ComponentLabelGuidanceTable />
+
+**Switch**, **CheckInput**, and **Icon** also document `accessibilityLabel` in their component ArgTypes tables. All other components: use the table above and **Accessibility/Overview** — keep props tables focused on the design-system API.
 
 ## Testing
 

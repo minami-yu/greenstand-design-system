@@ -98,7 +98,7 @@ export const storybookMdStyles = `
   }
 
   .sbdocs.sbdocs-content a:hover {
-    color: ${theme.color.fill.brand.defaultHover};
+    color: ${theme.color.fill.brand.defaultActive};
   }
 
   .sbdocs.sbdocs-content code {

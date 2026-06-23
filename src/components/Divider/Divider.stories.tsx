@@ -25,7 +25,10 @@ function DividerDemoFrame({ children }: { children: ReactNode }) {
 
 /** Interactive sandbox — divider stretches to the demo frame width. */
 export const Playground: Story = {
-  parameters: storybookPlaygroundParameters,
+  parameters: {
+    ...storybookPlaygroundParameters,
+    controls: { disable: true }
+  },
   render: function Playground() {
     return (
       <StorybookStoryShell align="center">
