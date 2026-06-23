@@ -1,0 +1,27 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks';
+import * as SpinnerStories from './Spinner.stories';
+import { SpinnerPlatformTable } from './SpinnerPlatformTable';
+
+<Meta of={SpinnerStories} />
+
+# Spinner
+## Overview
+The spinner is used to indicate that a task is loading or processing. It is a visual representation of the loading state.
+
+<br />
+<Canvas of={SpinnerStories.Playground} />
+
+## Props
+<ArgTypes of={SpinnerStories} />
+
+
+## Platform behavior
+This component wraps React Native `ActivityIndicator`. `ActivityIndicator` delegates to each OS native spinner. Sizes are aligned to the same diameters on both platforms — no scale transform — but the visual chrome can differ.
+
+<SpinnerPlatformTable />
+
+Web Storybook renders a single web implementation, so it cannot show true iOS vs Android chrome side by side. Use on-device Storybook or simulators to verify platform appearance.
+
+
+## Sizes
+<Canvas of={SpinnerStories.Sizes} />

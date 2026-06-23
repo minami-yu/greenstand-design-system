@@ -52,7 +52,7 @@ const meta = {
   argTypes: {
     label: {
       control: 'text',
-      description: 'Visible button label. Required — icon-only buttons are not supported.'
+      description: 'Visible button label. Required.'
     },
     variant: {
       control: 'select',

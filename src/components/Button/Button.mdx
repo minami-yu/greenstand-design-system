@@ -1,4 +1,7 @@
 import { ArgTypes, Canvas, Meta } from '@storybook/blocks';
+import { StorybookDoDont, StorybookDoDontCard } from '../../storybook/ui';
+import buttonDontIconBoth from '../../storybook/asset/components/button-dont-icon-both.png';
+import buttonDontIconMeaning from '../../storybook/asset/components/button-dont-icon-meaning.png';
 import * as ButtonStories from './Button.stories';
 
 <Meta of={ButtonStories} />
@@ -6,8 +9,10 @@ import * as ButtonStories from './Button.stories';
 # Button
 
 ## Overview
+Buttons allow users to take actions and move through workflows. They should clearly communicate what will happen when selected and provide a clear visual hierarchy based on the importance of the action.
 
-Primary action control for forms, dialogs, and toolbars. Maps to Figma Button (12618:892) with `variant`, `size`, `leadingIcon` / `trailingIcon`, and `state` properties.
+For Greenstand, buttons should prioritize clarity and ease of understanding, especially for users with varying levels of literacy and digital experience.
+
 <br/>
 <Canvas of={ButtonStories.Playground} />
 
@@ -16,47 +21,94 @@ Primary action control for forms, dialogs, and toolbars. Maps to Figma Button (1
 <ArgTypes of={ButtonStories} />
 
 ## Variants
+Choose button variants based on the importance of the action within the current screen.
 
-Each variant · `md` · interaction states (`default`, `hover`, `pressed`, `disabled`).
+
 
 ### Primary
-
+The most important action on the screen. Use for the main task users are expected to complete.
 <Canvas of={ButtonStories.Primary} />
+<br/>
+
 
 ### Secondary
+An alternative action with similar importance to the primary action. 
+
+**Examples**: For the case where there are 2 sign up options, we can assign...
+- Primary: Continue with WhatsApp (Default option)
+- Secondary: Continue with Email (Alternative option)
 
 <Canvas of={ButtonStories.Secondary} />
+<br />
+
+
 
 ### Tertiary
-
+A lower emphasis action that supports the current task. Use for optional or less important actions.
 <Canvas of={ButtonStories.Tertiary} />
+<br/>
 
-### Accent
 
-<Canvas of={ButtonStories.Accent} />
 
 ### Error
-
+A high emphasis destructive action. Use for actions that may cause data loss or irreversible changes.
 <Canvas of={ButtonStories.Error} />
+<br/>
 
 ### Error secondary
+A destructive action that should be available but not visually dominant. Use when the action is potentially dangerous but not the primary focus of the screen.
 
 <Canvas of={ButtonStories.ErrorSecondary} />
+<br/>
+
+### Accent
+Use for actions that need visual distinction from the primary button while remaining important. Use sparingly to highlight specific actions without suggesting higher priority than the primary action.
+<Canvas of={ButtonStories.Accent} />
+
 
 ## Icons
-
-Primary · `md` · text only, leading icon, and trailing icon.
+Icons can help users quickly understand an action and provide additional context beyond text alone. In Greenstand, icons are encouraged where they improve comprehension, particularly for low literacy users.
 
 <Canvas of={ButtonStories.Icons} />
 
-## Sizes
+- **Leading icon**: Use a leading icon to reinforce the button's action.
+- **Trailing icon**: Use a trailing icon to indicate progression or navigation. (e.g. Continue, Next step, Open external link)
 
-Primary · default state · `md` and `sm`.
+
+### Best practices
+- Use icons that clearly support the button label.
+- Choose familiar and universally recognizable icons.
+- Ensure icons add clarity rather than decoration.
+- Don't use both leading and trailing icons in the same button.
+
+<StorybookDoDont>
+  <StorybookDoDontCard
+    alt="Primary button with both a leading search icon and a trailing arrow icon"
+    description="Use a single icon to support the label and keep the button easy to scan and understand."
+    src={buttonDontIconBoth}
+    title="Don't use both leading and trailing icons"
+    type="dont"
+  />
+  <StorybookDoDontCard
+    alt="Report Issues button with an unrelated paw icon"
+    description="Users with limited literacy or technology experience may not understand the intended meaning."
+    src={buttonDontIconMeaning}
+    title="Don't use icons that are difficult to interpret"
+    type="dont"
+  />
+</StorybookDoDont>
+
+## Sizes
+- **md** (Default): The standard button size used across the product. Recommended for most actions and workflows.
+
+- **sm**: A compact alternative for layouts with limited space.
 
 <Canvas of={ButtonStories.Sizes} />
 
 ## Disabled
-
-All variants · `md` · disabled state.
+Used when the button is not available or not applicable.
 
 <Canvas of={ButtonStories.Disabled} />
+
+## Hover & selected states
+Hover state is defined for the web, for mobile, there is no hover state,. Selcted state is applied when the button is pressed.
