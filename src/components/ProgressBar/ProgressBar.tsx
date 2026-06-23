@@ -2,10 +2,8 @@ import { useEffect, useRef } from 'react';
 import {
   Animated,
   Easing,
-  Platform,
   View,
-  type ViewProps,
-  type ViewStyle
+  type ViewProps
 } from 'react-native';
 import { useTheme } from '../../theme/useTheme';
 import {
@@ -16,13 +14,6 @@ import {
 } from './getProgressBarStyles';
 
 const PROGRESS_BAR_ANIMATION_MS = 200;
-const PROGRESS_BAR_TRANSITION_EASING = 'cubic-bezier(0, 0, 0.2, 1)';
-
-type WebTransitionStyle = ViewStyle & {
-  transitionDuration?: string;
-  transitionProperty?: string;
-  transitionTimingFunction?: string;
-};
 
 export type ProgressBarProps = ViewProps & {
   /** Current progress value. Clamped to `0…max`. */
@@ -36,26 +27,7 @@ type ProgressIndicatorProps = {
   ratio: number;
 };
 
-function ProgressIndicatorWeb({
-  indicatorBackgroundColor,
-  ratio
-}: ProgressIndicatorProps) {
-  const layout = getProgressBarLayout();
-
-  const indicatorStyle: WebTransitionStyle = {
-    backgroundColor: indicatorBackgroundColor,
-    borderRadius: layout.borderRadius,
-    height: layout.height,
-    transitionDuration: `${PROGRESS_BAR_ANIMATION_MS}ms`,
-    transitionProperty: 'width',
-    transitionTimingFunction: PROGRESS_BAR_TRANSITION_EASING,
-    width: `${ratio * 100}%`
-  };
-
-  return <View style={indicatorStyle} />;
-}
-
-function ProgressIndicatorNative({
+function ProgressIndicator({
   indicatorBackgroundColor,
   ratio
 }: ProgressIndicatorProps) {
@@ -86,14 +58,6 @@ function ProgressIndicatorNative({
       }}
     />
   );
-}
-
-function ProgressIndicator(props: ProgressIndicatorProps) {
-  if (Platform.OS === 'web') {
-    return <ProgressIndicatorWeb {...props} />;
-  }
-
-  return <ProgressIndicatorNative {...props} />;
 }
 
 export function ProgressBar({

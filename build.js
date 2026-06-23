@@ -188,7 +188,23 @@ const TYPOGRAPHY_TYPES = new Set([
  * Top-level groups that belong to typography but whose tokens carry generic
  * `$type`s (e.g. `weight.medium` is exported as a `dimension`).
  */
-const TYPOGRAPHY_ROOT_KEYS = new Set(['family', 'weight', 'size', 'paragraphIndent']);
+const TYPOGRAPHY_ROOT_KEYS = new Set(['family', 'weight', 'paragraphIndent']);
+
+/** Figma exports component sizing (`size.100`, `size.1600`) and font sizes (`size.label-s`) under the same group name. */
+function isComponentSizeKey(key) {
+  return /^[0-9]+$/.test(key);
+}
+
+function partitionSizeTokens(sizeGroup) {
+  const componentSize = {};
+  const typographySize = {};
+
+  for (const [key, value] of Object.entries(sizeGroup)) {
+    (isComponentSizeKey(key) ? componentSize : typographySize)[key] = value;
+  }
+
+  return { componentSize, typographySize };
+}
 
 /** Top-level semantic color groups; all other color groups are palettes. */
 const SEMANTIC_COLOR_ROOTS = new Set(['fill', 'text', 'border', 'icon', 'shadow', 'background']);
@@ -488,12 +504,29 @@ function composeTheme(tokens) {
   const elevationSource = tokens.elevation;
   const { color, typography, rest } = partitionTokens(tokens);
 
-  // Typography groups whose tokens carry generic $types (family/weight/size
-  // are exported as text/dimension) are claimed by top-level key instead.
+  // Typography groups whose tokens carry generic $types (family/weight are
+  // exported as text/dimension) are claimed by top-level key instead.
   for (const key of TYPOGRAPHY_ROOT_KEYS) {
     if (rest[key]) {
       typography[key] = { ...rest[key], ...typography[key] };
       delete rest[key];
+    }
+  }
+
+  // `size` holds both component dimensions (numeric keys) and font-size
+  // primitives (named keys). Keep the former at `theme.size`, nest the latter
+  // under `theme.typography.size`.
+  if (rest.size) {
+    const { componentSize, typographySize } = partitionSizeTokens(rest.size);
+
+    if (Object.keys(componentSize).length > 0) {
+      rest.size = componentSize;
+    } else {
+      delete rest.size;
+    }
+
+    if (Object.keys(typographySize).length > 0) {
+      typography.size = { ...typographySize, ...typography.size };
     }
   }
 

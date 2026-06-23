@@ -5,13 +5,18 @@ import {
   StorybookVariantGridItem
 } from '../../storybook/ui';
 import { storybookPlaygroundParameters } from '../../storybook/storybookPageParameters';
+import {
+  storybookDocsArgTypesInclude,
+  storybookArgTypeAccessibilityLabel,
+  storybookQuotedUnion
+} from '../../storybook/storybookArgTypes';
 import { theme } from '../../theme/tokens';
 import { Icon } from './Icon';
 import { icons, type IconName } from './icons';
+import { iconColorPaths } from './resolveIconColor';
 
 const iconNames = Object.keys(icons).sort() as IconName[];
-
-
+const iconSizes = Object.keys(theme.icon) as (keyof typeof theme.icon)[];
 
 const meta = {
   title: 'Components/Icon',
@@ -24,26 +29,30 @@ const meta = {
   argTypes: {
     name: {
       control: 'select',
-      description: 'Icon glyph key from icons.ts (Figma frame Icons 12663:7261).',
-      options: iconNames
+      description: 'Icon glyph key from icons.ts.',
+      options: iconNames,
+      table: { type: { summary: 'IconName' } }
     },
     size: {
       control: 'select',
       description: 'Icon dimension from theme.icon scale.',
-      options: Object.keys(theme.icon)
+      options: iconSizes,
+      table: { type: { summary: storybookQuotedUnion(iconSizes) } }
     },
     color: {
       control: 'select',
-      description: 'Semantic icon color resolved via resolveIconColor.',
-      options: [
-        'neutral.primary',
-        'neutral.secondary',
-        'brand.default',
-        'error.default',
-        'success.default'
-      ]
+      description:
+        'Semantic icon token path (e.g. `neutral.primary`) or an explicit color value.',
+      options: [...iconColorPaths],
+      table: { type: { summary: storybookQuotedUnion(iconColorPaths) } }
+    },
+    accessibilityLabel: {
+      ...storybookArgTypeAccessibilityLabel,
+      description:
+        'Required when the icon conveys meaning (close, delete, status). Omit for decorative icons inside labeled controls.'
     }
-  }
+  },
+  parameters: storybookDocsArgTypesInclude(['name', 'size', 'color', 'accessibilityLabel'])
 } satisfies Meta<typeof Icon>;
 
 export default meta;

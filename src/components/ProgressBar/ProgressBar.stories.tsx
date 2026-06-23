@@ -2,7 +2,7 @@
  * ProgressBar stories — CSF catalog aligned with Figma ProgressBar (13472:24568).
  */
 import type { Meta, StoryObj } from '@storybook/react';
-import type { ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Text, View } from 'react-native';
 import {
   StorybookStoryShell,
@@ -11,6 +11,7 @@ import {
   StorybookVariantRow
 } from '../../storybook/ui';
 import { storybookPlaygroundParameters } from '../../storybook/storybookPageParameters';
+import { storybookDocsArgTypesInclude } from '../../storybook/storybookArgTypes';
 import { useTheme } from '../../theme/useTheme';
 import { ProgressBar } from './ProgressBar';
 
@@ -24,23 +25,21 @@ const meta = {
   argTypes: {
     max: {
       control: { min: 1, step: 1, type: 'number' },
-      description: 'Maximum progress value.'
+      description: 'Maximum progress value.',
+      table: { type: { summary: 'number' } }
     },
     value: {
       control: { max: 100, min: 0, step: 1, type: 'range' },
-      description: 'Current progress — animates when changed.'
+      description: 'Current progress — animates when changed.',
+      table: { type: { summary: 'number' } }
     }
-  }
+  },
+  parameters: storybookDocsArgTypesInclude(['max', 'value'])
 } satisfies Meta<typeof ProgressBar>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-
-const matrixColumnWidth = 120;
-const matrixLabelWidth = 80;
-
-const progressValues = [0, 25, 50, 75, 100] as const;
 
 function ProgressBarDemoFrame({ children }: { children: ReactNode }) {
   return <View style={{ alignSelf: 'stretch', width: 264 }}>{children}</View>;
@@ -60,40 +59,30 @@ export const Playground: Story = {
   }
 };
 
-function VariantsMatrix() {
+const valueMaxComparisons = [
+  { label: 'value={25} max={100}', max: 100, value: 25 },
+  { label: 'value={1} max={4}', max: 4, value: 1 }
+] as const;
+
+function ValueAndMaxComparison() {
   const t = useTheme();
 
   return (
     <StorybookStoryShell align="center">
-      <StorybookVariantCatalog gap="sm">
-        <StorybookVariantRow gap="sm">
-          <StorybookVariantCell columnWidth={matrixLabelWidth} />
-          {progressValues.map((value) => (
-            <StorybookVariantCell key={value} align="center" columnWidth={matrixColumnWidth}>
-              <Text
-                style={[
-                  t.typography.labelS,
-                  { color: t.color.text.neutral.secondary, textAlign: 'center' }
-                ]}
-              >
-                {value}%
-              </Text>
-            </StorybookVariantCell>
-          ))}
-        </StorybookVariantRow>
+      <StorybookVariantCatalog align="center" gap="md">
 
-        <StorybookVariantRow gap="sm">
-          <StorybookVariantCell columnWidth={matrixLabelWidth} align="start">
-            <Text style={[t.typography.labelS, { color: t.color.text.neutral.primary }]}>
-              progress
-            </Text>
-          </StorybookVariantCell>
-
-          {progressValues.map((value) => (
-            <StorybookVariantCell key={value} align="center" columnWidth={matrixColumnWidth}>
-              <View style={{ width: '100%' }}>
-                <ProgressBar value={value} />
-              </View>
+        <StorybookVariantRow gap="lg">
+          {valueMaxComparisons.map((example) => (
+            <StorybookVariantCell
+              key={example.label}
+              align="center"
+              columnWidth={280}
+              label={example.label}
+              labelPosition="below"
+            >
+              <ProgressBarDemoFrame>
+                <ProgressBar max={example.max} value={example.value} />
+              </ProgressBarDemoFrame>
             </StorybookVariantCell>
           ))}
         </StorybookVariantRow>
@@ -102,10 +91,57 @@ function VariantsMatrix() {
   );
 }
 
-/** Snapshot-friendly matrix of common progress values. */
-export const Variants: Story = {
+/** Side-by-side examples with the same fill ratio but different value/max scales. */
+export const ValueAndMax: Story = {
   parameters: {
     controls: { disable: true }
   },
-  render: () => <VariantsMatrix />
+  render: () => <ValueAndMaxComparison />
+};
+
+const animationPreviewValues = [0, 35, 70, 100, 45, 15] as const;
+const animationPreviewIntervalMs = 1200;
+
+function AnimationPreview() {
+  const t = useTheme();
+  const [value, setValue] = useState(animationPreviewValues[0]);
+
+  useEffect(() => {
+    let stepIndex = 0;
+
+    const id = setInterval(() => {
+      stepIndex = (stepIndex + 1) % animationPreviewValues.length;
+      setValue(animationPreviewValues[stepIndex]);
+    }, animationPreviewIntervalMs);
+
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <StorybookStoryShell align="center">
+      <ProgressBarDemoFrame>
+        <ProgressBar value={value} />
+        <Text
+          style={[
+            t.typography.labelS,
+            {
+              color: t.color.text.neutral.secondary,
+              marginTop: t.space['200'],
+              textAlign: 'center'
+            }
+          ]}
+        >
+          {value}%
+        </Text>
+      </ProgressBarDemoFrame>
+    </StorybookStoryShell>
+  );
+}
+
+/** Auto-cycling value changes — docs animation preview. */
+export const Animation: Story = {
+  parameters: {
+    controls: { disable: true }
+  },
+  render: () => <AnimationPreview />
 };

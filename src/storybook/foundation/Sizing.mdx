@@ -1,0 +1,17 @@
+import { Meta } from '@storybook/blocks';
+import { SizingCatalog } from './sections';
+import { buildScaleCatalogEntries } from '../utils/buildCatalogEntries';
+import { storybookPageParameters as parameters } from '../storybookPageParameters';
+
+export const sizing = buildScaleCatalogEntries('size', 'size');
+
+<Meta title="Foundation/Sizing" parameters={parameters} />
+
+# Sizing
+## Overview
+Sizing tokens define fixed dimensions for components and controls — heights, widths, and minimum touch targets. Use them when a component needs a specific size rather than spacing between elements.
+
+## Tokens
+Use the following tokens to set component dimensions. 
+
+<SizingCatalog entries={sizing} />

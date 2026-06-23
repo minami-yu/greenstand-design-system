@@ -13,7 +13,11 @@ export type ButtonVariant =
 
 export type ButtonSize = 'md' | 'sm';
 
-export type ButtonVisualState = 'default' | 'hover' | 'pressed' | 'disabled';
+/** Figma `state` — default, active (press / web interaction), or disabled. */
+export type ButtonState = 'default' | 'active' | 'disabled';
+
+/** `state` prop — preview default or active only; use `disabled` for the disabled look. */
+export type ButtonPreviewState = Exclude<ButtonState, 'disabled'>;
 
 export type ButtonStyleTokens = {
   backgroundColor?: string;
@@ -22,33 +26,20 @@ export type ButtonStyleTokens = {
   textColor: string;
 };
 
-type Interaction = 'default' | 'hover' | 'pressed' | 'disabled';
-
-function resolveInteraction(visualState: ButtonVisualState): Interaction {
-  if (visualState === 'disabled') return 'disabled';
-  if (visualState === 'pressed') return 'pressed';
-  if (visualState === 'hover') return 'hover';
-  return 'default';
-}
-
 export function getButtonStyles(
   t: ThemeTokens,
   variant: ButtonVariant,
-  visualState: ButtonVisualState
+  state: ButtonState
 ): ButtonStyleTokens {
-  const state = resolveInteraction(visualState);
-
   switch (variant) {
     case 'primary':
       return {
         backgroundColor:
           state === 'disabled'
-            ? t.color.fill.neutral.disabled
-            : state === 'pressed'
-              ? t.color.fill.brand.defaultSelected
-              : state === 'hover'
-                ? t.color.fill.brand.defaultHover
-                : t.color.fill.brand.default,
+            ? t.color.fill.brand.disabled
+            : state === 'active'
+              ? t.color.fill.brand.defaultActive
+              : t.color.fill.brand.default,
         borderWidth: 0,
         textColor:
           state === 'disabled'
@@ -61,11 +52,9 @@ export function getButtonStyles(
         backgroundColor:
           state === 'disabled'
             ? t.color.fill.neutral.disabled
-            : state === 'pressed'
-              ? t.color.fill.neutral.defaultSelected
-              : state === 'hover'
-                ? t.color.fill.neutral.defaultHover
-                : t.color.fill.neutral.default,
+            : state === 'active'
+              ? t.color.fill.neutral.defaultActive
+              : t.color.fill.neutral.default,
         borderWidth: 0,
         textColor:
           state === 'disabled'
@@ -78,11 +67,9 @@ export function getButtonStyles(
         backgroundColor:
           state === 'disabled'
             ? undefined
-            : state === 'pressed'
-              ? t.color.fill.neutral.subtleSelected
-              : state === 'hover'
-                ? t.color.fill.neutral.subtleHover
-                : undefined,
+            : state === 'active'
+              ? t.color.fill.neutral.subtleActive
+              : undefined,
         borderWidth: 0,
         textColor:
           state === 'disabled'
@@ -95,11 +82,9 @@ export function getButtonStyles(
         backgroundColor:
           state === 'disabled'
             ? undefined
-            : state === 'pressed'
-              ? t.color.fill.brand.subtleHover
-              : state === 'hover'
-                ? t.color.fill.brand.subtle
-                : undefined,
+            : state === 'active'
+              ? t.color.fill.brand.subtle
+              : undefined,
         borderColor:
           state === 'disabled'
             ? t.color.border.neutral.disabled
@@ -116,11 +101,9 @@ export function getButtonStyles(
         backgroundColor:
           state === 'disabled'
             ? t.color.fill.neutral.disabled
-            : state === 'pressed'
-              ? t.color.fill.error.subtleSelected
-              : state === 'hover'
-                ? t.color.fill.error.subtleHover
-                : t.color.fill.error.subtle,
+            : state === 'active'
+              ? t.color.fill.error.subtleActive
+              : t.color.fill.error.subtle,
         borderWidth: 0,
         textColor:
           state === 'disabled'
@@ -133,11 +116,9 @@ export function getButtonStyles(
         backgroundColor:
           state === 'disabled'
             ? t.color.fill.neutral.disabled
-            : state === 'pressed'
-              ? t.color.fill.error.subtleSelected
-              : state === 'hover'
-                ? t.color.fill.error.subtleHover
-                : undefined,
+            : state === 'active'
+              ? t.color.fill.error.subtleActive
+              : undefined,
         borderWidth: 0,
         textColor:
           state === 'disabled'
@@ -152,9 +133,9 @@ export function getButtonLayout(size: ButtonSize, hasIcon: boolean) {
 
   return {
     minHeight: isMd
-      ? theme.space['1200']
-      : theme.space['300'] + theme.space['600'],
-    minWidth: theme.space['1200'],
+      ? theme.size[1200]
+      : theme.size[900],
+    minWidth: theme.size[1200],
     paddingHorizontal: isMd ? theme.space['400'] : theme.space['300'],
     paddingVertical: isMd ? theme.space['300'] : theme.space['0'],
     gap: hasIcon ? (isMd ? theme.space['200'] : theme.space['100']) : theme.space['0'],

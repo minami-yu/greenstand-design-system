@@ -6,6 +6,7 @@ export * from './LayoutCatalog';
 export * from './PrimitiveColorList';
 export * from './RadiusCatalog';
 export * from './SemanticColorList';
+export * from './SizingCatalog';
 export * from './SpacingCatalog';
 export * from './TypographyCatalog';
 export * from './ViewportCatalog';

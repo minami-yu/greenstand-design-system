@@ -1,5 +1,5 @@
 import { Platform, type ActivityIndicatorProps } from 'react-native';
-import { themes, type ThemeMode } from '../../theme/tokens';
+import { theme, themes, type ThemeMode } from '../../theme/tokens';
 
 export type SpinnerSize = 'sm' | 'md';
 
@@ -16,8 +16,8 @@ export type SpinnerLayout = {
 
 /** Figma Spinner (13184:6727) — sm 20px, md 36px; matches ActivityIndicator presets. */
 const SPINNER_DIAMETER: Record<SpinnerSize, number> = {
-  sm: 20,
-  md: 36
+  sm: theme.size[500],
+  md: theme.size[900]
 };
 
 export function getSpinnerDiameter(size: SpinnerSize): number {

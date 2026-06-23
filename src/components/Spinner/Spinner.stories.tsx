@@ -9,7 +9,13 @@ import {
   StorybookVariantRow
 } from '../../storybook/ui';
 import { storybookPlaygroundParameters } from '../../storybook/storybookPageParameters';
+import {
+  storybookDocsArgTypesInclude,
+  storybookQuotedUnion
+} from '../../storybook/storybookArgTypes';
 import { Spinner } from './Spinner';
+
+const spinnerSizes = ['sm', 'md'] as const;
 
 const meta = {
   title: 'Components/Spinner',
@@ -20,10 +26,12 @@ const meta = {
   argTypes: {
     size: {
       control: 'radio',
-      options: ['sm', 'md'],
-      description: 'Figma size — sm (20px), md (36px).'
+      options: [...spinnerSizes],
+      description: 'Size of the spinner component.',
+      table: { type: { summary: storybookQuotedUnion(spinnerSizes) } }
     }
-  }
+  },
+  parameters: storybookDocsArgTypesInclude(['size'])
 } satisfies Meta<typeof Spinner>;
 
 export default meta;

@@ -26,6 +26,34 @@ Storybook-only RN helpers for MDX docs and token catalogs live in **`src/storybo
 - **Utilities:** `storybook` prefix (`storybookTable`, `storybookRnTypography`, …).
 - Do not import these into app components — docs/catalog UI only.
 
+## Storybook props table (`<ArgTypes />`)
+
+MDX component docs use `<ArgTypes of={ComponentStories} />`. Docgen often shows **`unknown`** in the Type column for imported unions and inherited `PressableProps` / `ViewProps`.
+
+Use helpers from **`src/storybook/storybookArgTypes.ts`** in every component `.stories.tsx` that documents props:
+
+1. **`description`** + **`control`** / **`options`** on each documented prop.
+2. **`table.type.summary`** — for `select`/`radio` props, derive from the same options array via `storybookQuotedUnion(options)`. Use plain summaries (`'string'`, `'boolean'`, `'IconName'`) elsewhere.
+3. **`parameters: storybookDocsArgTypesInclude([...])`** — list only the design-system API; hides inherited RN props.
+4. **Accessibility ArgTypes** — only for **Switch**, **CheckInput**, and **Icon**: add `storybookArgTypeAccessibilityLabel`. See **Accessibility/Overview** for all other components.
+
+```ts
+import {
+  storybookArgTypeAccessibilityLabel,
+  storybookDocsArgTypesInclude
+} from '../../storybook/storybookArgTypes';
+
+const meta = {
+  component: Switch,
+  argTypes: {
+    accessibilityLabel: storybookArgTypeAccessibilityLabel
+  },
+  parameters: storybookDocsArgTypesInclude(['toggled', 'accessibilityLabel'])
+} satisfies Meta<typeof Switch>;
+```
+
+Do not duplicate `include` in MDX — keep it on the story `meta` only.
+
 # Dependency Version Constraints
 
 Versions are deliberately pinned for Expo SDK 51 compatibility. Do NOT bump these independently:

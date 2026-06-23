@@ -58,13 +58,14 @@ Key namespaces: `color.*` (semantic + `palette`), `typography.*` (composites), `
 
 ## Accessibility
 
-When implementing components, consider accessibility requirements by default.
+When implementing components, consider accessibility requirements by default. See Storybook **Accessibility/Overview** for full guidance.
 
-- Add appropriate `accessibilityRole` for interactive components.
-- Add `accessibilityLabel` when the purpose of a component is not clear from visible content, such as icon-only buttons.
-- Add `accessibilityState` when a component communicates state, such as disabled, selected, checked, or expanded.
+- Set `accessibilityRole` and `accessibilityState` inside design-system components (`switch`, `checkbox`, `button`, `progressbar`, etc.).
+- Callers pass `accessibilityLabel` when purpose is not clear from visible content — e.g. standalone Switch/CheckInput, meaningful icons.
+- Do not add vague default labels on primitives (except Spinner’s `"Loading"`). Use visible labels in composed patterns (RadioGroup `label`, Button `label`) when possible.
+- Document accessibility on **Accessibility/Overview** (source of truth). Only **Switch**, **CheckInput**, and **Icon** also expose `accessibilityLabel` in Storybook ArgTypes.
 - Ensure components remain compatible with VoiceOver (iOS) and TalkBack (Android).
-- Verify touch targets meet accessibility guidelines.
+- Verify touch targets meet accessibility guidelines (44 × 44 px minimum).
 
 ## Missing Tokens
 

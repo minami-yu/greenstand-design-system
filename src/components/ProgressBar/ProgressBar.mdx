@@ -5,7 +5,9 @@ import * as ProgressBarStories from './ProgressBar.stories';
 
 # ProgressBar
 ## Overview
-Horizontal progress indicator for task completion and loading states.
+Progress Bar provides visual feedback on the completion status of a task or process. It helps users understand progress, set expectations, and stay informed while an action is in progress.
+
+Use Progress Bars for tasks with measurable progress, such as uploads, downloads, onboarding flows, or multi step processes.
 
 <br />
 <Canvas of={ProgressBarStories.Playground} />
@@ -15,5 +17,14 @@ Horizontal progress indicator for task completion and loading states.
 
 ## Variants
 
-### Progress values
-<Canvas of={ProgressBarStories.Variants} />
+### Value & max
+`value` represents the current progress between `0` and `max`. The progress bar fill is calculated as `value / max`. `max` defaults to `100` and can be customized for non percentage based progress, such as multi step flows or file uploads. It is also used by `accessibilityValue` so screen readers can announce progress like "1 of 4".
+
+
+<Canvas of={ProgressBarStories.ValueAndMax} />
+
+## Animation
+
+When `value` changes, the fill animates over **200ms** with an ease-out curve. The preview below cycles through sample values automatically.
+
+<Canvas of={ProgressBarStories.Animation} />

@@ -5,23 +5,21 @@ import { theme } from '../../theme/tokens';
 import { useTheme } from '../../theme/useTheme';
 import { customIconViewBoxes } from './custom';
 import { icons, type IconName } from './icons';
-import { resolveIconColor, type IconColorPath } from './resolveIconColor';
+import { resolveIconColor, type IconColor } from './resolveIconColor';
 
 type IconSize = keyof typeof theme.icon;
 
 export type IconProps = ViewProps & {
   name: IconName;
   size?: IconSize;
-  color?: IconColorPath;
-  /** Override token color with an explicit value (e.g. inherited context). */
-  colorValue?: string;
+  /** Semantic token path (e.g. `neutral.primary`) or an explicit color value. */
+  color?: IconColor;
 };
 
 export function Icon({
   name,
   size = 'md',
   color = 'neutral.primary',
-  colorValue,
   style,
   accessibilityLabel,
   accessibilityRole = 'image',
@@ -29,7 +27,7 @@ export function Icon({
 }: IconProps) {
   const t = useTheme();
   const dimension = theme.icon[size];
-  const fill = colorValue ?? resolveIconColor(t, color);
+  const fill = resolveIconColor(t, color);
   const path = icons[name];
   const viewBox = customIconViewBoxes[name as keyof typeof customIconViewBoxes] ?? '0 0 24 24';
 

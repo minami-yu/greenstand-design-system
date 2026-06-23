@@ -6,10 +6,7 @@ import * as IconStories from './Icon.stories';
 # Icon
 
 ## Overview
-
-- Decorative and semantic icons in buttons, lists, and empty states
-- Standardized MDI glyphs from the design system icon registry
-- Token-driven sizes and semantic icon colors
+Component to display icons. Please check usage and details on the Foundation/Iconography page.
 
 <br />
 <Canvas of={IconStories.Playground} />
@@ -18,12 +15,14 @@ import * as IconStories from './Icon.stories';
 
 <ArgTypes of={IconStories} />
 
-## Implementation notes
 
+## Implementation
 - Registry in `icons.ts` — regenerate with `npm run generate-icons` after Figma updates
 - Custom icons live in `custom.ts` when needed
-- **Gallery** below lists all icons from Figma frame Icons (12663:7261)
 
-## Gallery
+{/* ## Gallery
+Check the Foundation/Iconography page for datail.
+<Canvas of={IconStories.Gallery} /> */}
 
-<Canvas of={IconStories.Gallery} />
+## Accessibility
+Pass `accessibilityLabel` when the icon conveys meaning (close, delete, status). Omit for decorative icons inside labeled controls. See **Accessibility/Overview**.

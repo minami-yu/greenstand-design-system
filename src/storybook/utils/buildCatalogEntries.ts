@@ -4,7 +4,7 @@ import { theme, themes } from '../../theme/tokens';
 import type { ElevationToken } from '../../theme/getShadow';
 import type { StorybookTokenCatalogEntry } from '../ui';
 import { flattenDtcgTokens, getByPath } from './parseDtcgTokens';
-import { camelCasePath, formatTokenPath, kebabToCamel } from './tokenKey';
+import { camelCasePath, formatTokenAccessPath, formatTokenBracketPath, formatTokenPath, kebabToCamel } from './tokenKey';
 
 const elevationLevels = ['sm', 'md', 'lg'] as const;
 
@@ -42,20 +42,25 @@ function formatTypographyValue(value: unknown): string {
 }
 
 export function buildScaleCatalogEntries(
-  section: 'space' | 'radius' | 'border' | 'icon',
-  themePath: 'space' | 'radius' | 'border' | 'icon'
+  section: 'space' | 'radius' | 'border' | 'icon' | 'size',
+  themePath: 'space' | 'radius' | 'border' | 'icon' | 'size'
 ): StorybookTokenCatalogEntry[] {
   const sectionNode = (sizeJson as Record<string, unknown>)[section] as Record<string, unknown>;
 
   return flattenDtcgTokens(sectionNode).map((token) => {
     const key = token.path.split('.').pop() ?? token.path;
     const resolved = resolveThemeValue(`${themePath}.${key}`);
+    const tokenPath = `${themePath}.${key}`;
+    const usage =
+      themePath === 'space' || themePath === 'size'
+        ? formatTokenBracketPath(tokenPath)
+        : formatTokenAccessPath(tokenPath);
 
     return {
       name: key,
       value: `${resolved}px`,
       description: token.description,
-      usage: formatTokenPath(`${themePath}.${key}`)
+      usage
     };
   });
 }

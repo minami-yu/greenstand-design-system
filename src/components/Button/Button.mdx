@@ -34,9 +34,9 @@ The most important action on the screen. Use for the main task users are expecte
 ### Secondary
 An alternative action with similar importance to the primary action. 
 
-**Examples**: For the case where there are 2 sign up options, we can assign...
-- Primary: Continue with WhatsApp (Default option)
-- Secondary: Continue with Email (Alternative option)
+**Examples**: For example, for a sign up flow...
+- Primary: Continue with WhatsApp (Default)
+- Secondary: Continue with Email (Alternative)
 
 <Canvas of={ButtonStories.Secondary} />
 <br />
@@ -67,10 +67,8 @@ Use for actions that need visual distinction from the primary button while remai
 
 
 ## Icons
-Icons can help users quickly understand an action and provide additional context beyond text alone. In Greenstand, icons are encouraged where they improve comprehension, particularly for low literacy users.
-
 <Canvas of={ButtonStories.Icons} />
-
+Icons can help users quickly understand an action and provide additional context beyond text alone. In Greenstand, icons are encouraged where they improve comprehension, particularly for low literacy users.
 - **Leading icon**: Use a leading icon to reinforce the button's action.
 - **Trailing icon**: Use a trailing icon to indicate progression or navigation. (e.g. Continue, Next step, Open external link)
 
@@ -110,5 +108,5 @@ Used when the button is not available or not applicable.
 
 <Canvas of={ButtonStories.Disabled} />
 
-## Hover & selected states
-Hover state is defined for the web, for mobile, there is no hover state,. Selcted state is applied when the button is pressed.
+## Active state
+The active state is applied when the button is pressed. Use the `disabled` prop for the disabled look — do not pass a separate state prop in product code.

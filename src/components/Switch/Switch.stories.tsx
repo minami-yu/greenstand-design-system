@@ -10,6 +10,10 @@ import {
   StorybookVariantRow
 } from '../../storybook/ui';
 import { storybookPlaygroundParameters } from '../../storybook/storybookPageParameters';
+import {
+  storybookDocsArgTypesInclude,
+  storybookArgTypeAccessibilityLabel
+} from '../../storybook/storybookArgTypes';
 import { Switch } from './Switch';
 
 const meta = {
@@ -17,22 +21,37 @@ const meta = {
   component: Switch,
   args: {
     toggled: true,
-    disabled: false
+    disabled: false,
+    accessibilityLabel: 'Notifications'
   },
   argTypes: {
     toggled: {
       control: 'boolean',
-      description: 'Figma `toggled` property — on (thumb right) or off (thumb left).'
+      description: 'True when the switch is on, false when it is off.',
+      table: { type: { summary: 'boolean' } }
     },
     disabled: {
       control: 'boolean',
-      description: 'Prevents interaction and applies disabled track/thumb tokens.'
+      description: 'Prevents interaction and applies disabled track/thumb tokens.',
+      table: { type: { summary: 'boolean' } }
     },
     onToggledChange: {
       action: 'toggled',
-      description: 'Called with the next toggled value when the control is pressed.'
+      description: 'Called with the next toggled value when the control is pressed.',
+      table: { type: { summary: '(toggled: boolean) => void' } }
+    },
+    accessibilityLabel: {
+      ...storybookArgTypeAccessibilityLabel,
+      description:
+        'Screen reader name when the switch has no adjacent visible label (e.g. "Wi-Fi"). See Accessibility/Overview.'
     }
-  }
+  },
+  parameters: storybookDocsArgTypesInclude([
+    'toggled',
+    'disabled',
+    'onToggledChange',
+    'accessibilityLabel'
+  ])
 } satisfies Meta<typeof Switch>;
 
 export default meta;
@@ -67,11 +86,11 @@ export const Toggled: Story = {
   render: () => (
     <StorybookVariantCatalog align="center">
       <StorybookVariantRow gap="lg">
-        <StorybookVariantCell label="false" labelPosition="below">
-          <Switch toggled={false} />
-        </StorybookVariantCell>
         <StorybookVariantCell label="true" labelPosition="below">
           <Switch toggled />
+        </StorybookVariantCell>
+        <StorybookVariantCell label="false" labelPosition="below">
+          <Switch toggled={false} />
         </StorybookVariantCell>
       </StorybookVariantRow>
     </StorybookVariantCatalog>

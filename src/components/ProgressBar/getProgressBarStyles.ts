@@ -16,7 +16,7 @@ export type ProgressBarLayout = {
 export function getProgressBarLayout(): ProgressBarLayout {
   return {
     borderRadius: theme.radius.full,
-    height: theme.space['200']
+    height: theme.size[200]
   };
 }
 

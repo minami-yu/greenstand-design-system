@@ -17,6 +17,39 @@ export function formatTokenPath(path: string): string {
   return camelCasePath(path);
 }
 
+/** Bracket access for spacing/sizing catalogs, e.g. `space['400']`, `size['200']`. */
+export function formatTokenBracketPath(path: string): string {
+  const segments = camelCasePath(path).split('.');
+  const [root, ...rest] = segments;
+
+  if (!root || rest.length === 0) {
+    return camelCasePath(path);
+  }
+
+  return `${root}['${rest.join('.')}']`;
+}
+
+/** Code-style access path for scale tokens, e.g. `size[200]`, `space['050']`. */
+export function formatTokenAccessPath(path: string): string {
+  const segments = camelCasePath(path).split('.');
+
+  return segments.reduce((access, segment, index) => {
+    if (index === 0) {
+      return segment;
+    }
+
+    if (/^\d+$/.test(segment) && !/^0\d/.test(segment)) {
+      return `${access}[${segment}]`;
+    }
+
+    if (/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(segment)) {
+      return `${access}.${segment}`;
+    }
+
+    return `${access}['${segment}']`;
+  });
+}
+
 /** Builds dot/bracket access for compiled theme paths. */
 export function formatThemeAccess(root: string, path: string): string {
   const segments = camelCasePath(path).split('.');

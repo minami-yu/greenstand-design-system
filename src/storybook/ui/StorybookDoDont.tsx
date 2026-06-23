@@ -100,7 +100,7 @@ function StorybookDoDontCardView({
           marginTop: theme.space['100'],
         }}
       >
-        <Icon colorValue={meta.textColor(t)} name={meta.icon} size="sm" />
+        <Icon color={meta.textColor(t)} name={meta.icon} size="sm" />
         <Text
           style={[
             storybookRnTypography.labelSStrong,
