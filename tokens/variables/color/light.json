@@ -657,7 +657,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.800}",
+        "$value": "{neutral.950}",
         "$description": "Emphasized border for active inputs, hover states, selected neutral items"
       },
       "disabled": {
@@ -837,7 +837,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.1000}",
+        "$value": "{neutral.950}",
         "$description": "Primary standalone icons, icon buttons"
       },
       "secondary": {

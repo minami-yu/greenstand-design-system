@@ -9,7 +9,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.800}",
+        "$value": "{neutral.900}",
         "$description": "Default fill for neutral interactive components"
       },
       "default-active": {
@@ -20,7 +20,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.700}",
+        "$value": "{neutral.800}",
         "$description": "Active state for the default color"
       },
       "surface": {
@@ -165,7 +165,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{brand-green.500}",
+        "$value": "{brand-green.400}",
         "$description": "Selected state for the interactive component that uses the fill brand color"
       },
       "OLDaccent": {
@@ -209,7 +209,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{brand-green.600}",
+        "$value": "{brand-green.800}",
         "$description": "Disabled brand fill"
       }
     },
@@ -465,7 +465,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.800}",
+        "$value": "{neutral.600}",
         "$description": "Text inside disabled elements"
       },
       "placeholder": {
@@ -657,7 +657,7 @@
           "com.figma.hiddenFromPublishing": false
         },
         "$type": "color",
-        "$value": "{neutral.200}",
+        "$value": "{white.1000}",
         "$description": "Emphasized border for active inputs, hover states, selected neutral items"
       },
       "disabled": {

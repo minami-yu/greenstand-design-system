@@ -43,8 +43,8 @@ export const theme = {
         "emphasis": "#3a7d12"
       },
       "info": {
-        "default": "#e3f2fd",
-        "OLDemphasis": "#0d47a1"
+        "default": "#e1eef2",
+        "OLDemphasis": "#08333f"
       },
       "accent": {
         "OLDdefault": "#ff7b02",
@@ -58,10 +58,10 @@ export const theme = {
       "neutral": {
         "primary": "#232323",
         "secondary": "#585858",
-        "tertiary": "#707070",
+        "tertiary": "#898781",
         "inverse": "#ffffff",
         "disabled": "#b2b2b2",
-        "placeholder": "#707070"
+        "placeholder": "#898781"
       },
       "brand": {
         "default": "#2b6409",
@@ -80,7 +80,7 @@ export const theme = {
         "onEmphasis": "#131313"
       },
       "info": {
-        "default": "#0d47a1",
+        "default": "#08333f",
         "onEmphasis": "#ffffff"
       },
       "accent": {
@@ -92,7 +92,7 @@ export const theme = {
       "neutral": {
         "subtle": "#eaeaea",
         "default": "#e6e6e6",
-        "strong": "#585858",
+        "strong": "#232323",
         "disabled": "#e6e6e6",
         "OLDinverse": "#ffffff"
       },
@@ -117,13 +117,13 @@ export const theme = {
         "OLDemphasis": "#47ad08"
       },
       "info": {
-        "OLDdefault": "#1976d2",
-        "OLDemphasis": "#1976d2"
+        "OLDdefault": "#0f5c70",
+        "OLDemphasis": "#0f5c70"
       }
     },
     "icon": {
       "neutral": {
-        "primary": "#131313",
+        "primary": "#232323",
         "secondary": "#585858",
         "tertiary": "#b2b2b2",
         "disabled": "#cacaca",
@@ -147,7 +147,7 @@ export const theme = {
         "onEmphasis": "#ffffff"
       },
       "info": {
-        "default": "#1565c0",
+        "default": "#0c4757",
         "onEmphasis": "#ffffff"
       },
       "warning": {
@@ -164,16 +164,16 @@ export const theme = {
     },
     "palette": {
       "blue": {
-        "50": "#e3f2fd",
-        "100": "#bbdefb",
-        "200": "#90caf9",
-        "300": "#64b5f6",
-        "400": "#42a5f5",
-        "500": "#2196f3",
-        "600": "#1976d2",
-        "700": "#1565c0",
-        "800": "#0d47a1",
-        "900": "#072d6b"
+        "50": "#e1eef2",
+        "100": "#b9d9e1",
+        "200": "#8ac0ce",
+        "300": "#58a5b9",
+        "400": "#2f8ca3",
+        "500": "#12708a",
+        "600": "#0f5c70",
+        "700": "#0c4757",
+        "800": "#08333f",
+        "900": "#051f27"
       },
       "brandGreen": {
         "50": "#eef8e6",
@@ -194,7 +194,7 @@ export const theme = {
         "300": "#e6e6e6",
         "400": "#cacaca",
         "500": "#b2b2b2",
-        "600": "#707070",
+        "600": "#898781",
         "700": "#6c6c6c",
         "800": "#585858",
         "900": "#3d3c3c",
@@ -369,16 +369,16 @@ export const theme = {
     },
     "numericL": {
       "fontFamily": "Inter_600SemiBold",
-      "lineHeight": 57.6,
-      "fontSize": 48,
+      "lineHeight": 44,
+      "fontSize": 40,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
     },
     "numericM": {
       "fontFamily": "Inter_600SemiBold",
-      "lineHeight": 38.4,
-      "fontSize": 32,
+      "lineHeight": 33.6,
+      "fontSize": 28,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
@@ -403,7 +403,7 @@ export const theme = {
       "bold": 700
     },
     "size": {
-      "numericL": 48,
+      "numericL": 40,
       "labelS": 12,
       "labelM": 14,
       "paragraphM": 14,
@@ -412,7 +412,7 @@ export const theme = {
       "paragraphS": 12,
       "headingM": 24,
       "numericS": 20,
-      "numericM": 32
+      "numericM": 28
     }
   },
   "border": {
@@ -431,6 +431,7 @@ export const theme = {
   "space": {
     "0": 0,
     "100": 4,
+    "150": 6,
     "200": 8,
     "300": 12,
     "400": 16,
@@ -438,6 +439,7 @@ export const theme = {
     "800": 32,
     "1200": 48,
     "1600": 64,
+    "2400": 96,
     "n200": -8,
     "n400": -16,
     "n800": -32,
@@ -480,6 +482,7 @@ export const theme = {
     "1100": 44,
     "1200": 48,
     "1600": 64,
+    "2400": 96,
     "050": 2
   },
   "elevation": {
@@ -564,12 +567,12 @@ export type Theme = typeof theme;
 const darkColors = {
   "fill": {
     "neutral": {
-      "default": "#585858",
-      "defaultActive": "#6c6c6c",
+      "default": "#3d3c3c",
+      "defaultActive": "#585858",
       "surface": "#0c0c0d",
       "subtle": "#232323",
       "subtleActive": "#3d3c3c",
-      "OLDdefaultSelected": "#707070",
+      "OLDdefaultSelected": "#898781",
       "OLDsubtleSelected": "#585858",
       "inverse": "#eaeaea",
       "inverseActive": "#e6e6e6",
@@ -580,11 +583,11 @@ const darkColors = {
       "default": "#a8de5c",
       "subtle": "#0d2001",
       "defaultActive": "#66b039",
-      "OLDdefaultSelected": "#48911c",
+      "OLDdefaultSelected": "#66b039",
       "OLDaccent": "#48911c",
       "subtleActive": "#173504",
       "OLDsubtleSelected": "#1d4305",
-      "disabled": "#2b6409"
+      "disabled": "#173504"
     },
     "error": {
       "subtle": "#7d1010",
@@ -603,8 +606,8 @@ const darkColors = {
       "emphasis": "#47ad08"
     },
     "info": {
-      "default": "#072d6b",
-      "OLDemphasis": "#2196f3"
+      "default": "#051f27",
+      "OLDemphasis": "#12708a"
     },
     "accent": {
       "OLDdefault": "#ff7b02",
@@ -620,7 +623,7 @@ const darkColors = {
       "secondary": "#b2b2b2",
       "tertiary": "#6c6c6c",
       "inverse": "#131313",
-      "disabled": "#585858",
+      "disabled": "#898781",
       "placeholder": "#6c6c6c"
     },
     "brand": {
@@ -640,7 +643,7 @@ const darkColors = {
       "onEmphasis": "#131313"
     },
     "info": {
-      "default": "#90caf9",
+      "default": "#8ac0ce",
       "onEmphasis": "#ffffff"
     },
     "accent": {
@@ -652,7 +655,7 @@ const darkColors = {
     "neutral": {
       "subtle": "#585858",
       "default": "#b2b2b2",
-      "strong": "#eaeaea",
+      "strong": "#ffffff",
       "disabled": "#3d3c3c",
       "OLDinverse": "#131313"
     },
@@ -677,8 +680,8 @@ const darkColors = {
       "OLDemphasis": "#78d023"
     },
     "info": {
-      "OLDdefault": "#2196f3",
-      "OLDemphasis": "#2196f3"
+      "OLDdefault": "#12708a",
+      "OLDemphasis": "#12708a"
     }
   },
   "icon": {
@@ -686,7 +689,7 @@ const darkColors = {
       "primary": "#ffffff",
       "secondary": "#e6e6e6",
       "tertiary": "#b2b2b2",
-      "disabled": "#707070",
+      "disabled": "#898781",
       "inverse": "#131313",
       "onDisabled": "#585858"
     },
@@ -707,7 +710,7 @@ const darkColors = {
       "onEmphasis": "#ffffff"
     },
     "info": {
-      "default": "#90caf9",
+      "default": "#8ac0ce",
       "onEmphasis": "#ffffff"
     },
     "warning": {
@@ -724,16 +727,16 @@ const darkColors = {
   },
   "palette": {
     "blue": {
-      "50": "#e3f2fd",
-      "100": "#bbdefb",
-      "200": "#90caf9",
-      "300": "#64b5f6",
-      "400": "#42a5f5",
-      "500": "#2196f3",
-      "600": "#1976d2",
-      "700": "#1565c0",
-      "800": "#0d47a1",
-      "900": "#072d6b"
+      "50": "#e1eef2",
+      "100": "#b9d9e1",
+      "200": "#8ac0ce",
+      "300": "#58a5b9",
+      "400": "#2f8ca3",
+      "500": "#12708a",
+      "600": "#0f5c70",
+      "700": "#0c4757",
+      "800": "#08333f",
+      "900": "#051f27"
     },
     "brandGreen": {
       "50": "#eef8e6",
@@ -754,7 +757,7 @@ const darkColors = {
       "300": "#e6e6e6",
       "400": "#cacaca",
       "500": "#b2b2b2",
-      "600": "#707070",
+      "600": "#898781",
       "700": "#6c6c6c",
       "800": "#585858",
       "900": "#3d3c3c",
@@ -939,7 +942,7 @@ const desktopTypography = {
   },
   "numericL": {
     "fontFamily": "Inter_600SemiBold",
-    "lineHeight": 57.6,
+    "lineHeight": 52.8,
     "fontSize": 48,
     "letterSpacing": 0,
     "textTransform": "none",

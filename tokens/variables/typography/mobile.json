@@ -82,7 +82,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 48
+      "$value": 40
     },
     "label-s": {
       "$extensions": {
@@ -172,7 +172,7 @@
         "com.figma.hiddenFromPublishing": false
       },
       "$type": "number",
-      "$value": 32
+      "$value": 28
     }
   }
 }
