@@ -567,150 +567,150 @@ export type Theme = typeof theme;
 const darkColors = {
   "fill": {
     "neutral": {
-      "default": "#eaeaea",
-      "defaultActive": "#e6e6e6",
-      "surface": "#ffffff",
-      "subtle": "#f2f2f2",
-      "subtleActive": "#eaeaea",
-      "OLDdefaultSelected": "#cacaca",
-      "OLDsubtleSelected": "#e6e6e6",
-      "inverse": "#3d3c3c",
-      "inverseActive": "#585858",
-      "OLDinverseSelected": "#6c6c6c",
-      "disabled": "#f7f7f7"
+      "default": "#3d3c3c",
+      "defaultActive": "#585858",
+      "surface": "#0c0c0d",
+      "subtle": "#232323",
+      "subtleActive": "#3d3c3c",
+      "OLDdefaultSelected": "#898781",
+      "OLDsubtleSelected": "#585858",
+      "inverse": "#eaeaea",
+      "inverseActive": "#e6e6e6",
+      "OLDinverseSelected": "#b2b2b2",
+      "disabled": "#232323"
     },
     "brand": {
-      "default": "#2b6409",
-      "subtle": "#eef8e6",
-      "defaultActive": "#1d4305",
-      "OLDdefaultSelected": "#173504",
-      "OLDaccent": "#66b039",
-      "subtleActive": "#d4f0b0",
-      "OLDsubtleSelected": "#c5f78d",
-      "disabled": "#eef8e6"
+      "default": "#a8de5c",
+      "subtle": "#0d2001",
+      "defaultActive": "#66b039",
+      "OLDdefaultSelected": "#66b039",
+      "OLDaccent": "#48911c",
+      "subtleActive": "#173504",
+      "OLDsubtleSelected": "#1d4305",
+      "disabled": "#173504"
     },
     "error": {
-      "subtle": "#fff0ee",
+      "subtle": "#7d1010",
       "emphasis": "#d91400",
-      "emphasisActive": "#be1414",
-      "OLDemphasisSelected": "#a81414",
-      "subtleActive": "#ffd5cf",
-      "OLDsubtleSelected": "#ffaa9f"
+      "emphasisActive": "#f52020",
+      "OLDemphasisSelected": "#ff5252",
+      "subtleActive": "#921212",
+      "OLDsubtleSelected": "#a81414"
     },
     "warning": {
-      "default": "#fdf1dc",
+      "default": "#4a3003",
       "OLDemphasis": "#f6bc2f"
     },
     "success": {
-      "subtle": "#eef8e6",
-      "emphasis": "#3a7d12"
+      "subtle": "#0d2001",
+      "emphasis": "#47ad08"
     },
     "info": {
-      "default": "#e1eef2",
-      "OLDemphasis": "#08333f"
+      "default": "#051f27",
+      "OLDemphasis": "#12708a"
     },
     "accent": {
       "OLDdefault": "#ff7b02",
-      "OLDsubtle": "#fff8ee",
-      "OLDdefaultHover": "#e56200",
-      "OLDdefaultSelected": "#c44d01",
-      "OLDdefaultSelected 2": "#c44d01"
+      "OLDsubtle": "#963a00",
+      "OLDdefaultHover": "#ff8c03",
+      "OLDdefaultSelected": "#ffa503",
+      "OLDdefaultSelected 2": "#ffa503"
     }
   },
   "text": {
     "neutral": {
-      "primary": "#232323",
-      "secondary": "#585858",
-      "tertiary": "#898781",
-      "inverse": "#ffffff",
-      "disabled": "#b2b2b2",
-      "placeholder": "#898781"
+      "primary": "#ffffff",
+      "secondary": "#b2b2b2",
+      "tertiary": "#6c6c6c",
+      "inverse": "#131313",
+      "disabled": "#898781",
+      "placeholder": "#6c6c6c"
     },
     "brand": {
-      "default": "#2b6409",
-      "onBrand": "#ffffff"
+      "default": "#c5f78d",
+      "onBrand": "#131313"
     },
     "success": {
-      "default": "#295c0a",
-      "onEmphasis": "#ffffff"
+      "default": "#a8dc6e",
+      "onEmphasis": "#131313"
     },
     "error": {
-      "default": "#d91400",
+      "default": "#ffaa9f",
       "onEmphasis": "#ffffff"
     },
     "warning": {
-      "default": "#4a3003",
+      "default": "#fdebc7",
       "onEmphasis": "#131313"
     },
     "info": {
-      "default": "#08333f",
+      "default": "#8ac0ce",
       "onEmphasis": "#ffffff"
     },
     "accent": {
-      "default": "#c44d01",
-      "onAccent": "#131313"
+      "default": "#ffba5c",
+      "onAccent": "#6b2800"
     }
   },
   "border": {
     "neutral": {
-      "subtle": "#eaeaea",
-      "default": "#e6e6e6",
-      "strong": "#232323",
-      "disabled": "#e6e6e6",
-      "OLDinverse": "#ffffff"
+      "subtle": "#585858",
+      "default": "#b2b2b2",
+      "strong": "#ffffff",
+      "disabled": "#3d3c3c",
+      "OLDinverse": "#131313"
     },
     "brand": {
-      "default": "#2b6409",
-      "OLDsubtle": "#c5f78d"
+      "default": "#48911c",
+      "OLDsubtle": "#173504"
     },
     "accent": {
-      "OLDdefault": "#ff7b02",
-      "OLDsubtle": "#ffd599"
+      "OLDdefault": "#ff8c03",
+      "OLDsubtle": "#c44d01"
     },
     "error": {
-      "OLDdefault": "#d91400",
-      "default": "#f52020"
+      "OLDdefault": "#a81414",
+      "default": "#d91400"
     },
     "warning": {
-      "OLDdefault": "#9a6b08",
-      "OLDemphasis": "#9a6b08"
+      "OLDdefault": "#f6bc2f",
+      "OLDemphasis": "#f6bc2f"
     },
     "success": {
-      "OLDdefault": "#a8dc6e",
-      "OLDemphasis": "#47ad08"
+      "OLDdefault": "#3a7d12",
+      "OLDemphasis": "#78d023"
     },
     "info": {
-      "OLDdefault": "#0f5c70",
-      "OLDemphasis": "#0f5c70"
+      "OLDdefault": "#12708a",
+      "OLDemphasis": "#12708a"
     }
   },
   "icon": {
     "neutral": {
-      "primary": "#232323",
-      "secondary": "#585858",
+      "primary": "#ffffff",
+      "secondary": "#e6e6e6",
       "tertiary": "#b2b2b2",
-      "disabled": "#cacaca",
-      "inverse": "#ffffff",
-      "onDisabled": "#b2b2b2"
+      "disabled": "#898781",
+      "inverse": "#131313",
+      "onDisabled": "#585858"
     },
     "brand": {
-      "default": "#2b6409",
-      "onBrand": "#ffffff"
+      "default": "#a8de5c",
+      "onBrand": "#131313"
     },
     "accent": {
-      "default": "#c44d01",
+      "default": "#ffba5c",
       "onAccent": "#6b2800"
     },
     "error": {
-      "default": "#d91400",
+      "default": "#ffaa9f",
       "onEmphasis": "#ffffff"
     },
     "success": {
-      "default": "#3a7d12",
+      "default": "#a8dc6e",
       "onEmphasis": "#ffffff"
     },
     "info": {
-      "default": "#0c4757",
+      "default": "#8ac0ce",
       "onEmphasis": "#ffffff"
     },
     "warning": {
@@ -720,9 +720,9 @@ const darkColors = {
   },
   "background": {
     "neutral": {
-      "base": "#f2f2f2",
-      "overlay": "#0c0c0d66",
-      "default": "#ffffff"
+      "base": "#0c0c0d",
+      "overlay": "#0c0c0d99",
+      "default": "#0c0c0d"
     }
   },
   "palette": {
