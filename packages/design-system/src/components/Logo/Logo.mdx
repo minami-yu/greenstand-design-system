@@ -1,0 +1,27 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as LogoStories from './Logo.stories';
+
+<Meta of={LogoStories} />
+
+# Logo
+
+## Overview
+Logo renders Greenstand and Treetracker brand marks using the variants defined in Figma. Use it directly in app UI, or through TopNavigation logo slots.
+
+<br />
+<Canvas of={LogoStories.Playground} />
+
+## Usage
+Use Logo to:
+- Select the Greenstand or Treetracker mark.
+- Switch between Figma color variants.
+- Keep app screens from importing brand image files directly.
+
+## Props
+<ArgTypes of={LogoStories} />
+
+## Greenstand variants
+<Canvas of={LogoStories.GreenstandVariants} />
+
+## Treetracker variants
+<Canvas of={LogoStories.TreetrackerVariants} />

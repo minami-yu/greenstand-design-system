@@ -1,0 +1,25 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as AvatarCardStories from './AvatarCard.stories';
+
+<Meta of={AvatarCardStories} />
+
+# AvatarCard
+
+## Overview
+AvatarCard composes Avatar with a label inside a selectable card surface.
+
+<br />
+<Canvas of={AvatarCardStories.Playground} />
+
+## Usage
+Use AvatarCard for choosing an identity, profile, or user-like option.
+
+The card follows the Figma spec as a 160 × 160 square and composes the `Avatar`
+with its `xl` size so the avatar visual stays consistent with the updated
+identity-selection pattern.
+
+## Props
+<ArgTypes of={AvatarCardStories} />
+
+## Variants
+<Canvas of={AvatarCardStories.Variants} />

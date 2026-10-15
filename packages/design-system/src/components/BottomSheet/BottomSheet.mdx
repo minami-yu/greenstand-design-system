@@ -1,0 +1,99 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as BottomSheetStories from './BottomSheet.stories';
+
+<Meta of={BottomSheetStories} />
+
+# BottomSheet
+
+## Overview
+BottomSheet provides the shared visual shell for bottom-aligned sheets, including
+the Figma handle, close affordance, title alignment variants, surface color, and
+modal overlay treatment.
+
+<br />
+<Canvas of={BottomSheetStories.Playground} />
+
+## Usage
+Use BottomSheet for app flows that need a bottom-aligned surface. The component is
+presentational: apps own visibility, dismissal state, gestures, and route-level
+modal behavior.
+
+The previews show a sample uploads screen behind a lost-connection message.
+Select **Got it** or the close icon to dismiss the sheet, then **Upload** to
+reopen it. Toggle `modal` to compare the backdrop treatments. The Playground
+places the message heading below the offline icon; the variant examples use the
+sheet's built-in title slot to demonstrate left and center alignment.
+
+## Content Height And Safe Area
+The sheet hugs its content: there is no fixed minimum body height. Its height
+includes the header, optional title, supplied content, and bottom safe-area inset.
+The modal sheet is capped at 90% of the available screen height below the top
+safe area. It hugs shorter content; longer content scrolls inside the sheet.
+The handle/close header and bottom safe-area clearance stay outside the scroll
+area, so they remain visible. This responsive cap also applies after rotation.
+
+Wrap the app in `SafeAreaProvider` from `react-native-safe-area-context`.
+The sheet automatically reads the bottom inset. Its internal bottom clearance
+is the maximum of that inset, any `bottomPadding` override, and `space[400]`.
+This minimum keeps buttons away from the edge even when the OS reports zero,
+including desktop Storybook. The inset and minimum are not added together.
+
+```tsx
+import { BottomSheetModal } from '@greenstand/design-system';
+
+function UploadSheet({ visible, onClose }) {
+  return (
+    <BottomSheetModal title="Upload" visible={visible} onClose={onClose}>
+      <UploadContent />
+    </BottomSheetModal>
+  );
+}
+```
+
+This keeps content above the iOS home indicator and Android system navigation
+area using the inset reported by the device. Do not hardcode a platform-specific
+height. The padding is inside the sheet surface, so its background extends to
+the screen edge. The sheet owns the bottom inset; do not add another bottom
+SafeAreaView around it.
+
+Desktop Storybook normally has no OS inset: change the `bottomPadding` control
+to simulate one. Setting it to zero does not disable the minimum clearance.
+
+## Presentation And Motion
+Use `BottomSheetModal` for interactive presentation. Keep it mounted and toggle
+`visible` so dismissal can finish. The sheet moves up from the bottom on opening
+and down on closing. The scrim remains stationary and fades in/out independently.
+The Modal itself uses no transition: React Native Animated drives the scrim's
+opacity and only the sheet's vertical position. It uses the library's default
+timing/easing, with the native driver on devices and the web driver in browsers.
+This replaces the whole-modal OS slide, which also moved the scrim. It is not
+an OS-owned presentation animation. The modal remains mounted through exit.
+Reduced-motion settings disable the animation. Close, backdrop press, and
+Android back call `onClose`; the parent sets `visible` to false.
+
+The phone-frame examples above display the surface and layout. The following
+example opens the actual modal and demonstrates its presentation and dismissal:
+
+<Canvas of={BottomSheetStories.AnimatedModal} />
+
+## Header And Drag Dismissal
+The header uses `space[200]` (8px) padding on the top, left, and right, with no
+bottom padding. The close control has a 48px touch target (`size[1200]`), a 36px
+neutral-filled circle (`size[900]`), and an `xs` close icon. Pressing it uses the
+neutral active fill. Figma specifies an 18px icon, but the exported tokens
+currently have `icon.xs = 14px` and no 18px size. The existing token is retained
+until an 18px icon token is supplied; this is a known spec discrepancy.
+
+In `BottomSheetModal`, drag down from the handle or header to dismiss. A pull
+past one quarter of the sheet height, or a quick downward flick, calls `onClose`.
+A shorter pull springs back. The scrim stays in place and fades during the drag.
+The content area keeps normal vertical scrolling; dragging inside it does not
+dismiss the sheet. Close, backdrop press, and Android back remain alternatives.
+Reduced motion removes the spring-back animation. Use the Animated Modal story
+to test dragging; static phone-frame examples display only the sheet surface.
+
+## Props
+<ArgTypes of={BottomSheetStories} />
+
+## Variants
+<Canvas of={BottomSheetStories.Variants} />

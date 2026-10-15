@@ -1,0 +1,28 @@
+{
+  "name": "@greenstand/bluesky-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "web:build": "expo export --platform web --output-dir dist",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~57.0.16",
+    "@greenstand/design-system": "0.1.0",
+    "expo": "^57.0.0",
+    "expo-camera": "~57.0.6",
+    "expo-font": "~57.0.4",
+    "expo-status-bar": "~57.0.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-svg": "15.15.4",
+    "react-native-web": "^0.21.2"
+  }
+}

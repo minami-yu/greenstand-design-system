@@ -1,0 +1,27 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as DsLinkStories from './DsLink.stories';
+
+<Meta of={DsLinkStories} />
+
+# DsLink
+
+## Overview
+DsLink is the design-system link text component. It is a pressable visual primitive for actions and navigation labels; callers decide whether `onPress` navigates, opens a URL, or performs another action.
+
+<br />
+<Canvas of={DsLinkStories.Playground} />
+
+## Usage
+Use DsLink when a text action should follow the Figma Link variants instead of ad hoc underline, color, icon, or typography styling.
+
+## Props
+<ArgTypes of={DsLinkStories} />
+
+## Standalone
+<Canvas of={DsLinkStories.Standalone} />
+
+## Inline Colors
+<Canvas of={DsLinkStories.InlineColors} />
+
+## Notes
+Standalone links use strong label typography and may show leading or trailing icons. Inline links use the underlined text treatment and render without icons, matching the Figma inline variants.

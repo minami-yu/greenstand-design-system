@@ -1,0 +1,27 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as AvatarStories from './Avatar.stories';
+
+<Meta of={AvatarStories} />
+
+# Avatar
+
+## Overview
+Avatar is the base identity primitive for people or accounts. Use it directly for a single profile image or initial.
+
+<br />
+<Canvas of={AvatarStories.Playground} />
+
+## Usage
+Use Avatar to:
+- Show a person, organization, or account identity.
+- Fall back to initials when an image source is not available.
+- Provide the shared base for AvatarGroup, AvatarTag, and AvatarCard.
+
+## Props
+<ArgTypes of={AvatarStories} />
+
+## Sizes
+<Canvas of={AvatarStories.Sizes} />
+
+## Notes
+AvatarGroup, AvatarTag, and AvatarCard are separate documented components. They compose Avatar instead of inheriting from it, so the visual base stays consistent while each component keeps its own API.

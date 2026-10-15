@@ -5,9 +5,12 @@ web-build/
 
 # Storybook web static build output
 storybook-static/
+packages/design-system/storybook-static/
+apps/*/dist/
 
 # Storybook React Native generated requires
 .storybook/storybook.requires.ts
+packages/design-system/.storybook/storybook.requires.ts
 
 # macOS
 .DS_Store

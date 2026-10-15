@@ -1,0 +1,44 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as BottomNavigationStories from './BottomNavigation.stories';
+
+<Meta of={BottomNavigationStories} />
+
+# BottomNavigation
+
+## Overview
+BottomNavigation gives mobile users persistent access to top-level destinations and primary navigation actions. It is designed for app shells where a small set of destinations should remain available from the bottom of the screen.
+
+For Greenstand apps, use this component as the reusable visual layer. App-specific wrappers should provide route IDs, labels, selected state, and press behavior.
+
+<br />
+<Canvas of={BottomNavigationStories.Playground} />
+
+## Usage
+Use BottomNavigation to:
+- Move between top-level app destinations
+- Show the currently selected destination
+- Provide a prominent primary action, such as opening the camera
+- Keep app route logic outside the design-system component
+
+## Props
+<ArgTypes of={BottomNavigationStories} />
+
+## Labels
+Labels can be shown when the navigation needs more explicit destination names. Keep labels short and scannable.
+
+<Canvas of={BottomNavigationStories.Labels} />
+
+## Selected states
+Use `activeItem` to mark the current destination. The component applies selected styling and accessibility state from the matching item id. Provide `selectedIcon` when the selected state should use a filled icon instead of the default icon.
+
+<Canvas of={BottomNavigationStories.SelectedStates} />
+
+## Safe area
+Use `bottomPadding` when the navigation sits against a device edge. In app shells, pass the OS bottom safe-area inset, for example `insets.bottom`. This keeps the safe-area space inside the navbar surface so the shadow and background belong to the full component.
+
+## Best practices
+- Use a small, stable set of top-level destinations.
+- Use the `primary` item variant for one central action only.
+- Use outline icons for default items and filled icons for selected items when the icon family supports both.
+- Keep route handling, analytics, demo reset actions, and business logic in the app layer.
+- Provide clear labels so icon-only navigation still has meaningful accessibility names.

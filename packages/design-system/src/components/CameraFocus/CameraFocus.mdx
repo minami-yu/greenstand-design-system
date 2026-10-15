@@ -1,0 +1,24 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as CameraFocusStories from './CameraFocus.stories';
+
+<Meta of={CameraFocusStories} />
+
+# CameraFocus
+
+## Overview
+CameraFocus is the 80px focus reticle overlay from the camera UI Figma spec.
+
+<br />
+<Canvas of={CameraFocusStories.Playground} />
+
+## Usage
+Use CameraFocus as a non-interactive overlay to show a focus target in camera previews.
+
+## Props
+<ArgTypes of={CameraFocusStories} />
+
+## Default
+<Canvas of={CameraFocusStories.Default} />
+
+## Notes
+The reticle renders at 80px from `size.1600 + space.400`. Each corner leg is one third of the component width, matching the Figma SVG export. The Figma line weight is 3.01587px, which does not currently exist as a border token, so the implementation derives that thickness proportionally from the 80px component size. The reticle color uses `fill.neutral.inverse`, and Storybook previews force dark mode because the camera UI is specified for a dark camera surface.
