@@ -59,6 +59,12 @@ const config: StorybookConfig = {
     config.resolve ??= {};
     config.resolve.alias = [
       {
+        // RN 0.88's compatibility module mixes import with module.exports.
+        // Use an ESM adapter to the same web registry for static builds.
+        find: /^@react-native\/assets-registry\/registry(?:\.js)?$/,
+        replacement: fileURLToPath(new URL('./assetRegistry.ts', import.meta.url))
+      },
+      {
         find: /^react-native-svg$/,
         replacement: fileURLToPath(
           new URL('../../../node_modules/react-native-svg/lib/commonjs/index.js', import.meta.url)
