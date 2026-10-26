@@ -54,7 +54,8 @@ export const theme = {
         "OLDdefaultSelected 2": "#c44d01"
       },
       "currentLocation": {
-        "default": "#124ab2"
+        "default": "#124ab2",
+        "subtle": "rgba(18, 74, 178, 0.5)"
       }
     },
     "text": {
@@ -300,88 +301,88 @@ export const theme = {
     },
     "paragraphL": {
       "fontFamily": "Inter_400Regular",
-      "lineHeight": 22.4,
-      "fontSize": 16,
+      "lineHeight": 25.2,
+      "fontSize": 18,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
     },
     "paragraphLStrong": {
       "fontFamily": "Inter_600SemiBold",
-      "lineHeight": 22.4,
-      "fontSize": 16,
+      "lineHeight": 25.2,
+      "fontSize": 18,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
     },
     "paragraphM": {
       "fontFamily": "Inter_400Regular",
-      "lineHeight": 19.6,
-      "fontSize": 14,
+      "lineHeight": 22.4,
+      "fontSize": 16,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
     },
     "paragraphMStrong": {
       "fontFamily": "Inter_600SemiBold",
-      "lineHeight": 19.6,
-      "fontSize": 14,
+      "lineHeight": 22.4,
+      "fontSize": 16,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
     },
     "paragraphS": {
       "fontFamily": "Inter_400Regular",
-      "lineHeight": 16.8,
-      "fontSize": 12,
+      "lineHeight": 19.6,
+      "fontSize": 14,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
     },
     "labelM": {
       "fontFamily": "Inter_500Medium",
-      "lineHeight": 19.6,
-      "fontSize": 14,
+      "lineHeight": 22.4,
+      "fontSize": 16,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
     },
     "labelMStrong": {
       "fontFamily": "Inter_600SemiBold",
-      "lineHeight": 19.6,
-      "fontSize": 14,
+      "lineHeight": 22.4,
+      "fontSize": 16,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
     },
     "labelS": {
       "fontFamily": "Inter_500Medium",
-      "lineHeight": 16.8,
-      "fontSize": 12,
+      "lineHeight": 19.6,
+      "fontSize": 14,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
     },
     "labelSStrong": {
       "fontFamily": "Inter_600SemiBold",
-      "lineHeight": 16.8,
-      "fontSize": 12,
+      "lineHeight": 19.6,
+      "fontSize": 14,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
     },
     "numericL": {
       "fontFamily": "Inter_600SemiBold",
-      "lineHeight": 44,
-      "fontSize": 40,
+      "lineHeight": 61.6,
+      "fontSize": 56,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
     },
     "numericM": {
       "fontFamily": "Inter_600SemiBold",
-      "lineHeight": 33.6,
-      "fontSize": 28,
+      "lineHeight": 38.4,
+      "fontSize": 32,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
@@ -406,16 +407,48 @@ export const theme = {
       "bold": 700
     },
     "size": {
-      "numericL": 40,
-      "labelS": 12,
-      "labelM": 14,
-      "paragraphM": 14,
-      "paragraphL": 16,
+      "numericL": 56,
+      "labelS": 14,
+      "labelM": 16,
+      "paragraphM": 16,
+      "paragraphL": 18,
       "headingS": 18,
-      "paragraphS": 12,
+      "paragraphS": 14,
       "headingM": 24,
       "numericS": 20,
-      "numericM": 28
+      "numericM": 32
+    }
+  },
+  "motion": {
+    "duration": {
+      "fast": 150,
+      "moderate": 200,
+      "slow": 300
+    },
+    "easing": {
+      "decelerate": [
+        0,
+        0,
+        0.2,
+        1
+      ]
+    },
+    "component": {
+      "spinner": {
+        "duration": 1000,
+        "easingAccelerate": [
+          0.42,
+          0.12,
+          0.8,
+          0.72
+        ],
+        "easingDecelerate": [
+          0.2,
+          0.28,
+          0.58,
+          0.88
+        ]
+      }
     }
   },
   "border": {
@@ -442,7 +475,6 @@ export const theme = {
     "800": 32,
     "1200": 48,
     "1600": 64,
-    "2000": 80,
     "2400": 96,
     "n200": -8,
     "n400": -16,
@@ -487,6 +519,7 @@ export const theme = {
     "1200": 48,
     "1400": 56,
     "1600": 64,
+    "2000": 80,
     "2400": 96,
     "050": 2
   },
@@ -622,7 +655,8 @@ const darkColors = {
       "OLDdefaultSelected 2": "#ffa503"
     },
     "currentLocation": {
-      "default": "#124ab2"
+      "default": "#124ab2",
+      "subtle": "rgba(18, 74, 178, 0.5)"
     }
   },
   "text": {
@@ -950,16 +984,16 @@ const desktopTypography = {
   },
   "numericL": {
     "fontFamily": "Inter_600SemiBold",
-    "lineHeight": 52.8,
-    "fontSize": 48,
+    "lineHeight": 61.6,
+    "fontSize": 56,
     "letterSpacing": 0,
     "textTransform": "none",
     "textDecorationLine": "none"
   },
   "numericM": {
     "fontFamily": "Inter_600SemiBold",
-    "lineHeight": 38.4,
-    "fontSize": 32,
+    "lineHeight": 48,
+    "fontSize": 40,
     "letterSpacing": 0,
     "textTransform": "none",
     "textDecorationLine": "none"
@@ -984,7 +1018,7 @@ const desktopTypography = {
     "bold": 700
   },
   "size": {
-    "numericL": 48,
+    "numericL": 56,
     "labelS": 14,
     "labelM": 16,
     "paragraphM": 16,
@@ -993,7 +1027,7 @@ const desktopTypography = {
     "paragraphS": 14,
     "headingM": 40,
     "numericS": 20,
-    "numericM": 32
+    "numericM": 40
   }
 } as const;
 

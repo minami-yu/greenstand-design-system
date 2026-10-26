@@ -1,0 +1,23 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './SearchField.stories';
+
+<Meta of={Stories} />
+
+# SearchField
+
+## Purpose and usage
+A search input with default, outlined, and surface treatments. Pass value and onChangeText for controlled usage; entered text replaces the voice action with a clear action. Set `showAudio={false}` for search-only layouts such as the full tree list.
+
+<Canvas of={Stories.Playground} />
+<Canvas of={Stories.Interactive} />
+
+## States and guidelines
+Use `outlined` against plain page backgrounds, `surface` when the white field needs no border, and `default` for the subtle neutral fill. Supports native TextInput props, including editable and placeholder.
+
+See Accessibility/Overview for accessibility guidance.
+
+## Figma
+[Search field component](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=13205-6060).
+
+## Props
+<ArgTypes of={Stories} />

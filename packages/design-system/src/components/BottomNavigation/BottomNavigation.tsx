@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
 import { getShadow } from '../../theme/getShadow';
+import { getMotionEasing } from '../../theme/getMotion';
 import { theme } from '../../theme/tokens';
 import { useTheme } from '../../theme/useTheme';
 import { Icon } from '../Icon/Icon';
@@ -21,6 +22,7 @@ export type BottomNavigationItem = {
   icon: IconName;
   label: string;
   accessibilityLabel?: string;
+  showBadge?: boolean;
   selectedIcon?: IconName;
   variant?: 'default' | 'primary';
 };
@@ -34,7 +36,7 @@ export type BottomNavigationProps = Omit<PressableProps, 'children' | 'onPress' 
   style?: StyleProp<ViewStyle>;
 };
 
-export const BOTTOM_NAVIGATION_HEIGHT = theme.size['1600'] + theme.space['200'];
+export const BOTTOM_NAVIGATION_HEIGHT = theme.size['1600'];
 const BOTTOM_NAVIGATION_ICON_SIZE = theme.icon.lg;
 
 export function BottomNavigation({
@@ -51,7 +53,7 @@ export function BottomNavigation({
   const resolvedBottomPadding = bottomPadding ?? defaultBottomPadding;
   const baseHeight = showLabels
     ? BOTTOM_NAVIGATION_HEIGHT + theme.space['400'] - defaultBottomPadding
-    : BOTTOM_NAVIGATION_HEIGHT - defaultBottomPadding;
+    : theme.size['1200'];
 
   return (
     <View
@@ -62,7 +64,7 @@ export function BottomNavigation({
           height: baseHeight + resolvedBottomPadding,
           paddingBottom: resolvedBottomPadding
         },
-        getShadow(t.elevation.sm),
+        getShadow(t.elevation.md),
         showLabels ? styles.rootWithLabels : undefined,
         style
       ]}
@@ -99,13 +101,14 @@ function BottomNavigationAction({
   showLabels: boolean;
 }) {
   const t = useTheme();
-  const progress = useRef(new Animated.Value(selected ? 1 : 0)).current;
-  const [reduceMotion, setReduceMotion] = useState(false);
   const isPrimary = item.variant === 'primary';
+  const isSelected = selected && !isPrimary;
+  const progress = useRef(new Animated.Value(isSelected ? 1 : 0)).current;
+  const [reduceMotion, setReduceMotion] = useState(false);
   const selectedIcon = item.selectedIcon ?? resolveSelectedIcon(item.icon);
   const iconColor = isPrimary ? 'neutral.inverse' : 'neutral.secondary';
   const selectedIconColor = isPrimary ? 'neutral.inverse' : 'neutral.primary';
-  const labelColor = selected ? t.color.text.neutral.primary : t.color.text.neutral.secondary;
+  const labelColor = isSelected ? t.color.text.neutral.primary : t.color.text.neutral.secondary;
 
   useEffect(() => {
     AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion);
@@ -113,16 +116,17 @@ function BottomNavigationAction({
 
   useEffect(() => {
     if (reduceMotion) {
-      progress.setValue(selected ? 1 : 0);
+      progress.setValue(isSelected ? 1 : 0);
       return;
     }
 
     Animated.timing(progress, {
-      duration: 180,
-      toValue: selected ? 1 : 0,
+      duration: theme.motion.duration.moderate,
+      easing: getMotionEasing(theme.motion.easing.decelerate),
+      toValue: isSelected ? 1 : 0,
       useNativeDriver: true
     }).start();
-  }, [progress, reduceMotion, selected]);
+  }, [isSelected, progress, reduceMotion]);
 
   const selectedOpacity = progress;
   const unselectedOpacity = progress.interpolate({
@@ -139,7 +143,7 @@ function BottomNavigationAction({
       {...pressableProps}
       accessibilityLabel={item.accessibilityLabel ?? item.label}
       accessibilityRole="button"
-      accessibilityState={{ selected }}
+      accessibilityState={isPrimary ? undefined : { selected: isSelected }}
       onPress={() => onItemPress?.(item)}
       style={styles.item}
     >
@@ -153,7 +157,8 @@ function BottomNavigationAction({
         style={[
           styles.iconArea,
           isPrimary ? styles.primaryIconArea : undefined,
-          isPrimary ? { backgroundColor: t.color.fill.brand.default } : undefined
+          isPrimary ? { backgroundColor: t.color.fill.brand.default } : undefined,
+          isPrimary ? getShadow(t.elevation.sm) : undefined
         ]}
       >
         <Animated.View style={[styles.iconLayer, { opacity: unselectedOpacity }]}>
@@ -168,6 +173,20 @@ function BottomNavigationAction({
         >
           <Icon color={selectedIconColor} name={selectedIcon} size="lg" />
         </Animated.View>
+        {item.showBadge && !isPrimary ? (
+          <View
+            accessibilityElementsHidden
+            importantForAccessibility="no-hide-descendants"
+            style={[
+              styles.badge,
+              {
+                backgroundColor: t.color.fill.error.emphasis,
+                borderColor: t.color.fill.neutral.surface,
+                right: isSelected ? theme.icon.xs : theme.space['300']
+              }
+            ]}
+          />
+        ) : null}
       </View>
       {showLabels ? (
         <Text numberOfLines={1} style={[t.typography.labelS, styles.label, { color: labelColor }]}>
@@ -202,27 +221,26 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     flex: 1,
     justifyContent: 'flex-start',
-    minHeight: theme.size['1100']
+    height: theme.size['1200']
   },
   selectedIndicator: {
     height: theme.space['050'],
-    left: 0,
+    left: theme.space['300'],
     position: 'absolute',
-    right: 0,
+    right: theme.space['300'],
     top: 0,
-    width: '100%'
   },
   iconArea: {
     alignItems: 'center',
     borderRadius: theme.radius.full,
-    height: theme.size['1200'],
+    height: theme.size['1200'] - theme.space['050'],
     justifyContent: 'center',
-    marginTop: theme.space['200'],
+    marginTop: theme.space['050'],
     width: theme.size['1200']
   },
   primaryIconArea: {
     height: theme.size['1600'],
-    marginTop: theme.space['0'],
+    marginTop: theme.space.n800,
     width: theme.size['1600']
   },
   iconLayer: {
@@ -233,6 +251,14 @@ const styles = StyleSheet.create({
   },
   selectedIconLayer: {
     position: 'absolute'
+  },
+  badge: {
+    borderRadius: theme.radius.full,
+    borderWidth: theme.border.sm,
+    height: theme.size['200'],
+    position: 'absolute',
+    top: theme.space['300'],
+    width: theme.size['200']
   },
   label: {
     marginTop: theme.space['100'],

@@ -16,11 +16,11 @@ The spinner is used to indicate that a task is loading or processing. It is a vi
 
 
 ## Platform behavior
-This component wraps React Native `ActivityIndicator`. `ActivityIndicator` delegates to each OS native spinner. Sizes are aligned to the same diameters on both platforms — no scale transform — but the visual chrome can differ.
+Spinner uses the same React Native `ActivityIndicator` implementation on every platform. Native builds delegate to the operating-system indicator, while Storybook Web displays that component through `react-native-web`. Sizes remain aligned to the same token-driven diameters across platforms.
 
 <SpinnerPlatformTable />
 
-Web Storybook renders a single web implementation, so it cannot show true iOS vs Android chrome side by side. Use on-device Storybook or simulators to verify platform appearance.
+Web Storybook is a browser conversion rather than an iOS or Android emulator, so use on-device Storybook or simulators to verify native platform appearance.
 
 
 ## Sizes

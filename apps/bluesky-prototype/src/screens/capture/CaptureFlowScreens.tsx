@@ -38,7 +38,7 @@ const cameraTree = require('../../../assets/capture/camera-tree.png');
 
 export type CaptureUser = {
   id: string;
-  image: ImageSourcePropType;
+  image?: ImageSourcePropType;
   name: string;
 };
 
@@ -62,6 +62,7 @@ const ORGANIZATIONS: CaptureOrganization[] = [
 
 type SelectionScreenProps<T> = {
   addLabel: string;
+  onAdd?: () => void;
   items: T[];
   onBack: () => void;
   onSelect: (item: T) => void;
@@ -149,6 +150,7 @@ function CaptureHeader({
 
 function SelectionScreen<T extends { id: string }>({
   addLabel,
+  onAdd,
   footer,
   items,
   onBack,
@@ -179,7 +181,7 @@ function SelectionScreen<T extends { id: string }>({
             ))}
           </View>
           <View style={styles.linkStack}>
-            <DsLink icon="leading" label={addLabel} leadingIcon="add" />
+            <DsLink icon="leading" label={addLabel} onPress={onAdd} leadingIcon="add" />
             {footer}
           </View>
         </View>
@@ -189,16 +191,21 @@ function SelectionScreen<T extends { id: string }>({
 }
 
 export function CaptureSelectUserScreen({
+  users = USERS,
+  onAddUser,
   onBack,
   onSelectUser
 }: {
   onBack: () => void;
   onSelectUser: (user: CaptureUser) => void;
+  users?: CaptureUser[];
+  onAddUser?: () => void;
 }) {
   return (
     <SelectionScreen
       addLabel="Add new user"
-      items={USERS}
+      items={users}
+      onAdd={onAddUser}
       onBack={onBack}
       onSelect={onSelectUser}
       renderItem={(user, onPress) => (

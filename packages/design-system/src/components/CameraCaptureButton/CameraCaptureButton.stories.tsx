@@ -11,6 +11,7 @@ import { CameraCaptureButton } from './CameraCaptureButton';
 const meta = {
   title: 'Components/CameraCaptureButton',
   component: CameraCaptureButton,
+  // The 80 px control uses size.2000 after the latest token export.
   argTypes: {
     accessibilityLabel: {
       control: 'text',

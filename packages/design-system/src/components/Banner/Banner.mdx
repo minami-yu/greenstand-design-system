@@ -1,0 +1,30 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Banner.stories';
+
+<Meta of={Stories} />
+
+# Banner
+
+## Purpose and usage
+Banner communicates important page-level status or guidance. Choose the semantic tone that matches the message rather than using color decoratively.
+
+<Canvas of={Stories.Playground} />
+
+## Variants
+Contained banners sit within page margins and use subtle backgrounds with rounded corners. Full-width banners are edge-to-edge, use emphasis backgrounds, and have square corners.
+
+<Canvas of={Stories.ContainedTones} />
+<Canvas of={Stories.FullWidthTones} />
+
+## Content and actions
+Use a short title when it improves scanning and keep the message concise. Supply `onPress` only when the entire banner opens a destination or action. Hide the trailing icon for informational, non-actionable banners.
+
+<Canvas of={Stories.MessageOnly} />
+
+See Accessibility/Overview for accessibility guidance.
+
+## Figma
+[Banner component](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=13401-17817).
+
+## Props
+<ArgTypes of={Stories} />

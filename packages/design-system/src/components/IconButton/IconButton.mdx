@@ -1,0 +1,28 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './IconButton.stories';
+
+<Meta of={Stories} />
+
+# IconButton
+
+## Purpose and usage
+A labeled circular action for map tools and page actions. Use primary for the main action, such as adding a user. Pass icon, accessibilityLabel, and onPress. Surface and secondary use the Figma 48 px medium treatment; subtle preserves the compact 36 px treatment inside the same touch target.
+
+<Canvas of={Stories.Playground} />
+<Canvas of={Stories.Secondary} />
+
+## States and guidelines
+Supports disabled and pressed states. Keep the accessible name specific to the action.
+
+See Accessibility/Overview for accessibility guidance.
+
+## Figma
+[Planted Trees screen](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=16456-116695).
+
+## Props
+<ArgTypes of={Stories} />
+
+<Canvas of={Stories.Subtle} />
+<Canvas of={Stories.Disabled} />
+
+<Canvas of={Stories.Primary} />

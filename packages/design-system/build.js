@@ -22,6 +22,21 @@ const ALIAS_PATTERN = /^\{([^}]+)\}$/;
 /** Matches numeric dimension strings, e.g. "16px", "-4px", "0.5px", "0". */
 const PX_PATTERN = /^-?\d*\.?\d+(px)?$/;
 
+/** Converts W3C DTCG duration values into milliseconds for React Native and CSS. */
+function normalizeDuration(value) {
+  if (
+    !value ||
+    typeof value !== 'object' ||
+    Array.isArray(value) ||
+    typeof value.value !== 'number' ||
+    !['ms', 's'].includes(value.unit)
+  ) {
+    return null;
+  }
+
+  return value.unit === 's' ? value.value * 1000 : value.value;
+}
+
 /**
  * Figma exports font weights as style-name strings ("Medium", "Semi Bold"),
  * which React Native does not accept. Map them to numeric weights.
@@ -102,10 +117,18 @@ function resolveValue(value, sourceTree, seen = new Set()) {
   // referenced token OBJECT ({ $type, $value, ... }), not its bare value —
   // collapse any token-shaped object down to its `$value`.
   if (value && typeof value === 'object' && !Array.isArray(value) && '$value' in value) {
-    return resolveValue(value.$value, sourceTree, seen);
+    const original = value.original?.$value;
+    return resolveValue(typeof original === 'string' && original.startsWith('rgba(') ? original : value.$value, sourceTree, seen);
   }
 
   if (typeof value === 'string') {
+    const rgba = value.match(/^rgba\((\{[^}]+\}|#[\da-f]{6}),\s*(0(?:\.\d+)?|1(?:\.0+)?)\)$/i);
+    if (rgba) {
+      const color = resolveValue(rgba[1], sourceTree, seen);
+      if (!/^#[\da-f]{6}$/i.test(color)) throw new Error(`Invalid rgba color: ${color}`);
+      const channels = [1, 3, 5].map(offset => parseInt(color.slice(offset, offset + 2), 16));
+      return `rgba(${channels.join(', ')}, ${rgba[2]})`;
+    }
     const alias = value.match(ALIAS_PATTERN);
 
     if (alias) {
@@ -132,6 +155,12 @@ function resolveValue(value, sourceTree, seen = new Set()) {
   }
 
   if (value && typeof value === 'object') {
+    const duration = normalizeDuration(value);
+
+    if (duration !== null) {
+      return duration;
+    }
+
     return Object.fromEntries(
       Object.entries(value)
         .filter(([key]) => !key.startsWith('$') && !META_KEYS.has(key))
@@ -154,7 +183,8 @@ function toThemeObject(node, sourceTree) {
 
   // A node carrying "$value" is a token: collapse it to its resolved value.
   if ('$value' in node) {
-    return resolveValue(node.$value, sourceTree);
+    const original = node.original?.$value;
+    return resolveValue(typeof original === 'string' && original.startsWith('rgba(') ? original : node.$value, sourceTree);
   }
 
   // Otherwise it is a group: recurse, dropping metadata keys.
@@ -577,7 +607,9 @@ let desktopTypography = null;
 StyleDictionary.registerFormat({
   name: 'typescript/nested-theme',
   format: ({ dictionary }) => {
-    const theme = composeTheme(dictionary.tokens);
+    // Use the untransformed tree, as for dark mode, so embedded aliases
+    // retain their surrounding rgba expression until our resolver runs.
+    const theme = composeTheme(styleDictionary.tokens);
 
     return [
       '// GENERATED FILE — do not edit by hand.',

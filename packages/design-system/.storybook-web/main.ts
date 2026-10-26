@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/react-native-web-vite';
+import { fileURLToPath } from 'node:url';
 import { storybookMdStyles } from './storybookMdStyles.ts';
 
 const config: StorybookConfig = {
@@ -55,6 +56,20 @@ const config: StorybookConfig = {
     </style>
   `,
   async viteFinal(config, { configType }) {
+    config.resolve ??= {};
+    config.resolve.alias = [
+      {
+        find: /^react-native-svg$/,
+        replacement: fileURLToPath(
+          new URL('../../../node_modules/react-native-svg/lib/commonjs/index.js', import.meta.url)
+        )
+      },
+      ...(
+        Array.isArray(config.resolve.alias)
+          ? config.resolve.alias
+          : Object.entries(config.resolve.alias ?? {}).map(([find, replacement]) => ({ find, replacement }))
+      )
+    ];
     if (configType === 'PRODUCTION' && process.env.STORYBOOK_BASE_PATH) {
       config.base = process.env.STORYBOOK_BASE_PATH;
     }

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { Image, Linking, Pressable, StyleSheet, Text, View, type ImageSourcePropType } from 'react-native';
-import { Avatar, Icon, theme, useTheme } from '@greenstand/design-system';
+import { Avatar, Icon, SimpleTreeTag, theme, useTheme } from '@greenstand/design-system';
 
 export function TreeDetailContent({ source, index }: { source: ImageSourcePropType; index: number }) {
   const t = useTheme();
@@ -31,7 +31,7 @@ export function TreeDetailContent({ source, index }: { source: ImageSourcePropTy
           <Text style={[t.typography.paragraphS, { color: t.color.text.neutral.secondary }]}>Latitude -3.30877, Longitude 36.55933</Text>
           <View style={styles.map}>
             <Image source={require('../../assets/home/tree-location-map.png')} style={styles.fillImage} resizeMode="cover" accessibilityLabel="Tree location map" />
-            <Image source={require('../../assets/home/tree-tag.png')} style={styles.marker} />
+            <SimpleTreeTag type="focus" accessibilityLabel="Tree location" style={styles.marker} />
             <Pressable accessibilityRole="link" accessibilityLabel="Open tree location in maps"
               onPress={() => void Linking.openURL('https://www.openstreetmap.org/?mlat=-3.30877&mlon=36.55933#map=15/-3.30877/36.55933')}
               style={[styles.expand, { backgroundColor: t.color.fill.neutral.surface }]}>
@@ -74,6 +74,6 @@ const styles = StyleSheet.create({
   name: { flex: 1 },
   inline: { flexDirection: 'row', alignItems: 'center', gap: theme.space['100'] },
   map: { width: '100%', aspectRatio: 1.64, borderRadius: theme.radius.md, overflow: 'hidden' },
-  marker: { width: theme.size['600'], height: theme.size['600'], position: 'absolute', left: '58%', top: '37%' },
+  marker: { position: 'absolute', left: '58%', top: '37%' },
   expand: { position: 'absolute', bottom: theme.space['300'], right: theme.space['300'], width: theme.size['1100'], height: theme.size['1100'], borderRadius: theme.radius.full, alignItems: 'center', justifyContent: 'center' }
 });

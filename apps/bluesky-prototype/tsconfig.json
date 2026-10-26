@@ -4,7 +4,6 @@
     "strict": true,
     "allowImportingTsExtensions": true,
     "noEmit": true,
-    "baseUrl": ".",
     "paths": {
       "@greenstand/design-system": ["../../packages/design-system/src/index.ts"],
       "@greenstand/design-system/theme": ["../../packages/design-system/src/theme/index.ts"]

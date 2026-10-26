@@ -8,7 +8,7 @@ export type SpinnerProps = ViewProps & {
 };
 
 export function Spinner({
-  accessibilityLabel = 'Loading',
+  accessibilityLabel = 'Loading…',
   accessibilityRole = 'progressbar',
   accessibilityState,
   size = 'md',

@@ -92,12 +92,12 @@ function StorybookThemeDecorator({
     effectiveMode === 'system' ? (scheme === 'dark' ? 'dark' : 'light') : effectiveMode;
   const t = themes[resolvedMode];
 
-  if (!fontsLoaded && !docsPage) {
+  if (!fontsLoaded) {
     return <View />;
   }
 
   return (
-    <ThemeProvider mode={effectiveMode} typographyMode={docsPage ? 'desktop' : 'mobile'}>
+    <ThemeProvider mode={effectiveMode} typographyMode="mobile">
       <View
         style={{
           alignItems: 'stretch',

@@ -60,7 +60,7 @@ Component internals continue to use `src/theme/tokens.ts` as the source of truth
 Token sources live in `packages/design-system/tokens/`.
 
 - `tokens/variables/` is the Figma / Token Studio export. Do not hand-edit these files.
-- `tokens/styles/typography.json` and `tokens/styles/elevation.json` are hand-maintained W3C DTCG style files.
+- `tokens/styles/typography.json`, `tokens/styles/elevation.json`, and `tokens/styles/motion.json` are hand-maintained W3C DTCG style files.
 - `packages/design-system/src/theme/tokens.ts` is generated. Do not edit it by hand.
 
 After changing token JSON or `packages/design-system/build.js`, run:

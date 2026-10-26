@@ -12,7 +12,7 @@ export type CameraCaptureButtonProps = Omit<PressableProps, 'children' | 'style'
   style?: StyleProp<ViewStyle>;
 };
 
-const captureButtonSize = theme.space['2000'];
+const captureButtonSize = theme.size['2000'];
 const captureStrokeWidth = theme.size['100'];
 const captureInnerRadius = theme.size['1600'] / 2;
 

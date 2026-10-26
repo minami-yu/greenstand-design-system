@@ -1,19 +1,18 @@
 import { useEffect, useRef } from 'react';
 import {
   Animated,
-  Easing,
   View,
   type ViewProps
 } from 'react-native';
 import { useTheme } from '../../theme/useTheme';
+import { getMotionEasing } from '../../theme/getMotion';
+import { theme } from '../../theme/tokens';
 import {
   clampProgress,
   getProgressBarLayout,
   getProgressBarStyles,
   getProgressRatio
 } from './getProgressBarStyles';
-
-const PROGRESS_BAR_ANIMATION_MS = 200;
 
 export type ProgressBarProps = ViewProps & {
   /** Current progress value. Clamped to `0…max`. */
@@ -36,8 +35,8 @@ function ProgressIndicator({
 
   useEffect(() => {
     Animated.timing(progress, {
-      duration: PROGRESS_BAR_ANIMATION_MS,
-      easing: Easing.out(Easing.cubic),
+      duration: theme.motion.duration.moderate,
+      easing: getMotionEasing(theme.motion.easing.decelerate),
       toValue: ratio,
       useNativeDriver: false
     }).start();

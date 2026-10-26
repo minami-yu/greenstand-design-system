@@ -1,0 +1,44 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as ChipStories from './Chip.stories';
+
+<Meta of={ChipStories} />
+
+# Chip
+
+## Overview
+Chip represents a compact filter, choice, or removable identity. It composes the shared Icon and Avatar with mode-aware semantic tokens.
+
+[View Chip in Figma](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/Yuri-New-Roots-Design-System-1.0?node-id=13488-27188)
+
+<Canvas of={ChipStories.Playground} />
+
+## Usage
+Import `Chip` from `@greenstand/design-system`. Keep selection in the caller and update it through `onPress`. Use an arrow when pressing opens a picker. Use a close indicator when pressing removes the chip; the whole chip is the removal target.
+
+```tsx
+<Chip
+  label="Favorites"
+  selected={selected}
+  trailingElements="none"
+  onPress={() => setSelected(value => !value)}
+/>
+```
+
+## Props
+<ArgTypes of={ChipStories} />
+
+## Variants and states
+Figma defines icon, avatar, and text-only chips with optional arrows, each in default and selected states, plus a default avatar chip with a close indicator. The API also permits combining these slots. Selection adds the brand subtle fill and brand border without shifting content. Disabled chips retain their appearance and suppress interaction.
+
+Avatar images come from `source`; these examples use initials to demonstrate the fallback. Labels use `labelS`, leading and arrow icons use `icon.sm`, and close indicators use `icon.md`.
+
+<Canvas of={ChipStories.Variants} />
+
+## Interactive examples
+<Canvas of={ChipStories.Selection} />
+<Canvas of={ChipStories.Removal} />
+
+## Guidelines
+Use short, meaningful labels. Keep chips grouped by purpose and allow groups to wrap on narrow screens. Use the selected state for persistent choices. Supply a meaningful avatar source or initial when representing a person.
+
+The pill uses `size.800` with a `size.1100` minimum interaction area. Typography follows the active device class, and the pill can grow for larger text. See **Accessibility/Overview** for naming, roles, and touch target guidance.

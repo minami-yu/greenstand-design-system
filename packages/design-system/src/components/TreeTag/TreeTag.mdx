@@ -1,0 +1,36 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as TreeTagStories from './TreeTag.stories';
+
+<Meta of={TreeTagStories} />
+
+# TreeTag
+
+## Overview
+TreeTag displays the detailed Figma tree illustration with a transparent background by default.
+
+<Canvas of={TreeTagStories.Playground} />
+
+## Usage
+Import `TreeTag` from `@greenstand/design-system`. Use it as tree artwork in maps, lists, and summaries. It is a non-interactive image; selection and navigation belong to the enclosing control.
+
+```tsx
+<TreeTag size="lg" accessibilityLabel="Captured tree" />
+```
+
+## Props
+<ArgTypes of={TreeTagStories} />
+
+## Variants and states
+Transparent sizes are md (24 px), lg (48 px), and xl (96 px). Optional md and lg background tiles are 48 and 64 px with 24 and 32 px artwork respectively. No xl background, pressed, or disabled variant is defined in Figma.
+
+<Canvas of={TreeTagStories.Variants} />
+
+## Design guidelines
+Keep the transparent default for overlays. The colored preview surface demonstrates transparency. Enable `background` only when a tinted tile is intended. Tile colors adapt to the theme; the original multicolor illustration is preserved as a static asset.
+
+See Accessibility/Overview for labeling and interactive container guidance.
+
+## Figma
+[TreeTag component set](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=15492-97968).
+
+SVG exports are stored locally and bundled verbatim for Metro and Vite by `node packages/design-system/scripts/bundle-tree-assets.mjs`. Dimensions come from theme size tokens. No token changes are required.

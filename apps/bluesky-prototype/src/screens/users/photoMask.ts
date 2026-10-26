@@ -1,0 +1,2 @@
+// Original Figma mask; retain its paths and intrinsic dimensions.
+export const photoMask = "<svg preserveAspectRatio=\"none\" overflow=\"visible\" style=\"display: block;\" width=\"360\" height=\"360\" viewBox=\"0 0 360 360\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path id=\"Subtract\" d=\"M360 360H0V0H360V360ZM180 8C85.007 8 8 85.007 8 180C8 274.993 85.007 352 180 352C274.993 352 352 274.993 352 180C352 85.007 274.993 8 180 8Z\" fill=\"#0C0C0D\" fill-opacity=\"0.6\"/>\n</svg>\n";

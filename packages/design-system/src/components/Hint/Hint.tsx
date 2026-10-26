@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, type StyleProp, type ViewStyle } from 'react-native';
-import Svg, { Path, Polygon } from 'react-native-svg';
+import { SvgXml } from 'react-native-svg';
+import { svgAssets } from './assets/svgAssets';
 import { theme } from '../../theme/tokens';
 import { useTheme } from '../../theme/useTheme';
 
@@ -15,41 +16,24 @@ export type HintProps = {
   style?: StyleProp<ViewStyle>;
 };
 
-const pointerWidth = theme.size['400'] + theme.space['100'];
-const pointerHeight = theme.size['600'] + theme.space['100'];
+// Figma artwork dimensions: explicitly exempted from tokens by the user.
+const pointerWidth = 17;
+const pointerHeight = 25;
+const pointerOverlap = 10;
 
 function TapIcon({ color }: { color: string }) {
-  return (
-    <Svg height={theme.icon.lg} viewBox="0 0 24 24" width={theme.icon.lg}>
-      <Path
-        d="M9.5 11.4V5.8a2 2 0 0 1 4 0v5.1l.8-.5a2 2 0 0 1 2.8.7l2.2 3.8c.6 1 .5 2.2-.1 3.1l-1.5 2.2a2.8 2.8 0 0 1-2.3 1.2h-4.1c-.9 0-1.8-.4-2.3-1.2l-3.6-5a1.9 1.9 0 0 1 2.8-2.5l1.3 1.1Z"
-        fill="none"
-        stroke={color}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.8}
-      />
-      <Path
-        d="M6.6 4.2 5.1 2.7M17.4 4.2l1.5-1.5M12 2.7V1"
-        fill="none"
-        stroke={color}
-        strokeLinecap="round"
-        strokeWidth={1.8}
-      />
-    </Svg>
-  );
+  return <View aria-hidden accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={styles.icon}>
+    <View style={styles.iconArtwork}>
+      <SvgXml accessible={false} xml={svgAssets.tap.replaceAll('#232323', color)} />
+    </View>
+  </View>;
 }
 
 function Pointer({ direction, fill }: { direction: HintDirection; fill: string }) {
-  const points = direction === 'down'
-    ? `0 0 ${pointerWidth} 0 ${pointerWidth / 2} ${pointerHeight}`
-    : `0 ${pointerHeight} ${pointerWidth} ${pointerHeight} ${pointerWidth / 2} 0`;
-
-  return (
-    <Svg height={pointerHeight} viewBox={`0 0 ${pointerWidth} ${pointerHeight}`} width={pointerWidth}>
-      <Polygon fill={fill} points={points} />
-    </Svg>
-  );
+  return <View aria-hidden accessibilityElementsHidden importantForAccessibility="no-hide-descendants"
+    style={[styles.pointerArtwork, direction === 'down' && styles.pointDown]}>
+    <SvgXml accessible={false} xml={svgAssets.pointer.replaceAll('#F2F2F2', fill)} />
+  </View>;
 }
 
 export function Hint({
@@ -72,7 +56,7 @@ export function Hint({
 
   const bubble = (
     <View style={[styles.bubble, { backgroundColor: fill }]}>
-      <Text numberOfLines={1} style={[t.typography.numericS, styles.text, { color: textColor }]}>
+      <Text numberOfLines={1} style={[t.typography.paragraphL, styles.text, { color: textColor }]}>
         {content}
       </Text>
       {showIcon ? <TapIcon color={iconColor} /> : null}
@@ -80,7 +64,7 @@ export function Hint({
   );
 
   const pointerNode = pointer ? (
-    <View style={[styles.pointerSlot, pointerAlignment]}>
+    <View style={[styles.pointerSlot, pointerAlignment, direction === 'up' ? styles.overlapUp : styles.overlapDown]}>
       <Pointer direction={direction} fill={fill} />
     </View>
   ) : null;
@@ -100,7 +84,7 @@ const styles = StyleSheet.create({
   },
   bubble: {
     alignItems: 'center',
-    borderRadius: theme.space['200'],
+    borderRadius: theme.radius.md,
     flexDirection: 'row',
     gap: theme.space['150'],
     justifyContent: 'center',
@@ -111,10 +95,16 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   pointerSlot: {
-    marginVertical: theme.space.n300,
     paddingHorizontal: theme.space['200'],
     width: '100%'
   },
+  icon: { width: theme.icon.md, height: theme.icon.md },
+  // Position the exported vector inside its original 20px icon viewport.
+  iconArtwork: { position: 'absolute', left: '10.83%', top: '4.58%' },
+  pointerArtwork: { width: pointerWidth, height: pointerHeight, alignItems: 'center' },
+  pointDown: { transform: [{ rotate: '180deg' }] },
+  overlapUp: { marginBottom: -pointerOverlap },
+  overlapDown: { marginTop: -pointerOverlap },
   pointerLeft: {
     alignItems: 'flex-start'
   },

@@ -49,7 +49,7 @@ export function StorybookNavigationPreviewFrame({
         width
       }}
     >
-      <View style={{ borderRadius: theme.radius.sm, overflow: 'hidden' }}>{children}</View>
+      <View style={{ borderRadius: theme.radius.sm }}>{children}</View>
     </View>
   );
 }

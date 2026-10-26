@@ -1,7 +1,13 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button, theme, useTheme } from '@greenstand/design-system';
+import { AccountScreen, SettingsScreen } from '../screens/SettingsScreen';
+import { UploadScreen } from '../screens/UploadScreen';
+import { UsersScreen } from '../screens/users/UsersScreen';
+import { UserDetailScreen } from '../screens/users/UserDetailScreen';
+import { AddUserFlow } from '../screens/users/AddUserFlow';
+import { initialUsers, type PrototypeUser } from '../screens/users/userData';
 import { HomeScreen } from '../screens/HomeScreen';
 import {
   CaptureCameraScreen,
@@ -15,7 +21,10 @@ import {
   TreetrackerNavbar
 } from '../components/TreetrackerNavbar';
 
-type RouteName = 'login' | 'onboarding' | 'home' | 'capture-user' | 'capture-organization' | 'capture-camera';
+// The native map module must not load until its destination is opened.
+const TreesScreen = lazy(() => import('../screens/TreesScreen').then(module => ({ default: module.TreesScreen })));
+
+type RouteName = 'users' | 'user-detail' | 'add-user' | 'login' | 'onboarding' | 'home' | 'trees' | 'settings' | 'account' | 'upload' | 'capture-user' | 'capture-organization' | 'capture-camera';
 
 function PlaceholderScreen({
   route,
@@ -61,6 +70,12 @@ function PlaceholderScreen({
 
 export function AppNavigator() {
   const insets = useSafeAreaInsets();
+  const [users, setUsers] = useState<PrototypeUser[]>(initialUsers);
+  const [detailUser, setDetailUser] = useState<PrototypeUser>(initialUsers[0]);
+  const [addUserReturn, setAddUserReturn] = useState<'users' | 'capture-user'>('users');
+  const [uploaded, setUploaded] = useState(false);
+  const [automaticallyUpload, setAutomaticallyUpload] = useState(true);
+  const [remindToUpload, setRemindToUpload] = useState(true);
   const [route, setRoute] = useState<RouteName>('home');
   const [selectedUser, setSelectedUser] = useState<CaptureUser | undefined>();
   const [selectedOrganization, setSelectedOrganization] = useState<CaptureOrganization | undefined>();
@@ -68,16 +83,52 @@ export function AppNavigator() {
   const navbarBottomPadding = showWebPhoneFrame ? undefined : insets.bottom;
   const navbarHeight = TREETRACKER_NAVBAR_HEIGHT - theme.space['400'] + (navbarBottomPadding ?? theme.space['400']);
 
-  if (route === 'home') {
+  if (route === 'add-user') return <AddUserFlow onCancel={() => setRoute(addUserReturn)} onComplete={user => {
+    setUsers(previous => [...previous, user]);
+    if (addUserReturn === 'capture-user') { setSelectedUser(user); setRoute('capture-organization'); }
+    else setRoute('users');
+  }} />;
+
+  if (route === 'user-detail') return <UserDetailScreen key={detailUser.id} user={detailUser} onBack={() => setRoute('users')} onCapture={() => { setSelectedUser(detailUser); setRoute('capture-organization'); }} />;
+
+  if (route === 'upload') {
+    return <UploadScreen
+      onBack={() => setRoute('settings')}
+      automaticallyUpload={automaticallyUpload}
+      remindToUpload={remindToUpload}
+      onAutomaticallyUploadChange={setAutomaticallyUpload}
+      onRemindToUploadChange={setRemindToUpload}
+    />;
+  }
+
+  if (route === 'users' || route === 'home' || route === 'trees' || route === 'settings' || route === 'account') {
     return (
       <View style={styles.screenShell}>
-        <HomeScreen bottomInset={navbarHeight} />
+        {route === 'users' && <UsersScreen users={users} bottomInset={navbarHeight} onAdd={() => { setAddUserReturn('users'); setRoute('add-user'); }} onSelect={user => { setDetailUser(user); setRoute('user-detail'); }} />}
+        {route === 'trees' && <Suspense fallback={null}><TreesScreen bottomInset={navbarHeight} /></Suspense>}
+        {route === 'home' && <HomeScreen bottomInset={navbarHeight} uploaded={uploaded} onUpload={() => setUploaded(true)} />}
+        {route === 'settings' && <SettingsScreen bottomInset={navbarHeight}
+          onAccount={() => setRoute('account')}
+          onUpload={() => setRoute('upload')}
+          onLogout={() => {
+            setSelectedUser(undefined);
+            setSelectedOrganization(undefined);
+            setUploaded(false);
+            setAutomaticallyUpload(true);
+            setRemindToUpload(true);
+            setRoute('login');
+          }} />}
+        {route === 'account' && <AccountScreen onBack={() => setRoute('settings')} />}
         <View style={styles.navbarLayer}>
           <View style={[styles.navbarFrame, showWebPhoneFrame ? styles.webNavbarFrame : undefined]}>
             <TreetrackerNavbar
+              activeItem={route === 'users' ? 'people' : route === 'home' ? 'home' : route === 'trees' ? 'trees' : 'settings'}
               bottomPadding={navbarBottomPadding}
               onCameraPress={() => setRoute('capture-user')}
-              onDemoReset={() => setRoute('login')}
+              onSettingsPress={() => setRoute('settings')}
+              onHomePress={() => setRoute('home')}
+              onTreesPress={() => setRoute('trees')}
+              onUsersPress={() => setRoute('users')}
             />
           </View>
         </View>
@@ -88,6 +139,8 @@ export function AppNavigator() {
   if (route === 'capture-user') {
     return (
       <CaptureSelectUserScreen
+        users={users}
+        onAddUser={() => { setAddUserReturn('capture-user'); setRoute('add-user'); }}
         onBack={() => setRoute('home')}
         onSelectUser={(user) => {
           setSelectedUser(user);

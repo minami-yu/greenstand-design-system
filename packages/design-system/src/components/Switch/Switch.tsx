@@ -1,17 +1,16 @@
 import { useEffect, useRef } from 'react';
 import {
   Animated,
-  Easing,
   Pressable,
   type PressableProps,
   type StyleProp,
   type ViewStyle
 } from 'react-native';
 import { useTheme } from '../../theme/useTheme';
+import { getMotionEasing } from '../../theme/getMotion';
+import { theme } from '../../theme/tokens';
 import { getShadow } from '../../theme/getShadow';
 import { getSwitchLayout, getSwitchStyles } from './getSwitchStyles';
-
-const SWITCH_ANIMATION_MS = 200;
 
 export type SwitchProps = Omit<PressableProps, 'children' | 'style'> & {
   /** Figma `toggled` property — thumb on the right when true. */
@@ -42,14 +41,14 @@ export function Switch({
   useEffect(() => {
     Animated.parallel([
       Animated.timing(thumbOffset, {
-        duration: SWITCH_ANIMATION_MS,
-        easing: Easing.out(Easing.cubic),
+        duration: theme.motion.duration.moderate,
+        easing: getMotionEasing(theme.motion.easing.decelerate),
         toValue: toggled ? layout.thumbTravel : 0,
         useNativeDriver: true
       }),
       Animated.timing(trackProgress, {
-        duration: SWITCH_ANIMATION_MS,
-        easing: Easing.out(Easing.cubic),
+        duration: theme.motion.duration.moderate,
+        easing: getMotionEasing(theme.motion.easing.decelerate),
         toValue: toggled ? 1 : 0,
         useNativeDriver: false
       })

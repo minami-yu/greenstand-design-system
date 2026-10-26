@@ -61,7 +61,7 @@ export function Avatar({
       style={[
         styles.avatar,
         {
-          backgroundColor: t.color.fill.accent.OLDdefault,
+          backgroundColor: showImage ? t.color.fill.neutral.surface : t.color.fill.accent.OLDdefault,
           borderColor: selected ? t.color.border.brand.default : t.color.border.neutral.subtle,
           borderWidth: selected ? theme.border.md : theme.border.sm,
           height: dimension,

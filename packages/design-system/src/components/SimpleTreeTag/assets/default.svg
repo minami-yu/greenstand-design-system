@@ -1,0 +1,23 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Frame 16">
+<g id="Ellipse 18" filter="url(#filter0_d_0_10229)">
+<circle cx="24" cy="20" r="8" fill="#2B6409"/>
+<circle cx="24" cy="20" r="7.5" stroke="white"/>
+</g>
+<g id="mdi:pine-tree-variant">
+<path id="Vector" d="M26.9167 20L24 15.8333L21.0833 20H21.8583L20.25 22.5H23.1667V24.1667H24.8333V22.5H27.75L26.1417 20H26.9167Z" fill="white"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_0_10229" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="8"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0470588 0 0 0 0 0.0470588 0 0 0 0 0.0509804 0 0 0 0.12 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_10229"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_10229" result="shape"/>
+</filter>
+</defs>
+</svg>

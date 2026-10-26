@@ -129,3 +129,36 @@ Design-system primitives set **role** and **state** internally. **Labels** are u
 
 Accessibility is a shared responsibility between design and engineering. Teams should consider accessibility throughout the design and implementation process and reference WCAG 2.2 AA guidelines when building new experiences.
 
+
+## Tree markers
+
+`TreeTag` and `SimpleTreeTag` are non-interactive images. Supply an `accessibilityLabel` when a marker conveys information; unlabeled artwork is decorative. The number variant of SimpleTreeTag announces its count by default (for example, “120 trees”); provide a localized label when needed.
+
+For selectable map markers, place the artwork inside a labeled button with a minimum 44 × 44 px touch target. The marker's visual size does not define the touch target. Let the enclosing button announce its purpose and selection state rather than labeling the nested artwork twice.
+
+## List items
+
+ListItem uses the visible label and supporting text as the accessible name for action and selection rows. Pass `accessibilityLabel` when more context is needed. Checkbox, radio, and switch rows expose their role and checked/disabled state on the full row; the visual control inside is hidden from assistive technology and keyboard focus to avoid duplicate controls. Row heights are at least 48 px, exceeding the 44 px minimum touch target.
+
+Non-interactive rows keep their text readable by assistive technology. Decorative leading artwork is hidden. Put related radio rows inside a named `radiogroup` and manage a single selected value in the caller. Selection callbacks use `onSelectedChange`; action rows use `onPress`.
+
+### Hint
+
+Hint presents static instructional text. Its tap artwork and pointer are decorative and hidden from assistive technology. Keep the instruction understandable without the pointer, and place it near the related control in reading order. Hint is not a button; the referenced control owns its accessible name and touch target.
+
+
+## Chip
+
+Chip exposes a button role and selected/disabled state. Its visible label supplies the accessible name; close chips default to “Remove {label}”. Pass `accessibilityLabel` to localize removal or clarify a picker action, and `accessibilityState.expanded` when controlling a popup. Icons and avatars are decorative within this single focus target. The whole chip triggers `onPress`; the close indicator is not a separate nested button.
+
+The 32 px pill sits inside a minimum 44 × 44 px pressable area. Preserve this area and space adjacent chips so targets do not overlap. `disabled` prevents activation. Verify keyboard activation on web and announcements with VoiceOver and TalkBack in the consuming app.
+
+### Map and search controls
+
+IconButton requires a specific `accessibilityLabel` and provides a 48 px touch target. SearchField accepts an input label and labels the microphone action; omit its handler to disable it. Label CurrentLocationTag when it conveys meaningful position information. For ListItem status accessories, include the status in the row label.
+
+## TextField and Tabs
+
+TextField uses the visible `label` as its accessible name by default. When multiple inputs share one visible label, pass a specific `accessibilityLabel` to each input (for example, first name and last name). The clear action has a field-specific name and a 44-pixel target. Use native autocomplete and keyboard hints appropriate to the input.
+
+Tabs expose `tablist` and `tab` roles with selected and disabled states. On web, Arrow Left/Right, Home, and End move focus and selection between enabled tabs. Keep tab labels concise, render only the active panel, and maintain a logical reading order from the tabs to their content.

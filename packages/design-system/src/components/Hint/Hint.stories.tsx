@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { View } from 'react-native';
 import {
   StorybookStoryShell,
   StorybookVariantCatalog,
@@ -11,7 +10,6 @@ import {
   storybookQuotedUnion
 } from '../../storybook/storybookArgTypes';
 import { storybookPlaygroundParameters } from '../../storybook/storybookPageParameters';
-import { theme } from '../../theme/tokens';
 import { Hint, type HintAlignment, type HintDirection } from './Hint';
 
 const alignments: HintAlignment[] = ['left', 'center', 'right'];
@@ -83,9 +81,7 @@ export const Variants: Story = {
           <StorybookVariantRow key={direction} gap="lg">
             {alignments.map((alignment) => (
               <StorybookVariantCell key={`${direction}-${alignment}`} label={`${direction} ${alignment}`} labelPosition="below">
-                <View style={{ width: 190 }}>
                   <Hint alignment={alignment} content="Hint content" direction={direction} />
-                </View>
               </StorybookVariantCell>
             ))}
           </StorybookVariantRow>
@@ -101,4 +97,14 @@ export const Variants: Story = {
       </StorybookVariantCatalog>
     </StorybookStoryShell>
   )
+};
+
+export const WithoutPointer: Story = {
+  ...Playground,
+  args: { pointer: false }
+};
+
+export const WithoutIcon: Story = {
+  ...Playground,
+  args: { showIcon: false }
 };

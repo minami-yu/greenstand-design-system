@@ -56,7 +56,7 @@ const meta = {
     },
     items: {
       control: 'object',
-      description: 'Navigation actions rendered from left to right.',
+      description: 'Four or five navigation actions rendered from left to right. Use the primary variant for the CTA and showBadge for a notification dot.',
       table: { type: { summary: 'BottomNavigationItem[]' } }
     },
     bottomPadding: {
@@ -148,4 +148,25 @@ export const SelectedStates: Story = {
       </StorybookNavigationCanvas>
     </StorybookStoryShell>
   )
+};
+
+export const FourItemsWithoutCta: Story = {
+  parameters: {
+    controls: { disable: true }
+  },
+  render: () => (
+    <StorybookStoryShell align="stretch">
+      <StorybookNavigationCanvas>
+        <StorybookNavigationPreviewFrame>
+          <BottomNavigation activeItem="home" items={items.filter((item) => item.variant !== 'primary').slice(0, 4)} />
+        </StorybookNavigationPreviewFrame>
+      </StorybookNavigationCanvas>
+    </StorybookStoryShell>
+  )
+};
+
+export const NotificationBadge: Story = {
+  args: {
+    items: items.map((item) => item.id === 'people' ? { ...item, showBadge: true } : item)
+  }
 };

@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
+import { PrototypeScreenFrame } from '../components/PrototypeScreenFrame';
 import { TreeDetailContent } from './TreeDetailContent';
 import {
   Image,
-  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -15,13 +15,13 @@ import {
   Button,
   BottomSheetModal,
   Icon,
+  TreeTag,
   TopNavigation,
   theme,
   useTheme,
   type IconName
 } from '@greenstand/design-system';
 
-const treeTag = require('../../assets/home/tree-tag.png');
 const treeImage1 = require('../../assets/home/raw_image_1.png');
 const treeImage2 = require('../../assets/home/raw_image_8.png');
 const treeImage3 = require('../../assets/home/raw_image_5.jpeg');
@@ -49,31 +49,9 @@ const QUEUED_IMAGES = [
 
 type HomeScreenProps = {
   bottomInset?: number;
+  uploaded?: boolean;
+  onUpload?: () => void;
 };
-
-function AndroidStatusHeader() {
-  const t = useTheme();
-
-  return (
-    <View style={[styles.androidStatusHeader, { backgroundColor: t.color.background.neutral.default }]}>
-      <Text style={[styles.androidTime, { color: t.color.icon.neutral.primary }]}>
-        9:30
-      </Text>
-      <View style={[styles.androidCamera, { backgroundColor: t.color.icon.neutral.primary }]} />
-      <View style={styles.androidStatusIcons}>
-        <View style={styles.signalBars}>
-          <View style={[styles.signalBar, styles.signalBarSmall, { backgroundColor: t.color.icon.neutral.primary }]} />
-          <View style={[styles.signalBar, styles.signalBarMedium, { backgroundColor: t.color.icon.neutral.primary }]} />
-          <View style={[styles.signalBar, styles.signalBarLarge, { backgroundColor: t.color.icon.neutral.primary }]} />
-        </View>
-        <View style={[styles.wifiShape, { backgroundColor: t.color.icon.neutral.primary }]} />
-        <View style={[styles.batteryShape, { borderColor: t.color.icon.neutral.primary }]}>
-          <View style={[styles.batteryFill, { backgroundColor: t.color.icon.neutral.primary }]} />
-        </View>
-      </View>
-    </View>
-  );
-}
 
 function AppHeader() {
   return (
@@ -116,7 +94,7 @@ function HeroArea() {
           153
         </Text>
       </View>
-      <Image source={treeTag} style={styles.treeTag} />
+      <TreeTag size="lg" accessibilityLabel="Verified tree" />
     </View>
   );
 }
@@ -148,8 +126,7 @@ function ImageTile({
   );
 }
 
-function UploadQueue() {
-  const [uploaded, setUploaded] = useState(false);
+export function UploadQueue({ uploaded = false, onUpload }: { uploaded?: boolean; onUpload?: () => void }) {
   const [queueVisible, setQueueVisible] = useState(false);
   const [selectedTree, setSelectedTree] = useState<number | null>(null);
   const [gridWidth, setGridWidth] = useState(0);
@@ -186,7 +163,7 @@ function UploadQueue() {
         disabled={uploaded}
         label={uploaded ? 'Uploaded' : 'Upload'}
         leadingIcon="cloud-upload-outline"
-        onPress={() => setUploaded(true)}
+        onPress={onUpload}
         style={styles.uploadButton}
         variant="accent"
       />
@@ -214,59 +191,21 @@ function UploadQueue() {
   );
 }
 
-export function HomeScreen({ bottomInset = 0 }: HomeScreenProps) {
-  const t = useTheme();
+export function HomeScreen({ bottomInset = 0, uploaded, onUpload }: HomeScreenProps) {
   const insets = useSafeAreaInsets();
-  const showPrototypeStatusHeader = Platform.OS === 'web';
-
-  return (
-    <View
-      style={[
-        styles.safeArea,
-        { backgroundColor: t.color.background.neutral.default }
-      ]}
-    >
-      <View
-        style={[
-          styles.phoneSurface,
-          showPrototypeStatusHeader ? styles.webPhoneSurface : undefined,
-          { paddingTop: showPrototypeStatusHeader ? 0 : insets.top }
-        ]}
-      >
-        {showPrototypeStatusHeader ? <AndroidStatusHeader /> : null}
-        <AppHeader />
-        <ScrollView
-          contentContainerStyle={[
-            styles.scrollContent,
-            { paddingBottom: bottomInset + insets.bottom }
-          ]}
-          showsVerticalScrollIndicator={false}
-        >
-          <HeroArea />
-          <UploadQueue />
-        </ScrollView>
-      </View>
-    </View>
-  );
+  return <PrototypeScreenFrame>
+    <AppHeader />
+    <ScrollView contentContainerStyle={{ paddingBottom: bottomInset + insets.bottom }} showsVerticalScrollIndicator={false}>
+      <HeroArea />
+      <UploadQueue uploaded={uploaded} onUpload={onUpload} />
+    </ScrollView>
+  </PrototypeScreenFrame>;
 }
 
 const styles = StyleSheet.create({
   queueSheet: { gap: theme.space['1200'] },
   queueDetails: { gap: theme.space['600'] },
   queueGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: theme.space['200'] },
-  safeArea: {
-    alignItems: 'center',
-    flex: 1
-  },
-  phoneSurface: {
-    flex: 1,
-    overflow: 'hidden',
-    width: '100%'
-  },
-  webPhoneSurface: {
-    maxWidth: 360
-  },
-  scrollContent: {},
   hero: {
     alignItems: 'flex-end',
     flexDirection: 'row',
@@ -281,10 +220,6 @@ const styles = StyleSheet.create({
   },
   heroNumber: {
     textAlign: 'left'
-  },
-  treeTag: {
-    height: theme.size['1200'],
-    width: theme.size['1200']
   },
   statLabel: {
     alignItems: 'center',
@@ -334,69 +269,5 @@ const styles = StyleSheet.create({
   uploadButton: {
     alignSelf: 'stretch',
     width: '100%'
-  },
-  androidStatusHeader: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    height: theme.size['1000'],
-    justifyContent: 'space-between',
-    paddingHorizontal: theme.layout.marginX,
-    position: 'relative',
-    width: '100%'
-  },
-  androidTime: {
-    fontSize: 14,
-    letterSpacing: 0.25,
-    lineHeight: 20
-  },
-  androidCamera: {
-    borderRadius: theme.radius.full,
-    height: theme.icon.lg,
-    left: '50%',
-    marginLeft: theme.space.n300,
-    position: 'absolute',
-    top: theme.space['200'],
-    width: theme.icon.lg
-  },
-  androidStatusIcons: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    gap: theme.space['100']
-  },
-  signalBars: {
-    alignItems: 'flex-end',
-    flexDirection: 'row',
-    gap: theme.space['050'],
-    height: theme.space['200']
-  },
-  signalBar: {
-    borderRadius: theme.radius.full,
-    width: theme.space['050']
-  },
-  signalBarSmall: {
-    height: theme.space['100']
-  },
-  signalBarMedium: {
-    height: theme.space['150']
-  },
-  signalBarLarge: {
-    height: theme.space['200']
-  },
-  wifiShape: {
-    borderRadius: theme.radius.full,
-    height: theme.space['100'],
-    width: theme.space['100']
-  },
-  batteryShape: {
-    borderRadius: theme.radius.sm,
-    borderWidth: theme.border.sm,
-    height: theme.space['200'],
-    padding: theme.space['050'],
-    width: theme.space['400']
-  },
-  batteryFill: {
-    borderRadius: theme.radius.sm,
-    flex: 1,
-    width: '70%'
   }
 });

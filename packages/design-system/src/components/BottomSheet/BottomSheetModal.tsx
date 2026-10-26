@@ -2,6 +2,7 @@ import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { AccessibilityInfo, Animated, Modal, PanResponder, Platform, Pressable, StyleSheet, View, useWindowDimensions } from 'react-native';
 import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 import { useTheme } from '../../theme/useTheme';
+import { getMotionEasing } from '../../theme/getMotion';
 import { theme } from '../../theme/tokens';
 import { BottomSheet, type BottomSheetProps } from './BottomSheet';
 
@@ -14,7 +15,7 @@ export type BottomSheetModalProps = Omit<BottomSheetProps, 'modal' | 'onClose'> 
 export function BottomSheetModal({ visible, onClose, ...props }: BottomSheetModalProps) {
   const t = useTheme();
   const insets = useContext(SafeAreaInsetsContext);
-  const [reduceMotion, setReduceMotion] = useState(true);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const [presented, setPresented] = useState(visible);
   const progress = useRef(new Animated.Value(0)).current;
   const dragOffset = useRef(new Animated.Value(0)).current;
@@ -45,15 +46,24 @@ export function BottomSheetModal({ visible, onClose, ...props }: BottomSheetModa
   }, []);
 
   useEffect(() => {
-    if (visible) { dragOffset.setValue(0); setPresented(true); }
+    if (visible && !presented) {
+      setPresented(true);
+      return;
+    }
+
+    if (!presented) return;
+    if (visible) dragOffset.setValue(0);
+
+    progress.stopAnimation();
     const animation = Animated.timing(progress, {
       toValue: visible ? 1 : 0,
-      ...(reduceMotion ? { duration: 0 } : {}),
+      duration: reduceMotion ? 0 : theme.motion.duration.slow,
+      easing: getMotionEasing(theme.motion.easing.decelerate),
       useNativeDriver: Platform.OS !== 'web'
     });
     animation.start(({ finished }) => { if (finished && !visible) setPresented(false); });
     return () => animation.stop();
-  }, [visible, reduceMotion, progress, dragOffset]);
+  }, [visible, presented, reduceMotion, progress, dragOffset]);
 
   return (
     <Modal transparent visible={presented} animationType="none"

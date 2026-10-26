@@ -22,3 +22,5 @@ Use CameraCaptureButton for the primary photo capture action inside camera flows
 
 ## Notes
 The component renders as an 80px shutter control from the current `space.2000` token value. The Figma spec maps this to `size/2000`, but `theme.size['2000']` is not currently generated. The outer ring uses a 4px stroke from `size.100`, and the inner circle uses a 32px radius from `size.1600 / 2`. The shutter color uses `fill.neutral.inverse`, and the Storybook previews force dark mode because the camera UI is specified for a dark camera surface.
+
+The control diameter uses `theme.size['2000']` (80 px), matching the exported sizing scale.

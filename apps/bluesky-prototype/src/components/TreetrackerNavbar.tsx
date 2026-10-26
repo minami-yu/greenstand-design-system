@@ -17,7 +17,7 @@ type NavItem = {
 
 const NAV_ITEMS: NavItem[] = [
   { id: 'home', icon: 'home-outline', selectedIcon: 'home', label: 'Home' },
-  { id: 'people', icon: 'people-outline', selectedIcon: 'people', label: 'Community' },
+  { id: 'people', icon: 'people-outline', selectedIcon: 'people', label: 'Users' },
   { id: 'camera', icon: 'camera-outline', selectedIcon: 'camera', label: 'Camera', variant: 'primary' },
   {
     id: 'trees',
@@ -32,14 +32,20 @@ type TreetrackerNavbarProps = {
   activeItem?: string;
   bottomPadding?: number;
   onCameraPress?: () => void;
-  onDemoReset?: () => void;
+  onSettingsPress?: () => void;
+  onTreesPress?: () => void;
+  onUsersPress?: () => void;
+  onHomePress?: () => void;
 };
 
 export function TreetrackerNavbar({
   activeItem = 'home',
   bottomPadding,
   onCameraPress,
-  onDemoReset
+  onSettingsPress,
+  onHomePress,
+  onTreesPress,
+  onUsersPress
 }: TreetrackerNavbarProps) {
   const [selectedItem, setSelectedItem] = useState(activeItem);
 
@@ -59,8 +65,27 @@ export function TreetrackerNavbar({
           return;
         }
 
+        if (item.id === 'home') {
+          setSelectedItem(item.id);
+          onHomePress?.();
+          return;
+        }
+
+        if (item.id === 'people') {
+          setSelectedItem(item.id);
+          onUsersPress?.();
+          return;
+        }
+
+        if (item.id === 'trees') {
+          setSelectedItem(item.id);
+          onTreesPress?.();
+          return;
+        }
+
         if (item.id === 'settings') {
-          onDemoReset?.();
+          setSelectedItem(item.id);
+          onSettingsPress?.();
           return;
         }
 

@@ -21,6 +21,7 @@ If dependencies are not installed, state that the command could not run and that
 - `tokens/variables/` — Figma variable export (Token Studio). **Do not hand-edit.** Replace via Token Studio export (see README).
 - `tokens/styles/typography.json` — Hand-maintained W3C DTCG text styles. Update manually when Figma text styles change.
 - `tokens/styles/elevation.json` — Hand-maintained W3C DTCG elevation shadows. Update manually when Figma shadow styles change.
+- `tokens/styles/motion.json` — Hand-maintained W3C DTCG durations and easing curves for shared and component-specific motion.
 
 
 ## Design System Implementation Rules
@@ -84,7 +85,7 @@ fontSize: 14
 ### Token namespaces (current shape)
 - `theme.color.*` — semantic colors (`fill`, `text`, `border`, `icon`, `shadow`, `background`) + `color.palette.*` for raw ramps
 - `theme.typography.*` — composite text styles (`heading-m`, `label-m`, …) + `family` / `weight` / `size` primitives
-- `theme.space`, `theme.radius`, `theme.border`, `theme.icon`, `theme.blur`, `theme.depth`, `theme.elevation`
+- `theme.space`, `theme.radius`, `theme.border`, `theme.icon`, `theme.blur`, `theme.depth`, `theme.elevation`, `theme.motion`
 - `themes.light` / `themes.dark` — color modes (`useTheme()`)
 - `typographies.mobile` / `typographies.desktop` — device typography classes
 
@@ -182,10 +183,10 @@ Do not duplicate `include` in MDX — keep it on the story `meta` only.
 
 
 ## Dependency constraints
-Do not bump independently — Expo SDK 51 compatibility:
-- `react-native@0.74.5`
-- `react-native-reanimated@~3.10.1`, `react-native-gesture-handler@~2.16.1`, `@gorhom/bottom-sheet@^4`
-- Storybook packages on the same 8.6.x line
+Do not bump independently — Expo SDK 58 compatibility:
+- `react@19.3.0`, `react-native@0.88.0`
+- `react-native-reanimated@4.7.1`, `react-native-worklets@0.13.0`, `react-native-gesture-handler@~3.3.0`, `@gorhom/bottom-sheet@^5.2.14`
+- Storybook packages on the same 10.6.x line
 
 If npm fails with ERESOLVE, pin compatible versions in one install pass — never use `--force` or `--legacy-peer-deps`.
 

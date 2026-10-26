@@ -95,3 +95,5 @@ export const Sizes: Story = {
     );
   }
 };
+
+export const ImageSurface: Story = { args: { source: require('../../storybook/asset/foundation/logo-sample.png'), size: 'md', type: 'image' } };

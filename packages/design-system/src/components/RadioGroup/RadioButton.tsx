@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import {
   Animated,
-  Easing,
   Platform,
   Pressable,
   Text,
@@ -11,6 +10,7 @@ import {
   type ViewStyle
 } from 'react-native';
 import { theme } from '../../theme/tokens';
+import { getMotionCssEasing, getMotionEasing } from '../../theme/getMotion';
 import { useTheme } from '../../theme/useTheme';
 import {
   getRadioIndicatorStyles,
@@ -18,9 +18,6 @@ import {
   getRadioLayout,
   getRadioTouchSize
 } from './getRadioStyles';
-
-const RADIO_ANIMATION_MS = 200;
-const RADIO_TRANSITION_EASING = 'cubic-bezier(0, 0, 0.2, 1)';
 
 type WebTransitionStyle = ViewStyle & {
   transitionDuration?: string;
@@ -60,9 +57,9 @@ function RadioIndicatorWeb({ error, isDisabled, selected }: RadioIndicatorProps)
     borderRadius: theme.radius.full,
     height: layout.size,
     justifyContent: 'center',
-    transitionDuration: `${RADIO_ANIMATION_MS}ms`,
+    transitionDuration: `${theme.motion.duration.moderate}ms`,
     transitionProperty: 'background-color',
-    transitionTimingFunction: RADIO_TRANSITION_EASING,
+    transitionTimingFunction: getMotionCssEasing(theme.motion.easing.decelerate),
     width: layout.size
   };
 
@@ -72,9 +69,9 @@ function RadioIndicatorWeb({ error, isDisabled, selected }: RadioIndicatorProps)
       : unselectedIndicator.innerBackgroundColor,
     borderRadius: theme.radius.full,
     height: innerSize,
-    transitionDuration: `${RADIO_ANIMATION_MS}ms`,
+    transitionDuration: `${theme.motion.duration.moderate}ms`,
     transitionProperty: 'width, height, background-color',
-    transitionTimingFunction: RADIO_TRANSITION_EASING,
+    transitionTimingFunction: getMotionCssEasing(theme.motion.easing.decelerate),
     width: innerSize
   };
 
@@ -105,8 +102,8 @@ function RadioIndicatorNative({ error, isDisabled, selected }: RadioIndicatorPro
 
   useEffect(() => {
     Animated.timing(selectionProgress, {
-      duration: RADIO_ANIMATION_MS,
-      easing: Easing.out(Easing.cubic),
+      duration: theme.motion.duration.moderate,
+      easing: getMotionEasing(theme.motion.easing.decelerate),
       toValue: selected ? 1 : 0,
       useNativeDriver: false
     }).start();

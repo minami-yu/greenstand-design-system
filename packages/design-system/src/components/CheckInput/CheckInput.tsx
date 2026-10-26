@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import {
   Animated,
-  Easing,
   Platform,
   Pressable,
   View,
@@ -10,6 +9,7 @@ import {
   type ViewStyle
 } from 'react-native';
 import { theme } from '../../theme/tokens';
+import { getMotionCssEasing, getMotionEasing } from '../../theme/getMotion';
 import { useTheme } from '../../theme/useTheme';
 import { Icon } from '../Icon/Icon';
 import {
@@ -17,9 +17,6 @@ import {
   getCheckInputLayout,
   getCheckInputTouchSize
 } from './getCheckInputStyles';
-
-const CHECK_INPUT_ANIMATION_MS = 150;
-const CHECK_INPUT_TRANSITION_EASING = 'cubic-bezier(0, 0, 0.2, 1)';
 
 type WebTransitionStyle = ViewStyle & {
   transitionDuration?: string;
@@ -52,9 +49,9 @@ function CheckInputIndicatorWeb({ isDisabled, selected }: CheckInputIndicatorPro
     borderRadius: theme.radius.full,
     height: layout.size,
     justifyContent: 'center',
-    transitionDuration: `${CHECK_INPUT_ANIMATION_MS}ms`,
+    transitionDuration: `${theme.motion.duration.fast}ms`,
     transitionProperty: 'background-color',
-    transitionTimingFunction: CHECK_INPUT_TRANSITION_EASING,
+    transitionTimingFunction: getMotionCssEasing(theme.motion.easing.decelerate),
     width: layout.size
   };
 
@@ -94,8 +91,8 @@ function CheckInputIndicatorNative({ isDisabled, selected }: CheckInputIndicator
 
   useEffect(() => {
     Animated.timing(selectionProgress, {
-      duration: CHECK_INPUT_ANIMATION_MS,
-      easing: Easing.out(Easing.cubic),
+      duration: theme.motion.duration.fast,
+      easing: getMotionEasing(theme.motion.easing.decelerate),
       toValue: selected ? 1 : 0,
       useNativeDriver: false
     }).start();
