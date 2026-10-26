@@ -28,7 +28,7 @@ const avatarDimensions: Record<AvatarSize, number> = {
   sm: theme.size['800'],
   md: theme.size['1200'],
   lg: theme.size['1600'],
-  xl: 88
+  xl: theme.size['2200']
 };
 
 const initialTypography: Record<AvatarSize, { fontSize: number; lineHeight: number }> = {

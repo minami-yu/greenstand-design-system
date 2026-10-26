@@ -247,6 +247,10 @@
       "$type": "number",
       "$value": 80
     },
+    "2200": {
+      "$type": "number",
+      "$value": 88
+    },
     "2400": {
       "$type": "number",
       "$value": 96
