@@ -1,0 +1,22 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './CurrentLocationTag.stories';
+
+<Meta of={Stories} />
+
+# CurrentLocationTag
+
+## Purpose and usage
+A static map marker with a direction cone and blue location dot. Pass accessibilityLabel when the marker conveys location information. Position it using the inherited View style prop.
+
+<Canvas of={Stories.Playground} />
+
+## States and guidelines
+No interactive variants are defined. The marker occupies a 24 × 50 px slot. The direction cone preserves the exported artwork; the location dot uses native token-driven color, border, and elevation so it renders consistently on mobile.
+
+See Accessibility/Overview for accessibility guidance.
+
+## Figma
+[CurrentLocationTag component](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=16463-119994).
+
+## Props
+<ArgTypes of={Stories} />

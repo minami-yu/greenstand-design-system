@@ -1,0 +1,52 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as BottomNavigationStories from './BottomNavigation.stories';
+
+<Meta of={BottomNavigationStories} />
+
+# BottomNavigation
+
+## Overview
+BottomNavigation gives mobile users persistent access to top-level destinations and primary navigation actions. It is designed for app shells where a small set of destinations should remain available from the bottom of the screen.
+
+For Greenstand apps, use this component as the reusable visual layer. App-specific wrappers should provide route IDs, labels, selected state, and press behavior.
+
+<br />
+<Canvas of={BottomNavigationStories.Playground} />
+
+## Usage
+Use BottomNavigation to:
+- Move between top-level app destinations
+- Show the currently selected destination
+- Provide a prominent primary action, such as opening the camera
+- Keep app route logic outside the design-system component
+
+## Props
+<ArgTypes of={BottomNavigationStories} />
+
+## Selected states
+Use `activeItem` to mark the current destination. The component applies selected styling and accessibility state from the matching item id. Provide `selectedIcon` when the selected state should use a filled icon instead of the default icon.
+
+<Canvas of={BottomNavigationStories.SelectedStates} />
+
+## Item count and CTA
+Use four or five items. Add one `primary` item when the navigation includes a central CTA. The CTA uses the 64 px treatment defined in Figma.
+
+<Canvas of={BottomNavigationStories.FourItemsWithoutCta} />
+
+## Notification badge
+Set `showBadge` on a standard navigation item to display the Figma notification dot. The dot is decorative; include the notification meaning in the item's `accessibilityLabel`.
+
+<Canvas of={BottomNavigationStories.NotificationBadge} />
+
+## Safe area
+Use `bottomPadding` when the navigation sits against a device edge. In app shells, pass the OS bottom safe-area inset, for example `insets.bottom`. This keeps the safe-area space inside the navbar surface so the shadow and background belong to the full component.
+
+## Best practices
+- Use a small, stable set of top-level destinations.
+- Use the `primary` item variant for one central action only.
+- Use `showBadge` only on standard navigation items, not on the primary CTA.
+- Use outline icons for default items and filled icons for selected items when the icon family supports both.
+- Keep route handling, analytics, demo reset actions, and business logic in the app layer.
+
+## Figma
+[Bottom Nav component set](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=12793-1348).

@@ -151,3 +151,42 @@ const meta = {
 ```
 
 Do not duplicate `include` in MDX — keep it on the story `meta` only.
+
+
+## Component Architecture
+
+Follow the component registry at `docs/component-registry.md` when implementing Figma designs.
+
+### Component ownership
+- Components defined in the Figma Design System belong in `packages/design-system`, unless explicitly classified otherwise.
+- Product-specific reusable components belong in `apps/bluesky-prototype/src/components`.
+- Screens, navigation, mock data, and product logic belong in the prototype app.
+
+### Implementation rules
+- Check the component registry and existing code before creating components.
+- Reuse existing components instead of duplicating them.
+- Implement missing design system components in the shared package and export them through its public API.
+- Import shared components through `@greenstand/design-system`.
+- Follow Figma variants and component properties when defining reusable APIs.
+- Add Storybook stories for new shared components.
+- Do not place shared design system components inside screen files.
+- If component ownership is ambiguous, ask before implementing.
+
+
+### Workflow
+Before implementing each screen, identify the required components and their intended locations. Follow the existing registry and update it when new components are introduced. Avoid unrelated refactoring.
+
+## Design System Documentation (Storybook MDX)
+Whenever a shared design system component is added or updated:
+
+- Create or update its Storybook `.stories.tsx` and `.mdx` documentation files.
+- Follow the existing Storybook conventions and documentation structure.
+- Document the component's purpose, usage, props, variants, states, and relevant design guidelines.
+- Include interactive examples using Storybook stories.
+- Reference the corresponding Figma component when available.
+- Keep MDX documentation synchronized with the actual component implementation.
+- Reuse existing stories and documentation instead of creating duplicates.
+- Ensure new and updated documentation is accessible through the Storybook sidebar.
+- Do not create design system documentation for app-specific components.
+
+Treat component implementation, Storybook stories, and MDX documentation as one unit of work.

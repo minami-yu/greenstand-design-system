@@ -1,0 +1,28 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './TextField.stories';
+
+<Meta of={Stories} />
+
+# TextField
+
+## Purpose and usage
+A single-line text input for names and other short answers. Use a visible label when possible; provide an accessible name for each input when a group shares one visible label. Supports controlled `value`/`onChangeText` and uncontrolled `defaultValue`.
+
+<Canvas of={Stories.Playground} />
+
+## Variants and states
+The field has a subtle outline at rest, a strong outline on focus, and an optional clear action while focused. `editable={false}` provides a read-only state. Native text-input props supply keyboard, autocomplete, and submit behavior.
+
+<Canvas of={Stories.NameForm} />
+<Canvas of={Stories.ReadOnly} />
+
+## Design guidelines
+Keep labels visible and specific. Use the platform keyboard and preserve entered values when moving between form steps. Do not use placeholder text as the only accessible label.
+
+See Accessibility/Overview for accessibility guidance.
+
+## Figma
+[Add User — Name](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=15580-104705).
+
+## Props
+<ArgTypes of={Stories} />

@@ -1,0 +1,36 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as HintStories from './Hint.stories';
+
+<Meta of={HintStories} />
+
+# Hint
+
+## Overview
+Hint is a short instructional bubble with an optional pointer and tap icon.
+
+<br />
+<Canvas of={HintStories.Playground} />
+
+## Usage
+Use Hint for lightweight coaching overlays, especially camera and onboarding flows.
+
+## Props
+<ArgTypes of={HintStories} />
+
+## Variants
+<Canvas of={HintStories.Variants} />
+
+## Optional elements
+Hide the pointer for a standalone instructional chip, or hide the icon when the copy is sufficient.
+
+<Canvas of={HintStories.WithoutPointer} />
+<Canvas of={HintStories.WithoutIcon} />
+
+## Design guidelines
+Keep the instruction short enough for a single line. Point toward the control the hint describes; `alignment` moves the pointer, while `direction` selects the top or bottom edge. When `pointer` is false, direction and alignment have no visual effect.
+
+The bubble uses `paragraphL` typography, `fill.neutral.subtle`, `text.neutral.primary`, `icon.md`, and `radius.md`. Padding is `space.300` horizontally and `space.200` vertically, with a `space.150` icon gap. The Figma pointer has a 17 × 25px viewport and overlaps the bubble by 10px; these artwork dimensions are intentionally exempt from token requirements.
+
+Hint is informational and has no pressed, selected, or disabled state. Theme colors adapt to light and dark mode. See **Accessibility/Overview** for screen-reader guidance.
+
+[Figma Hint specification](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/Yuri-New-Roots-Design-System-1.0?node-id=13353-18536)

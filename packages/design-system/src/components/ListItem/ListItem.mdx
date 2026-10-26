@@ -1,0 +1,115 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as ListItemStories from './ListItem.stories';
+
+<Meta of={ListItemStories} />
+
+# ListItem
+
+## Overview
+ListItem presents a label with optional supporting text, artwork on the left, and information or a control on the right. Rows have a transparent background and an optional divider aligned to the text content.
+
+<Canvas of={ListItemStories.Playground} />
+
+## Usage
+Import `ListItem` from `@greenstand/design-system`. Use `onPress` for navigation or actions, and `selected` with `onSelectedChange` for selection controls.
+
+```tsx
+<ListItem
+  label="Notifications"
+  paragraph="Receive capture updates"
+  leadingElement="icon"
+  leadingIcon="heart-outline"
+  trailingElement="switch"
+  selected={notificationsEnabled}
+  onSelectedChange={setNotificationsEnabled}
+/>
+```
+
+## Left content
+`leadingElement` chooses the artwork. The component sets its dimensions and spacing to match the row size.
+
+<table>
+  <thead><tr><th>Value</th><th>Content</th><th>Medium</th><th>Large</th></tr></thead>
+  <tbody>
+    <tr><td><code>none</code></td><td>Text starts at the left edge</td><td>Supported</td><td>Supported</td></tr>
+    <tr><td><code>icon</code></td><td><code>leadingIcon</code>, default <code>heart-outline</code></td><td>20 px icon</td><td>20 px icon</td></tr>
+    <tr><td><code>avatar</code></td><td><code>avatarSource</code>, or <code>avatarInitial</code> / first letter of label</td><td>32 px avatar</td><td>48 px avatar</td></tr>
+    <tr><td><code>thumbnail</code></td><td><code>thumbnailSource</code> with rounded corners</td><td>Uses large layout</td><td>48 px image</td></tr>
+  </tbody>
+</table>
+
+Provide a `thumbnailSource` when using thumbnail artwork. Images are caller-supplied and cropped with cover sizing. The photo below is a local example from Figma. There is no medium thumbnail variant in Figma, so selecting thumbnail always uses the large row layout.
+
+<Canvas of={ListItemStories.LeftContent} />
+
+## Right content
+`trailingElement` selects one of the following. Icons, text, and badges are informational unless the row has `onPress`. Selection controls make the whole row interactive.
+
+<table>
+  <thead><tr><th>Value</th><th>Content / props</th><th>Behavior</th></tr></thead>
+  <tbody>
+    <tr><td><code>none</code></td><td>Nothing</td><td>Plain text row</td></tr>
+    <tr><td><code>icon</code></td><td><code>trailingIcon</code>, default <code>chevron-right</code></td><td>Commonly paired with <code>onPress</code></td></tr>
+    <tr><td><code>checkInput</code></td><td>Shared CheckInput</td><td>Toggles <code>selected</code></td></tr>
+    <tr><td><code>radioButton</code></td><td>Shared RadioButton</td><td>Requests <code>selected=true</code></td></tr>
+    <tr><td><code>switch</code></td><td>Shared Switch</td><td>Toggles <code>selected</code></td></tr>
+    <tr><td><code>text</code></td><td><code>caption</code></td><td>Right-aligned secondary information</td></tr>
+    <tr><td><code>badge</code></td><td><code>badgeValue</code></td><td>20 px count badge in both sizes</td></tr>
+    <tr><td><code>badgeAndText</code></td><td><code>caption</code> above <code>badgeValue</code></td><td>16 px badge in md; 20 px in lg</td></tr>
+  </tbody>
+</table>
+
+<Canvas of={ListItemStories.RightContent} />
+
+## Size variations
+
+<table>
+  <thead><tr><th>Size</th><th>Minimum row height</th><th>Text</th><th>Leading gap</th></tr></thead>
+  <tbody>
+    <tr><td><code>md</code></td><td>48 px</td><td>Label only</td><td>8 px</td></tr>
+    <tr><td><code>lg</code> (default)</td><td>64 px</td><td>Label and optional paragraph</td><td>12 px</td></tr>
+  </tbody>
+</table>
+
+Both sizes use `labelM`. Large supporting text uses `paragraphS` with a 2 px gap. Rows expand for wrapping text and font scaling. `showParagraph=false` hides the large paragraph and the caption in `badgeAndText`, matching Figma's shared boolean property. Other caption variants remain visible.
+
+<Canvas of={ListItemStories.Sizes} />
+<Canvas of={ListItemStories.LongContent} />
+
+## Selection and states
+These examples are interactive. Checkbox and switch rows toggle; radio rows belong to a single-choice group. Keep state in the caller and supply `onSelectedChange`. Disabled rows cannot change state. Selection variants use `onSelectedChange` rather than `onPress`.
+
+<Canvas of={ListItemStories.Selection} />
+<Canvas of={ListItemStories.Action} />
+<Canvas of={ListItemStories.Dark} />
+
+## Destructive actions
+Use `tone="destructive"` for destructive actions such as Log out. Both the label and leading icon use semantic error colors. Leading icons use `icon.md` (20 px) in both compact and large rows.
+
+<Canvas of={ListItemStories.Destructive} />
+
+## Divider
+The divider starts after the leading artwork and extends to the right edge. Set `showDivider=false` for the final item or when a surrounding container provides separation.
+
+<Canvas of={ListItemStories.NoDivider} />
+
+## Props
+<ArgTypes of={ListItemStories} />
+
+## Design guidelines and known difference
+Use the smallest amount of trailing information needed. Choose a large row when supporting text or a thumbnail is important. Keep related radio rows in a named radio group. Accessibility/Overview documents row labels, roles, checked state, and touch targets.
+
+The Figma ListItem references a square CheckInput, while the existing shared CheckInput has a circular indicator. ListItem reuses the current shared component and its behavior; this existing design difference is not changed here. The shared Switch also currently renders a 28 px track rather than the 24 px track in this Figma example.
+
+## Figma
+[ListItem variants and layout](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=13149-4221).
+
+Use `labelAccessory` for an inline status icon. Include its meaning in the row accessibility label.
+
+`thumbnailImageStyle` supports source-specific crop geometry inside the fixed thumbnail slot.
+
+<Canvas of={ListItemStories.VerifiedTree} />
+
+Use `avatarSize="sm"` for compact initial artwork in a large organization row; row height and touch targets stay unchanged.
+
+<Canvas of={ListItemStories.CompactInitial} />

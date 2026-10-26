@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "my-design-system",
+    "slug": "my-design-system",
+    "version": "0.1.0",
+    "plugins": [
+      "expo-font"
+    ]
+  }
+}

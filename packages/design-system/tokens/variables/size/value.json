@@ -1,0 +1,263 @@
+{
+  "space": {
+    "0": {
+      "$type": "number",
+      "$value": 0
+    },
+    "100": {
+      "$type": "number",
+      "$value": 4
+    },
+    "150": {
+      "$type": "number",
+      "$value": 6
+    },
+    "200": {
+      "$type": "number",
+      "$value": 8
+    },
+    "300": {
+      "$type": "number",
+      "$value": 12
+    },
+    "400": {
+      "$type": "number",
+      "$value": 16
+    },
+    "600": {
+      "$type": "number",
+      "$value": 24
+    },
+    "800": {
+      "$type": "number",
+      "$value": 32
+    },
+    "1200": {
+      "$type": "number",
+      "$value": 48
+    },
+    "1600": {
+      "$type": "number",
+      "$value": 64
+    },
+    "2400": {
+      "$type": "number",
+      "$value": 96
+    },
+    "n200": {
+      "$type": "number",
+      "$value": -8
+    },
+    "n400": {
+      "$type": "number",
+      "$value": -16
+    },
+    "n800": {
+      "$type": "number",
+      "$value": -32
+    },
+    "n1200": {
+      "$type": "number",
+      "$value": -48
+    },
+    "050": {
+      "$type": "number",
+      "$value": 2
+    },
+    "n300": {
+      "$type": "number",
+      "$value": -12
+    },
+    "n100": {
+      "$type": "number",
+      "$value": -4
+    },
+    "n050": {
+      "$type": "number",
+      "$value": -2
+    },
+    "n600": {
+      "$type": "number",
+      "$value": -24
+    },
+    "n1600": {
+      "$type": "number",
+      "$value": -64
+    }
+  },
+  "radius": {
+    "none": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "Sharp corners with no rounding."
+    },
+    "sm": {
+      "$type": "number",
+      "$value": 4,
+      "$description": "Small rounding for compact elements."
+    },
+    "md": {
+      "$type": "number",
+      "$value": 8,
+      "$description": "Default rounding for controls and small components."
+    },
+    "lg": {
+      "$type": "number",
+      "$value": 16,
+      "$description": "Large rounding for prominent surfaces."
+    },
+    "full": {
+      "$type": "number",
+      "$value": 9999,
+      "$description": "Fully rounded elements such as avatars, badges, and pills."
+    },
+    "xl": {
+      "$type": "number",
+      "$value": 32,
+      "$description": "Medium rounding for cards and containers."
+    }
+  },
+  "border": {
+    "sm": {
+      "$type": "number",
+      "$value": 1,
+      "$description": "Default border. Cards, inputs, dividers."
+    },
+    "md": {
+      "$type": "number",
+      "$value": 2,
+      "$description": "Emphasized border width for focus states, selections, and prominent elements."
+    }
+  },
+  "icon": {
+    "xs": {
+      "$type": "number",
+      "$value": 14,
+      "$description": "inline icon inside a label or badge."
+    },
+    "sm": {
+      "$type": "number",
+      "$value": 16
+    },
+    "md": {
+      "$type": "number",
+      "$value": 20
+    },
+    "lg": {
+      "$type": "number",
+      "$value": 28
+    },
+    "xl": {
+      "$type": "number",
+      "$value": 32
+    },
+    "2xl": {
+      "$type": "number",
+      "$value": 48
+    },
+    "3xl": {
+      "$type": "number",
+      "$value": 64
+    }
+  },
+  "responsive": {
+    "sm": {
+      "$type": "number",
+      "$value": 768
+    },
+    "md": {
+      "$type": "number",
+      "$value": 1024
+    }
+  },
+  "layout": {
+    "margin-x": {
+      "$type": "number",
+      "$value": "{space.400}",
+      "$description": "Horizontal spacing between the screen edge and content."
+    },
+    "gutter-x": {
+      "$type": "number",
+      "$value": "{space.200}",
+      "$description": "Spacing between columns and adjacent content areas"
+    }
+  },
+  "size": {
+    "0": {
+      "$type": "number",
+      "$value": 0
+    },
+    "100": {
+      "$type": "number",
+      "$value": 4
+    },
+    "200": {
+      "$type": "number",
+      "$value": 8
+    },
+    "300": {
+      "$type": "number",
+      "$value": 12
+    },
+    "400": {
+      "$type": "number",
+      "$value": 16
+    },
+    "500": {
+      "$type": "number",
+      "$value": 20
+    },
+    "600": {
+      "$type": "number",
+      "$value": 24
+    },
+    "700": {
+      "$type": "number",
+      "$value": 28
+    },
+    "800": {
+      "$type": "number",
+      "$value": 32
+    },
+    "900": {
+      "$type": "number",
+      "$value": 36
+    },
+    "1000": {
+      "$type": "number",
+      "$value": 40
+    },
+    "1100": {
+      "$type": "number",
+      "$value": 44
+    },
+    "1200": {
+      "$type": "number",
+      "$value": 48
+    },
+    "1400": {
+      "$type": "number",
+      "$value": 56
+    },
+    "1600": {
+      "$type": "number",
+      "$value": 64
+    },
+    "2000": {
+      "$type": "number",
+      "$value": 80
+    },
+    "2200": {
+      "$type": "number",
+      "$value": 88
+    },
+    "2400": {
+      "$type": "number",
+      "$value": 96
+    },
+    "050": {
+      "$type": "number",
+      "$value": 2
+    }
+  }
+}

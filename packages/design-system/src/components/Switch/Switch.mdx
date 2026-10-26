@@ -1,0 +1,25 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as SwitchStories from './Switch.stories';
+
+<Meta of={SwitchStories} />
+
+# Switch
+## Overview
+Switch allows users to turn a setting or feature on and off. It is best used for immediate actions where the change takes effect instantly. Use Switch for binary options such as enabling notifications, auto upload, or location services. For choices that require confirmation or form submission, consider using a CheckInput instead.
+
+<br />
+<Canvas of={SwitchStories.Playground} />
+
+## Props
+<ArgTypes of={SwitchStories} />
+
+## Variants
+
+### Toggled
+<Canvas of={SwitchStories.Toggled} />
+
+### Disabled
+<Canvas of={SwitchStories.Disabled} />
+
+## Accessibility
+Pass `accessibilityLabel` when the switch is used without adjacent visible label text (see **Accessibility/Overview**). Role (`switch`) and checked/disabled state are set by the component.

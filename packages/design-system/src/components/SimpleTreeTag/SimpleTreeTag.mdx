@@ -1,0 +1,37 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as SimpleTreeTagStories from './SimpleTreeTag.stories';
+
+<Meta of={SimpleTreeTagStories} />
+
+# SimpleTreeTag
+
+## Overview
+SimpleTreeTag provides compact tree-location markers and a cluster-count badge, with transparent surroundings.
+
+<Canvas of={SimpleTreeTagStories.Playground} />
+
+## Usage
+Import `SimpleTreeTag` from `@greenstand/design-system`. Use `default` for a tree, `small` for a dot, `focus` for the Figma pin, and `number` for a cluster.
+
+```tsx
+<SimpleTreeTag type="number" value="120" />
+```
+
+## Props
+<ArgTypes of={SimpleTreeTagStories} />
+
+## Variants and states
+The tree marker has a 20 px slot, the dot a 12 px slot, and the pin a 40 px slot. Exported shadow bounds extend beyond the dot slot. The number badge is 32 px tall and grows horizontally with its count.
+
+<Canvas of={SimpleTreeTagStories.Variants} />
+<Canvas of={SimpleTreeTagStories.Count} />
+
+## Design guidelines and gaps
+Do not clip marker shadows or add an opaque square behind markers. Static marker SVGs preserve the Figma colors; the count badge uses mode-aware semantic tokens and labelMStrong typography. No pressed or disabled state is defined.
+
+Figma's `large` variant is an empty 42 × 20 frame with no visible artwork. It is deliberately excluded from the public API until its design is defined. `focus` retains its Figma property name.
+
+See Accessibility/Overview for labeling and interactive container guidance.
+
+## Figma
+[SimpleTreeTag component set](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=16453-104930).

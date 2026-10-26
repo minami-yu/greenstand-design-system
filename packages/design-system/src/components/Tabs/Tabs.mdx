@@ -1,0 +1,27 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Tabs.stories';
+
+<Meta of={Stories} />
+
+# Tabs
+
+## Purpose and usage
+Switch between related panels on the same screen. Pass stable `items`, the active `value`, and `onValueChange`; render the selected panel in the host screen.
+
+<Canvas of={Stories.Playground} />
+
+## Variants and states
+Equal-width tabs use brand text and an underline for the active item. Unselected tabs use secondary text. Disabled items cannot activate.
+
+<Canvas of={Stories.DisabledTab} />
+
+## Design guidelines
+Keep labels short and specific. Preserve panel data when switching tabs. Use this component for related content, and the app navigation for destinations. Each tab has a minimum 44-pixel touch target and communicates its selected state.
+
+See Accessibility/Overview for accessibility guidance.
+
+## Figma
+[User summary tabs](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=15574-101201).
+
+## Props
+<ArgTypes of={Stories} />

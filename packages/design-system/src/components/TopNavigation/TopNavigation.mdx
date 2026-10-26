@@ -1,0 +1,81 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as TopNavigationStories from './TopNavigation.stories';
+
+<Meta of={TopNavigationStories} />
+
+# TopNavigation
+
+## Overview
+TopNavigation provides the reusable visual header for Greenstand mobile screens. It exposes constrained left, center, and right variants so apps can compose approved navigation patterns without passing arbitrary header content.
+
+The component does not render OS status bars. App screens should use native safe areas and platform status-bar APIs so iOS and Android chrome comes from the device instead of from copied Figma pixels.
+
+<br />
+<Canvas of={TopNavigationStories.Playground} />
+
+## Usage
+Use TopNavigation to:
+- Compose app headers from reusable variants.
+- Keep route handling and product-specific behavior in the app layer.
+- Show notification indicators with the shared Badge component.
+- Pair with native safe areas instead of drawing fake OS headers.
+
+## Props
+<ArgTypes of={TopNavigationStories} />
+
+The Playground exposes select controls for the supported left, center, and right variants. The production component still receives typed variant objects so app code stays explicit and constrained.
+
+## Home Header
+The Greenstand prototype home header uses a logo in the leading slot and a notification action with a badge in the trailing slot.
+
+<Canvas of={TopNavigationStories.HomeHeader} />
+
+## Platform Preview
+These previews combine a Storybook-only iOS or Android status header with the real TopNavigation component. The OS chrome is only for visual review; production screens should use native safe areas and platform status-bar APIs.
+
+<Canvas of={TopNavigationStories.PlatformHeaderPreview} />
+
+## Variants
+Left variants are limited to back, close, Greenstand logo, label, and Treetracker logo.
+
+<Canvas of={TopNavigationStories.LeftVariants} />
+
+Center variants are limited to label and label plus avatar. Center labels use the shared `labelM` typography style and the avatar uses the 32px size from the Figma spec.
+
+<Canvas of={TopNavigationStories.CenterVariants} />
+
+Right variants are limited to menu, info, language, menu plus info, menu plus language, and notification with badge.
+
+<Canvas of={TopNavigationStories.RightVariants} />
+
+## Icon Sizing
+The Figma header uses 28px icons inside 44px action frames. In code this maps to `Icon size="lg"` because `theme.icon.lg` is 28px, while the pressable frame uses `theme.size['1100']` for the 44px touch target. The notification icon-with-badge uses the same `lg` icon size.
+
+## Header Padding
+TopNavigation adds `space/100` horizontal padding around the header body. The left and right variants then include their Figma-defined frames and internal padding:
+- Icon, logo, and notification variants are 44px frames with centered 28px icon content.
+- Left label and Treetracker variants use `space/200` horizontal padding.
+- Paired right actions use `space/100` between two 44px frames.
+
+## Logo variants
+Logo variants render through the shared Logo component. Greenstand supports default, neutral, original, and white. Treetracker supports default and white.
+
+<Canvas of={TopNavigationStories.LogoVariants} />
+
+## Platform header spacing
+The Figma file shows iOS and Android OS headers as reference context only. TopNavigation intentionally does not draw those status bars.
+
+In app screens, place TopNavigation below the native safe area:
+- iOS uses the device safe-area top inset, so the header starts below the status bar or Dynamic Island area.
+- Android uses the status-bar/safe-area inset reported by `react-native-safe-area-context`, so the header starts below the Android system chrome.
+- Web previews use a fixed Storybook frame without OS chrome, so only the TopNavigation body is shown.
+
+This keeps the component height and internal spacing stable across platforms while the app layer handles platform-specific top spacing.
+
+
+## Best practices
+- Use one centered label for screen titles.
+- Keep app routing, analytics, and authentication outside the design-system component.
+- Provide an accessibility label for icon-only actions.
+- Add a new design-system variant when a new repeated header pattern is approved.
+- Do not put iOS or Android status bars inside TopNavigation.

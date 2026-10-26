@@ -1,0 +1,21 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as AvatarTagStories from './AvatarTag.stories';
+
+<Meta of={AvatarTagStories} />
+
+# AvatarTag
+
+## Overview
+AvatarTag composes Avatar, a label, and a remove action for selected people or accounts.
+
+<br />
+<Canvas of={AvatarTagStories.Playground} />
+
+## Usage
+Use AvatarTag for removable selected identities in filters, assignment flows, and picker summaries.
+
+## Props
+<ArgTypes of={AvatarTagStories} />
+
+## Notes
+Figma includes a `label-xs` text style for AvatarTag labels. The current code token set does not yet include `labelXS`, so the implementation uses the closest available `labelS` token until the typography token export includes `label-xs`.

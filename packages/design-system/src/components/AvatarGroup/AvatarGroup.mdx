@@ -1,0 +1,21 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as AvatarGroupStories from './AvatarGroup.stories';
+
+<Meta of={AvatarGroupStories} />
+
+# AvatarGroup
+
+## Overview
+AvatarGroup composes multiple Avatar instances into the grouped layouts from the Figma avatar spec.
+
+<br />
+<Canvas of={AvatarGroupStories.Playground} />
+
+## Usage
+Use AvatarGroup when a small set of people or accounts needs to be summarized in one compact row.
+
+## Props
+<ArgTypes of={AvatarGroupStories} />
+
+## Variants
+<Canvas of={AvatarGroupStories.Variants} />
