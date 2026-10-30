@@ -6,7 +6,7 @@ import * as AvatarCardStories from './AvatarCard.stories';
 # AvatarCard
 
 ## Overview
-AvatarCard composes Avatar with a label inside a selectable card surface.
+AvatarCard displays a photo avatar or circular icon action with a label inside a selectable card surface.
 
 <br />
 <Canvas of={AvatarCardStories.Playground} />
@@ -23,3 +23,19 @@ identity-selection pattern.
 
 ## Variants
 <Canvas of={AvatarCardStories.Variants} />
+
+## Add actions
+Use `visualElements="button"` for an add action in the same grid as existing profiles.
+The circular surface matches the 88px avatar and defaults to the `add` icon; `icon` accepts an `IconName`.
+The whole card is one press target. Pass `onPress` to connect the action.
+
+<Canvas of={AvatarCardStories.AddUser} />
+
+## Labels and states
+Labels wrap to two lines. Outlined cards use the medium radius; cards without an outline use the small radius. Existing selected treatments remain supported for identity selection.
+
+<Canvas of={AvatarCardStories.WrappedLabel} />
+
+Accessibility behavior is documented in Accessibility/Overview.
+
+[Figma AvatarCard](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=15492-80118)

@@ -24,7 +24,7 @@ export function Tabs({ items, value, onValueChange }: TabsProps) {
           onValueChange(next.id);
           refs.current[next.id]?.focus();
         } : undefined} accessibilityRole="tab" accessibilityState={{ selected, disabled: Boolean(item.disabled) }} disabled={item.disabled} onPress={() => onValueChange(item.id)} style={[styles.tab, { borderBottomColor: selected ? t.color.border.brand.default : 'transparent' }]}>
-        <Text style={[selected ? t.typography.labelSStrong : t.typography.labelS, { color: item.disabled ? t.color.text.neutral.disabled : selected ? t.color.text.brand.default : t.color.text.neutral.secondary }]}>{item.label}</Text>
+        <Text style={[selected ? t.typography.labelMStrong : t.typography.labelM, { color: item.disabled ? t.color.text.neutral.disabled : selected ? t.color.text.brand.default : t.color.text.neutral.secondary }]}>{item.label}</Text>
       </Pressable>;
     })}
   </View>;

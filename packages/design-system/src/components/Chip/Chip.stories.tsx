@@ -7,13 +7,15 @@ import { storybookDocsArgTypesInclude, storybookQuotedUnion } from '../../storyb
 import { storybookPlaygroundParameters } from '../../storybook/storybookPageParameters';
 import { Chip, type ChipProps, type ChipLeadingElements, type ChipTrailingElements } from './Chip';
 
+const sizes = ['md', 'lg'] as const;
 const leading: ChipLeadingElements[] = ['icon', 'avatar', 'none'];
 const trailing: ChipTrailingElements[] = ['arrow', 'close', 'none'];
 const meta = {
   title: 'Components/Chip',
   component: Chip,
-  args: { label: 'Label', selected: false, leadingElements: 'icon', trailingElements: 'arrow', icon: 'heart-outline', initial: 'A' },
+  args: { label: 'Label', size: 'md', selected: false, leadingElements: 'icon', trailingElements: 'arrow', icon: 'heart-outline', initial: 'A' },
   argTypes: {
+    size: { control: 'select', options: sizes, description: 'Medium (32 px) or large (40 px) pill with size-specific padding. Large icon and text-only chips use a 6 px gap and 18 px leading/arrow icons. Avatar slots use xs for md chips and sm for lg chips.', table: { type: { summary: storybookQuotedUnion(sizes) } } },
     label: { control: 'text', description: 'Visible chip label.', table: { type: { summary: 'string' } } },
     selected: { control: 'boolean', description: 'Controlled selection state; applies the brand fill and border.', table: { type: { summary: 'boolean' } } },
     leadingElements: { control: 'select', options: leading, description: 'Leading icon, avatar, or no artwork.', table: { type: { summary: storybookQuotedUnion(leading) } } },
@@ -24,7 +26,7 @@ const meta = {
     disabled: { control: 'boolean', description: 'Disables interaction; Figma does not specify a separate disabled appearance.', table: { type: { summary: 'boolean' } } },
     onPress: { action: 'press', control: false, description: 'Caller handles selection, picker opening, or removal.', table: { type: { summary: 'PressableProps["onPress"]' } } }
   },
-  parameters: storybookDocsArgTypesInclude(['label', 'selected', 'leadingElements', 'trailingElements', 'icon', 'source', 'initial', 'disabled', 'onPress'])
+  parameters: storybookDocsArgTypesInclude(['label', 'size', 'selected', 'leadingElements', 'trailingElements', 'icon', 'source', 'initial', 'disabled', 'onPress'])
 } satisfies Meta<typeof Chip>;
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -72,4 +74,24 @@ function RemovalExample(args: ChipProps) {
 export const Removal: Story = {
   args: { label: 'Alex' },
   render: (args) => <StorybookStoryShell align="center"><RemovalExample {...args} /></StorybookStoryShell>
+};
+
+export const Sizes: Story = {
+  render: (args) => (
+    <StorybookStoryShell align="center">
+      <StorybookVariantCatalog>
+        {sizes.map(size => (
+          <StorybookVariantRow key={size}>
+            {leading.map(leadingElements => (
+              <StorybookVariantCell key={leadingElements} label={`${size} / ${leadingElements}`}>
+                <Chip {...args} size={size} leadingElements={leadingElements} />
+                <Chip {...args} size={size} leadingElements={leadingElements} selected trailingElements="none" />
+                {leadingElements === 'avatar' ? <Chip {...args} size={size} leadingElements="avatar" selected={false} trailingElements="close" /> : null}
+              </StorybookVariantCell>
+            ))}
+          </StorybookVariantRow>
+        ))}
+      </StorybookVariantCatalog>
+    </StorybookStoryShell>
+  )
 };

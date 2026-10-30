@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Button, Chip, Divider, DsLink, SearchField, theme, useTheme, type IconName } from '@greenstand/design-system';
+import { BottomSheetModal, Button, Chip, Divider, DsLink, SearchField, theme, useTheme, type IconName } from '@greenstand/design-system';
 
 export const statusOptions = [
   { label: 'Verified', icon: 'check-circle-outline' },
@@ -31,7 +31,12 @@ export function matchesTreeFilters(tree: { status: string; planter: string; orga
 }
 
 /** Product filter composition; selections are committed only by Apply. */
-export function TreeFilters({ initialValue, onApply }: { initialValue: TreeFiltersValue; onApply: (value: TreeFiltersValue) => void }) {
+export function TreeFilters({ initialValue, onApply, visible, onClose }: {
+  initialValue: TreeFiltersValue;
+  onApply: (value: TreeFiltersValue) => void;
+  visible: boolean;
+  onClose: () => void;
+}) {
   const t = useTheme();
   const [draft, setDraft] = useState(initialValue);
   const [showAllPlanters, setShowAllPlanters] = useState(false);
@@ -43,38 +48,37 @@ export function TreeFilters({ initialValue, onApply }: { initialValue: TreeFilte
   const labelStyle = [t.typography.labelMStrong, { color: t.color.text.neutral.primary }];
   const visiblePlanters = planterOptions.filter(option => !showAllPlanters || option.label.toLowerCase().includes(planterQuery.trim().toLowerCase()));
 
-  return <View style={styles.content}>
+  return <BottomSheetModal visible={visible} onClose={onClose} title="Filter" closeAccessibilityLabel="Close filters without applying"
+    footer={<View style={styles.actions}>
+      <Button label="Reset" leadingIcon="counterclockwise-arrows" variant="secondary" style={styles.action} onPress={() => { setDraft(emptyTreeFilters()); setPlanterQuery(''); }} />
+      <Button label="Apply" leadingIcon="check" style={styles.action} onPress={() => onApply(draft)} />
+    </View>}>
     <View style={styles.sections}>
       <View style={styles.section}>
         <Text accessibilityRole="header" style={labelStyle}>Status</Text>
-        <View style={styles.chips}>{statusOptions.map(option => <Chip key={option.label} {...option} trailingElements="none" selected={draft.Status.includes(option.label)} onPress={() => toggle('Status', option.label)} />)}</View>
+        <View style={styles.chips}>{statusOptions.map(option => <Chip size="lg" key={option.label} {...option} trailingElements="none" selected={draft.Status.includes(option.label)} onPress={() => toggle('Status', option.label)} />)}</View>
       </View>
       <Divider />
       <View style={styles.section}>
         <Text accessibilityRole="header" style={labelStyle}>Planter</Text>
         {showAllPlanters ? <SearchField accessibilityLabel="Search all planters" value={planterQuery} onChangeText={setPlanterQuery} showAudio={false} /> : null}
-        <View style={styles.chips}>{visiblePlanters.map(option => <Chip key={option.label} {...option} leadingElements="avatar" trailingElements="none" selected={draft.Planter.includes(option.label)} onPress={() => toggle('Planter', option.label)} />)}</View>
+        <View style={styles.chips}>{visiblePlanters.map(option => <Chip size="lg" key={option.label} {...option} leadingElements="avatar" trailingElements="none" selected={draft.Planter.includes(option.label)} onPress={() => toggle('Planter', option.label)} />)}</View>
         {showAllPlanters ? <Text accessibilityLiveRegion="polite" style={[t.typography.labelS, { color: t.color.text.neutral.secondary }]}>{visiblePlanters.length} planters available in this prototype</Text> : null}
         <DsLink label={showAllPlanters ? 'See less' : 'See all'} size="sm" trailingIcon={showAllPlanters ? 'chevron-up' : 'chevron-down'} accessibilityRole="button" onPress={() => setShowAllPlanters(value => !value)} style={styles.seeAll} />
       </View>
       <Divider />
       <View style={styles.section}>
         <Text accessibilityRole="header" style={labelStyle}>Organization</Text>
-        <View style={styles.chips}>{organizationOptions.map(option => <Chip key={option.label} {...option} leadingElements="avatar" trailingElements="none" selected={draft.Organization.includes(option.label)} onPress={() => toggle('Organization', option.label)} />)}</View>
+        <View style={styles.chips}>{organizationOptions.map(option => <Chip size="lg" key={option.label} {...option} leadingElements="avatar" trailingElements="none" selected={draft.Organization.includes(option.label)} onPress={() => toggle('Organization', option.label)} />)}</View>
       </View>
     </View>
-    <View style={styles.actions}>
-      <Button label="Reset" leadingIcon="counterclockwise-arrows" variant="tertiary" style={styles.action} onPress={() => { setDraft(emptyTreeFilters()); setPlanterQuery(''); }} />
-      <Button label="Apply" leadingIcon="check" style={styles.action} onPress={() => onApply(draft)} />
-    </View>
-  </View>;
+  </BottomSheetModal>;
 }
 
 const styles = StyleSheet.create({
-  content: { gap: theme.space['1600'], paddingBottom: theme.space['400'] },
   sections: { gap: theme.space['600'] },
   section: { gap: theme.space['300'] },
-  chips: { flexDirection: 'row', flexWrap: 'wrap', columnGap: theme.space['200'], rowGap: theme.space['0'] },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', columnGap: theme.space['200'], rowGap: theme.space['100'] },
   seeAll: { alignSelf: 'flex-end', minHeight: theme.size['1100'], minWidth: theme.size['1100'] },
   actions: { flexDirection: 'row', gap: theme.space['200'] },
   action: { flex: 1 }

@@ -1,0 +1,30 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './PointerDialog.stories';
+
+<Meta of={Stories} />
+
+# PointerDialog
+
+A Dialog card with a directional pointer for contextual instructions. Import from `@greenstand/design-system`.
+
+<Canvas of={Stories.Playground} />
+
+## Usage
+Provide a title, body, and optional content/actions. The caller owns placement and visibility. For modal tutorials, place the card in `DialogOverlay` and measure the real target; `pointerOffset` allows alignment to its center.
+
+<Canvas of={Stories.Interactive} />
+
+## Variants and states
+The card and pointer fade in together when shown, using Dialog's motion tokens. Reduce Motion skips the transition. Reopen the interactive example to replay the entrance.
+
+Choose `direction="up"` or `"down"` and `align="left"`, `"center"`, or `"right"`. Hidden cards render nothing. Colors follow the active theme, including the original pointer artwork. Close controls follow Dialog behavior.
+
+<Canvas of={Stories.Variants} />
+
+## Props
+<ArgTypes of={Stories} />
+
+## Guidelines
+Point to one relevant control and keep the target visible. Avoid covering the control with the card. Preserve space for the pointer and keep actions reachable on short screens. The pointer is decorative; explain the target in text. See Accessibility/Overview.
+
+[Figma Pointer Dialog](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=16009-39300)

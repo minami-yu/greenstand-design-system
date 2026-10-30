@@ -1,6 +1,9 @@
+import { useState } from 'react';
+import { useNetworkState } from 'expo-network';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Divider, ListItem, TopNavigation, theme, useTheme } from '@greenstand/design-system';
 import { PrototypeScreenFrame } from '../components/PrototypeScreenFrame';
+import { LogoutDialog } from '../components/LogoutDialog';
 
 type SettingsScreenProps = {
   bottomInset: number;
@@ -11,6 +14,10 @@ type SettingsScreenProps = {
 
 /** Figma Settings-Top (14881:103941). Product navigation composed from shared components. */
 export function SettingsScreen({ bottomInset, onAccount, onUpload, onLogout }: SettingsScreenProps) {
+  const [logoutVisible, setLogoutVisible] = useState(false);
+  const network = useNetworkState();
+  const offline = network.isConnected === false || network.isInternetReachable === false;
+
   return <PrototypeScreenFrame>
     <TopNavigation leftVariant={{ type: 'label', label: 'Settings' }} />
     <ScrollView contentContainerStyle={[styles.menu, { paddingBottom: bottomInset }]}>
@@ -19,8 +26,12 @@ export function SettingsScreen({ bottomInset, onAccount, onUpload, onLogout }: S
         <ListItem label="Upload" size="md" leadingElement="icon" leadingIcon="cloud-upload-outline" trailingElement="icon" showDivider={false} onPress={onUpload} />
       </View>
       <Divider />
-      <ListItem label="Log out" size="md" tone="destructive" leadingElement="icon" leadingIcon="logout" showDivider={false} onPress={onLogout} />
+      <ListItem label="Log out" size="md" tone="destructive" leadingElement="icon" leadingIcon="logout" showDivider={false} onPress={() => setLogoutVisible(true)} />
     </ScrollView>
+    <LogoutDialog visible={logoutVisible} offline={offline} onCancel={() => setLogoutVisible(false)} onConfirm={() => {
+      setLogoutVisible(false);
+      onLogout();
+    }} />
   </PrototypeScreenFrame>;
 }
 

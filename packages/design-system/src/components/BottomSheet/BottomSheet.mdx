@@ -32,6 +32,21 @@ safe area. It hugs shorter content; longer content scrolls inside the sheet.
 The handle/close header and bottom safe-area clearance stay outside the scroll
 area, so they remain visible. This responsive cap also applies after rotation.
 
+Pass persistent actions through `footer` on either `BottomSheet` or `BottomSheetModal`.
+The footer stays below the scroll area and above the safe-area clearance. It reserves
+its own height, so the last body item can scroll fully into view without being
+covered by buttons. Short content still hugs its contents; at the maximum sheet
+height only the body scrolls. Keep Reset and Apply in this slot for filter sheets.
+
+```tsx
+<BottomSheetModal visible={visible} onClose={onClose} title="Filter"
+  footer={<FilterActions onReset={onReset} onApply={onApply} />}>
+  <FilterOptions />
+</BottomSheetModal>
+```
+
+<Canvas of={BottomSheetStories.StickyFooter} />
+
 Wrap the app in `SafeAreaProvider` from `react-native-safe-area-context`.
 The sheet automatically reads the bottom inset. Its internal bottom clearance
 is the maximum of that inset, any `bottomPadding` override, and `space[400]`.

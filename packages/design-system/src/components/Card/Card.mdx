@@ -1,0 +1,30 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Card.stories';
+
+<Meta of={Stories} />
+
+# Card
+
+A rounded surface that groups related information and actions. Import `Card` from `@greenstand/design-system` and pass content as children, matching the Figma content slot.
+
+<Canvas of={Stories.Playground} />
+
+## Usage and variants
+
+Card has one default appearance: a neutral surface, large radius, horizontal layout margins, vertical space 500, and space 400 between children. It stretches to its parent width and grows with content. Put section headings outside the card when they describe a larger group.
+
+## Content and states
+
+Compose status labels, metrics, images, progress, banners, and buttons inside the slot. The caller owns loading, empty, offline, and interaction state; Card itself is a non-interactive container. Use the theme toolbar to preview light and dark surfaces.
+
+<Canvas of={Stories.ContentAndAction} />
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Guidelines
+
+Keep related content together and allow text to wrap. Avoid fixed content heights. Use labeled child controls for actions. Accessibility guidance lives in Accessibility/Overview.
+
+[Figma Card](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=17819-129286)

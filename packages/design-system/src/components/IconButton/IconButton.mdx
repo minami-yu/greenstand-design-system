@@ -6,10 +6,27 @@ import * as Stories from './IconButton.stories';
 # IconButton
 
 ## Purpose and usage
-A labeled circular action for map tools and page actions. Use primary for the main action, such as adding a user. Pass icon, accessibilityLabel, and onPress. Surface and secondary use the Figma 48 px medium treatment; subtle preserves the compact 36 px treatment inside the same touch target.
+A labeled circular action for map tools and page actions. Use primary for the main action, such as adding a user. Pass icon, accessibilityLabel, and onPress. Size is independent of the visual variant. The default is `md`; the legacy `subtle` variant defaults to `sm` when size is omitted.
 
 <Canvas of={Stories.Playground} />
 <Canvas of={Stories.Secondary} />
+
+## Sizes
+
+| Size | Circle | Icon | Touch target |
+| --- | --- | --- | --- |
+| xs | 28 px | icon.xs: 16 px | 44 px |
+| sm | 36 px | icon.sm: 18 px | 48 px |
+| md | 48 px | icon.lg: 28 px | 48 px |
+
+The xs touch target is expanded from Figma's 40 px frame to the repository's 44 px accessibility minimum.
+
+<Canvas of={Stories.Sizes} />
+
+## Map/list switch
+Use `size="sm"` with an icon and accessible label describing the destination. The Trees screen wraps each switch with `marginRight: theme.space.n100` (−4 px).
+
+<Canvas of={Stories.MapList} />
 
 ## States and guidelines
 Supports disabled and pressed states. Keep the accessible name specific to the action.
@@ -17,6 +34,8 @@ Supports disabled and pressed states. Keep the accessible name specific to the a
 See Accessibility/Overview for accessibility guidance.
 
 ## Figma
+[IconButton component](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=12687-8039).
+
 [Planted Trees screen](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=16456-116695).
 
 ## Props

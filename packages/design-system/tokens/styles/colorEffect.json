@@ -1,0 +1,15 @@
+{
+  "colorEffect": {
+    "$description": "Hand-maintained color effects from Figma. Gradient stops run from top to bottom over the semantic default background.",
+    "splash": {
+      "$type": "gradient",
+      "$description": "Sign-up splash, Figma 14345:37626; vertical green fade behind the forest illustration.",
+      "$value": [
+        { "color": "rgba(212, 240, 176, 0)", "position": 0 },
+        { "color": "rgba(145, 212, 0, 0)", "position": 0.76442 },
+        { "color": "rgba(145, 212, 0, 0.3)", "position": 0.90385 },
+        { "color": "rgba(145, 212, 0, 0.4)", "position": 1 }
+      ]
+    }
+  }
+}

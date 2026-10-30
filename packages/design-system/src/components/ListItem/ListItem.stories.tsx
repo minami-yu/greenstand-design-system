@@ -41,8 +41,10 @@ const meta = {
   argTypes: {
     labelAccessory: { control: false, description: 'Optional inline status indicator after the label.', table: { type: { summary: 'ReactNode' } } },
     label: textProp('Primary row label.'),
+    labelNumberOfLines: { control: 'number', description: 'Optional maximum label lines; overflowing text is ellipsized.', table: { type: { summary: 'number' } } },
+    badgeType: { control: 'select', options: ['label', 'dot'], description: 'Trailing badge presentation. Dot uses the compact notification indicator.', table: { type: { summary: storybookQuotedUnion(['label', 'dot']) } } },
     tone: { control: 'select', options: tones, description: 'Semantic tone for the label and leading icon.', table: { type: { summary: storybookQuotedUnion(tones) } } },
-    size: { control: 'select', options: sizes, description: 'md: 48 px minimum; lg: 64 px minimum. Thumbnail artwork always uses lg.', table: { type: { summary: storybookQuotedUnion(sizes) } } },
+    size: { control: 'select', options: sizes, description: 'md: compact 56 px minimum row with a 28 px leading icon; lg: 64 px minimum row with a 20 px leading icon. Both use 12 px after leading artwork. Thumbnail artwork always uses lg.', table: { type: { summary: storybookQuotedUnion(sizes) } } },
     paragraph: textProp('Supporting text on large rows only.'),
     showParagraph: booleanProp('Show supporting text on lg and the caption in badgeAndText, matching Figma.'),
     showDivider: booleanProp('Show the inset divider beneath the content, excluding leading artwork.'),
@@ -57,12 +59,12 @@ const meta = {
     trailingIcon: { ...textProp('Right icon; defaults to chevron-right.'), table: { type: { summary: 'IconName' } } },
     caption: textProp('Right-side text for text and badgeAndText.'),
     badgeValue: textProp('Badge count.'),
-    selected: booleanProp('Controlled checked state for checkbox, radio, or switch rows.'),
+    selected: booleanProp('Controlled checked state for checkbox, radio, or switch rows. Only the control changes appearance; the row background stays unchanged, including while pressed.'),
     disabled: booleanProp('Disable row activation and selection.'),
     onSelectedChange: { control: false, description: 'Called with the next checked state. Radio activation always requests true.', table: { type: { summary: '(selected: boolean) => void' } } },
-    onPress: { control: false, description: 'Row action for non-selection variants. Selection rows use onSelectedChange instead.', table: { type: { summary: '(event: GestureResponderEvent) => void' } } }
+    onPress: { control: false, description: 'Row action for non-selection variants. Pressing keeps the row background unchanged. Selection rows use onSelectedChange instead.', table: { type: { summary: '(event: GestureResponderEvent) => void' } } }
   },
-  parameters: storybookDocsArgTypesInclude(['label', 'labelAccessory', 'size', 'tone', 'paragraph', 'showParagraph', 'showDivider', 'leadingElement', 'leadingIcon', 'avatarSource', 'avatarSize', 'avatarInitial', 'thumbnailSource', 'thumbnailImageStyle', 'trailingElement', 'trailingIcon', 'caption', 'badgeValue', 'selected', 'disabled', 'onSelectedChange', 'onPress']),
+  parameters: storybookDocsArgTypesInclude(['label', 'labelNumberOfLines', 'badgeType', 'labelAccessory', 'size', 'tone', 'paragraph', 'showParagraph', 'showDivider', 'leadingElement', 'leadingIcon', 'avatarSource', 'avatarSize', 'avatarInitial', 'thumbnailSource', 'thumbnailImageStyle', 'trailingElement', 'trailingIcon', 'caption', 'badgeValue', 'selected', 'disabled', 'onSelectedChange', 'onPress']),
   render: args => <Surface><StatefulRow {...args} /></Surface>
 } satisfies Meta<typeof ListItem>;
 export default meta;
@@ -85,7 +87,7 @@ export const RightContent: Story = {
 
 export const Sizes: Story = {
   render: () => <Surface>{sizes.map(size => <View key={size}>
-    <SectionLabel>{size === 'md' ? 'Medium · 48 px' : 'Large · 64 px'}</SectionLabel>
+    <SectionLabel>{size === 'md' ? 'Compact (md) · 56 px' : 'Large · 64 px'}</SectionLabel>
     <ListItem label="Label" paragraph="Text" size={size} leadingElement="icon" trailingElement="icon" />
     <ListItem label="Label" paragraph="Text" size={size} leadingElement="avatar" avatarInitial="A" trailingElement="badgeAndText" />
   </View>)}</Surface>
@@ -121,3 +123,5 @@ export const Destructive: Story = { args: { label: "Log out", size: "md", tone: 
 export const VerifiedTree: Story = { args: { label: 'Tree #51', paragraph: 'January 18, 2026', leadingElement: 'thumbnail', trailingElement: 'icon', showDivider: false, labelAccessory: <Icon name="check-circle-outline" size="sm" />, accessibilityLabel: 'Tree 51, verified, January 18, 2026' } };
 
 export const CompactInitial: Story = { args: { label: 'Aether Green', leadingElement: 'avatar', avatarSize: 'sm', paragraph: undefined, trailingElement: 'checkInput' } };
+
+export const Notification: Story = { args: { label: '150 trees reviewed by Greenstand', labelNumberOfLines: 1, paragraph: '10:10 AM, Yesterday', leadingElement: 'icon', leadingIcon: 'check-circle-outline', trailingElement: 'badge', badgeType: 'dot', showDivider: false } };

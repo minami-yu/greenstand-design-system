@@ -24,6 +24,8 @@ export type BottomSheetProps = {
   children?: ReactNode;
   closeAccessibilityLabel?: string;
   contentStyle?: StyleProp<ViewStyle>;
+  /** Persistent actions outside the scrolling body, above the bottom safe area. */
+  footer?: ReactNode;
   /** Presentation wrapper supplies drag handlers for the header only. */
   headerGestureHandlers?: ViewProps;
   modal?: boolean;
@@ -41,6 +43,7 @@ export function BottomSheet({
   children,
   closeAccessibilityLabel = 'Close bottom sheet',
   contentStyle,
+  footer,
   headerGestureHandlers,
   modal = false,
   onClose,
@@ -97,7 +100,7 @@ export function BottomSheet({
         ) : null}
       </View>
 
-      <ScrollView style={styles.scrollArea} contentContainerStyle={[styles.contentArea, titleCentered ? styles.contentAreaCenter : styles.contentAreaLeft, contentStyle]} bounces={false}>
+      <ScrollView style={styles.scrollArea} contentContainerStyle={[styles.contentArea, titleCentered ? styles.contentAreaCenter : styles.contentAreaLeft, contentStyle]} bounces={false} keyboardShouldPersistTaps="handled">
         {showTitle ? (
           <Text
             numberOfLines={2}
@@ -113,6 +116,7 @@ export function BottomSheet({
         ) : null}
         {children ? <View style={styles.contentSlot}>{children}</View> : null}
       </ScrollView>
+      {footer ? <View style={styles.footer}>{footer}</View> : null}
     </View>
   );
 
@@ -135,7 +139,8 @@ export function BottomSheet({
 }
 
 const styles = StyleSheet.create({
-  scrollArea: { flexGrow: 0, flexShrink: 1 },
+  scrollArea: { flexGrow: 0, flexShrink: 1, minHeight: theme.size['0'] },
+  footer: { flexShrink: 0, paddingHorizontal: theme.space['400'], paddingTop: theme.space['400'] },
   handleHeader: { height: theme.size['1200'] },
   overlay: {
     alignItems: 'stretch',

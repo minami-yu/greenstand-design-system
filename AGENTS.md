@@ -195,6 +195,14 @@ After code changes, run the narrowest relevant check:
 - Token/build changes → `npm run build-tokens`
 - Component changes → `npm run storybook:web:build` or start Storybook/Expo when dependencies are available
 
+## Required Change Review
+After editing files, always include a file-by-file change review in the final response:
+- List every file you added, modified, or deleted for the current request, with clickable file links where available.
+- Briefly explain what changed in each file and why.
+- Report the checks run and their results, including any verification that remains incomplete.
+- Distinguish your changes from pre-existing uncommitted work; do not claim unrelated edits.
+- Use the native edit/review UI when available. Always provide the written file review as well; do not claim to have displayed Review or Undo controls if the interface did not provide them.
+
 
 ## Component Architecture
 Follow the component registry at `docs/component-registry.md` when implementing Figma designs.

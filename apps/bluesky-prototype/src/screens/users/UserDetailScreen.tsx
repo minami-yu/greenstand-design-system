@@ -16,7 +16,7 @@ export function UserDetailScreen({ user, onBack, onCapture }: { user: PrototypeU
       <View style={styles.profile}>
         <Avatar size="xl" source={user.image} initial={user.name} />
         <View style={styles.identity}>
-          <Text accessibilityRole="header" style={[t.typography.headingS, styles.center, { color: t.color.text.neutral.primary }]}>{user.name}</Text>
+          <Text accessibilityRole="header" style={[t.typography.labelMStrong, styles.name, { color: t.color.text.neutral.primary }]}>{user.name}</Text>
           {user.deviceOwner ? <Text style={[t.typography.labelS, { color: t.color.text.neutral.secondary }]}>Device owner</Text> : null}
         </View>
       </View>
@@ -61,9 +61,9 @@ function Statistic({ label, icon, value, large = false }: { label: string; icon:
 }
 const styles = StyleSheet.create({
   content: { paddingBottom: theme.space['1200'], gap: theme.space['400'] },
-  profile: { alignItems: 'center', gap: theme.space['300'], paddingHorizontal: theme.layout.marginX },
-  identity: { gap: theme.space['100'], alignItems: 'center' },
-  center: { textAlign: 'center' },
+  profile: { alignItems: 'flex-start', gap: theme.space['300'], paddingHorizontal: theme.layout.marginX },
+  identity: { gap: theme.space['100'], alignItems: 'flex-start', width: '100%' },
+  name: { textAlign: 'left', width: '100%' },
   panel: { paddingHorizontal: theme.layout.marginX, gap: theme.space['400'] },
   stats: { gap: theme.space['400'], paddingVertical: theme.space['200'] },
   row: { flexDirection: 'row', gap: theme.space['200'] },

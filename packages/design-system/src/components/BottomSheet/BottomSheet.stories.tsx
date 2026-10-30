@@ -75,6 +75,11 @@ const meta = {
       description: 'Scrollable or static body content supplied by the app.',
       table: { type: { summary: 'ReactNode' } }
     },
+    footer: {
+      control: false,
+      description: 'Persistent actions below the scrolling body and above the bottom safe area.',
+      table: { type: { summary: 'ReactNode' } }
+    },
     onClose: {
       control: false,
       description: 'Called when the close button is pressed.',
@@ -90,6 +95,7 @@ const meta = {
     'showHandle',
     'showCloseButton',
     'children',
+    'footer',
     'onClose'
   ])
 } satisfies Meta<typeof BottomSheet>;
@@ -115,6 +121,31 @@ export const Playground: Story = {
 export const AnimatedModal: Story = {
   render: (args) => <AnimatedExample {...args} />
 };
+
+export const StickyFooter: Story = {
+  render: (args) => <StickyFooterExample {...args} />
+};
+
+function StickyFooterExample(args: BottomSheetProps) {
+  const t = useTheme();
+  const [visible, setVisible] = useState(false);
+  const [count, setCount] = useState(0);
+  return <StorybookStoryShell align="center">
+    <Button label="Show scrollable sheet" onPress={() => setVisible(true)} />
+    <BottomSheetModal {...args} visible={visible} onClose={() => setVisible(false)} title="Filter" titleAlign="left" showTitle
+      footer={<View style={{ flexDirection: 'row', gap: theme.space['200'] }}>
+        <Button label="Reset" variant="tertiary" style={{ flex: 1 }} onPress={() => setCount(0)} />
+        <Button label={`Apply (${count})`} style={{ flex: 1 }} onPress={() => setVisible(false)} />
+      </View>}>
+      <View style={{ gap: theme.space['400'] }}>
+        {Array.from({ length: 20 }, (_, index) => <View key={index} style={{ gap: theme.space['200'] }}>
+          <Text style={[t.typography.labelM, { color: t.color.text.neutral.primary }]}>Filter group {index + 1}</Text>
+          <Button label="Select option" variant="secondary" onPress={() => setCount(value => value + 1)} />
+        </View>)}
+      </View>
+    </BottomSheetModal>
+  </StorybookStoryShell>;
+}
 
 function AnimatedExample(args: BottomSheetProps) {
   const [visible, setVisible] = useState(false);

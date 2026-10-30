@@ -357,7 +357,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: TOP_NAVIGATION_HEIGHT,
     justifyContent: 'space-between',
-    paddingHorizontal: theme.space['100'],
+    paddingHorizontal: theme.space['200'],
     width: '100%'
   },
   sideSlot: {

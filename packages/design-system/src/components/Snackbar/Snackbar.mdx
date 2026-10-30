@@ -1,0 +1,28 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Snackbar.stories';
+
+<Meta of={Stories} />
+
+# Snackbar
+
+Brief feedback on an inverse surface with a leading status icon. Import `Snackbar` from `@greenstand/design-system`.
+
+<Canvas of={Stories.Playground} />
+
+## Usage and states
+Pass `message` and optionally `icon`. The caller controls visibility, duration, and placement above navigation or safe-area insets. Keep the message concise and retain important completion information elsewhere after the snackbar disappears.
+
+<Canvas of={Stories.LongMessage} />
+
+## Motion
+The Snackbar fades in on mount using `motion.duration.moderate` and `motion.easing.decelerate`. With reduced motion enabled, it appears immediately. Unmount it when dismissed; mount it again for a new notification.
+
+<Canvas of={Stories.FadeIn} />
+
+## Props
+<ArgTypes of={Stories} />
+
+## Guidelines
+Use this for transient feedback rather than blocking errors. Text wraps for long messages and larger text sizes. Accessibility behavior is documented in Accessibility/Overview.
+
+[Figma upload completion](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=16771-120082)
