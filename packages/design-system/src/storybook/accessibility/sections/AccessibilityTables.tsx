@@ -63,6 +63,54 @@ const labelTableColumns = [
 
 const labelRows = [
   {
+    component: 'Card',
+    guidance: 'A non-interactive surface: leave child text and controls individually accessible. Use visible headings and labeled actions; do not group the whole card as one accessible element when it contains controls. Content height grows with text.'
+  },
+  {
+    component: 'DetailRow',
+    guidance: 'Read-only label and value content follows label-first reading order. Keep visible text accessible, omit redundant labels on decorative avatars, and preserve readable wrapping for custom values. Dividers are hidden from assistive technology.'
+  },
+  {
+    component: 'IconButton',
+    guidance: 'Supply a specific accessibilityLabel describing the action or destination. xs uses a 44 px touch target around a 28 px circle; sm and md retain 48 px targets. Disabled state is exposed and prevents activation.'
+  },
+  {
+    component: 'Dialog / PointerDialog',
+    guidance: 'Use a visible heading and explicit labeled actions. Dialog modal and DialogOverlay use the React Native Modal focus scope; Back/Escape call onClose and backdrop taps do not dismiss. The close action has a 44 px target. Entrance fades respect Reduce Motion. PointerDialog is a presentation card: its caller owns the modal host and target placement. Pointers and tutorial artwork are decorative. Verify VoiceOver/TalkBack focus in the hosting app.'
+  },
+  {
+    component: 'BottomSheet',
+    guidance: 'Place persistent actions in footer so they remain reachable when the body scrolls at maximum height. The footer follows the body in reading order, reserves its own space, and stays above the bottom safe area. Give each action a clear visible label.'
+  },
+  {
+    component: 'ToggleButton',
+    guidance: 'Requires a meaningful accessibilityLabel; include the badge count when relevant. Exposes button, selected, and disabled states, plus aria-pressed on web. The icon and badge are decorative children of one 48 px touch target. Callers opening a picker can also pass expanded state.'
+  },
+  {
+    component: 'Chip',
+    guidance: 'The visible label names the button; close chips announce Remove plus the label. Selection and disabled state are exposed. Both pill sizes retain a minimum 44 px touch target; allow for this target when spacing wrapping rows.'
+  },
+  {
+    component: 'Snackbar',
+    guidance: 'Announces the message as feedback with a polite live region on web. Keep an enduring status elsewhere after dismissal; decorative status icons need no separate label.'
+  },
+  {
+    component: 'Select',
+    guidance: 'Announces the field label and current value. The trigger exposes button, disabled, and expanded state with a 56 px minimum height. The caller owns picker focus and dismissal. With hideLabel, the required label still names the trigger; leadingContent is decorative.'
+  },
+  {
+    component: 'TextField',
+    guidance: 'Use a visible label or supply accessibilityLabel for unlabeled email and phone inputs. Leading icons are decorative. Clear announces the field name and preserves input focus.'
+  },
+  {
+    component: 'ImageGroup',
+    guidance: 'Announces the total saved-photo count as one group. Thumbnails are decorative and the group is not interactive.'
+  },
+  {
+    component: 'AvatarCard',
+    guidance: 'The whole card is one button named by its full label, with selected and disabled states. Photo and action icon are decorative. Labels wrap to two lines; use accessibilityLabel only when the visible label needs clarification.'
+  },
+  {
     component: 'Button',
     guidance: 'Visible label is usually enough. Add accessibilityLabel for icon-only buttons.'
   },

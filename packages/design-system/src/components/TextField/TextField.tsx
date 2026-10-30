@@ -3,11 +3,12 @@ import { Platform, Pressable, StyleSheet, Text, TextInput, View, type TextInputP
 import { theme } from '../../theme/tokens';
 import { useTheme } from '../../theme/useTheme';
 import { Icon } from '../Icon/Icon';
+import type { IconName } from '../Icon/icons';
 
-export type TextFieldProps = TextInputProps & { label?: string; clearable?: boolean };
+export type TextFieldProps = TextInputProps & { label?: string; clearable?: boolean; leadingIcon?: IconName };
 
 /** Single-line input with a visible label and optional clear action. */
-export function TextField({ label, clearable = true, value, defaultValue, onChangeText, onFocus, onBlur, style, editable = true, accessibilityLabel, ...props }: TextFieldProps) {
+export function TextField({ label, leadingIcon, clearable = true, value, defaultValue, onChangeText, onFocus, onBlur, style, editable = true, accessibilityLabel, ...props }: TextFieldProps) {
   const t = useTheme();
   const input = useRef<ComponentRef<typeof TextInput>>(null);
   const [focused, setFocused] = useState(false);
@@ -17,6 +18,7 @@ export function TextField({ label, clearable = true, value, defaultValue, onChan
   return <View style={styles.root}>
     {label ? <Text style={[t.typography.labelMStrong, { color: t.color.text.neutral.primary }]}>{label}</Text> : null}
     <View style={[styles.field, { borderWidth: focused ? theme.border.md : theme.border.sm, borderColor: focused ? t.color.border.neutral.strong : t.color.border.neutral.default, backgroundColor: t.color.background.neutral.default }]}>
+      {leadingIcon ? <Icon name={leadingIcon} size="lg" color="neutral.tertiary" style={{ marginRight: theme.space['200'] }} /> : null}
       <TextInput {...props} ref={input} value={current} editable={editable} accessibilityLabel={accessibilityLabel ?? label}
         onChangeText={update} onFocus={event => { setFocused(true); onFocus?.(event); }} onBlur={event => { setFocused(false); onBlur?.(event); }}
         placeholderTextColor={t.color.text.neutral.placeholder}

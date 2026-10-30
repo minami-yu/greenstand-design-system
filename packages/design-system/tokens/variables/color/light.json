@@ -214,7 +214,7 @@
       },
       "secondary": {
         "$type": "color",
-        "$value": "{neutral.800}",
+        "$value": "{neutral.700}",
         "$description": "Secondary text color. Supporting text, metadata, timestamps, medium emphasis"
       },
       "tertiary": {
@@ -420,7 +420,7 @@
       },
       "secondary": {
         "$type": "color",
-        "$value": "{neutral.800}",
+        "$value": "{neutral.700}",
         "$description": "Supporting icons next to secondary text, inactive nav icons"
       },
       "tertiary": {

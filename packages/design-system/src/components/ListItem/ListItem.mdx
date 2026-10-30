@@ -32,7 +32,7 @@ Import `ListItem` from `@greenstand/design-system`. Use `onPress` for navigation
   <thead><tr><th>Value</th><th>Content</th><th>Medium</th><th>Large</th></tr></thead>
   <tbody>
     <tr><td><code>none</code></td><td>Text starts at the left edge</td><td>Supported</td><td>Supported</td></tr>
-    <tr><td><code>icon</code></td><td><code>leadingIcon</code>, default <code>heart-outline</code></td><td>20 px icon</td><td>20 px icon</td></tr>
+    <tr><td><code>icon</code></td><td><code>leadingIcon</code>, default <code>heart-outline</code></td><td>28 px icon</td><td>20 px icon</td></tr>
     <tr><td><code>avatar</code></td><td><code>avatarSource</code>, or <code>avatarInitial</code> / first letter of label</td><td>32 px avatar</td><td>48 px avatar</td></tr>
     <tr><td><code>thumbnail</code></td><td><code>thumbnailSource</code> with rounded corners</td><td>Uses large layout</td><td>48 px image</td></tr>
   </tbody>
@@ -66,12 +66,14 @@ Provide a `thumbnailSource` when using thumbnail artwork. Images are caller-supp
 <table>
   <thead><tr><th>Size</th><th>Minimum row height</th><th>Text</th><th>Leading gap</th></tr></thead>
   <tbody>
-    <tr><td><code>md</code></td><td>48 px</td><td>Label only</td><td>8 px</td></tr>
+    <tr><td><code>md</code> (compact)</td><td>56 px</td><td>Label only</td><td>12 px</td></tr>
     <tr><td><code>lg</code> (default)</td><td>64 px</td><td>Label and optional paragraph</td><td>12 px</td></tr>
   </tbody>
 </table>
 
 Both sizes use `labelM`. Large supporting text uses `paragraphS` with a 2 px gap. Rows expand for wrapping text and font scaling. `showParagraph=false` hides the large paragraph and the caption in `badgeAndText`, matching Figma's shared boolean property. Other caption variants remain visible.
+
+Compact leading icons use `icon.lg` (28 px), with `space.100` (4 px) left padding and `space.300` (12 px) right padding. Compact avatar artwork also uses `space.300` right padding; its size remains 32 px by default.
 
 <Canvas of={ListItemStories.Sizes} />
 <Canvas of={ListItemStories.LongContent} />
@@ -79,12 +81,14 @@ Both sizes use `labelM`. Large supporting text uses `paragraphS` with a 2 px gap
 ## Selection and states
 These examples are interactive. Checkbox and switch rows toggle; radio rows belong to a single-choice group. Keep state in the caller and supply `onSelectedChange`. Disabled rows cannot change state. Selection variants use `onSelectedChange` rather than `onPress`.
 
+All rows keep their background unchanged, including while pressed. The checkbox, radio button, or switch indicates the selected state. Navigation and action rows remain tappable without a pressed background.
+
 <Canvas of={ListItemStories.Selection} />
 <Canvas of={ListItemStories.Action} />
 <Canvas of={ListItemStories.Dark} />
 
 ## Destructive actions
-Use `tone="destructive"` for destructive actions such as Log out. Both the label and leading icon use semantic error colors. Leading icons use `icon.md` (20 px) in both compact and large rows.
+Use `tone="destructive"` for destructive actions such as Log out. Both the label and leading icon use semantic error colors. Leading icons use `icon.lg` (28 px) in compact rows and `icon.md` (20 px) in large rows.
 
 <Canvas of={ListItemStories.Destructive} />
 
@@ -113,3 +117,8 @@ Use `labelAccessory` for an inline status icon. Include its meaning in the row a
 Use `avatarSize="sm"` for compact initial artwork in a large organization row; row height and touch targets stay unchanged.
 
 <Canvas of={ListItemStories.CompactInitial} />
+
+## Notification rows
+Use `badgeType="dot"` with `trailingElement="badge"` for a compact unread indicator. Use `labelNumberOfLines={1}` to ellipsize long labels and `showDivider={false}` for a continuous notification list. Include unread status in the row accessibility label.
+
+<Canvas of={ListItemStories.Notification} />

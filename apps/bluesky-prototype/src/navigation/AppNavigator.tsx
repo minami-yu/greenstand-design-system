@@ -1,13 +1,18 @@
-import { lazy, Suspense, useState } from 'react';
-import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { lazy, Suspense, useRef, useState, type ComponentRef } from 'react';
+import { Platform, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Button, theme, useTheme } from '@greenstand/design-system';
+import { theme } from '@greenstand/design-system';
 import { AccountScreen, SettingsScreen } from '../screens/SettingsScreen';
 import { UploadScreen } from '../screens/UploadScreen';
 import { UsersScreen } from '../screens/users/UsersScreen';
 import { UserDetailScreen } from '../screens/users/UserDetailScreen';
 import { AddUserFlow } from '../screens/users/AddUserFlow';
 import { initialUsers, type PrototypeUser } from '../screens/users/userData';
+import { usePrototypeUpload } from '../hooks/usePrototypeUpload';
+import { UploadSuccessSheet } from '../components/upload/UploadSuccessSheet';
+import { UploadInterruptionSheet } from '../components/upload/UploadInterruptionSheet';
+import { HomeOnboarding, type OnboardingAnchor } from '../components/onboarding/HomeOnboarding';
+import { AuthFlow } from '../screens/auth/AuthFlow';
 import { HomeScreen } from '../screens/HomeScreen';
 import {
   CaptureCameraScreen,
@@ -24,56 +29,20 @@ import {
 // The native map module must not load until its destination is opened.
 const TreesScreen = lazy(() => import('../screens/TreesScreen').then(module => ({ default: module.TreesScreen })));
 
-type RouteName = 'users' | 'user-detail' | 'add-user' | 'login' | 'onboarding' | 'home' | 'trees' | 'settings' | 'account' | 'upload' | 'capture-user' | 'capture-organization' | 'capture-camera';
-
-function PlaceholderScreen({
-  route,
-  onNavigate
-}: {
-  route: Exclude<RouteName, 'home'>;
-  onNavigate: (route: RouteName) => void;
-}) {
-  const t = useTheme();
-  const title = route === 'login' ? 'Login / Sign Up' : 'Onboarding';
-  const nextRoute = route === 'login' ? 'onboarding' : 'home';
-
-  return (
-    <View style={[styles.placeholder, { backgroundColor: t.color.background.neutral.default }]}>
-      <View
-        style={[
-          styles.placeholderPanel,
-          {
-            backgroundColor: t.color.fill.neutral.surface,
-            borderColor: t.color.border.neutral.subtle
-          }
-        ]}
-      >
-        <Text style={[t.typography.headingS, { color: t.color.text.neutral.primary }]}>
-          {title}
-        </Text>
-        <Text style={[t.typography.paragraphM, { color: t.color.text.neutral.secondary }]}>
-          Placeholder route for the portfolio prototype flow.
-        </Text>
-        <Button
-          label={route === 'login' ? 'Start onboarding' : 'Go to Home'}
-          onPress={() => onNavigate(nextRoute)}
-        />
-        <Pressable accessibilityRole="button" onPress={() => onNavigate('home')}>
-          <Text style={[t.typography.labelM, { color: t.color.text.brand.default }]}>
-            Preview Home directly
-          </Text>
-        </Pressable>
-      </View>
-    </View>
-  );
-}
+type RouteName = 'users' | 'user-detail' | 'add-user' | 'login' | 'home' | 'trees' | 'settings' | 'account' | 'upload' | 'capture-user' | 'capture-organization' | 'capture-camera';
 
 export function AppNavigator() {
   const insets = useSafeAreaInsets();
+  const accounts = useRef<Record<string, PrototypeUser>>({});
+  const [newAccount, setNewAccount] = useState(false);
+  const [onboarding, setOnboarding] = useState(false);
+  const [navbarAnchor, setNavbarAnchor] = useState<OnboardingAnchor>();
+  const [uploadAnchor, setUploadAnchor] = useState<OnboardingAnchor>();
+  const navbarRef = useRef<ComponentRef<typeof View>>(null);
   const [users, setUsers] = useState<PrototypeUser[]>(initialUsers);
   const [detailUser, setDetailUser] = useState<PrototypeUser>(initialUsers[0]);
   const [addUserReturn, setAddUserReturn] = useState<'users' | 'capture-user'>('users');
-  const [uploaded, setUploaded] = useState(false);
+  const upload = usePrototypeUpload();
   const [automaticallyUpload, setAutomaticallyUpload] = useState(true);
   const [remindToUpload, setRemindToUpload] = useState(true);
   const [route, setRoute] = useState<RouteName>('home');
@@ -83,10 +52,20 @@ export function AppNavigator() {
   const navbarBottomPadding = showWebPhoneFrame ? undefined : insets.bottom;
   const navbarHeight = TREETRACKER_NAVBAR_HEIGHT - theme.space['400'] + (navbarBottomPadding ?? theme.space['400']);
 
+  if (route === 'login') return <AuthFlow accounts={accounts.current} onComplete={(user, key, isNew) => {
+    accounts.current[key] = user;
+    setUsers(previous => isNew ? [user] : previous.some(item => item.id === user.id) ? previous : [user]);
+    setSelectedUser(user);
+    setNewAccount(true);
+    setOnboarding(isNew);
+    setRoute('home');
+  }} />;
+
   if (route === 'add-user') return <AddUserFlow onCancel={() => setRoute(addUserReturn)} onComplete={user => {
     setUsers(previous => [...previous, user]);
-    if (addUserReturn === 'capture-user') { setSelectedUser(user); setRoute('capture-organization'); }
-    else setRoute('users');
+    setSelectedUser(user);
+    setOnboarding(true);
+    setRoute('home');
   }} />;
 
   if (route === 'user-detail') return <UserDetailScreen key={detailUser.id} user={detailUser} onBack={() => setRoute('users')} onCapture={() => { setSelectedUser(detailUser); setRoute('capture-organization'); }} />;
@@ -106,21 +85,24 @@ export function AppNavigator() {
       <View style={styles.screenShell}>
         {route === 'users' && <UsersScreen users={users} bottomInset={navbarHeight} onAdd={() => { setAddUserReturn('users'); setRoute('add-user'); }} onSelect={user => { setDetailUser(user); setRoute('user-detail'); }} />}
         {route === 'trees' && <Suspense fallback={null}><TreesScreen bottomInset={navbarHeight} /></Suspense>}
-        {route === 'home' && <HomeScreen bottomInset={navbarHeight} uploaded={uploaded} onUpload={() => setUploaded(true)} />}
+        {route === 'home' && <HomeScreen offline={upload.offline} emptyQueue={newAccount} onboarding={onboarding} onUploadAnchor={setUploadAnchor} bottomInset={navbarHeight} uploaded={upload.uploaded} uploadProgress={upload.progress} uploading={upload.running} onUpload={newAccount ? undefined : upload.start} onStopUpload={upload.stop} />}
         {route === 'settings' && <SettingsScreen bottomInset={navbarHeight}
           onAccount={() => setRoute('account')}
           onUpload={() => setRoute('upload')}
           onLogout={() => {
+            setOnboarding(false);
             setSelectedUser(undefined);
             setSelectedOrganization(undefined);
-            setUploaded(false);
+            upload.reset();
             setAutomaticallyUpload(true);
             setRemindToUpload(true);
             setRoute('login');
           }} />}
         {route === 'account' && <AccountScreen onBack={() => setRoute('settings')} />}
+        <UploadSuccessSheet visible={upload.showCompletion} onClose={upload.dismissCompletion} />
+        <UploadInterruptionSheet reason={upload.interruption} onClose={upload.dismissInterruption} />
         <View style={styles.navbarLayer}>
-          <View style={[styles.navbarFrame, showWebPhoneFrame ? styles.webNavbarFrame : undefined]}>
+          <View ref={navbarRef} onLayout={() => navbarRef.current?.measureInWindow((x, y, width, height) => setNavbarAnchor({ x, y, width, height }))} style={[styles.navbarFrame, showWebPhoneFrame ? styles.webNavbarFrame : undefined]}>
             <TreetrackerNavbar
               activeItem={route === 'users' ? 'people' : route === 'home' ? 'home' : route === 'trees' ? 'trees' : 'settings'}
               bottomPadding={navbarBottomPadding}
@@ -132,6 +114,7 @@ export function AppNavigator() {
             />
           </View>
         </View>
+        {route === 'home' && onboarding && navbarAnchor ? <HomeOnboarding navbar={navbarAnchor} uploadButton={uploadAnchor} onComplete={() => setOnboarding(false)} /> : null}
       </View>
     );
   }
@@ -171,28 +154,15 @@ export function AppNavigator() {
         onBack={() => setRoute('capture-organization')}
         onDone={() => setRoute('home')}
         selectedUser={selectedUser}
+        selectedOrganization={selectedOrganization}
       />
     );
   }
 
-  return <PlaceholderScreen onNavigate={setRoute} route={route} />;
+  return null;
 }
 
 const styles = StyleSheet.create({
-  placeholder: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-    padding: theme.space['400']
-  },
-  placeholderPanel: {
-    borderRadius: theme.radius.md,
-    borderWidth: theme.border.sm,
-    gap: theme.space['400'],
-    maxWidth: 360,
-    padding: theme.space['400'],
-    width: '100%'
-  },
   screenShell: {
     flex: 1
   },

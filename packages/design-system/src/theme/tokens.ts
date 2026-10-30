@@ -13,7 +13,7 @@ export const theme = {
         "OLDsubtleSelected": "#e6e6e6",
         "inverse": "#3d3c3c",
         "inverseActive": "#585858",
-        "OLDinverseSelected": "#6c6c6c",
+        "OLDinverseSelected": "#616161",
         "disabled": "#f7f7f7"
       },
       "brand": {
@@ -61,7 +61,7 @@ export const theme = {
     "text": {
       "neutral": {
         "primary": "#232323",
-        "secondary": "#585858",
+        "secondary": "#616161",
         "tertiary": "#898781",
         "inverse": "#ffffff",
         "disabled": "#b2b2b2",
@@ -128,7 +128,7 @@ export const theme = {
     "icon": {
       "neutral": {
         "primary": "#232323",
-        "secondary": "#585858",
+        "secondary": "#616161",
         "tertiary": "#b2b2b2",
         "disabled": "#cacaca",
         "inverse": "#ffffff",
@@ -199,7 +199,7 @@ export const theme = {
         "400": "#cacaca",
         "500": "#b2b2b2",
         "600": "#898781",
-        "700": "#6c6c6c",
+        "700": "#616161",
         "800": "#585858",
         "900": "#3d3c3c",
         "950": "#232323",
@@ -285,16 +285,16 @@ export const theme = {
   "typography": {
     "headingM": {
       "fontFamily": "Montserrat_700Bold",
-      "lineHeight": 31.2,
-      "fontSize": 24,
+      "lineHeight": 33.8,
+      "fontSize": 26,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
     },
     "headingS": {
       "fontFamily": "Montserrat_700Bold",
-      "lineHeight": 25.2,
-      "fontSize": 18,
+      "lineHeight": 28,
+      "fontSize": 20,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
@@ -333,8 +333,8 @@ export const theme = {
     },
     "paragraphS": {
       "fontFamily": "Inter_400Regular",
-      "lineHeight": 19.6,
-      "fontSize": 14,
+      "lineHeight": 18.2,
+      "fontSize": 13,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
@@ -357,24 +357,24 @@ export const theme = {
     },
     "labelS": {
       "fontFamily": "Inter_500Medium",
-      "lineHeight": 19.6,
-      "fontSize": 14,
+      "lineHeight": 18.2,
+      "fontSize": 13,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
     },
     "labelSStrong": {
       "fontFamily": "Inter_600SemiBold",
-      "lineHeight": 19.6,
-      "fontSize": 14,
+      "lineHeight": 18.2,
+      "fontSize": 13,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
     },
     "numericL": {
-      "fontFamily": "Inter_600SemiBold",
-      "lineHeight": 61.6,
-      "fontSize": 56,
+      "fontFamily": "Inter_500Medium",
+      "lineHeight": 52.8,
+      "fontSize": 48,
       "letterSpacing": 0,
       "textTransform": "none",
       "textDecorationLine": "none"
@@ -407,17 +407,37 @@ export const theme = {
       "bold": 700
     },
     "size": {
-      "numericL": 56,
-      "labelS": 14,
+      "numericL": 48,
+      "labelS": 13,
       "labelM": 16,
       "paragraphM": 16,
       "paragraphL": 18,
-      "headingS": 18,
-      "paragraphS": 14,
-      "headingM": 24,
+      "headingS": 20,
+      "paragraphS": 13,
+      "headingM": 26,
       "numericS": 20,
       "numericM": 32
     }
+  },
+  "colorEffect": {
+    "splash": [
+      {
+        "color": "rgba(212, 240, 176, 0)",
+        "position": 0
+      },
+      {
+        "color": "rgba(145, 212, 0, 0)",
+        "position": 0.76442
+      },
+      {
+        "color": "rgba(145, 212, 0, 0.3)",
+        "position": 0.90385
+      },
+      {
+        "color": "rgba(145, 212, 0, 0.4)",
+        "position": 1
+      }
+    ]
   },
   "motion": {
     "duration": {
@@ -456,8 +476,8 @@ export const theme = {
     "md": 2
   },
   "icon": {
-    "xs": 14,
-    "sm": 16,
+    "sm": 18,
+    "xs": 16,
     "md": 20,
     "lg": 28,
     "xl": 32,
@@ -471,6 +491,7 @@ export const theme = {
     "200": 8,
     "300": 12,
     "400": 16,
+    "500": 20,
     "600": 24,
     "800": 32,
     "1200": 48,
@@ -664,10 +685,10 @@ const darkColors = {
     "neutral": {
       "primary": "#ffffff",
       "secondary": "#b2b2b2",
-      "tertiary": "#6c6c6c",
+      "tertiary": "#616161",
       "inverse": "#131313",
       "disabled": "#898781",
-      "placeholder": "#6c6c6c"
+      "placeholder": "#616161"
     },
     "brand": {
       "default": "#c5f78d",
@@ -801,7 +822,7 @@ const darkColors = {
       "400": "#cacaca",
       "500": "#b2b2b2",
       "600": "#898781",
-      "700": "#6c6c6c",
+      "700": "#616161",
       "800": "#585858",
       "900": "#3d3c3c",
       "950": "#232323",
@@ -984,7 +1005,7 @@ const desktopTypography = {
     "textDecorationLine": "none"
   },
   "numericL": {
-    "fontFamily": "Inter_600SemiBold",
+    "fontFamily": "Inter_500Medium",
     "lineHeight": 61.6,
     "fontSize": 56,
     "letterSpacing": 0,

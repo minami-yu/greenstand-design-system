@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ReactNode, RefObject } from 'react';
 import { CameraView, useCameraPermissions } from 'expo-camera';
+import { treeGuidanceSvg } from '../../components/camera/guidanceArtwork';
+import { FadingCameraGuidance } from '../../components/camera/FadingCameraGuidance';
 import {
   Image,
+  KeyboardAvoidingView,
   Linking,
   Platform,
+  ScrollView,
   Pressable,
   StyleSheet,
   Text,
@@ -13,7 +17,7 @@ import {
   type ImageSourcePropType
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Svg, { Defs, Ellipse, Mask, Rect, Path } from 'react-native-svg';
+import { SvgXml } from 'react-native-svg';
 import {
   Avatar,
   AvatarCard,
@@ -21,12 +25,18 @@ import {
   CameraCaptureButton,
   DsLink,
   Hint,
+  ImageGroup,
+  IconButton,
   Icon,
   ThemeProvider,
   TopNavigation,
   theme,
   useTheme
 } from '@greenstand/design-system';
+
+import { CaptureReview } from './CaptureReview';
+import { CaptureComplete } from './CaptureComplete';
+import { saveCapture, type SavedCapture } from './captureStorage';
 
 const userOluwatobiloba = require('../../../assets/capture/user-oluwatobiloba.png');
 const userAmara = require('../../../assets/capture/user-amara.png');
@@ -169,7 +179,7 @@ function SelectionScreen<T extends { id: string }>({
     <View style={[styles.screen, { backgroundColor: t.color.background.neutral.default }]}>
       <View style={[styles.phoneSurface, Platform.OS === 'web' ? styles.webPhoneSurface : undefined]}>
         <CaptureHeader onBack={onBack} />
-        <View style={styles.selectionContent}>
+        <ScrollView contentContainerStyle={styles.selectionContent}>
           <Text style={[t.typography.headingM, { color: t.color.text.neutral.primary }]}>
             {title}
           </Text>
@@ -179,12 +189,12 @@ function SelectionScreen<T extends { id: string }>({
                 {renderItem(item, () => onSelect(item))}
               </View>
             ))}
+            <View style={[styles.cardGridItem, { width: cardWidth }]}>
+              <AvatarCard label={addLabel} visualElements="button" onPress={onAdd} disabled={!onAdd} style={styles.selectionCard} />
+            </View>
           </View>
-          <View style={styles.linkStack}>
-            <DsLink icon="leading" label={addLabel} onPress={onAdd} leadingIcon="add" />
-            {footer}
-          </View>
-        </View>
+          {footer ? <View style={styles.linkStack}>{footer}</View> : null}
+        </ScrollView>
       </View>
     </View>
   );
@@ -230,7 +240,7 @@ export function CaptureSelectOrganizationScreen({
       addLabel="Add new organization"
       footer={(
         <DsLink
-          color="neutralPrimary"
+          color="brand"
           icon="leading"
           label="Continue without organization"
           leadingIcon="arrow-right"
@@ -248,58 +258,10 @@ export function CaptureSelectOrganizationScreen({
   );
 }
 
-function CameraMask() {
-  const t = useTheme();
-
-  return (
-    <Svg height="100%" viewBox="0 0 360 480" width="100%">
-      <Defs>
-        <Mask id="camera-cutout">
-          <Rect fill="white" height="480" width="360" x="0" y="0" />
-          <Ellipse cx="180" cy="224" fill="black" rx="120" ry="180" />
-        </Mask>
-      </Defs>
-      <Rect
-        fill={t.color.background.neutral.overlay}
-        height="480"
-        mask="url(#camera-cutout)"
-        width="360"
-        x="0"
-        y="0"
-      />
-    </Svg>
-  );
-}
-
-function TutorialSprout() {
-  const t = useTheme();
-
-  return (
-    <Svg height={220} viewBox="0 0 220 220" width={220}>
-      <Ellipse cx="110" cy="180" fill="none" rx="86" ry="16" stroke={t.color.icon.neutral.primary} strokeWidth={2} />
-      <Path d="M110 178V105" stroke={t.color.icon.neutral.primary} strokeLinecap="round" strokeWidth={2} />
-      <Path
-        d="M108 110C78 68 42 74 34 78c2 28 23 58 58 50 8-2 13-7 16-18Z"
-        fill="none"
-        stroke={t.color.icon.neutral.primary}
-        strokeLinejoin="round"
-        strokeWidth={2}
-      />
-      <Path
-        d="M112 112c12-50 59-60 91-54 4 36-27 72-70 70-10-1-17-5-21-16Z"
-        fill="none"
-        stroke={t.color.icon.neutral.primary}
-        strokeLinejoin="round"
-        strokeWidth={2}
-      />
-      <Path d="M110 130c-15-20-30-34-50-46M112 128c18-24 40-40 66-50" stroke={t.color.icon.neutral.primary} strokeLinecap="round" strokeWidth={2} />
-    </Svg>
-  );
-}
-
 function CameraStage({
   cameraRef,
   capturedUri,
+  onReady,
   height,
   mountError,
   onMountError,
@@ -307,10 +269,12 @@ function CameraStage({
   permissionCanAskAgain,
   permissionGranted,
   showTutorial,
+  onTutorialComplete,
   width
 }: {
   cameraRef: RefObject<CameraView | null>;
   capturedUri?: string;
+  onReady: () => void;
   height: number;
   mountError?: string;
   onMountError: (message: string) => void;
@@ -318,6 +282,7 @@ function CameraStage({
   permissionCanAskAgain: boolean;
   permissionGranted: boolean;
   showTutorial: boolean;
+  onTutorialComplete: () => void;
   width: number;
 }) {
   const t = useTheme();
@@ -326,6 +291,7 @@ function CameraStage({
     <View style={[styles.cameraStage, { height, width }]}>
       {permissionGranted ? (
         <CameraView
+          onCameraReady={onReady}
           active={!capturedUri}
           animateShutter={false}
           facing="back"
@@ -343,9 +309,6 @@ function CameraStage({
       {capturedUri ? (
         <Image source={{ uri: capturedUri }} style={[StyleSheet.absoluteFill, styles.cameraImage]} />
       ) : null}
-      <View style={StyleSheet.absoluteFill}>
-        <CameraMask />
-      </View>
       {!permissionGranted || mountError ? (
         <View style={[StyleSheet.absoluteFill, styles.permissionOverlay]}>
           <Text style={[t.typography.labelMStrong, styles.permissionTitle, { color: t.color.text.neutral.inverse }]}>
@@ -364,130 +327,160 @@ function CameraStage({
         </View>
       ) : null}
       {showTutorial ? (
-        <View style={[StyleSheet.absoluteFill, styles.tutorialOverlay]}>
+        <FadingCameraGuidance onComplete={onTutorialComplete} style={[StyleSheet.absoluteFill, styles.tutorialOverlay]}>
           <View style={[StyleSheet.absoluteFill, { backgroundColor: t.color.background.neutral.overlay }]} />
           <View style={styles.sproutFrame}>
-            <TutorialSprout />
+            <SvgXml xml={treeGuidanceSvg} accessible={false} />
           </View>
           <View style={styles.tutorialHint}>
             <Hint content="Point at a tree" pointer={false} showIcon={false} />
           </View>
-        </View>
+        </FadingCameraGuidance>
       ) : null}
     </View>
   );
 }
 
-function CameraScreenContent({
-  onBack,
-  onDone,
-  selectedUser
-}: {
+type CaptureCameraProps = {
   onBack: () => void;
   onDone: () => void;
   selectedUser?: CaptureUser;
-}) {
+  selectedOrganization?: CaptureOrganization;
+};
+
+function CameraScreenContent({ onBack, onDone, selectedUser, selectedOrganization }: CaptureCameraProps) {
   const t = useTheme();
   const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   const cameraRef = useRef<CameraView | null>(null);
+  const mounted = useRef(true);
+  const working = useRef(false);
   const [permission, requestPermission] = useCameraPermissions();
   const [showTutorial, setShowTutorial] = useState(true);
   const [hasRequestedPermission, setHasRequestedPermission] = useState(false);
-  const [captured, setCaptured] = useState(false);
-  const [capturedUri, setCapturedUri] = useState<string | undefined>();
-  const [cameraError, setCameraError] = useState<string | undefined>();
+  const [photos, setPhotos] = useState<SavedCapture[]>([]);
+  const [pendingUri, setPendingUri] = useState<string>();
+  const [reviewSheetHeight, setReviewSheetHeight] = useState(0);
+  const [complete, setComplete] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [showEndHint, setShowEndHint] = useState(false);
+  const [cameraError, setCameraError] = useState<string>();
+  const [saveError, setSaveError] = useState<string>();
+  const [captureError, setCaptureError] = useState<string>();
   const stageWidth = Platform.OS === 'web' ? Math.min(width, 360) : width;
   const stageHeight = stageWidth * (4 / 3);
   const permissionGranted = permission?.granted ?? false;
   const permissionCanAskAgain = permission?.canAskAgain ?? true;
 
+  useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
   useEffect(() => {
-    const timer = setTimeout(() => setShowTutorial(false), 2500);
+    if (!showEndHint) return;
+    const timer = setTimeout(() => setShowEndHint(false), 2500);
     return () => clearTimeout(timer);
-  }, []);
-
+  }, [showEndHint]);
   useEffect(() => {
-    if (!permission || permission.granted || hasRequestedPermission || !permission.canAskAgain) {
-      return;
-    }
-
+    if (!permission || permission.granted || hasRequestedPermission || !permission.canAskAgain) return;
     setHasRequestedPermission(true);
-    requestPermission();
+    void requestPermission().catch(() => { if (mounted.current) setCaptureError('Unable to request camera access. Please try again.'); });
   }, [hasRequestedPermission, permission, requestPermission]);
 
   const handleRequestPermission = async () => {
-    if (permission?.canAskAgain === false) {
-      await Linking.openSettings();
-      return;
-    }
-
-    await requestPermission();
+    try {
+      if (permission?.canAskAgain === false) await Linking.openSettings();
+      else await requestPermission();
+    } catch { if (mounted.current) setCaptureError('Unable to open camera permissions. Please try again.'); }
   };
-
   const handleCapture = async () => {
-    if (!permissionGranted) {
-      await handleRequestPermission();
-      return;
-    }
-
+    if (working.current || pendingUri) return;
+    if (!permissionGranted) { await handleRequestPermission(); return; }
+    if (!ready) return;
+    working.current = true;
+    setBusy(true);
+    setCaptureError(undefined);
+    setShowEndHint(false);
     try {
       const photo = await cameraRef.current?.takePictureAsync({ quality: 0.75 });
-
-      if (photo?.uri) {
-        setCapturedUri(photo.uri);
-      }
-
-      setCaptured(true);
+      if (!photo?.uri) throw new Error('The camera did not return a photo. Please try again.');
+      if (!mounted.current) return;
+      setPendingUri(photo.uri);
+      setReady(false);
       setShowTutorial(false);
     } catch (error) {
-      setCameraError(error instanceof Error ? error.message : 'Unable to capture photo.');
+      if (mounted.current) setCaptureError(error instanceof Error ? error.message : 'Unable to capture photo.');
+    } finally {
+      working.current = false;
+      if (mounted.current) setBusy(false);
+    }
+  };
+  const discard = () => {
+    if (working.current) return;
+    setPendingUri(undefined);
+    setSaveError(undefined);
+    setReady(false);
+  };
+  const handleSave = async (note: string, organization?: CaptureOrganization) => {
+    if (!pendingUri || working.current) return;
+    working.current = true;
+    setBusy(true);
+    setSaveError(undefined);
+    try {
+      const saved = await saveCapture({ id: `${Date.now()}-${Math.random().toString(36).slice(2)}`, uri: pendingUri, note, organizationId: organization?.id, userId: selectedUser?.id, capturedAt: new Date().toISOString() });
+      if (!mounted.current) return;
+      setPhotos(current => [...current, saved]);
+      setPendingUri(undefined);
+      setReady(false);
+      if (photos.length === 0) setShowEndHint(true);
+    } catch {
+      if (mounted.current) setSaveError('Could not save this photo. Check available storage and try again.');
+    } finally {
+      working.current = false;
+      if (mounted.current) setBusy(false);
     }
   };
 
-  return (
-    <View style={[styles.cameraScreen, { backgroundColor: t.color.background.neutral.default }]}>
-      <View style={[styles.phoneSurface, Platform.OS === 'web' ? styles.webPhoneSurface : undefined]}>
-        <CaptureHeader doneDisabled={!captured} onBack={onBack} onDone={onDone} />
-        <View style={styles.cameraBody}>
-          <CameraStage
-            cameraRef={cameraRef}
-            capturedUri={capturedUri}
-            height={stageHeight}
-            mountError={cameraError}
-            onMountError={setCameraError}
-            onRequestPermission={handleRequestPermission}
-            permissionCanAskAgain={permissionCanAskAgain}
-            permissionGranted={permissionGranted}
-            showTutorial={showTutorial && permissionGranted && !capturedUri}
-            width={stageWidth}
-          />
-          <CameraCaptureButton onPress={handleCapture} />
-        </View>
-        <View style={styles.cameraFooter}>
-          <Pressable
-            accessibilityLabel="Capture info"
-            accessibilityRole="button"
-            style={[styles.infoButton, { backgroundColor: t.color.fill.neutral.default }]}
-          >
-            <Icon color="neutral.primary" name="information-outline" size="lg" />
-          </Pressable>
-          <Avatar size="md" source={selectedUser?.image ?? USERS[0].image} />
-        </View>
-      </View>
+  if (complete) return <ThemeProvider mode="light"><View style={[styles.cameraScreen, { backgroundColor: theme.color.background.neutral.default }]}>
+    <View style={[styles.phoneSurface, Platform.OS === 'web' && styles.webPhoneSurface, { paddingTop: Platform.OS === 'web' ? theme.space['0'] : insets.top }]}>
+      {Platform.OS === 'web' && <AndroidStatusHeader />}
+      <CaptureComplete count={photos.length} onDone={onDone} />
     </View>
-  );
+  </View></ThemeProvider>;
+
+  return <View style={[styles.cameraScreen, { backgroundColor: t.color.background.neutral.default }]}>
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={[styles.phoneSurface, Platform.OS === 'web' && styles.webPhoneSurface]}>
+      <CaptureHeader doneDisabled={photos.length === 0 || Boolean(pendingUri) || busy} onBack={() => { if (!working.current) { if (pendingUri) discard(); else onBack(); } }} onDone={() => { setShowEndHint(false); setComplete(true); }} />
+      {pendingUri ? <View style={styles.reviewLayout}>
+        <View style={[styles.reviewPreview, { bottom: reviewSheetHeight + theme.space['400'] }]}>
+          {reviewSheetHeight > 0 &&
+            <Image accessibilityLabel="Photo to save" source={{ uri: pendingUri }} resizeMode="contain" style={styles.reviewImage} />
+          }
+        </View>
+        <View style={styles.reviewSheet} onLayout={event => setReviewSheetHeight(event.nativeEvent.layout.height)}>
+          <ThemeProvider mode="light"><CaptureReview organizations={ORGANIZATIONS} initialOrganization={selectedOrganization} busy={busy} error={saveError} onDiscard={discard} onSave={(note, organization) => { void handleSave(note, organization); }} /></ThemeProvider>
+        </View>
+      </View> : <>
+        <View style={styles.cameraBody}>
+          <View>
+            <CameraStage cameraRef={cameraRef} onReady={() => setReady(true)} height={stageHeight} width={stageWidth} mountError={cameraError} onMountError={message => { setReady(false); setCameraError(message); }} onRequestPermission={() => { void handleRequestPermission(); }} permissionCanAskAgain={permissionCanAskAgain} permissionGranted={permissionGranted} showTutorial={showTutorial && permissionGranted && ready && !cameraError} onTutorialComplete={() => setShowTutorial(false)} />
+            {showEndHint && <View pointerEvents="none" style={styles.endHint}><Hint content="Tap to end" direction="up" alignment="center" /></View>}
+          </View>
+          <CameraCaptureButton disabled={busy || (permissionGranted && !ready)} onPress={() => { void handleCapture(); }} />
+          {captureError && <Text accessibilityRole="alert" style={[t.typography.paragraphS, { color: t.color.text.error.default }]}>{captureError}</Text>}
+        </View>
+        <View style={[styles.cameraFooter, { paddingBottom: Math.max(insets.bottom, theme.space['800']) }]}>
+          <ImageGroup images={photos.map(photo => ({ uri: photo.uri }))} />
+          <View style={styles.cameraActions}>
+            <IconButton icon="information-outline" variant="secondary" accessibilityLabel="Capture info" onPress={() => setShowTutorial(current => !current)} />
+            <Avatar size="md" source={selectedUser?.image ?? USERS[0].image} />
+          </View>
+        </View>
+      </>}
+    </KeyboardAvoidingView>
+  </View>;
 }
 
-export function CaptureCameraScreen(props: {
-  onBack: () => void;
-  onDone: () => void;
-  selectedUser?: CaptureUser;
-}) {
-  return (
-    <ThemeProvider mode="dark">
-      <CameraScreenContent {...props} />
-    </ThemeProvider>
-  );
+export function CaptureCameraScreen(props: CaptureCameraProps) {
+  return <ThemeProvider mode="dark"><CameraScreenContent {...props} /></ThemeProvider>;
 }
 
 const styles = StyleSheet.create({
@@ -577,6 +570,7 @@ const styles = StyleSheet.create({
     top: 44
   },
   selectionContent: {
+    paddingBottom: theme.space['800'],
     gap: theme.space['600'],
     paddingHorizontal: theme.layout.marginX,
     paddingTop: theme.space['0']
@@ -598,6 +592,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   cameraBody: {
+    marginTop: theme.space['400'],
     alignItems: 'center',
     gap: theme.space['400']
   },
@@ -638,11 +633,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     gap: theme.space['300'],
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     marginTop: 'auto',
     paddingBottom: theme.space['800'],
     paddingHorizontal: theme.layout.marginX
   },
+  reviewLayout: { flex: 1, minHeight: theme.size['0'], overflow: 'hidden' },
+  reviewSheet: { position: 'absolute', bottom: theme.space['0'], left: theme.space['0'], right: theme.space['0'], maxHeight: '100%' },
+  reviewPreview: { position: 'absolute', top: theme.space['400'], left: theme.layout.marginX, right: theme.layout.marginX, overflow: 'hidden' },
+  reviewImage: { ...StyleSheet.absoluteFill, borderRadius: theme.radius.md },
+  cameraActions: { flexDirection: 'row', alignItems: 'center', gap: theme.space['300'] },
+  endHint: { position: 'absolute', top: theme.space['100'], right: theme.layout.marginX },
   infoButton: {
     alignItems: 'center',
     borderRadius: theme.radius.full,

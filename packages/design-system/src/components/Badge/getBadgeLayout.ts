@@ -44,8 +44,8 @@ export function getBadgeLayout(type: BadgeType, size: BadgeSize): BadgeLayout {
     };
   }
 
-  const height = size === 'lg' ? theme.icon.md : theme.space['400'];
-  const minWidth = size === 'lg' ? theme.icon.md : theme.space['400'];
+  const height = size === 'lg' ? theme.size['600'] : theme.size['500'];
+  const minWidth = size === 'lg' ? theme.size['600'] : theme.size['500'];
   const paddingHorizontal =
     size === 'lg'
       ? theme.space['100']

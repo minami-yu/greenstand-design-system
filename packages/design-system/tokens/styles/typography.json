@@ -146,7 +146,7 @@
     "$type": "typography",
     "$value": {
       "fontFamily": "{family.body}",
-      "fontWeight": "{weight.semibold}",
+      "fontWeight": "{weight.medium}",
       "lineHeight": 1.1,
       "fontSize": "{size.numeric-l}",
       "letterSpacing": "0px",

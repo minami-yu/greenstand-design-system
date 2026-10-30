@@ -1,0 +1,25 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './ImageGroup.stories';
+
+<Meta of={Stories} />
+
+# ImageGroup
+
+A compact summary of saved images. Import `ImageGroup` from `@greenstand/design-system` and pass an `images` array.
+
+<Canvas of={Stories.Single} />
+
+## Variants and states
+Displays up to three overlapping thumbnails. Additional images appear as a `+N` count; an empty array renders no thumbnails.
+
+<Canvas of={Stories.Stack} />
+<Canvas of={Stories.Overflow} />
+<Canvas of={Stories.Empty} />
+
+## Props
+<ArgTypes of={Stories} />
+
+## Guidelines
+Use actual captured images in consistent order. This component summarizes a collection and is not itself a gallery button. The accessible label announces the total number of saved photos; see Accessibility/Overview.
+
+[Figma stacked previews](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=15906-75168)

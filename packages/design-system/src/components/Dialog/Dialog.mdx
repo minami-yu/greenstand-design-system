@@ -1,0 +1,32 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './Dialog.stories';
+
+<Meta of={Stories} />
+
+# Dialog
+
+A compact surface for a focused message or decision. Import `Dialog` from `@greenstand/design-system`.
+
+<Canvas of={Stories.Playground} />
+
+## Usage
+Pass `title` and `body` for a standard message. Put illustrations, composed content, and labeled Button actions in `children`. With custom content, omit title/body to avoid duplicate headings.
+
+Use `modal`, controlled `visible`, and `onClose` to present above the current screen. The default non-modal variant is a card for composition. `DialogOverlay` is the shared modal host for custom placement, including PointerDialog; it accepts visible, onClose, label, and children.
+
+<Canvas of={Stories.Interactive} />
+
+## Variants and states
+Dialogs fade in using the shared slow duration and deceleration tokens when shown. Reduce Motion skips the transition. Hide and reopen the interactive example to replay the entrance; changing ordinary content does not restart it.
+
+`showClose` displays a shared secondary IconButton in size xs (16 px icon, 28 px circle, 44 px touch target) only with an `onClose` handler. `visible={false}` hides the dialog. The card follows light/dark theme colors and uses the approved dialog-width token with a responsive maximum width.
+
+<Canvas of={Stories.WithClose} />
+
+## Props
+<ArgTypes of={Stories} />
+
+## Guidelines
+Keep the message focused and provide an explicit action. Modal content scrolls on short screens. Backdrop taps do not dismiss; Back/Escape invoke onClose. See Accessibility/Overview for modal focus and target guidance.
+
+[Figma Dialog](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=13396-15406)

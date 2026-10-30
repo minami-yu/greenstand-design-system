@@ -34,11 +34,11 @@
   "size": {
     "numeric-l": {
       "$type": "number",
-      "$value": 56
+      "$value": 48
     },
     "label-s": {
       "$type": "number",
-      "$value": 14
+      "$value": 13
     },
     "label-m": {
       "$type": "number",
@@ -54,15 +54,15 @@
     },
     "heading-s": {
       "$type": "number",
-      "$value": 18
+      "$value": 20
     },
     "paragraph-s": {
       "$type": "number",
-      "$value": 14
+      "$value": 13
     },
     "heading-m": {
       "$type": "number",
-      "$value": 24
+      "$value": 26
     },
     "numeric-s": {
       "$type": "number",

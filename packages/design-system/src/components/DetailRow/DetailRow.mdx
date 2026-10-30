@@ -1,0 +1,32 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as Stories from './DetailRow.stories';
+
+<Meta of={Stories} />
+
+# DetailRow
+
+A read-only label and value row for overview and metadata sections. The label hugs its content; the value uses the remaining width and aligns right.
+
+<Canvas of={Stories.Playground} />
+
+## Usage
+
+Import `DetailRow` from `@greenstand/design-system`. Pass a visible `label` and the value as children. Text values use secondary paragraph typography. Custom children can compose avatars, text, or status indicators and own their typography and color.
+
+## Variants and states
+
+Rows are read-only, with an optional bottom divider. They have no selected or disabled state. Use the playground controls to edit the label and value and toggle the divider.
+
+<Canvas of={Stories.WithoutDivider} />
+<Canvas of={Stories.CustomValue} />
+<Canvas of={Stories.LongValue} />
+
+## Props
+
+<ArgTypes of={Stories} />
+
+## Design guidelines
+
+Keep labels concise and let long values wrap. Group related rows under a section heading. Hide the last divider only when the design calls for it. Custom value content should shrink within its slot without hiding meaningful text. See Accessibility/Overview for reading order and decorative avatars.
+
+[Figma DetailRow](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/?node-id=13505-19413)

@@ -3,7 +3,7 @@ import { Image, Platform, Pressable, StyleSheet, Text, View, type ImageSourcePro
 import { theme } from '../../theme/tokens';
 import { useTheme } from '../../theme/useTheme';
 import { Avatar } from '../Avatar/Avatar';
-import { Badge } from '../Badge/Badge';
+import { Badge, type BadgeProps } from '../Badge/Badge';
 import { CheckInput } from '../CheckInput/CheckInput';
 import { Divider } from '../Divider/Divider';
 import { Icon } from '../Icon/Icon';
@@ -16,6 +16,7 @@ export type ListItemLeadingElement = 'none' | 'icon' | 'avatar' | 'thumbnail';
 export type ListItemTrailingElement = 'none' | 'icon' | 'checkInput' | 'radioButton' | 'switch' | 'text' | 'badge' | 'badgeAndText';
 export type ListItemProps = Omit<PressableProps, 'children' | 'style' | 'onPress'> & {
   label: string;
+  labelNumberOfLines?: number;
   labelAccessory?: ReactNode;
   size?: ListItemSize;
   tone?: 'default' | 'destructive';
@@ -33,6 +34,7 @@ export type ListItemProps = Omit<PressableProps, 'children' | 'style' | 'onPress
   trailingIcon?: IconName;
   caption?: string;
   badgeValue?: string;
+  badgeType?: BadgeProps['type'];
   selected?: boolean;
   onSelectedChange?: (selected: boolean) => void;
   onPress?: PressableProps['onPress'];
@@ -41,10 +43,10 @@ export type ListItemProps = Omit<PressableProps, 'children' | 'style' | 'onPress
 
 /** Figma ListItem: inset divider, optional artwork, and one trailing element. */
 export function ListItem({
-  label, labelAccessory, size = 'lg', tone = 'default', paragraph, showParagraph = true, showDivider = true,
+  label, labelNumberOfLines, labelAccessory, size = 'lg', tone = 'default', paragraph, showParagraph = true, showDivider = true,
   leadingElement = 'none', leadingIcon = 'heart-outline', avatarSource, avatarInitial, avatarSize,
   thumbnailSource, thumbnailImageStyle, trailingElement = 'none', trailingIcon = 'chevron-right',
-  caption = 'Caption', badgeValue = '1', selected = false, onSelectedChange,
+  caption = 'Caption', badgeValue = '1', badgeType = 'label', selected = false, onSelectedChange,
   onPress, disabled = false, style, accessibilityLabel, accessibilityState, ...props
 }: ListItemProps) {
   const t = useTheme();
@@ -52,7 +54,7 @@ export function ListItem({
   const large = size === 'lg' || leadingElement === 'thumbnail';
   const control = trailingElement === 'checkInput' || trailingElement === 'radioButton' || trailingElement === 'switch';
   const interactive = control || Boolean(onPress);
-  const height = large ? theme.size['1600'] : theme.size['1200'];
+  const height = large ? theme.size['1600'] : theme.size['1400'];
   const description = large && showParagraph ? paragraph : undefined;
   const role = control ? (trailingElement === 'checkInput' ? 'checkbox' : trailingElement === 'radioButton' ? 'radio' : 'switch') : 'button';
   const requestSelection = () => onSelectedChange?.(trailingElement === 'radioButton' ? true : !selected);
@@ -85,7 +87,7 @@ export function ListItem({
       trailing = <Text style={[captionStyle, styles.caption]}>{caption}</Text>;
       break;
     case 'badge':
-      trailing = <Badge size="lg" value={badgeValue} />;
+      trailing = <Badge size="lg" type={badgeType} value={badgeValue} style={badgeType === 'dot' ? styles.notificationDot : undefined} />;
       break;
     case 'badgeAndText':
       trailing = <View style={[styles.badgeText, { gap: large ? theme.space['200'] : theme.space['100'] }]}>
@@ -98,17 +100,17 @@ export function ListItem({
   const content = <>
     {leadingElement !== 'none' && <View aria-hidden accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={[
       styles.artwork,
-      { paddingRight: large ? theme.space['300'] : theme.space['200'] },
+      { paddingRight: theme.space['300'] },
       leadingElement === 'icon' && { paddingLeft: theme.space['100'] }
     ]}>
-      {leadingElement === 'icon' && <Icon name={leadingIcon} size="md" color={disabled ? 'neutral.disabled' : tone === 'destructive' ? 'error.default' : 'neutral.primary'} />}
+      {leadingElement === 'icon' && <Icon name={leadingIcon} size={large ? 'md' : 'lg'} color={disabled ? 'neutral.disabled' : tone === 'destructive' ? 'error.default' : 'neutral.primary'} />}
       {leadingElement === 'avatar' && <Avatar source={avatarSource} initial={avatarInitial ?? label} size={avatarSize ?? (large ? 'md' : 'sm')} />}
       {leadingElement === 'thumbnail' && <View style={[styles.thumbnail, { overflow: 'hidden' }]}><Image source={thumbnailSource} resizeMode={thumbnailImageStyle ? "stretch" : "cover"} style={[{ width: '100%', height: '100%' }, thumbnailImageStyle]} /></View>}
     </View>}
     <View style={styles.contentRow}>
       <View style={[styles.content, { minHeight: height }, trailingElement === 'none' && styles.noTrailing]}>
         <View style={[styles.text, { gap: large ? theme.space['050'] : theme.space['0'] }]}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.space['100'] }}><Text style={[t.typography.labelM, { color: disabled ? t.color.text.neutral.disabled : tone === 'destructive' ? t.color.text.error.default : t.color.text.neutral.primary }]}>{label}</Text>{labelAccessory}</View>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: theme.space['100'] }}><Text numberOfLines={labelNumberOfLines} style={[t.typography.labelM, labelNumberOfLines ? { flexShrink: 1 } : undefined, { color: disabled ? t.color.text.neutral.disabled : tone === 'destructive' ? t.color.text.error.default : t.color.text.neutral.primary }]}>{label}</Text>{labelAccessory}</View>
           {description ? <Text style={[t.typography.paragraphS, { color: disabled ? t.color.text.neutral.disabled : t.color.text.neutral.secondary }]}>{description}</Text> : null}
         </View>
         {trailing && <View
@@ -141,12 +143,13 @@ export function ListItem({
       if (control) requestSelection();
       else onPress?.(event);
     }}
-    style={({ pressed }) => [styles.root, pressed && !disabled && { backgroundColor: t.color.fill.neutral.subtleActive }, style]}>
+    style={[styles.root, style]}>
     {content}
   </Pressable>;
 }
 
 const styles = StyleSheet.create({
+  notificationDot: { width: theme.size['200'], minWidth: theme.size['200'], height: theme.size['200'] },
   root: { flexDirection: 'row', alignItems: 'center', alignSelf: 'stretch' },
   artwork: { flexShrink: 0, justifyContent: 'center', alignSelf: 'stretch' },
   thumbnail: { width: theme.size['1200'], height: theme.size['1200'], borderRadius: theme.radius.sm },

@@ -8,6 +8,7 @@ const meta = {
   title: 'Components/TextField', component: TextField,
   args: { label: 'Name', placeholder: 'First name', clearable: true },
   argTypes: {
+    leadingIcon: { description: 'Optional leading icon indicating the input purpose.', control: false, table: { type: { summary: 'IconName' } } },
     label: { description: 'Visible input label.', control: 'text', table: { type: { summary: 'string' } } },
     value: { description: 'Controlled input value.', control: 'text', table: { type: { summary: 'string' } } },
     placeholder: { description: 'Hint displayed when empty.', control: 'text', table: { type: { summary: 'string' } } },
@@ -15,7 +16,7 @@ const meta = {
     editable: { description: 'Allow changes to the value.', control: 'boolean', table: { type: { summary: 'boolean' } } },
     onChangeText: { description: 'Called with each new value, including clearing.', control: false, table: { type: { summary: '(value: string) => void' } } }
   },
-  parameters: storybookDocsArgTypesInclude(['label', 'value', 'placeholder', 'clearable', 'editable', 'onChangeText']),
+  parameters: storybookDocsArgTypesInclude(['leadingIcon', 'label', 'value', 'placeholder', 'clearable', 'editable', 'onChangeText']),
   decorators: [(Story) => <View style={{ padding: theme.space['400'], width: '100%' }}><Story /></View>]
 } satisfies Meta<typeof TextField>;
 export default meta;
@@ -28,3 +29,5 @@ function NameFields() {
   return <View style={{ gap: theme.space['400'] }}><TextField label="Name" accessibilityLabel="First name" value={first} onChangeText={setFirst} /><TextField accessibilityLabel="Last name" value={last} onChangeText={setLast} /></View>;
 }
 export const NameForm: Story = { render: () => <NameFields /> };
+
+export const Email: Story = { args: { label: 'Email', placeholder: 'Email address', leadingIcon: 'email-outline', keyboardType: 'email-address' } };

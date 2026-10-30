@@ -222,6 +222,7 @@ const TYPOGRAPHY_ROOT_KEYS = new Set(['family', 'weight', 'paragraphIndent']);
 
 /** Figma exports component sizing (`size.100`, `size.1600`) and font sizes (`size.label-s`) under the same group name. */
 function isComponentSizeKey(key) {
+  if (['dialogWidth', 'onboardingIllustration', 'dialogPointerWidth', 'dialogPointerHeight'].includes(key)) return true;
   return /^[0-9]+$/.test(key);
 }
 
@@ -305,7 +306,8 @@ const FONT_VARIANTS = {
     700: 'Inter_700Bold'
   },
   Montserrat: {
-    700: 'Montserrat_700Bold'
+    700: 'Montserrat_700Bold',
+    600: 'Montserrat_600SemiBold'
   }
 };
 
@@ -463,13 +465,13 @@ function normalizeElevationPlatform(elevationGroup, sourceTree) {
           {
             figma: Array.isArray(figmaLayers)
               ? figmaLayers.map((layer) => ({
-                  blur: layer.blur ?? 0,
-                  color: resolveElevationScalar(layer.color, sourceTree),
-                  offsetX: layer.offsetX ?? 0,
-                  offsetY: layer.offsetY ?? 0,
-                  opacity: layer.opacity ?? 1,
-                  spread: layer.spread ?? 0
-                }))
+                blur: layer.blur ?? 0,
+                color: resolveElevationScalar(layer.color, sourceTree),
+                offsetX: layer.offsetX ?? 0,
+                offsetY: layer.offsetY ?? 0,
+                opacity: layer.opacity ?? 1,
+                spread: layer.spread ?? 0
+              }))
               : [],
             ios: {
               shadowColor: resolveElevationScalar(ios.shadowColor, sourceTree) ?? 'transparent',

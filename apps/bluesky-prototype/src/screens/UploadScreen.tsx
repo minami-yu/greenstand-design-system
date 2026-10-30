@@ -20,9 +20,9 @@ export function UploadScreen({
   const insets = useSafeAreaInsets();
 
   return <PrototypeScreenFrame>
-    <TopNavigation leftVariant={{ type: 'back', onPress: onBack }} centerVariant={{ type: 'label', label: 'Settings' }} />
-    <ScrollView contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + theme.space['400'] }]}>
-      <Text accessibilityRole="header" style={[t.typography.headingM, { color: t.color.text.neutral.primary }]}>Upload</Text>
+    <TopNavigation leftVariant={{ type: 'back', onPress: onBack }} centerVariant={{ type: 'label', label: 'Upload' }} />
+    <ScrollView contentContainerStyle={[styles.content, { paddingTop: theme.space['400'], paddingBottom: insets.bottom + theme.space['400'] }]}>
+      {/* <Text accessibilityRole="header" style={[t.typography.headingM, { color: t.color.text.neutral.primary }]}>Upload</Text> */}
       <ListItem
         label="Automatically upload"
         paragraph="Upload photos automatically when internet is available."

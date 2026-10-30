@@ -5,7 +5,7 @@ import {
   StorybookVariantCell,
   StorybookVariantRow
 } from '../../storybook/ui';
-import { storybookDocsArgTypesInclude } from '../../storybook/storybookArgTypes';
+import { storybookDocsArgTypesInclude, storybookQuotedUnion } from '../../storybook/storybookArgTypes';
 import { storybookPlaygroundParameters } from '../../storybook/storybookPageParameters';
 import { AvatarCard } from './AvatarCard';
 
@@ -15,9 +15,20 @@ const meta = {
   args: {
     label: 'Label',
     outline: true,
-    selected: false
+    selected: false,
+    visualElements: 'avatar',
+    icon: 'add'
   },
   argTypes: {
+    visualElements: {
+      control: 'select', options: ['avatar', 'button'],
+      description: 'Photo avatar or circular icon action, matching Figma visualElements.',
+      table: { type: { summary: storybookQuotedUnion(['avatar', 'button']) } }
+    },
+    icon: {
+      control: 'text', description: 'Icon shown in the button visual. Defaults to add.',
+      table: { type: { summary: 'IconName' } }
+    },
     label: {
       control: 'text',
       description: 'Visible card label.',
@@ -39,7 +50,7 @@ const meta = {
       table: { type: { summary: 'ImageSourcePropType' } }
     }
   },
-  parameters: storybookDocsArgTypesInclude(['label', 'outline', 'selected', 'source'])
+  parameters: storybookDocsArgTypesInclude(['label', 'visualElements', 'icon', 'outline', 'selected', 'source'])
 } satisfies Meta<typeof AvatarCard>;
 
 export default meta;
@@ -78,7 +89,18 @@ export const Variants: Story = {
             <AvatarCard label="Label" outline={false} selected />
           </StorybookVariantCell>
         </StorybookVariantRow>
+        <StorybookVariantRow gap="lg">
+          <StorybookVariantCell label="Button outline" labelPosition="below">
+            <AvatarCard label="Add new user" visualElements="button" />
+          </StorybookVariantCell>
+          <StorybookVariantCell label="Button no outline" labelPosition="below">
+            <AvatarCard label="Add new user" visualElements="button" outline={false} />
+          </StorybookVariantCell>
+        </StorybookVariantRow>
       </StorybookVariantCatalog>
     </StorybookStoryShell>
   )
 };
+
+export const AddUser: Story = { args: { label: 'Add new user', visualElements: 'button' } };
+export const WrappedLabel: Story = { args: { label: 'Oluwatobiloba Adeyemi' } };

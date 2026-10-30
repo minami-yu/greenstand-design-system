@@ -136,11 +136,11 @@ export function getButtonLayout(size: ButtonSize, hasIcon: boolean) {
       ? theme.size[1200]
       : theme.size[900],
     minWidth: theme.size[1200],
-    paddingHorizontal: isMd ? theme.space['400'] : theme.space['300'],
+    paddingHorizontal: isMd ? theme.space['500'] : theme.space['400'],
     paddingVertical: isMd ? theme.space['300'] : theme.space['0'],
     gap: hasIcon ? (isMd ? theme.space['200'] : theme.space['100']) : theme.space['0'],
     iconSize: isMd ? theme.icon.md : theme.typography.labelM.fontSize,
-    borderRadius: theme.radius.md
+    borderRadius: theme.radius.full
   };
 }
 

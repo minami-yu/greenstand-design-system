@@ -18,6 +18,7 @@ Import `Chip` from `@greenstand/design-system`. Keep selection in the caller and
 ```tsx
 <Chip
   label="Favorites"
+  size="lg"
   selected={selected}
   trailingElements="none"
   onPress={() => setSelected(value => !value)}
@@ -28,11 +29,17 @@ Import `Chip` from `@greenstand/design-system`. Keep selection in the caller and
 <ArgTypes of={ChipStories} />
 
 ## Variants and states
-Figma defines icon, avatar, and text-only chips with optional arrows, each in default and selected states, plus a default avatar chip with a close indicator. The API also permits combining these slots. Selection adds the brand subtle fill and brand border without shifting content. Disabled chips retain their appearance and suppress interaction.
+Figma defines icon, avatar, and text-only chips with optional arrows, each in default and selected states, plus a default avatar chip with a close indicator. The API also permits combining these slots. Unselected chips use the neutral surface fill and neutral default outline. Selection adds the brand subtle fill and brand border without shifting content. Disabled chips retain their appearance and suppress interaction.
 
 Avatar images come from `source`; these examples use initials to demonstrate the fallback. Labels use `labelS`, leading and arrow icons use `icon.sm`, and close indicators use `icon.md`.
 
 <Canvas of={ChipStories.Variants} />
+
+Use `size="md"` for compact filter bars and `size="lg"` for filter sheet choices. Medium chips use an `xs` Avatar (24 px); large chips use an `sm` Avatar (32 px).
+
+Large icon and text-only chips use `space.150` (6 px) between elements. Their leading and arrow icons use `icon.sm` (18 px). Avatar chips retain `space.200` (8 px) between avatar and label, `space.100` (4 px) before an arrow, and `space.200` before a close icon. Close icons use `icon.md` (20 px).
+
+<Canvas of={ChipStories.Sizes} />
 
 ## Interactive examples
 <Canvas of={ChipStories.Selection} />
@@ -41,4 +48,4 @@ Avatar images come from `source`; these examples use initials to demonstrate the
 ## Guidelines
 Use short, meaningful labels. Keep chips grouped by purpose and allow groups to wrap on narrow screens. Use the selected state for persistent choices. Supply a meaningful avatar source or initial when representing a person.
 
-The pill uses `size.800` with a `size.1100` minimum interaction area. Typography follows the active device class, and the pill can grow for larger text. See **Accessibility/Overview** for naming, roles, and touch target guidance.
+The pill uses `size.800` (md) or `size.1000` (lg), with a `size.1100` minimum interaction area. Large icon chips use `space.400` leading padding; large avatar chips use `space.150`. Typography follows the active device class, and the pill can grow for larger text. See **Accessibility/Overview** for naming, roles, and touch target guidance.

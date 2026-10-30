@@ -1,0 +1,42 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as ToggleButtonStories from './ToggleButton.stories';
+
+<Meta of={ToggleButtonStories} />
+
+# ToggleButton
+
+## Overview
+ToggleButton represents an icon action with a persistent selected state and an optional count badge. It composes the shared Icon and Badge using mode-aware colors.
+
+[View ToggleButton in Figma](https://www.figma.com/design/hyfPWEHHgiH3YE3WWc6Cvn/Yuri-New-Roots-Design-System-1.0?node-id=15630-114466)
+
+<Canvas of={ToggleButtonStories.Playground} />
+
+## Usage
+Import `ToggleButton` from `@greenstand/design-system`. The caller controls selection and handles `onPress`. For filters, derive selection and count from applied choices; pressing opens the filter sheet.
+
+```tsx
+<ToggleButton
+  icon="filter-outline"
+  accessibilityLabel={`Filter trees, ${filterCount} active filters`}
+  selected={filterCount > 0}
+  badgeValue={String(filterCount)}
+  onPress={openFilters}
+/>
+```
+
+## Props
+<ArgTypes of={ToggleButtonStories} />
+
+## Variants and states
+The `sm` variant uses a 36 px circle inside a 48 px touch target. Unselected controls use neutral surface fill and default outline; selected controls use brand subtle fill and brand default outline. The optional brand badge is visible only when selected. `selectedIcon` overrides the icon for selection. Disabled controls suppress interaction and retain their visual state.
+
+The icon uses the existing `icon.sm` token (16 px), the agreed mapping for the untokenized 18 px Figma icon.
+
+<Canvas of={ToggleButtonStories.States} />
+
+## Interactive example
+<Canvas of={ToggleButtonStories.Selection} />
+
+## Guidelines
+Use a recognizable icon and keep badge counts short. Set `badge={false}` for a simple toggle without a count. Keep applied filter state distinct from temporary sheet edits. Supply a descriptive accessible label, including the count when it conveys useful information. See **Accessibility/Overview** for naming and state guidance.

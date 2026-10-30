@@ -6,16 +6,23 @@ import { useTheme } from '../../theme/useTheme';
 
 export type IconButtonVariant = 'primary' | 'secondary' | 'subtle' | 'surface';
 
+export type IconButtonSize = 'xs' | 'sm' | 'md';
+
 export type IconButtonProps = Omit<PressableProps, 'children'> & {
   accessibilityLabel: string;
   icon: IconName;
+  size?: IconButtonSize;
   variant?: IconButtonVariant;
 };
 
-export function IconButton({ disabled = false, icon, style, variant = 'surface', ...props }: IconButtonProps) {
+export function IconButton({ disabled = false, icon, size, style, variant = 'surface', ...props }: IconButtonProps) {
   const t = useTheme();
   const primary = variant === 'primary';
   const compact = variant === 'subtle';
+  const resolvedSize = size ?? (compact ? 'sm' : 'md');
+  const surfaceSize = theme.size[resolvedSize === 'xs' ? '700' : resolvedSize === 'sm' ? '1000' : '1200'];
+  // Preserve the repository minimum touch target even for Figma's 40 px xs frame.
+  const targetSize = theme.size[resolvedSize === 'xs' ? '1100' : '1200'];
   const secondary = variant === 'secondary' || compact;
 
   return (
@@ -27,9 +34,9 @@ export function IconButton({ disabled = false, icon, style, variant = 'surface',
       style={state => [
         {
           alignItems: 'center',
-          height: theme.size['1200'],
+          height: targetSize,
           justifyContent: 'center',
-          width: theme.size['1200']
+          width: targetSize
         },
         typeof style === 'function' ? style(state) : style
       ]}
@@ -43,19 +50,19 @@ export function IconButton({ disabled = false, icon, style, variant = 'surface',
               : primary
                 ? pressed ? t.color.fill.brand.defaultActive : t.color.fill.brand.default
                 : pressed
-                ? secondary
-                  ? t.color.fill.neutral.defaultActive
-                  : t.color.fill.neutral.subtleActive
-                : secondary
-                  ? t.color.fill.neutral.default
-                  : t.color.fill.neutral.surface,
+                  ? secondary
+                    ? t.color.fill.neutral.defaultActive
+                    : t.color.fill.neutral.subtleActive
+                  : secondary
+                    ? t.color.fill.neutral.default
+                    : t.color.fill.neutral.surface,
             borderRadius: theme.radius.full,
-            height: theme.size[compact ? '900' : '1200'],
+            height: surfaceSize,
             justifyContent: 'center',
-            width: theme.size[compact ? '900' : '1200']
+            width: surfaceSize
           }}
         >
-          <Icon name={icon} size={compact ? 'sm' : 'lg'} color={disabled ? 'neutral.disabled' : primary ? t.color.text.brand.onBrand : 'neutral.primary'} />
+          <Icon name={icon} size={resolvedSize === 'md' ? 'lg' : resolvedSize} color={disabled ? 'neutral.disabled' : primary ? t.color.text.brand.onBrand : 'neutral.primary'} />
         </View>
       )}
     </Pressable>

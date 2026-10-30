@@ -1,6 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ComponentRef } from 'react';
+import { NotificationsSheet } from '../components/NotificationsSheet';
 import { PrototypeScreenFrame } from '../components/PrototypeScreenFrame';
-import { TreeDetailContent } from './TreeDetailContent';
+import type { OnboardingAnchor } from '../components/onboarding/HomeOnboarding';
+import { TreeDetailScreen } from './TreeDetailScreen';
 import {
   Image,
   Pressable,
@@ -8,11 +10,16 @@ import {
   StyleSheet,
   Text,
   View,
+  useWindowDimensions,
+  type ImageStyle,
   type ImageSourcePropType
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
+  Banner,
+  Card,
   Button,
+  ProgressBar,
   BottomSheetModal,
   Icon,
   TreeTag,
@@ -36,6 +43,15 @@ const UPLOAD_IMAGES: ImageSourcePropType[] = [
   treeImage5
 ];
 
+// Preserve the Figma image-fill crops for the existing photo assets.
+const PHOTO_CROPS: ImageStyle[] = [
+  { width: '102.78%', height: '137.66%', left: '-2.78%', top: '-11.44%' },
+  { width: '168.78%', height: '168.78%', left: '-40.4%', top: '-38.24%' },
+  { width: '100.69%', height: '150.77%', left: '-0.75%', top: '-36.44%' },
+  { width: '100%', height: '150%', left: '0.02%', top: '-35.17%' },
+  { width: '150.4%', height: '99.98%', left: '-20.06%', top: '0%' }
+];
+
 const QUEUED_IMAGES = [
   ...UPLOAD_IMAGES,
   require('../../assets/home/raw_image_2.png'),
@@ -48,12 +64,19 @@ const QUEUED_IMAGES = [
 ];
 
 type HomeScreenProps = {
+  offline?: boolean;
+  emptyQueue?: boolean;
+  onboarding?: boolean;
+  onUploadAnchor?: (anchor: OnboardingAnchor) => void;
   bottomInset?: number;
   uploaded?: boolean;
   onUpload?: () => void;
+  onStopUpload?: () => void;
+  uploadProgress?: number;
+  uploading?: boolean;
 };
 
-function AppHeader() {
+function AppHeader({ onNotifications }: { onNotifications: () => void }) {
   return (
     <TopNavigation
       leftVariant={{
@@ -63,20 +86,21 @@ function AppHeader() {
       }}
       rightVariant={{
         type: 'notification',
-        accessibilityLabel: 'Notifications',
+        accessibilityLabel: 'Notifications, 3 unread',
+        onPress: onNotifications,
         badgeValue: '3'
       }}
     />
   );
 }
 
-function StatLabel({ icon, label }: { icon: IconName; label: string }) {
+function StatLabel({ icon, label, subtle = false }: { icon: IconName; label: string; subtle?: boolean }) {
   const t = useTheme();
 
   return (
     <View style={styles.statLabel}>
-      <Icon color="neutral.primary" name={icon} size="sm" />
-      <Text style={[t.typography.labelMStrong, { color: t.color.text.neutral.primary }]}>
+      <Icon color={subtle ? "neutral.secondary" : "neutral.primary"} name={icon} size="sm" />
+      <Text style={[t.typography.labelM, { color: subtle ? t.color.text.neutral.secondary : t.color.text.neutral.primary }]}>
         {label}
       </Text>
     </View>
@@ -87,15 +111,19 @@ function HeroArea() {
   const t = useTheme();
 
   return (
-    <View style={[styles.hero, { backgroundColor: t.color.fill.brand.subtle }]}>
-      <View style={styles.heroCopy}>
-        <StatLabel icon="check-circle-outline" label="Verified trees" />
-        <Text style={[t.typography.numericL, styles.heroNumber, { color: t.color.text.neutral.primary }]}>
-          153
-        </Text>
+    <Card>
+      <View style={styles.hero}>
+        <View style={styles.heroCopy}>
+          <Text style={[t.typography.numericL, styles.heroNumber, { color: t.color.text.neutral.primary }]}>
+            153
+          </Text>
+          <StatLabel icon="check-circle-outline" label="Verified trees" subtle />
+        </View>
+        <View style={styles.treeArtwork}>
+          <TreeTag size="lg" style={styles.treeScale} />
+        </View>
       </View>
-      <TreeTag size="lg" accessibilityLabel="Verified tree" />
-    </View>
+    </Card>
   );
 }
 
@@ -114,7 +142,7 @@ function ImageTile({
     <Pressable style={styles.imageTile} onPress={onPress} disabled={!onPress}
       accessibilityRole={onPress ? 'button' : undefined}
       accessibilityLabel={onPress ? (overflowCount ? 'View all 12 photos waiting to upload' : 'View tree details') : undefined}>
-      <Image source={image} style={styles.imageTileImage} />
+      <Image source={image} resizeMode="stretch" style={[styles.imageTileImage, PHOTO_CROPS[UPLOAD_IMAGES.indexOf(image)]]} />
       {overflowCount ? (
         <View style={[styles.imageOverlay, { backgroundColor: t.color.background.neutral.overlay }]}>
           <Text style={[t.typography.numericS, { color: t.color.text.neutral.inverse }]}>
@@ -126,58 +154,84 @@ function ImageTile({
   );
 }
 
-export function UploadQueue({ uploaded = false, onUpload }: { uploaded?: boolean; onUpload?: () => void }) {
+export function UploadQueue({ offline = false, emptyQueue = false, uploaded = false, onUpload, onStopUpload, uploadProgress = 0, uploading = false, onUploadAnchor }: HomeScreenProps) {
+  const uploadButtonRef = useRef<ComponentRef<typeof View>>(null);
+  const viewport = useWindowDimensions();
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => uploadButtonRef.current?.measureInWindow((x, y, width, height) => onUploadAnchor?.({ x, y, width, height })));
+    return () => cancelAnimationFrame(frame);
+  }, [viewport.width, viewport.height, onUploadAnchor]);
   const [queueVisible, setQueueVisible] = useState(false);
   const [selectedTree, setSelectedTree] = useState<number | null>(null);
   const [gridWidth, setGridWidth] = useState(0);
   const t = useTheme();
-  const visibleImages = useMemo(() => UPLOAD_IMAGES.slice(0, 5), []);
+  const progress = Number.isFinite(uploadProgress) ? Math.max(0, Math.min(1, uploadProgress)) : 0;
+  const uploadedCount = Math.floor(progress * 12);
+  const remainingCount = uploaded || emptyQueue ? 0 : 12 - uploadedCount;
+  const visibleImages = useMemo(() => QUEUED_IMAGES.slice(uploadedCount, uploadedCount + 5), [uploadedCount]);
+
+  if (uploading && !offline) return <Card style={styles.uploadQueue}>
+    <View style={styles.uploadHeader}>
+      <StatLabel icon="progress-upload" label="Uploading" />
+      <View style={styles.progressDetails}>
+        <Text style={[t.typography.labelM, { color: t.color.text.neutral.secondary }]}>{uploadedCount} of 12 photos uploaded</Text>
+        <ProgressBar accessibilityLabel="Photo upload progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress * 100} aria-valuetext={`${uploadedCount} of 12 photos uploaded`} value={progress * 100} accessibilityValue={{ text: `${uploadedCount} of 12 photos uploaded` }} />
+      </View>
+    </View>
+    <View style={styles.actionArea}><Button label="Stop" leadingIcon="close" variant="secondary" onPress={onStopUpload} style={styles.stopButton} /></View>
+  </Card>;
 
   return (
-    <View style={[styles.uploadQueue, { backgroundColor: t.color.fill.neutral.surface }]}>
+    <Card style={styles.uploadQueue}>
       <View style={styles.uploadHeader}>
-        <StatLabel icon="progress-upload" label={uploaded ? 'Uploaded' : 'Waiting to upload'} />
+        <StatLabel icon={remainingCount === 0 ? "check-circle-outline" : "progress-upload"} label={remainingCount === 0 ? "All photo uploaded" : "Waiting to upload"} />
         <View style={styles.uploadMetric}>
           <Text style={[t.typography.numericM, { color: t.color.text.neutral.primary }]}>
-            {uploaded ? 0 : 12}
+            {uploaded ? 0 : remainingCount}
           </Text>
-          <Text style={[t.typography.labelM, styles.uploadSize, { color: t.color.text.neutral.primary }]}>
-            {uploaded ? '(0 MB)' : '(20.1 MB)'}
-          </Text>
+          {!uploaded && !emptyQueue && <Text style={[t.typography.labelS, { color: t.color.text.neutral.secondary }]}>
+            {(20.1 * remainingCount / 12).toFixed(1)} MB
+          </Text>}
         </View>
       </View>
 
-      <View style={styles.imageStrip}>
+      {!uploaded && !emptyQueue && <View style={styles.imageStrip}>
         {visibleImages.map((image, index) => (
           <ImageTile
             image={image}
             key={index}
-            overflowCount={index === visibleImages.length - 1 ? 7 : undefined}
-            onPress={!uploaded ? () => { setSelectedTree(index === visibleImages.length - 1 ? null : index); setQueueVisible(true); } : undefined}
+            overflowCount={index === visibleImages.length - 1 && remainingCount > 5 ? remainingCount - 5 : undefined}
+            onPress={!uploaded ? () => { setSelectedTree(index === visibleImages.length - 1 ? null : index + uploadedCount); setQueueVisible(true); } : undefined}
           />
         ))}
-      </View>
+      </View>}
 
-      <Button
-        accessibilityLabel={uploaded ? 'Upload complete' : 'Upload pending trees'}
-        disabled={uploaded}
-        label={uploaded ? 'Uploaded' : 'Upload'}
-        leadingIcon="cloud-upload-outline"
-        onPress={onUpload}
-        style={styles.uploadButton}
-        variant="accent"
-      />
-      <BottomSheetModal visible={queueVisible} onClose={() => setQueueVisible(false)}
-        showCloseButton={selectedTree !== null} showTitle={false}>
-        {selectedTree !== null ? <TreeDetailContent key={selectedTree} source={QUEUED_IMAGES[selectedTree]} index={selectedTree} /> : <View style={styles.queueSheet}>
+      <View style={styles.actionArea}>
+        <View ref={uploadButtonRef} onLayout={() => uploadButtonRef.current?.measureInWindow((x, y, width, height) => onUploadAnchor?.({ x, y, width, height }))}>
+          <Button
+            accessibilityLabel={offline ? 'Upload unavailable while offline' : emptyQueue ? 'Upload, no photos waiting' : remainingCount === 0 ? 'Upload complete' : 'Upload pending trees'}
+            disabled={offline || remainingCount === 0}
+            label="Upload"
+            leadingIcon="cloud-upload-outline"
+            onPress={onUpload}
+            style={styles.uploadButton}
+            variant="accent"
+          />
+        </View>
+      </View>
+      {offline && <Banner tone="neutral" title="You are offline" message="Try uploading when you are online." showTrailingIcon={false} style={styles.offlineBanner} />}
+      {selectedTree !== null && <TreeDetailScreen visible={queueVisible} onBack={() => setSelectedTree(null)} source={QUEUED_IMAGES[selectedTree]} index={selectedTree} />}
+      <BottomSheetModal visible={queueVisible && selectedTree === null} onClose={() => setQueueVisible(false)}
+        showCloseButton={false} showTitle={false}>
+        <View style={styles.queueSheet}>
           <View style={styles.queueDetails}>
             <Text accessibilityRole="header" style={[t.typography.headingS, { color: t.color.text.neutral.primary }]}>
-              Waiting to upload ({uploaded ? 0 : QUEUED_IMAGES.length})
+              Waiting to upload ({uploaded ? 0 : remainingCount})
             </Text>
             <View style={styles.queueGrid} onLayout={event => setGridWidth(event.nativeEvent.layout.width)}>
-              {!uploaded && QUEUED_IMAGES.map((source, index) => (
-                <Pressable key={index} accessibilityRole="button" accessibilityLabel={`View tree ${52 + index} details`}
-                  onPress={() => setSelectedTree(index)}
+              {!uploaded && !emptyQueue && QUEUED_IMAGES.slice(uploadedCount).map((source, offset) => (
+                <Pressable key={offset} accessibilityRole="button" accessibilityLabel={`View tree ${52 + uploadedCount + offset} details`}
+                  onPress={() => setSelectedTree(uploadedCount + offset)}
                   style={{ width: gridWidth ? (gridWidth - theme.space['200'] * 4) / 5 : '17%', aspectRatio: 1 }}>
                   <Image source={source} style={{ width: '100%', height: '100%', borderRadius: theme.radius.sm }} />
                 </Pressable>
@@ -185,38 +239,53 @@ export function UploadQueue({ uploaded = false, onUpload }: { uploaded?: boolean
             </View>
           </View>
           <Button label="Close" leadingIcon="close" variant="secondary" onPress={() => setQueueVisible(false)} />
-        </View>}
+        </View>
       </BottomSheetModal>
-    </View>
+    </Card>
   );
 }
 
-export function HomeScreen({ bottomInset = 0, uploaded, onUpload }: HomeScreenProps) {
+export function HomeScreen({ bottomInset = 0, ...uploadProps }: HomeScreenProps) {
+  const [notificationsVisible, setNotificationsVisible] = useState(false);
   const insets = useSafeAreaInsets();
+  const t = useTheme();
   return <PrototypeScreenFrame>
-    <AppHeader />
-    <ScrollView contentContainerStyle={{ paddingBottom: bottomInset + insets.bottom }} showsVerticalScrollIndicator={false}>
-      <HeroArea />
-      <UploadQueue uploaded={uploaded} onUpload={onUpload} />
+    <AppHeader onNotifications={() => setNotificationsVisible(true)} />
+    <ScrollView style={{ backgroundColor: t.color.background.neutral.base }} contentContainerStyle={[styles.content, { paddingBottom: bottomInset + insets.bottom + theme.space['500'] }]} showsVerticalScrollIndicator={false}>
+      <View style={styles.section}>
+        <Text accessibilityRole="header" style={[t.typography.headingS, { color: t.color.text.neutral.primary }]}>Your Impact</Text>
+        <HeroArea />
+      </View>
+      <View style={styles.section}>
+        <Text accessibilityRole="header" style={[t.typography.headingS, { color: t.color.text.neutral.primary }]}>Upload</Text>
+        <UploadQueue {...uploadProps} />
+      </View>
     </ScrollView>
+    <NotificationsSheet visible={notificationsVisible} onClose={() => setNotificationsVisible(false)} />
   </PrototypeScreenFrame>;
 }
 
 const styles = StyleSheet.create({
+  content: { paddingHorizontal: theme.layout.marginX, paddingTop: theme.space['500'], gap: theme.space['800'] },
+  section: { gap: theme.space['300'] },
+  actionArea: { paddingTop: theme.space['400'], paddingBottom: theme.space['200'] },
+  offlineBanner: { marginTop: theme.space['200'] },
+  treeArtwork: { width: theme.size['1600'], height: theme.size['1600'], alignItems: 'center', justifyContent: 'center' },
+  treeScale: { transform: [{ scale: theme.size['1600'] / theme.size['1200'] }] },
+  progressDetails: { gap: theme.space['300'] },
+  stopButton: { alignSelf: 'flex-start' },
   queueSheet: { gap: theme.space['1200'] },
   queueDetails: { gap: theme.space['600'] },
   queueGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: theme.space['200'] },
   hero: {
-    alignItems: 'flex-end',
+    alignItems: 'center',
     flexDirection: 'row',
     gap: theme.space['400'],
-    justifyContent: 'space-between',
-    paddingHorizontal: theme.layout.marginX,
-    paddingVertical: theme.space['600']
+    justifyContent: 'space-between'
   },
   heroCopy: {
     flex: 1,
-    gap: theme.space['200']
+    gap: theme.space['050']
   },
   heroNumber: {
     textAlign: 'left'
@@ -227,20 +296,15 @@ const styles = StyleSheet.create({
     gap: theme.space['100']
   },
   uploadQueue: {
-    gap: theme.space['400'],
-    paddingHorizontal: theme.layout.marginX,
-    paddingVertical: theme.space['600']
+    gap: theme.space['200']
   },
   uploadHeader: {
     gap: theme.space['200']
   },
   uploadMetric: {
-    alignItems: 'flex-end',
+    alignItems: 'center',
     flexDirection: 'row',
     gap: theme.space['200']
-  },
-  uploadSize: {
-    paddingBottom: theme.space['100']
   },
   imageStrip: {
     flexDirection: 'row',
@@ -249,9 +313,10 @@ const styles = StyleSheet.create({
   },
   imageTile: {
     borderRadius: theme.radius.sm,
-    height: 59,
-    overflow: 'hidden',
-    width: 59
+    aspectRatio: 1,
+    flex: 1,
+    minWidth: theme.size['1100'],
+    overflow: 'hidden'
   },
   imageTileImage: {
     height: '100%',

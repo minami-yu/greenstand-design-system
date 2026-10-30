@@ -6,8 +6,12 @@ This registry records recently introduced components; the package public API lis
 
 | Component | Ownership | Figma | Notes |
 | --- | --- | --- | --- |
+| LogoutDialog | Prototype component | 14528:47592, 13871:14685 | Settings sign-out confirmation composed from shared Dialog and Button. Live network state selects online/offline copy; cancel preserves the session and confirm invokes logout. |
+| NotificationsSheet | Prototype component | 17738:126457 | Home header notification sheet, shared BottomSheetModal and ListItem with compact unread badges and truncated labels. Static review updates; close, backdrop, and swipe dismissal. |
+| DetailRow | Shared design system | 13505:19413 | Content-width label, flexible right-aligned value slot, optional divider. Plain text or custom children; stories and MDX included. |
+| TreeDetailScreen / TreeDetailContent | Prototype screen | 15597:105291 | Full-page tree details from Trees and the Home upload queue, shared DetailRow, verification, and a 200 px map preview. |
 | Banner | Shared design system | 13401:17827 | Warning, error, success, info, and neutral tones with contained and full-width treatments. |
-| Chip | Shared design system | 13488:27188 | Icon/avatar/text-only leading slots, arrow/close indicators, and controlled selection. Stories and MDX include variant, selection, and removal examples. |
+| Chip | Shared design system | 13488:27188 | Medium/large pills, surface/brand fills with outlines, icon/avatar/text-only leading slots, arrow/close indicators, and controlled selection. Stories and MDX include variant, selection, and removal examples. |
 | ListItem | Shared design system | 13103:14197 | md/lg rows with icon.md leading icons and default/destructive tones; leading artwork and eight trailing options. Stories and MDX include left, right, size, and selection examples. |
 | SettingsScreen | Prototype screen | 14881:103941 | User menu composed from TopNavigation, ListItem, Divider, and the existing app navbar. |
 | UploadScreen | Prototype screen | 14881:103744 | Upload preferences composed from TopNavigation and large ListItems with switches. Session state lives in the app navigator. |
@@ -16,11 +20,31 @@ This registry records recently introduced components; the package public API lis
 
 | TreesScreen | Prototype screen | 16456:116695 | Map and searchable tree list, local filters, detail sheet; Trees navbar destination. |
 | SearchField | Shared design system | 15631:119064 | Controlled search with optional voice action. |
-| IconButton | Shared design system | 16456:116708 | Surface and subtle map actions with accessible touch targets. |
+| IconButton | Shared design system | 12687:8039, 16456:116708 | Explicit xs/sm/md sizes with 16/18/28 px icons and accessible touch targets. Map/list switches use sm inside a negative-100 right-margin wrapper. |
+| ToggleButton | Shared design system | 15630:114466 | Controlled icon toggle, optional selected icon and count badge; 36 px circle in a 48 px target. Shared map/list filter trigger reflects applied filter choices. Stories and MDX included. |
 | CurrentLocationTag | Shared design system | 16463:119994 | Original direction cone and location dot artwork. |
 
-| TreeFilters | Prototype component | 15620:111793 | Map/list filter sheet composed from shared Chip, Divider, DsLink, Button, SearchField, and BottomSheetModal. Draft multi-selection with Reset, Apply, and searchable planter directory. |
+| TreeFilters | Prototype component | 15620:111793 | Map/list filter sheet composed from shared Chip, Divider, DsLink, Button, SearchField, and BottomSheetModal. Draft multi-selection and searchable planter directory scroll above persistent Reset/Apply footer actions. |
 | TextField | Shared design system | 15580:104710, 15580:104711 | Labeled text input, focus outline, optional clear action, native keyboard props. Stories and MDX included. |
 | Tabs | Shared design system | 15574:101201 | Controlled equal-width tabs with active underline and accessible selected state. Stories and MDX included. |
 | UsersScreen / UserDetailScreen | Prototype screens | 15566:98713, 15574:99516 | Searchable session user directory, summary metrics and map, profile information, capture entry point. |
 | AddUserFlow / UserPhotoScreen | Prototype screens | 15580:104705, 15580:104751, 15580:104759, 15965:100608, 16144:96839, 15580:104804 | Name, organization selection, photo guide, capture, and retake/confirmation. Native Expo camera and labeled web demo. |
+| Select | Shared design system | 15906:75014 (Select instance) | Labeled option trigger with optional avatar, placeholder, disabled and expanded states; caller owns the picker. |
+| ImageGroup | Shared design system | 16122:74573 | Up to three overlapping photo tiles with an overflow count. |
+| CaptureReview / CaptureComplete | Prototype screens | 15906:75014, 15953:99478 | Per-photo organization/note review, discard/save, persistent local capture records, and session-count completion returning home. |
+| Snackbar | Shared design system | 16771:120281 | Inverse feedback surface with status icon; caller controls placement and visibility. |
+| Home upload flow | Prototype logic | 16767:119624, 16771:120082 | Seven-second simulated upload with progress, Stop/resume, empty queue and completion dialog. |
+| UploadInterruptionSheet | Prototype component | 16773:120328, 16801:120616 | Stop and connection-loss acknowledgements using shared BottomSheetModal and Button; retains upload progress for retry. |
+
+| AvatarCard | Shared design system | 15492:80118 | Avatar/button visuals, configurable icon, outlined/plain states, and two-line labels. Capture selection add actions reuse the button visual. |
+
+| UploadSuccessSheet | Prototype component | 17680:123204 | Upload success acknowledgement using shared BottomSheetModal, Icon, and Button; remains visible until dismissed. |
+
+| Dialog | Shared design system | 13396:15406 | Inline card or centered modal, optional close action, custom content, responsive scrolling; stories and MDX included. |
+| PointerDialog | Shared design system | 16009:39300 | Up/down pointers with left/center/right alignment or measured offset; composes Dialog. Stories and MDX included. |
+| HomeOnboarding | Prototype component | 16052:26462, 16052:26264, 16052:26066, 16052:23890, 16052:23690 | Five-step tour over home after adding a user; measured camera, upload, and users highlights; local Figma illustration assets. |
+
+| AuthFlow / AuthHelpSheet | Prototype screens | 14345:37626, 14337:13596, 14345:36244, 14345:36355, 14345:37473, 13692:46588, 14539:22801, 14542:68134, 14157:70113, 13623:30863, 13710:48586, 14525:16996 | Logout splash, WhatsApp/email contact entry, searchable country picker, timed verification, instruction carousel, help and contact copying. Reuses AddUserFlow in signup mode for name, organization and selfie. Session-only returning-account login; new accounts start with an empty upload queue and the welcome tour. |
+
+| Card | Shared design system | 17819:129286 | Rounded neutral surface with a flexible content slot, token padding and gap. Stories and MDX included. |
+| HomeScreen card layout | Prototype screen | 16724:89711, 17823:129976, 17823:130225, 16767:119624 | Impact and upload sections compose Card, Banner, Button and ProgressBar; pending, empty, offline and uploading states use the existing upload controller. |
