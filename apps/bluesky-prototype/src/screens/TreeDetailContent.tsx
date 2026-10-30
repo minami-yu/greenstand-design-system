@@ -1,10 +1,11 @@
 import { Image, Linking, StyleSheet, Text, View, type ImageSourcePropType } from 'react-native';
 import { Avatar, DetailRow, Icon, IconButton, SimpleTreeTag, theme, useTheme } from '@greenstand/design-system';
 
-export type TreeDetailContentProps = { source: ImageSourcePropType; index: number };
+export type TreeDetailContentProps = { source: ImageSourcePropType; index: number; status?: 'verified' | 'waiting-to-upload' };
 
-export function TreeDetailContent({ source, index }: TreeDetailContentProps) {
+export function TreeDetailContent({ source, index, status = 'verified' }: TreeDetailContentProps) {
   const t = useTheme();
+  const waitingToUpload = status === 'waiting-to-upload';
   const text = { color: t.color.text.neutral.primary };
   const caption = { color: t.color.text.neutral.tertiary };
   const heading = (label: string) => <Text accessibilityRole="header" style={[t.typography.headingS, text]}>{label}</Text>;
@@ -37,8 +38,8 @@ export function TreeDetailContent({ source, index }: TreeDetailContentProps) {
       <View style={[styles.section, styles.sectionBottom]}>
         {heading('Verification')}
         <View style={styles.captionGroup}>
-          <View style={styles.inline}><Text style={[t.typography.paragraphM, text]}>Verified</Text><Icon name="check-circle" size="md" color={t.color.icon.brand.default} /></View>
-          <Text style={[t.typography.paragraphS, caption]}>Reviewed on Jan 18, 2026 by Greenstand</Text>
+          <View style={styles.inline}><Text style={[t.typography.paragraphM, text]}>{waitingToUpload ? 'Waiting to upload' : 'Verified'}</Text><Icon name={waitingToUpload ? 'progress-upload' : 'check-circle'} size="md" color={waitingToUpload ? t.color.icon.neutral.secondary : t.color.icon.brand.default} /></View>
+          <Text style={[t.typography.paragraphS, caption]}>{waitingToUpload ? 'Not uploaded yet.' : 'Reviewed on Jan 18, 2026 by Greenstand'}</Text>
         </View>
       </View>
       <View style={styles.section}>
@@ -66,8 +67,8 @@ export function TreeDetailContent({ source, index }: TreeDetailContentProps) {
 }
 
 const styles = StyleSheet.create({
-  content: { gap: theme.space['800'] },
-  sections: { gap: theme.space['800'] },
+  content: { gap: theme.space['400'] },
+  sections: { gap: theme.space['600'] },
   section: { gap: theme.space['200'] },
   sectionBottom: { paddingBottom: theme.space['200'] },
   captionGroup: { gap: theme.space['100'] },

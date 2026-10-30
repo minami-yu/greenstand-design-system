@@ -21,15 +21,23 @@ Import `SimpleTreeTag` from `@greenstand/design-system`. Use `default` for a tre
 <ArgTypes of={SimpleTreeTagStories} />
 
 ## Variants and states
-The tree marker has a 20 px slot, the dot a 12 px slot, and the pin a 40 px slot. Exported shadow bounds extend beyond the dot slot. The number badge is 32 px tall and grows horizontally with its count.
+The tree marker has a 20 px slot, the dot a 12 px slot, and the pin a 40 px slot. The small dot uses a 2 px inside border (`border.md` / `border.neutral.inverse`) and `elevation.md`. Its native circle keeps the border and shadow visible at every zoom level; shadows may extend beyond its fixed slot. The number badge uses labelS typography, 6 px horizontal and 2 px vertical padding, and a 2 px border, matching the current Figma spec. It grows horizontally with its count.
 
 <Canvas of={SimpleTreeTagStories.Variants} />
 <Canvas of={SimpleTreeTagStories.Count} />
 
 ## Design guidelines and gaps
-Do not clip marker shadows or add an opaque square behind markers. Static marker SVGs preserve the Figma colors; the count badge uses mode-aware semantic tokens and labelMStrong typography. No pressed or disabled state is defined.
+Do not clip marker shadows or add an opaque square behind markers. The small dot, tree marker, and count badge use mode-aware semantic colors. The dot uses a native circle with `elevation.md`; the tree marker and count badge use `elevation.lg`. The focus pin retains its Figma SVG artwork. The count badge uses labelS typography. No pressed or disabled state is defined.
 
 Figma's `large` variant is an empty 42 × 20 frame with no visible artwork. It is deliberately excluded from the public API until its design is defined. `focus` retains its Figma property name.
+
+## Map density behavior
+The map owns density decisions; SimpleTreeTag only renders the selected variant. The Trees prototype keeps every unselected map tag as `small` at every zoom level. Tapping a tag changes only that tag to `focus` and opens Tree #52 in a bottom sheet. Closing the sheet restores the small tag. Rows in the map’s tree-list sheet also open a second detail sheet above the existing list and focus the matching tag. The underlying list stays mounted, preserving its position; dismissing the detail sheet reveals it again. Rows in the full list view open the full detail page. Tags keep a fixed visual size while their map positions change; the map does not use `default` or count badges.
+
+<Canvas of={SimpleTreeTagStories.Small} />
+<Canvas of={SimpleTreeTagStories.Tree} />
+
+The prototype uses approximate screen-space distances and local demo coordinates. The empty Figma `large` variant remains excluded. Reserve `focus` for a selected or highlighted location.
 
 See Accessibility/Overview for labeling and interactive container guidance.
 

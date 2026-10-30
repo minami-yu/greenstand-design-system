@@ -7,6 +7,8 @@ import * as Stories from './Dialog.stories';
 
 A compact surface for a focused message or decision. Import `Dialog` from `@greenstand/design-system`.
 
+Height hugs the message, optional close control, and actions plus token padding. The card does not grow to fill the screen; the modal host scrolls when content exceeds the available height.
+
 <Canvas of={Stories.Playground} />
 
 ## Usage
@@ -19,9 +21,13 @@ Use `modal`, controlled `visible`, and `onClose` to present above the current sc
 ## Variants and states
 Dialogs fade in using the shared slow duration and deceleration tokens when shown. Reduce Motion skips the transition. Hide and reopen the interactive example to replay the entrance; changing ordinary content does not restart it.
 
-`showClose` displays a shared secondary IconButton in size xs (16 px icon, 28 px circle, 44 px touch target) only with an `onClose` handler. `visible={false}` hides the dialog. The card follows light/dark theme colors and uses the approved dialog-width token with a responsive maximum width.
+`showClose` displays a shared secondary IconButton in size xs (16 px icon, 28 px circle, 44 px touch target) only with an `onClose` handler. `visible={false}` hides the dialog. The card follows light/dark theme colors and fills 80% of its container. Centered modals use 80% of the overlay width, with vertical padding for scrolling. Custom placement can override width through `style`.
 
 <Canvas of={Stories.WithClose} />
+
+Long warnings wrap within the card above stacked, full-width actions. Keep the safe action first and distinguish the destructive action.
+
+<Canvas of={Stories.Confirmation} />
 
 ## Props
 <ArgTypes of={Stories} />

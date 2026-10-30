@@ -7,12 +7,27 @@ export function usePrototypeUpload() {
   const [progress, setProgress] = useState(0);
   const [running, setRunning] = useState(false);
   const [showCompletion, setShowCompletion] = useState(false);
+  const [showOnlineReminder, setShowOnlineReminder] = useState(false);
   const [interruption, setInterruption] = useState<UploadInterruption | null>(null);
   const network = useNetworkState();
   const offline = network.isConnected === false || network.isInternetReachable === false;
+  const online = !offline && (network.isConnected === true || network.isInternetReachable === true);
+  const wasOffline = useRef(false);
   const elapsed = useRef(0);
   const startedAt = useRef<number | undefined>(undefined);
   const uploaded = progress >= 1;
+  useEffect(() => {
+    if (offline) {
+      wasOffline.current = true;
+      setShowOnlineReminder(false);
+    } else if (online && wasOffline.current) {
+      wasOffline.current = false;
+      if (!uploaded) {
+        setInterruption(null);
+        setShowOnlineReminder(true);
+      }
+    }
+  }, [offline, online, uploaded]);
   const pause = useCallback((reason: UploadInterruption) => {
     if (startedAt.current === undefined) return;
     elapsed.current = Math.min(UPLOAD_DURATION_MS, elapsed.current + Date.now() - startedAt.current);
@@ -42,10 +57,12 @@ export function usePrototypeUpload() {
     return () => clearInterval(timer);
   }, [running]);
   return {
-    offline, progress, running, uploaded, showCompletion, interruption,
+    offline, progress, running, uploaded, showCompletion, interruption, showOnlineReminder,
+    dismissOnlineReminder: () => setShowOnlineReminder(false),
     dismissCompletion: () => setShowCompletion(false),
     dismissInterruption: () => setInterruption(null),
     start: () => {
+      setShowOnlineReminder(false);
       if (startedAt.current !== undefined || uploaded) return;
       if (offline) {
         setInterruption('offline');
@@ -63,6 +80,8 @@ export function usePrototypeUpload() {
       setRunning(false);
       setShowCompletion(false);
       setInterruption(null);
+      setShowOnlineReminder(false);
+      wasOffline.current = false;
     }
   };
 }

@@ -1,11 +1,13 @@
 import { useMemo, useRef, useState } from 'react';
 import { Animated, PanResponder, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useNetworkState } from 'expo-network';
-import MapView, { Marker, type Region } from 'react-native-maps';
-import { Banner, BottomSheet, BottomSheetModal, Chip, CurrentLocationTag, getShadow, Icon, IconButton, ListItem, SearchField, SimpleTreeTag, ToggleButton, theme, useTheme } from '@greenstand/design-system';
+import { Banner, BottomSheet, BottomSheetModal, Chip, getShadow, Icon, IconButton, ListItem, SearchField, ToggleButton, theme, useTheme } from '@greenstand/design-system';
 import { PrototypeScreenFrame } from '../components/PrototypeScreenFrame';
 import { TreeDetailScreen } from './TreeDetailScreen';
+import { TreeDetailContent } from './TreeDetailContent';
 import { TreeFilters, emptyTreeFilters, matchesTreeFilters, type TreeFiltersValue } from '../components/TreeFilters';
+import { TreesMapPreview } from '../components/TreesMapPreview';
+import { treeMapPoints } from './trees/treeMapMarkers';
 
 // Screen-local demo data; IDs, map coordinates, and record counts are product data.
 const trees = [
@@ -15,29 +17,13 @@ const trees = [
   { id: 54, source: require('../../assets/trees/tree-3.png'), status: 'Verified', planter: 'Amara Diallo', organization: 'Kilimanjalo project' },
   { id: 55, source: require('../../assets/trees/tree-4.png'), status: 'Verified', planter: 'Oluwatobiloba Adeyemi', organization: 'Greenstand' }
 ];
-const initialRegion: Region = {
-  latitude: -0.949,
-  longitude: 36.594,
-  latitudeDelta: 0.045,
-  longitudeDelta: 0.035
-};
-const currentLocation = { latitude: -0.9528, longitude: 36.6008 };
-const points = [
-  { latitude: -0.952, longitude: 36.585 },
-  { latitude: -0.9475, longitude: 36.5988 },
-  { latitude: -0.9464, longitude: 36.6002 }
-] as const;
-const clusters = [
-  { latitude: -0.9582, longitude: 36.5825, value: '120' },
-  { latitude: -0.9502, longitude: 36.5995, value: '58' },
-  { latitude: -0.9555, longitude: 36.6035, value: '339' }
-] as const;
+// Heights mirror the list sheet’s collapsed, default, and expanded positions.
+const treeDetailSnapPoints = [0.32, 0.6, 0.92] as const;
 
 export function TreesScreen({ bottomInset }: { bottomInset: number }) {
   const t = useTheme();
   const networkState = useNetworkState();
   const offline = networkState.isConnected === false || networkState.isInternetReachable === false;
-  const mapRef = useRef<MapView>(null);
   const [query, setQuery] = useState('');
   const [listMode, setListMode] = useState(false);
   const [screenHeight, setScreenHeight] = useState(0);
@@ -48,9 +34,12 @@ export function TreesScreen({ bottomInset }: { bottomInset: number }) {
   const [filterSession, setFilterSession] = useState(0);
   const [filters, setFilters] = useState<TreeFiltersValue>(emptyTreeFilters);
   const openFilters = () => { setFilterSession(value => value + 1); setFilterOpen(true); };
-  const [selected, setSelected] = useState<(typeof trees)[number]>();
+  const [selectedListTree, setSelectedListTree] = useState<(typeof trees)[number]>();
+  const [mapSelection, setMapSelection] = useState<{ tree: (typeof trees)[number]; pointId?: string; visible: boolean }>();
+  const mapDetailsVisible = mapSelection?.visible ?? false;
+  const selectedMapPointId = mapDetailsVisible ? mapSelection?.pointId : undefined;
   const [voiceNotice, setVoiceNotice] = useState(false);
-  const filtered = trees.filter(tree => (`Tree #${tree.id} ${tree.planter} ${tree.organization}`).toLowerCase().includes(query.trim().toLowerCase()) && matchesTreeFilters(tree, filters));
+  const filtered = useMemo(() => trees.filter(tree => (`Tree #${tree.id} ${tree.planter} ${tree.organization}`).toLowerCase().includes(query.trim().toLowerCase()) && matchesTreeFilters(tree, filters)), [query, filters]);
   const filterCount = Object.values(filters).reduce((count, values) => count + values.length, 0);
   const active = query.trim() !== '' || filterCount > 0;
   const expandedSheetTop = screenHeight * 0.08;
@@ -79,12 +68,23 @@ export function TreesScreen({ bottomInset }: { bottomInset: number }) {
     },
     onPanResponderTerminate: () => snapSheet(defaultSheetTop)
   }), [collapsedSheetTop, defaultSheetTop, expandedSheetTop, sheetTop]);
-  const centerCurrentLocation = () => {
-    mapRef.current?.animateToRegion({
-      ...currentLocation,
-      latitudeDelta: initialRegion.latitudeDelta,
-      longitudeDelta: initialRegion.longitudeDelta
-    });
+  const closeMapDetails = () => {
+    // Retain the content until the modal's dismissal animation completes.
+    setMapSelection(previous => previous ? { ...previous, visible: false } : previous);
+  };
+  const selectMapTree = (pointId: string) => {
+    setMapSelection({ tree: trees[1], pointId, visible: true });
+  };
+  const selectListTree = (tree: (typeof trees)[number]) => {
+    if (listMode) {
+      setSelectedListTree(tree);
+      return;
+    }
+    setMapSelection({ tree, pointId: treeMapPoints.find(point => point.treeId === tree.id)?.id, visible: true });
+  };
+  const changeQuery = (value: string) => {
+    setQuery(value);
+    setMapSelection(undefined);
   };
   const listContent = <View style={styles.treeContent}>
     <View style={styles.listHeading}>
@@ -96,7 +96,7 @@ export function TreesScreen({ bottomInset }: { bottomInset: number }) {
     </View>
     <Text accessibilityLiveRegion="polite" style={[t.typography.labelS, { color: t.color.text.neutral.tertiary }]}>{offline ? 'Unable to load tree data' : `${active ? filtered.length : 1530} results`}</Text>
     <View>
-    {!offline && filtered.map(tree => <ListItem key={tree.id} label={`Tree #${tree.id}`} paragraph="January 18, 2026" labelAccessory={<Icon name="check-circle-outline" size="sm" />} accessibilityLabel={`Tree ${tree.id}, verified, January 18, 2026`} leadingElement="thumbnail" thumbnailSource={tree.source} thumbnailImageStyle={tree.id === 51 ? { width: '102.78%', height: '137.66%', left: '-2.78%', top: '-11.44%' } : tree.id === 52 ? { width: '150.4%', height: '99.98%', left: '-20.06%' } : tree.id === 53 ? { width: '100%', height: '150%', top: '-39.85%' } : tree.id === 55 ? { width: '100.04%', height: '138.73%', left: '0.05%', top: '-22.25%' } : undefined} trailingElement="icon" showDivider={false} onPress={() => setSelected(tree)} />)}
+    {!offline && filtered.map(tree => <ListItem key={tree.id} label={`Tree #${tree.id}`} paragraph="January 18, 2026" labelAccessory={<Icon name="check-circle-outline" size="sm" />} accessibilityLabel={`Tree ${tree.id}, verified, January 18, 2026`} leadingElement="thumbnail" thumbnailSource={tree.source} thumbnailImageStyle={tree.id === 51 ? { width: '102.78%', height: '137.66%', left: '-2.78%', top: '-11.44%' } : tree.id === 52 ? { width: '150.4%', height: '99.98%', left: '-20.06%' } : tree.id === 53 ? { width: '100%', height: '150%', top: '-39.85%' } : tree.id === 55 ? { width: '100.04%', height: '138.73%', left: '0.05%', top: '-22.25%' } : undefined} trailingElement="icon" showDivider={false} onPress={() => selectListTree(tree)} />)}
     {!offline && !filtered.length && <Text style={[t.typography.paragraphM, { color: t.color.text.neutral.secondary, paddingVertical: theme.space['400'] }]}>No trees match your search or filters.</Text>}
     </View>
   </View>;
@@ -112,7 +112,7 @@ export function TreesScreen({ bottomInset }: { bottomInset: number }) {
       {listMode ? <View style={styles.listScreen}>
         {offline ? <Banner fullWidth message="Connect to the internet to load this page." showTrailingIcon={false} title="No Internet" tone="warning" /> : null}
         <View style={styles.listToolbar}>
-          <SearchField value={query} onChangeText={setQuery} showAudio={false} variant="default" />
+          <SearchField value={query} onChangeText={changeQuery} showAudio={false} variant="default" />
           <View style={styles.viewSwitch}><IconButton icon="map-outline" size="sm" variant="secondary" accessibilityLabel="Show map and trees" onPress={() => setListMode(false)} /></View>
         </View>
         <ScrollView contentContainerStyle={[styles.fullListContent, { paddingBottom: bottomInset }]} showsVerticalScrollIndicator={false}>
@@ -120,34 +120,40 @@ export function TreesScreen({ bottomInset }: { bottomInset: number }) {
         </ScrollView>
       </View> : <>
         <View style={styles.map}>
-          <MapView ref={mapRef} style={StyleSheet.absoluteFill} initialRegion={initialRegion} accessibilityLabel="Interactive map near Kijabe Forest showing planted trees">
-            {!active && points.map((coordinate, index) => <Marker key={index} coordinate={coordinate} anchor={{ x: 0.5, y: 0.5 }}><SimpleTreeTag type="small" accessibilityLabel="Tree location" /></Marker>)}
-            {!active && clusters.map(cluster => <Marker key={cluster.value} coordinate={cluster} anchor={{ x: 0.5, y: 0.5 }}><SimpleTreeTag type="number" value={cluster.value} /></Marker>)}
-            {active && filtered.map((tree) => <Marker key={tree.id} coordinate={points[(tree.id - 51) % points.length]} anchor={{ x: 0.5, y: 0.5 }} onPress={() => setSelected(tree)}><SimpleTreeTag type="small" accessibilityLabel={`Tree ${tree.id}`} /></Marker>)}
-            <Marker coordinate={currentLocation} anchor={{ x: 0.5, y: 0.8 }}><CurrentLocationTag accessibilityLabel="Current location" /></Marker>
-          </MapView>
-          <IconButton icon="my-location" accessibilityLabel="Center on current location" onPress={centerCurrentLocation} style={styles.locate} />
+          <TreesMapPreview treeIds={active ? filtered.map(tree => tree.id) : undefined} selectedPointId={selectedMapPointId} onTreePress={selectMapTree} onMapPress={mapSelection?.visible ? closeMapDetails : undefined} />
           <View style={[styles.mapTopOverlay, !offline && styles.mapTopOverlayOnline]}>
             {offline ? <Banner fullWidth message="Connect to the internet to load this page." showTrailingIcon={false} title="No Internet" tone="warning" /> : null}
             <View style={styles.mapToolbar}>
               <View style={[styles.searchElevation, { backgroundColor: t.color.fill.neutral.surface }, getShadow(t.elevation.lg)]}>
-                <SearchField value={query} onChangeText={setQuery} onVoicePress={() => setVoiceNotice(true)} variant="surface" />
+                <SearchField value={query} onChangeText={changeQuery} onVoicePress={() => setVoiceNotice(true)} variant="surface" />
               </View>
               <View style={styles.viewSwitch}>
-                <IconButton icon="list-box-outline" size="sm" variant="surface" accessibilityLabel="Show full tree list" onPress={() => setListMode(true)} />
+                <IconButton icon="list-box-outline" size="sm" variant="surface" accessibilityLabel="Show full tree list" onPress={() => { setMapSelection(undefined); setListMode(true); }} />
               </View>
             </View>
           </View>
+          <Animated.View pointerEvents="box-none" style={[styles.locateLayer, { top: Animated.subtract(sheetTop, theme.space['400'] + theme.size['1200']) }]}>
+            <IconButton icon="my-location" size="sm" variant="surface" accessibilityLabel="Current location" />
+          </Animated.View>
+          {/* Keep the list mounted so its drag and scroll positions survive details. */}
+          <Animated.View
+            accessibilityElementsHidden={mapDetailsVisible}
+            importantForAccessibility={mapDetailsVisible ? 'no-hide-descendants' : 'auto'}
+            pointerEvents={mapDetailsVisible ? 'none' : 'auto'}
+            style={[styles.sheetLayer, { top: sheetTop, opacity: mapDetailsVisible ? 0 : 1 }]}
+          >
+            <BottomSheet headerGestureHandlers={sheetPan.panHandlers} showCloseButton={false} showTitle={false} bottomPadding={bottomInset} style={styles.sheet} contentStyle={styles.sheetContent}>
+              {listContent}
+            </BottomSheet>
+          </Animated.View>
         </View>
-        <Animated.View style={[styles.sheetLayer, { top: sheetTop }]}>
-          <BottomSheet headerGestureHandlers={sheetPan.panHandlers} showCloseButton={false} showTitle={false} bottomPadding={bottomInset} style={styles.sheet} contentStyle={styles.sheetContent}>
-            {listContent}
-          </BottomSheet>
-        </Animated.View>
       </>}
     </View>
-    <TreeFilters key={filterSession} visible={filterOpen} onClose={() => setFilterOpen(false)} initialValue={filters} onApply={value => { setFilters(value); setFilterOpen(false); }} />
-    {selected && <TreeDetailScreen visible onBack={() => setSelected(undefined)} source={selected.source} index={selected.id - 52} />}
+    <TreeFilters key={filterSession} visible={filterOpen} onClose={() => setFilterOpen(false)} initialValue={filters} onApply={value => { setMapSelection(undefined); setFilters(value); setFilterOpen(false); }} />
+    <BottomSheetModal visible={mapDetailsVisible} onClose={closeMapDetails} showBackdrop={false} showCloseButton closeAccessibilityLabel="Close tree details" showTitle={false} snapPoints={treeDetailSnapPoints} initialSnapIndex={1} contentStyle={styles.sheetContent}>
+      {mapSelection && <TreeDetailContent source={mapSelection.tree.source} index={mapSelection.tree.id - 52} />}
+    </BottomSheetModal>
+    {selectedListTree && <TreeDetailScreen visible onBack={() => setSelectedListTree(undefined)} source={selectedListTree.source} index={selectedListTree.id - 52} />}
     <BottomSheetModal visible={voiceNotice} onClose={() => setVoiceNotice(false)} title="Voice search">
       <Text style={[t.typography.paragraphM, { color: t.color.text.neutral.primary }]}>Voice input is not connected in this prototype. Type a tree number or planter name in Search.</Text>
     </BottomSheetModal>
@@ -165,7 +171,7 @@ const styles = StyleSheet.create({
   mapToolbar: { alignItems: 'center', flexDirection: 'row', gap: theme.space['300'], paddingHorizontal: theme.layout.marginX },
   searchElevation: { borderRadius: theme.radius.full, flex: 1, height: theme.size['1200'] },
   viewSwitch: { marginRight: theme.space.n100 },
-  locate: { position: 'absolute', right: theme.layout.marginX, bottom: theme.space['400'] },
+  locateLayer: { position: 'absolute', right: theme.layout.marginX - theme.space['100'] },
   sheet: { height: '100%' },
   sheetContent: { paddingTop: theme.space['200'] },
   treeContent: { gap: theme.space['200'] },

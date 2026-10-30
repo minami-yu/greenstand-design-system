@@ -12,12 +12,14 @@ A Dialog card with a directional pointer for contextual instructions. Import fro
 ## Usage
 Provide a title, body, and optional content/actions. The caller owns placement and visibility. For modal tutorials, place the card in `DialogOverlay` and measure the real target; `pointerOffset` allows alignment to its center.
 
+Height hugs the card content plus the pointer. For constrained onboarding layouts, put the scrollable content inside PointerDialog so the pointer remains outside the scrolling viewport and stays visible.
+
 <Canvas of={Stories.Interactive} />
 
 ## Variants and states
 The card and pointer fade in together when shown, using Dialog's motion tokens. Reduce Motion skips the transition. Reopen the interactive example to replay the entrance.
 
-Choose `direction="up"` or `"down"` and `align="left"`, `"center"`, or `"right"`. Hidden cards render nothing. Colors follow the active theme, including the original pointer artwork. Close controls follow Dialog behavior.
+Choose `direction="up"` or `"down"` and `align="left"`, `"center"`, or `"right"`. The surface fills 80% of its container, matching Dialog. When the placement container already defines the card width, set `style={{ width: '100%' }}` to avoid applying the percentage twice. The decorative pointer uses the existing size.600 and size.500 tokens. Hidden cards render nothing. Colors follow the active theme, including the original pointer artwork. Close controls follow Dialog behavior.
 
 <Canvas of={Stories.Variants} />
 

@@ -122,6 +122,33 @@ export const AnimatedModal: Story = {
   render: (args) => <AnimatedExample {...args} />
 };
 
+export const ExpandableModal: Story = {
+  args: { title: 'Tree details', titleAlign: 'left', showCloseButton: true },
+  render: (args) => <ExpandableExample {...args} />
+};
+
+export const WithoutBackdrop: Story = {
+  args: { title: 'Tree details', titleAlign: 'left', showCloseButton: true },
+  render: (args) => <ExpandableExample {...args} showBackdrop={false} />
+};
+
+const exampleSnapPoints = [0.32, 0.6, 0.92] as const;
+
+function ExpandableExample({ showBackdrop = true, ...args }: BottomSheetProps & { showBackdrop?: boolean }) {
+  const t = useTheme();
+  const [visible, setVisible] = useState(false);
+  return <StorybookStoryShell align="center">
+    <Button label="Show expandable sheet" onPress={() => setVisible(true)} />
+    <BottomSheetModal {...args} visible={visible} onClose={() => setVisible(false)} showBackdrop={showBackdrop} showTitle
+      snapPoints={exampleSnapPoints} initialSnapIndex={1}>
+      <View style={{ gap: theme.space['400'] }}>
+        <Text style={[t.typography.paragraphM, { color: t.color.text.neutral.secondary }]}>Drag up on any detail section to expand to the maximum height, then keep dragging to scroll to section 12. Drag the handle down to collapse; pull below the smallest position to dismiss.</Text>
+        {Array.from({ length: 12 }, (_, index) => <Text key={index} style={[t.typography.paragraphM, { color: t.color.text.neutral.primary }]}>Tree detail section {index + 1}. The body scrolls after the sheet reaches its maximum height.</Text>)}
+      </View>
+    </BottomSheetModal>
+  </StorybookStoryShell>;
+}
+
 export const StickyFooter: Story = {
   render: (args) => <StickyFooterExample {...args} />
 };

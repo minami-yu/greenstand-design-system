@@ -3,6 +3,7 @@ import type { ReactNode, RefObject } from 'react';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { treeGuidanceSvg } from '../../components/camera/guidanceArtwork';
 import { FadingCameraGuidance } from '../../components/camera/FadingCameraGuidance';
+import { DuplicateCaptureSheet, type CaptureComparison } from '../../components/camera/DuplicateCaptureSheet';
 import {
   Image,
   KeyboardAvoidingView,
@@ -355,11 +356,17 @@ function CameraScreenContent({ onBack, onDone, selectedUser, selectedOrganizatio
   const cameraRef = useRef<CameraView | null>(null);
   const mounted = useRef(true);
   const working = useRef(false);
+  const captureCount = useRef(0);
+  const lastCapture = useRef<CaptureComparison | undefined>(undefined);
   const [permission, requestPermission] = useCameraPermissions();
   const [showTutorial, setShowTutorial] = useState(true);
   const [hasRequestedPermission, setHasRequestedPermission] = useState(false);
   const [photos, setPhotos] = useState<SavedCapture[]>([]);
   const [pendingUri, setPendingUri] = useState<string>();
+  const [pendingAspectRatio, setPendingAspectRatio] = useState(3 / 4);
+  const [showDuplicate, setShowDuplicate] = useState(false);
+  const [duplicatePrevious, setDuplicatePrevious] = useState<CaptureComparison>();
+  const [reviewPreviewSize, setReviewPreviewSize] = useState({ width: 0, height: 0 });
   const [reviewSheetHeight, setReviewSheetHeight] = useState(0);
   const [complete, setComplete] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -372,6 +379,7 @@ function CameraScreenContent({ onBack, onDone, selectedUser, selectedOrganizatio
   const stageHeight = stageWidth * (4 / 3);
   const permissionGranted = permission?.granted ?? false;
   const permissionCanAskAgain = permission?.canAskAgain ?? true;
+  const reviewImageWidth = Math.min(reviewPreviewSize.width, reviewPreviewSize.height * pendingAspectRatio);
 
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
   useEffect(() => {
@@ -403,6 +411,11 @@ function CameraScreenContent({ onBack, onDone, selectedUser, selectedOrganizatio
       const photo = await cameraRef.current?.takePictureAsync({ quality: 0.75 });
       if (!photo?.uri) throw new Error('The camera did not return a photo. Please try again.');
       if (!mounted.current) return;
+      captureCount.current += 1;
+      setDuplicatePrevious(photos[0] ?? lastCapture.current);
+      lastCapture.current = { uri: photo.uri, capturedAt: new Date().toISOString() };
+      setShowDuplicate(captureCount.current === 3);
+      setPendingAspectRatio(photo.width > 0 && photo.height > 0 ? photo.width / photo.height : 3 / 4);
       setPendingUri(photo.uri);
       setReady(false);
       setShowTutorial(false);
@@ -415,6 +428,7 @@ function CameraScreenContent({ onBack, onDone, selectedUser, selectedOrganizatio
   };
   const discard = () => {
     if (working.current) return;
+    setShowDuplicate(false);
     setPendingUri(undefined);
     setSaveError(undefined);
     setReady(false);
@@ -449,10 +463,12 @@ function CameraScreenContent({ onBack, onDone, selectedUser, selectedOrganizatio
   return <View style={[styles.cameraScreen, { backgroundColor: t.color.background.neutral.default }]}>
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={[styles.phoneSurface, Platform.OS === 'web' && styles.webPhoneSurface]}>
       <CaptureHeader doneDisabled={photos.length === 0 || Boolean(pendingUri) || busy} onBack={() => { if (!working.current) { if (pendingUri) discard(); else onBack(); } }} onDone={() => { setShowEndHint(false); setComplete(true); }} />
-      {pendingUri ? <View style={styles.reviewLayout}>
-        <View style={[styles.reviewPreview, { bottom: reviewSheetHeight + theme.space['400'] }]}>
-          {reviewSheetHeight > 0 &&
-            <Image accessibilityLabel="Photo to save" source={{ uri: pendingUri }} resizeMode="contain" style={styles.reviewImage} />
+      {pendingUri && !showDuplicate ? <View style={styles.reviewLayout}>
+        <View style={[styles.reviewPreview, { bottom: reviewSheetHeight + theme.space['400'] }]} onLayout={event => setReviewPreviewSize({ width: event.nativeEvent.layout.width, height: event.nativeEvent.layout.height })}>
+          {reviewSheetHeight > 0 && reviewImageWidth > 0 &&
+            <View style={[styles.reviewPhoto, { width: reviewImageWidth, height: reviewImageWidth / pendingAspectRatio }]}>
+              <Image accessibilityLabel="Photo to save" source={{ uri: pendingUri }} resizeMode="contain" style={styles.reviewImage} />
+            </View>
           }
         </View>
         <View style={styles.reviewSheet} onLayout={event => setReviewSheetHeight(event.nativeEvent.layout.height)}>
@@ -461,10 +477,10 @@ function CameraScreenContent({ onBack, onDone, selectedUser, selectedOrganizatio
       </View> : <>
         <View style={styles.cameraBody}>
           <View>
-            <CameraStage cameraRef={cameraRef} onReady={() => setReady(true)} height={stageHeight} width={stageWidth} mountError={cameraError} onMountError={message => { setReady(false); setCameraError(message); }} onRequestPermission={() => { void handleRequestPermission(); }} permissionCanAskAgain={permissionCanAskAgain} permissionGranted={permissionGranted} showTutorial={showTutorial && permissionGranted && ready && !cameraError} onTutorialComplete={() => setShowTutorial(false)} />
+            <CameraStage key={pendingUri ? 'captured' : 'live'} capturedUri={pendingUri} cameraRef={cameraRef} onReady={() => setReady(true)} height={stageHeight} width={stageWidth} mountError={cameraError} onMountError={message => { setReady(false); setCameraError(message); }} onRequestPermission={() => { void handleRequestPermission(); }} permissionCanAskAgain={permissionCanAskAgain} permissionGranted={permissionGranted} showTutorial={showTutorial && permissionGranted && ready && !cameraError} onTutorialComplete={() => setShowTutorial(false)} />
             {showEndHint && <View pointerEvents="none" style={styles.endHint}><Hint content="Tap to end" direction="up" alignment="center" /></View>}
           </View>
-          <CameraCaptureButton disabled={busy || (permissionGranted && !ready)} onPress={() => { void handleCapture(); }} />
+          <CameraCaptureButton disabled={busy || Boolean(pendingUri) || (permissionGranted && !ready)} onPress={() => { void handleCapture(); }} />
           {captureError && <Text accessibilityRole="alert" style={[t.typography.paragraphS, { color: t.color.text.error.default }]}>{captureError}</Text>}
         </View>
         <View style={[styles.cameraFooter, { paddingBottom: Math.max(insets.bottom, theme.space['800']) }]}>
@@ -476,6 +492,7 @@ function CameraScreenContent({ onBack, onDone, selectedUser, selectedOrganizatio
         </View>
       </>}
     </KeyboardAvoidingView>
+    <ThemeProvider mode="light"><DuplicateCaptureSheet visible={showDuplicate} previous={duplicatePrevious} currentUri={pendingUri} onDiscard={discard} onContinue={() => setShowDuplicate(false)} /></ThemeProvider>
   </View>;
 }
 
@@ -640,8 +657,9 @@ const styles = StyleSheet.create({
   },
   reviewLayout: { flex: 1, minHeight: theme.size['0'], overflow: 'hidden' },
   reviewSheet: { position: 'absolute', bottom: theme.space['0'], left: theme.space['0'], right: theme.space['0'], maxHeight: '100%' },
-  reviewPreview: { position: 'absolute', top: theme.space['400'], left: theme.layout.marginX, right: theme.layout.marginX, overflow: 'hidden' },
-  reviewImage: { ...StyleSheet.absoluteFill, borderRadius: theme.radius.md },
+  reviewPreview: { position: 'absolute', top: theme.space['400'], left: theme.layout.marginX, right: theme.layout.marginX, alignItems: 'center', justifyContent: 'center' },
+  reviewPhoto: { borderRadius: theme.radius.md, overflow: 'hidden' },
+  reviewImage: { width: '100%', height: '100%', borderRadius: theme.radius.md },
   cameraActions: { flexDirection: 'row', alignItems: 'center', gap: theme.space['300'] },
   endHint: { position: 'absolute', top: theme.space['100'], right: theme.layout.marginX },
   infoButton: {

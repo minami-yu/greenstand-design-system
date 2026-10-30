@@ -27,8 +27,8 @@ sheet's built-in title slot to demonstrate left and center alignment.
 ## Content Height And Safe Area
 The sheet hugs its content: there is no fixed minimum body height. Its height
 includes the header, optional title, supplied content, and bottom safe-area inset.
-The modal sheet is capped at 90% of the available screen height below the top
-safe area. It hugs shorter content; longer content scrolls inside the sheet.
+Without snap points, the modal sheet is capped at 90% of the available screen
+height below the top safe area. It hugs shorter content; longer content scrolls inside the sheet.
 The handle/close header and bottom safe-area clearance stay outside the scroll
 area, so they remain visible. This responsive cap also applies after rotation.
 
@@ -102,13 +102,58 @@ until an 18px icon token is supplied; this is a known spec discrepancy.
 In `BottomSheetModal`, drag down from the handle or header to dismiss. A pull
 past one quarter of the sheet height, or a quick downward flick, calls `onClose`.
 A shorter pull springs back. The scrim stays in place and fades during the drag.
-The content area keeps normal vertical scrolling; dragging inside it does not
-dismiss the sheet. Close, backdrop press, and Android back remain alternatives.
+Without snap points, the content area keeps normal vertical scrolling; dragging
+inside it does not dismiss the sheet. Close, backdrop press, and Android back remain alternatives.
 Reduced motion removes the spring-back animation. Use the Animated Modal story
 to test dragging; static phone-frame examples display only the sheet surface.
 
 ## Props
 <ArgTypes of={BottomSheetStories} />
+
+## Expandable modal sheets
+
+Pass `snapPoints` to `BottomSheetModal` to enable dragging the header in both
+directions. Values are fractions of the screen height available below the top
+safe area, sorted from smallest to largest. Heights are capped at the available
+screen. `initialSnapIndex` selects the opening height and defaults to zero.
+Without snap points, the existing content-height and drag-dismiss behavior applies.
+
+| Modal-only prop | Type | Purpose |
+| --- | --- | --- |
+| `showBackdrop` | `boolean` | Defaults to `true`. Set to `false` to keep the background undimmed; outside taps still dismiss. |
+| `snapPoints` | `readonly number[]` | Optional height fractions, such as `[0.32, 0.6, 0.92]`. |
+| `initialSnapIndex` | `number` | Opening position in the sorted snap points; defaults to `0`. |
+
+```tsx
+const snapPoints = [0.32, 0.6, 0.92] as const;
+
+<BottomSheetModal visible={visible} onClose={onClose}
+  snapPoints={snapPoints} initialSnapIndex={1}>
+  <TreeDetails />
+</BottomSheetModal>
+```
+
+Dragging up expands the sheet; dragging down snaps to a smaller height. Pulling
+past the smallest height dismisses it. Upward drags inside the body first expand
+the sheet to the largest configured snap point. Once that height is reached, any
+remaining upward movement in the same drag scrolls the body. At maximum height,
+the body supports normal scrolling. A downward body drag from the top collapses
+the sheet; pulling below the smallest height dismisses it. The header and footer
+stay outside the scrolling area. The close button, backdrop, and system back remain available. Reopening returns
+to the initial snap point. Expandable sheets use `@gorhom/bottom-sheet` and its integrated
+`BottomSheetScrollView` to coordinate body panning and scrolling. The modal owns
+a `GestureHandlerRootView`, including on Android where gestures need a root
+inside the native modal. The body fills the available space between the header
+and footer. Snap animation uses the shared motion duration and respects reduced motion.
+
+<Canvas of={BottomSheetStories.ExpandableModal} />
+
+For map details, use `showBackdrop={false}` so the map and selected tag keep
+their normal appearance. The sheet still appears above the existing list sheet.
+Outside taps, the close button, and system back continue to dismiss it; the
+transparent dismissal layer does not pass gestures through to the map.
+
+<Canvas of={BottomSheetStories.WithoutBackdrop} />
 
 ## Variants
 <Canvas of={BottomSheetStories.Variants} />

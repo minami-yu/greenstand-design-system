@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { View } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Dialog } from './Dialog';
 import { Button } from '../Button/Button';
+import { theme } from '../../theme/tokens';
 import { storybookDocsArgTypesInclude } from '../../storybook/storybookArgTypes';
 const meta = {
   title: 'Components/Dialog', component: Dialog,
@@ -19,7 +21,12 @@ const meta = {
 } satisfies Meta<typeof Dialog>;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Playground: Story = {};
+export const Playground: Story = { parameters: { docs: { description: { story: 'Uses 80% of the available container width and hugs content vertically. Resize the preview to check message wrapping.' } } } };
+export const Confirmation: Story = {
+  args: { title: 'Are you sure you want to log out?', body: 'You’re offline. If you log out, you won’t be able to log back in until you’re online.', showClose: true, onClose: () => {} },
+  render: args => <Dialog {...args}><View style={{ width: '100%', gap: theme.space['200'], marginTop: theme.space['200'] }}><Button label="Keep logged in" leadingIcon="arrow-left" variant="secondary" /><Button label="Log out" leadingIcon="logout" variant="error-secondary" /></View></Dialog>,
+  parameters: { docs: { description: { story: 'Long warning copy wraps above full-width, vertically stacked actions.' } } }
+};
 export const WithClose: Story = { args: { showClose: true, onClose: () => {} }, parameters: { docs: { description: { story: 'Uses the shared xs IconButton with a 44 px touch target.' } } } };
 function ModalExample() {
   const [visible, setVisible] = useState(false);

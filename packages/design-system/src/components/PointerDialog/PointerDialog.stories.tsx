@@ -25,7 +25,7 @@ const meta = {
 } satisfies Meta<typeof PointerDialog>;
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Playground: Story = {};
+export const Playground: Story = { parameters: { docs: { description: { story: 'Uses the same 80% container width and content-driven height as Dialog, with a non-shrinking decorative pointer.' } } } };
 export const Variants: Story = { render: args => <View style={{ gap: theme.space['400'], alignItems: 'center' }}>{directions.flatMap(direction => alignments.map(align => <PointerDialog {...args} key={`${direction}-${align}`} direction={direction} align={align} title={`${direction} / ${align}`} />))}</View> };
 function Example() {
   const [open, setOpen] = useState(true);

@@ -21,34 +21,32 @@ export function SimpleTreeTag({ type = 'default', value = '120', style, accessib
       <View {...props} accessible={Boolean(label)} accessibilityLabel={label} accessibilityRole="image"
         style={[{
           alignSelf: 'flex-start', alignItems: 'center', justifyContent: 'center',
-          paddingHorizontal: theme.space['200'], paddingVertical: theme.space['100'],
+          paddingHorizontal: theme.space['150'], paddingVertical: theme.space['050'],
           borderWidth: theme.border.md, borderColor: t.color.border.neutral.inverse,
           borderRadius: theme.radius.lg, backgroundColor: t.color.fill.brand.default
         }, getShadow(t.elevation.lg), style]}>
-        <Text accessible={false} style={[t.typography.labelMStrong, { color: t.color.text.neutral.inverse }]}>{value}</Text>
+        <Text accessible={false} style={[t.typography.labelS, { color: t.color.text.neutral.inverse }]}>{value}</Text>
       </View>
     );
   }
-  const dimension = type === 'small' ? theme.size['300'] : type === 'focus' ? theme.size['1000'] : theme.size['500'];
-  if (type === 'default') {
+  const dimension = type === 'small' ? theme.size['400'] : type === 'focus' ? theme.size['1000'] : theme.size['500'];
+  if (type === 'default' || type === 'small') {
     return (
       <View {...props} accessible={Boolean(label)} accessibilityLabel={label} accessibilityRole="image"
         style={[{
           alignItems: 'center', justifyContent: 'center', width: dimension, height: dimension,
           borderWidth: theme.border.md, borderColor: t.color.border.neutral.inverse,
           borderRadius: theme.radius.full, backgroundColor: t.color.fill.brand.default
-        }, getShadow(t.elevation.lg), style]}>
-        <SvgXml accessible={false} xml={svgAssets.treeIcon} />
+        }, getShadow(type === 'small' ? t.elevation.md : t.elevation.lg), style]}>
+        {type === 'default' && <SvgXml accessible={false} xml={svgAssets.treeIcon} />}
       </View>
     );
   }
-  // Exported SVG bounds include the shadow. Preserve their root sizes and offset them around the marker slot.
-  const left = type === 'small' ? theme.space.n200 : theme.space['0'];
-  const top = type === 'small' ? -theme.space['150'] : theme.space['0'];
+  // The focus pin retains its original SVG geometry.
   return (
     <View {...props} accessible={Boolean(label)} accessibilityLabel={label} accessibilityRole="image"
       style={[{ width: dimension, height: dimension }, style]}>
-      <View pointerEvents="none" style={{ position: 'absolute', left, top }}>
+      <View pointerEvents="none" style={{ position: 'absolute', left: theme.space['0'], top: theme.space['0'] }}>
         <SvgXml accessible={false} xml={svgAssets[type]} />
       </View>
     </View>
