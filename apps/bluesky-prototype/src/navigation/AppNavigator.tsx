@@ -11,6 +11,7 @@ import { initialUsers, type PrototypeUser } from '../screens/users/userData';
 import { usePrototypeUpload } from '../hooks/usePrototypeUpload';
 import { UploadSuccessSheet } from '../components/upload/UploadSuccessSheet';
 import { UploadInterruptionSheet } from '../components/upload/UploadInterruptionSheet';
+import { UploadOnlineReminderSheet } from '../components/upload/UploadOnlineReminderSheet';
 import { HomeOnboarding, type OnboardingAnchor } from '../components/onboarding/HomeOnboarding';
 import { AuthFlow } from '../screens/auth/AuthFlow';
 import { HomeScreen } from '../screens/HomeScreen';
@@ -101,6 +102,7 @@ export function AppNavigator() {
         {route === 'account' && <AccountScreen onBack={() => setRoute('settings')} />}
         <UploadSuccessSheet visible={upload.showCompletion} onClose={upload.dismissCompletion} />
         <UploadInterruptionSheet reason={upload.interruption} onClose={upload.dismissInterruption} />
+        <UploadOnlineReminderSheet visible={upload.showOnlineReminder && !newAccount && !onboarding && remindToUpload} progress={upload.progress} onClose={upload.dismissOnlineReminder} onUpload={() => { setRoute('home'); upload.start(); }} />
         <View style={styles.navbarLayer}>
           <View ref={navbarRef} onLayout={() => navbarRef.current?.measureInWindow((x, y, width, height) => setNavbarAnchor({ x, y, width, height }))} style={[styles.navbarFrame, showWebPhoneFrame ? styles.webNavbarFrame : undefined]}>
             <TreetrackerNavbar

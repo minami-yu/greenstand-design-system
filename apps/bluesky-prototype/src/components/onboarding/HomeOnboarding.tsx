@@ -38,13 +38,17 @@ export function HomeOnboarding({ navbar, uploadButton, onComplete }: Props) {
     width: uploadButton.width + theme.space['400'], height: uploadButton.height + theme.space['400']
   } : { x: targetCenter - targetSize / 2, y: targetTop, width: targetSize, height: targetSize };
   const pointed = camera || users || (upload && Boolean(uploadButton));
-  const dialogWidth = Math.min(theme.size.dialogWidth, navbar.width - theme.space['800']);
+  const dialogWidth = navbar.width * 0.8;
+  const illustrationWidth = Math.min(theme.size['2400'], Math.max(theme.size['0'], dialogWidth - theme.space['400'] * 2));
   const dialogLeft = navbar.x + (navbar.width - dialogWidth) / 2;
-  const pointerOffset = Math.max(theme.radius.lg, Math.min(dialogWidth - theme.radius.lg - theme.size.dialogPointerWidth, target.x + target.width / 2 - dialogLeft - theme.size.dialogPointerWidth / 2));
+  const pointerOffset = Math.max(theme.radius.lg, Math.min(dialogWidth - theme.radius.lg - theme.size['600'], target.x + target.width / 2 - dialogLeft - theme.size['600'] / 2));
+  const availableHeight = targetTop - insets.top - theme.space['400'];
+  // Only the card contents scroll; the pointer stays visible beside its target.
+  const contentMaxHeight = Math.max(theme.size['1200'], availableHeight - theme.space['600'] * 2 - theme.size['500']);
   const content = <View style={{ gap: theme.space[step === 0 ? '400' : '600'] }}>
-    {step > 0 ? <IconButton icon="arrow-left" variant="secondary" size="sm" accessibilityLabel="Previous onboarding step" onPress={() => setStep(previous => Math.max(0, previous - 1))} style={styles.back} /> : null}
+    {step > 0 ? <View style={styles.backWrapper}><IconButton icon="arrow-left" variant="secondary" size="sm" accessibilityLabel="Previous onboarding step" onPress={() => setStep(previous => Math.max(0, previous - 1))} /></View> : null}
     <View style={[styles.illustratedCopy, step === 0 && { gap: theme.space['400'] }]}>
-      <Image source={current.image} accessible={false} resizeMode="contain" style={{ width: theme.size.onboardingIllustration, height: theme.size.onboardingIllustration / current.aspectRatio }} />
+      <Image source={current.image} accessible={false} resizeMode="contain" style={[styles.illustration, { width: illustrationWidth, height: illustrationWidth / current.aspectRatio }]} />
       <View style={styles.copy} accessibilityLiveRegion="polite">
         {step > 0 && step < 4 ? <Text style={[t.typography.labelM, styles.center, { color: t.color.text.neutral.secondary }]}>Step {step}</Text> : null}
         <Text accessibilityRole="header" style={[t.typography.headingS, styles.center, { color: t.color.text.neutral.primary }]}>{current.title}</Text>
@@ -58,16 +62,23 @@ export function HomeOnboarding({ navbar, uploadButton, onComplete }: Props) {
     {pointed ? <View pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={[styles.spotlight, { left: target.x, top: target.y, width: target.width, height: target.height, backgroundColor: t.color.fill.neutral.surface }]}>
       {upload ? <Button label="Upload" leadingIcon="cloud-upload-outline" variant="accent" accessible={false} focusable={false} tabIndex={-1} style={styles.uploadHighlight} /> : <View style={[styles.targetIcon, { width: camera ? theme.size['1600'] : theme.size['1200'], height: camera ? theme.size['1600'] : theme.size['1200'], backgroundColor: camera ? t.color.fill.brand.default : t.color.fill.neutral.surface }]}><Icon name={camera ? 'camera-outline' : 'people-outline'} size="lg" color={camera ? 'neutral.inverse' : 'neutral.secondary'} /></View>}
     </View> : null}
-    <ScrollView bounces={false} style={pointed ? { position: 'absolute', left: dialogLeft, width: dialogWidth, ...(upload ? { top: target.y + target.height, maxHeight: Math.max(theme.size['1200'], height - target.y - target.height - insets.bottom - theme.space['400']) } : { bottom: height - targetTop + (users ? theme.space['400'] : theme.space['0']), maxHeight: Math.max(theme.size['1200'], targetTop - insets.top - theme.space['400']) }) } : styles.scroll}
-      contentContainerStyle={pointed ? undefined : styles.centered}>
-      {pointed ? <PointerDialog key={step} direction={upload ? 'up' : 'down'} align="center" pointerOffset={upload ? undefined : pointerOffset} style={{ width: dialogWidth }}>{content}</PointerDialog> : <Dialog key={step}>{content}</Dialog>}
-    </ScrollView>
+    {pointed ? <View style={{ position: 'absolute', left: dialogLeft, width: dialogWidth, bottom: height - targetTop + (users ? theme.space['400'] : theme.space['0']) }}>
+      <PointerDialog key={step} direction="down" pointerOffset={pointerOffset} style={styles.pointedCard}>
+        <ScrollView bounces={false} style={[styles.cardScroll, { maxHeight: contentMaxHeight }]} contentContainerStyle={styles.cardScrollContent}>{content}</ScrollView>
+      </PointerDialog>
+    </View> : <ScrollView bounces={false} style={styles.scroll} contentContainerStyle={styles.centered}>
+      <Dialog key={step} style={{ width: dialogWidth }}>{content}</Dialog>
+    </ScrollView>}
   </DialogOverlay>;
 }
 const styles = StyleSheet.create({
-  back: { alignSelf: 'flex-start', marginTop: theme.space.n200, marginLeft: theme.space.n200, marginBottom: theme.space.n400 },
+  backWrapper: { alignSelf: 'flex-start', marginTop: theme.space.n100, marginLeft: theme.space.n100, marginBottom: theme.space.n400 },
   scroll: { flex: 1 },
-  centered: { flexGrow: 1, alignItems: 'center', justifyContent: 'center', padding: theme.space['400'] },
+  centered: { flexGrow: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: theme.space['400'] },
+  pointedCard: { width: '100%' },
+  cardScroll: { flexGrow: 0, marginTop: theme.space.n100, marginLeft: theme.space.n100 },
+  cardScrollContent: { paddingTop: theme.space['100'], paddingLeft: theme.space['100'] },
+  illustration: { flexShrink: 0 },
   illustratedCopy: { alignItems: 'center', gap: theme.space['200'] },
   copy: { width: '100%', gap: theme.space['100'] },
   center: { textAlign: 'center', width: '100%' },

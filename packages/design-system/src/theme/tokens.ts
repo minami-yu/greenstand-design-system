@@ -372,7 +372,7 @@ export const theme = {
       "textDecorationLine": "none"
     },
     "numericL": {
-      "fontFamily": "Inter_500Medium",
+      "fontFamily": "Inter_600SemiBold",
       "lineHeight": 52.8,
       "fontSize": 48,
       "letterSpacing": 0,
@@ -1005,7 +1005,7 @@ const desktopTypography = {
     "textDecorationLine": "none"
   },
   "numericL": {
-    "fontFamily": "Inter_500Medium",
+    "fontFamily": "Inter_600SemiBold",
     "lineHeight": 61.6,
     "fontSize": 56,
     "letterSpacing": 0,

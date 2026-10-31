@@ -54,12 +54,11 @@ export function DialogOverlay({ visible, onClose, label, children }: DialogOverl
 }
 
 const styles = StyleSheet.create({
-  // card: { width: theme.size.dialogWidth, maxWidth: '100%', borderRadius: theme.radius.lg, paddingHorizontal: theme.space['400'], paddingVertical: theme.space['600'] },
-  card: { width: '80%', borderRadius: theme.radius.lg, paddingHorizontal: theme.space['400'], paddingVertical: theme.space['600'] },
+  card: { width: '80%', maxWidth: '100%', flexGrow: 0, flexShrink: 0, borderRadius: theme.radius.lg, paddingHorizontal: theme.space['400'], paddingVertical: theme.space['600'] },
   withClose: { paddingTop: theme.space['400'] },
   content: { gap: theme.space['400'], width: '100%' },
   center: { textAlign: 'center', width: '100%' },
   closeRow: { alignItems: 'flex-end', marginTop: theme.space.n200, marginRight: theme.space.n200, marginBottom: theme.space['100'] },
   overlay: { flex: 1 },
-  centered: { flexGrow: 1, alignItems: 'center', justifyContent: 'center', padding: theme.space['400'] }
+  centered: { flexGrow: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: theme.space['400'] }
 });

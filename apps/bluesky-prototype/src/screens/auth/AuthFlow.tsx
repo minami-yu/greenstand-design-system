@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, type ComponentRef } from 'react';
-import { BackHandler, Image, Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { BackHandler, Image, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { BottomSheetModal, Button, Divider, Icon, ListItem, SearchField, Select, Spinner, TextField, TopNavigation, theme, useTheme } from '@greenstand/design-system';
+import { BottomSheetModal, Button, Divider, getShadow, Icon, IconButton, ListItem, SearchField, Select, Spinner, TextField, TopNavigation, theme, useTheme } from '@greenstand/design-system';
 import { PrototypeScreenFrame } from '../../components/PrototypeScreenFrame';
 import { AddUserFlow } from '../users/AddUserFlow';
 import type { PrototypeUser } from '../users/userData';
@@ -149,13 +149,14 @@ export function AuthFlow({ accounts, onComplete }: Props) {
           </View>
           <View style={styles.carousel} onTouchStart={event => { swipeStart.current = event.nativeEvent.pageX; }} onTouchEnd={event => { const delta = event.nativeEvent.pageX - swipeStart.current; if (Math.abs(delta) > theme.size['1200']) setSlide(delta < 0 ? 1 : 0); }}>
             <View style={styles.artRow}>
-              <Pressable disabled={slide === 0} accessibilityRole="button" accessibilityLabel="Previous instruction" onPress={() => setSlide(0)} hitSlop={theme.space['150']} style={styles.carouselArrow}>{slide === 1 ? <Icon name="chevron-left" size="lg" /> : null}</Pressable>
-              <View style={styles.artSlot}>{method === 'phone' ? <Image source={slide === 0 ? require('../../../assets/auth/whatsapp-step-1.png') : require('../../../assets/auth/whatsapp-step-2.png')} accessible={false} resizeMode="contain" style={styles.instructionArt} /> : <Icon name="email-outline" size="lg" color="brand.default" />}</View>
-              <Pressable disabled={slide === 1} accessibilityRole="button" accessibilityLabel="Next instruction" onPress={() => setSlide(1)} hitSlop={theme.space['150']} style={styles.carouselArrow}>{slide === 0 ? <Icon name="chevron-right" size="lg" /> : null}</Pressable>
+              {method === 'phone' ? <Image source={slide === 0 ? require('../../../assets/auth/whatsapp-step-1.png') : require('../../../assets/auth/whatsapp-step-2.png')} accessible={false} resizeMode="contain" style={styles.instructionArt} /> : <Icon name="email-outline" size="lg" color="brand.default" />}
+              <View style={[styles.carouselArrow, slide === 0 ? styles.nextArrow : styles.previousArrow]}>
+                <IconButton icon={slide === 0 ? 'chevron-right' : 'chevron-left'} size="md" variant="surface" accessibilityLabel={slide === 0 ? 'Next instruction' : 'Previous instruction'} onPress={() => setSlide(slide === 0 ? 1 : 0)} style={[styles.arrowSurface, { backgroundColor: t.color.fill.neutral.surface }, getShadow(t.elevation.lg)]} />
+              </View>
             </View>
             <View accessibilityLiveRegion="polite" style={styles.slideCaption}>
-              <Text style={[t.typography.labelMStrong, styles.center, { color: t.color.text.neutral.primary }]}>Step {slide + 1}</Text>
-              {body(slide === 0 ? (method === 'phone' ? 'Open WhatsApp.' : 'Open your email inbox.') : 'Open the message from Greenstand and tap the sign in link.', true)}
+              <Text style={[t.typography.labelSStrong, styles.center, { color: t.color.text.neutral.primary }]}>Step {slide + 1}</Text>
+              <Text style={[method === 'phone' ? t.typography.paragraphS : t.typography.paragraphM, styles.center, { color: t.color.text.neutral.secondary }]}>{slide === 0 ? (method === 'phone' ? 'Open WhatsApp.' : 'Open your email inbox.') : 'Open the message from Greenstand and tap the sign in link.'}</Text>
             </View>
           </View>
         </ScrollView>
@@ -186,11 +187,13 @@ const styles = StyleSheet.create({
   instructionHeading: { alignItems: 'center', gap: theme.space['600'] },
   appIcon: { width: theme.size['1200'], height: theme.size['1200'] },
   carousel: { gap: theme.space['200'] },
-  artRow: { flexDirection: 'row', alignItems: 'center' },
-  carouselArrow: { width: theme.size['800'], minHeight: theme.size['1100'], alignItems: 'center', justifyContent: 'center' },
-  artSlot: { flex: 1, alignItems: 'center' },
-  instructionArt: { width: '100%', height: 'auto', aspectRatio: 264 / 176.26829528808594 },
-  slideCaption: { alignSelf: 'center', width: '80%', gap: theme.space['050'] },
+  artRow: { width: '100%', aspectRatio: 528 / 353, alignItems: 'center', justifyContent: 'center' },
+  carouselArrow: { position: 'absolute', top: theme.space['0'], bottom: theme.space['0'], justifyContent: 'center' },
+  nextArrow: { right: theme.space['200'] },
+  previousArrow: { left: theme.space['200'] },
+  arrowSurface: { borderRadius: theme.radius.full },
+  instructionArt: { ...StyleSheet.absoluteFill, width: '100%', height: '100%' },
+  slideCaption: { width: '100%', gap: theme.space['050'] },
   footer: { paddingHorizontal: theme.layout.marginX, paddingTop: theme.space['400'], gap: theme.space['400'] },
   splashCopy: { position: 'absolute', top: '30%', width: '100%', alignItems: 'center', gap: theme.space['400'] },
   splashLogo: { width: '78%', height: 'auto', aspectRatio: 280 / 44 },

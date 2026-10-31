@@ -27,5 +27,5 @@ export function LogoutDialog({ visible, offline, onCancel, onConfirm }: LogoutDi
 }
 
 const styles = StyleSheet.create({
-  actions: { gap: theme.space['200'], marginTop: theme.space['400'] }
+  actions: { width: '100%', alignItems: 'stretch', gap: theme.space['200'], marginTop: theme.space['200'] }
 });

@@ -11,7 +11,7 @@ const meta = {
   title: 'Components/SimpleTreeTag', component: SimpleTreeTag,
   args: { type: 'default', value: '120' },
   argTypes: {
-    type: { control: 'select', options: types, description: 'Figma marker variant: tree, dot, pin (focus), or cluster count.', table: { type: { summary: storybookQuotedUnion(types) } } },
+    type: { control: 'select', options: types, description: 'Figma marker variant: tree (default), dot (small), pin (focus), or cluster count. The map chooses based on density.', table: { type: { summary: storybookQuotedUnion(types) } } },
     value: { control: 'text', description: 'Cluster count shown by the number variant.', table: { type: { summary: 'string' } } }
   },
   parameters: storybookDocsArgTypesInclude(['type', 'value']),
@@ -28,3 +28,9 @@ function Examples() {
 }
 export const Variants: Story = { render: () => <Examples /> };
 export const Count: Story = { args: { type: 'number' } };
+
+export const Small: Story = {
+  args: { type: 'small' },
+  parameters: { docs: { description: { story: 'Fixed size.300 dot with border.md (2 px), border.neutral.inverse, and elevation.md. Native rendering keeps the border and shadow consistent on the map.' } } }
+};
+export const Tree: Story = { args: { type: 'default' } };

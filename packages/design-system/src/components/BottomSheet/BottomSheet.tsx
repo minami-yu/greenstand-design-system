@@ -7,14 +7,18 @@ import {
   type PressableProps,
   type StyleProp,
   type ViewStyle,
+  type ScrollViewProps,
   type ViewProps
 } from 'react-native';
-import { useContext, type ReactNode } from 'react';
+import { createContext, useContext, type ReactNode, type ComponentType } from 'react';
 import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 import { getShadow } from '../../theme/getShadow';
 import { theme } from '../../theme/tokens';
 import { useTheme } from '../../theme/useTheme';
 import { Icon } from '../Icon/Icon';
+
+/** Internal coordination between the modal's sheet drag and the body scroll view. */
+export const BottomSheetScrollContext = createContext<ComponentType<ScrollViewProps & { children: ReactNode }> | null>(null);
 
 export type BottomSheetTitleAlign = 'center' | 'left';
 
@@ -55,6 +59,8 @@ export function BottomSheet({
   titleAlign = 'left'
 }: BottomSheetProps) {
   const t = useTheme();
+  const IntegratedScrollView = useContext(BottomSheetScrollContext);
+  const BodyScrollView = IntegratedScrollView ?? ScrollView;
   const insets = useContext(SafeAreaInsetsContext);
   const safeBottom = Math.max(theme.space['400'], insets?.bottom ?? 0, bottomPadding ?? 0);
   const titleCentered = titleAlign === 'center';
@@ -100,7 +106,7 @@ export function BottomSheet({
         ) : null}
       </View>
 
-      <ScrollView style={styles.scrollArea} contentContainerStyle={[styles.contentArea, titleCentered ? styles.contentAreaCenter : styles.contentAreaLeft, contentStyle]} bounces={false} keyboardShouldPersistTaps="handled">
+      <BodyScrollView style={[styles.scrollArea, IntegratedScrollView ? styles.expandedScrollArea : undefined]} contentContainerStyle={StyleSheet.flatten([styles.contentArea, titleCentered ? styles.contentAreaCenter : styles.contentAreaLeft, contentStyle])} bounces={false} keyboardShouldPersistTaps="handled">
         {showTitle ? (
           <Text
             numberOfLines={2}
@@ -115,7 +121,7 @@ export function BottomSheet({
           </Text>
         ) : null}
         {children ? <View style={styles.contentSlot}>{children}</View> : null}
-      </ScrollView>
+      </BodyScrollView>
       {footer ? <View style={styles.footer}>{footer}</View> : null}
     </View>
   );
@@ -139,6 +145,7 @@ export function BottomSheet({
 }
 
 const styles = StyleSheet.create({
+  expandedScrollArea: { flex: 1 },
   scrollArea: { flexGrow: 0, flexShrink: 1, minHeight: theme.size['0'] },
   footer: { flexShrink: 0, paddingHorizontal: theme.space['400'], paddingTop: theme.space['400'] },
   handleHeader: { height: theme.size['1200'] },

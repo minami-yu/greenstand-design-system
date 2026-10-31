@@ -20,7 +20,7 @@ export function PointerDialog({ direction = 'down', align = 'center', pointerOff
   const pointer = <View pointerEvents="none" accessibilityElementsHidden importantForAccessibility="no-hide-descendants"
     style={[styles.pointerRow, { alignItems: align === 'left' ? 'flex-start' : align === 'right' ? 'flex-end' : 'center' }, pointerOffset !== undefined && { alignItems: 'flex-start', paddingHorizontal: theme.space['0'], paddingLeft: pointerOffset }]}>
     <View style={direction === 'down' ? styles.down : undefined}>
-      <SvgXml xml={pointerSvg.replace(/fill="[^"]+"/g, `fill="${t.color.fill.neutral.surface}"`)} width={theme.size.dialogPointerWidth} height={theme.size.dialogPointerHeight} />
+      <SvgXml xml={pointerSvg.replace(/fill="[^"]+"/g, `fill="${t.color.fill.neutral.surface}"`)} width={theme.size['600']} height={theme.size['500']} />
     </View>
   </View>;
   return <DialogEntrance style={[styles.root, style]}>
@@ -30,8 +30,8 @@ export function PointerDialog({ direction = 'down', align = 'center', pointerOff
   </DialogEntrance>;
 }
 const styles = StyleSheet.create({
-  root: { width: theme.size.dialogWidth, maxWidth: '100%' },
+  root: { width: '80%', maxWidth: '100%', flexGrow: 0, flexShrink: 0 },
   card: { width: '100%' },
-  pointerRow: { paddingHorizontal: theme.space['1200'], width: '100%' },
+  pointerRow: { paddingHorizontal: theme.space['1200'], width: '100%', height: theme.size['500'], flexShrink: 0 },
   down: { transform: [{ rotate: '180deg' }] }
 });

@@ -1,3 +1,5 @@
+import { UploadPreviewTile } from '../components/upload/UploadPreviewTile';
+import { QUEUED_IMAGES, QUEUE_THUMBNAILS } from '../components/upload/uploadQueuePhotos';
 import { useEffect, useMemo, useRef, useState, type ComponentRef } from 'react';
 import { NotificationsSheet } from '../components/NotificationsSheet';
 import { PrototypeScreenFrame } from '../components/PrototypeScreenFrame';
@@ -10,9 +12,7 @@ import {
   StyleSheet,
   Text,
   View,
-  useWindowDimensions,
-  type ImageStyle,
-  type ImageSourcePropType
+  useWindowDimensions
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
@@ -28,40 +28,6 @@ import {
   useTheme,
   type IconName
 } from '@greenstand/design-system';
-
-const treeImage1 = require('../../assets/home/raw_image_1.png');
-const treeImage2 = require('../../assets/home/raw_image_8.png');
-const treeImage3 = require('../../assets/home/raw_image_5.jpeg');
-const treeImage4 = require('../../assets/home/raw_image_7.jpeg');
-const treeImage5 = require('../../assets/home/raw_image_10.png');
-
-const UPLOAD_IMAGES: ImageSourcePropType[] = [
-  treeImage1,
-  treeImage2,
-  treeImage3,
-  treeImage4,
-  treeImage5
-];
-
-// Preserve the Figma image-fill crops for the existing photo assets.
-const PHOTO_CROPS: ImageStyle[] = [
-  { width: '102.78%', height: '137.66%', left: '-2.78%', top: '-11.44%' },
-  { width: '168.78%', height: '168.78%', left: '-40.4%', top: '-38.24%' },
-  { width: '100.69%', height: '150.77%', left: '-0.75%', top: '-36.44%' },
-  { width: '100%', height: '150%', left: '0.02%', top: '-35.17%' },
-  { width: '150.4%', height: '99.98%', left: '-20.06%', top: '0%' }
-];
-
-const QUEUED_IMAGES = [
-  ...UPLOAD_IMAGES,
-  require('../../assets/home/raw_image_2.png'),
-  require('../../assets/home/raw_image_9.png'),
-  require('../../assets/home/raw_image_6.jpeg'),
-  require('../../assets/home/raw_image_4.png'),
-  require('../../assets/home/raw_image_3.jpeg'),
-  treeImage2,
-  treeImage4
-];
 
 type HomeScreenProps = {
   offline?: boolean;
@@ -127,33 +93,6 @@ function HeroArea() {
   );
 }
 
-function ImageTile({
-  image,
-  overflowCount,
-  onPress
-}: {
-  image: ImageSourcePropType;
-  overflowCount?: number;
-  onPress?: () => void;
-}) {
-  const t = useTheme();
-
-  return (
-    <Pressable style={styles.imageTile} onPress={onPress} disabled={!onPress}
-      accessibilityRole={onPress ? 'button' : undefined}
-      accessibilityLabel={onPress ? (overflowCount ? 'View all 12 photos waiting to upload' : 'View tree details') : undefined}>
-      <Image source={image} resizeMode="stretch" style={[styles.imageTileImage, PHOTO_CROPS[UPLOAD_IMAGES.indexOf(image)]]} />
-      {overflowCount ? (
-        <View style={[styles.imageOverlay, { backgroundColor: t.color.background.neutral.overlay }]}>
-          <Text style={[t.typography.numericS, { color: t.color.text.neutral.inverse }]}>
-            +{overflowCount}
-          </Text>
-        </View>
-      ) : null}
-    </Pressable>
-  );
-}
-
 export function UploadQueue({ offline = false, emptyQueue = false, uploaded = false, onUpload, onStopUpload, uploadProgress = 0, uploading = false, onUploadAnchor }: HomeScreenProps) {
   const uploadButtonRef = useRef<ComponentRef<typeof View>>(null);
   const viewport = useWindowDimensions();
@@ -197,7 +136,7 @@ export function UploadQueue({ offline = false, emptyQueue = false, uploaded = fa
 
       {!uploaded && !emptyQueue && <View style={styles.imageStrip}>
         {visibleImages.map((image, index) => (
-          <ImageTile
+          <UploadPreviewTile
             image={image}
             key={index}
             overflowCount={index === visibleImages.length - 1 && remainingCount > 5 ? remainingCount - 5 : undefined}
@@ -220,8 +159,7 @@ export function UploadQueue({ offline = false, emptyQueue = false, uploaded = fa
         </View>
       </View>
       {offline && <Banner tone="neutral" title="You are offline" message="Try uploading when you are online." showTrailingIcon={false} style={styles.offlineBanner} />}
-      {selectedTree !== null && <TreeDetailScreen visible={queueVisible} onBack={() => setSelectedTree(null)} source={QUEUED_IMAGES[selectedTree]} index={selectedTree} />}
-      <BottomSheetModal visible={queueVisible && selectedTree === null} onClose={() => setQueueVisible(false)}
+      <BottomSheetModal visible={queueVisible} onClose={() => { setQueueVisible(false); setSelectedTree(null); }}
         showCloseButton={false} showTitle={false}>
         <View style={styles.queueSheet}>
           <View style={styles.queueDetails}>
@@ -233,12 +171,13 @@ export function UploadQueue({ offline = false, emptyQueue = false, uploaded = fa
                 <Pressable key={offset} accessibilityRole="button" accessibilityLabel={`View tree ${52 + uploadedCount + offset} details`}
                   onPress={() => setSelectedTree(uploadedCount + offset)}
                   style={{ width: gridWidth ? (gridWidth - theme.space['200'] * 4) / 5 : '17%', aspectRatio: 1 }}>
-                  <Image source={source} style={{ width: '100%', height: '100%', borderRadius: theme.radius.sm }} />
+                  <Image source={QUEUE_THUMBNAILS.get(source) ?? source} resizeMode="cover" style={{ width: '100%', height: '100%', borderRadius: theme.radius.sm }} />
                 </Pressable>
               ))}
             </View>
           </View>
           <Button label="Close" leadingIcon="close" variant="secondary" onPress={() => setQueueVisible(false)} />
+          {selectedTree !== null && <TreeDetailScreen visible={queueVisible} onBack={() => setSelectedTree(null)} source={QUEUED_IMAGES[selectedTree]} index={selectedTree} status="waiting-to-upload" />}
         </View>
       </BottomSheetModal>
     </Card>
@@ -310,26 +249,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: theme.space['200'],
     justifyContent: 'space-between'
-  },
-  imageTile: {
-    borderRadius: theme.radius.sm,
-    aspectRatio: 1,
-    flex: 1,
-    minWidth: theme.size['1100'],
-    overflow: 'hidden'
-  },
-  imageTileImage: {
-    height: '100%',
-    width: '100%'
-  },
-  imageOverlay: {
-    alignItems: 'center',
-    bottom: 0,
-    justifyContent: 'center',
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 0
   },
   uploadButton: {
     alignSelf: 'stretch',
