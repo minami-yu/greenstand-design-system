@@ -10,7 +10,7 @@ type Props = {
   onContinue: () => void;
 };
 
-/** Prototype duplicate comparison; the camera flow owns the third-capture trigger. */
+/** Prototype duplicate comparison; the camera flow owns the second-capture trigger. */
 export function DuplicateCaptureSheet({ visible, previous, currentUri, onDiscard, onContinue }: Props) {
   const t = useTheme();
   const previousTime = previous ? new Date(previous.capturedAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : '';

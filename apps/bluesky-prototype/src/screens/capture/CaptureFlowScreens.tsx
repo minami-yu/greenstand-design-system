@@ -414,7 +414,7 @@ function CameraScreenContent({ onBack, onDone, selectedUser, selectedOrganizatio
       captureCount.current += 1;
       setDuplicatePrevious(photos[0] ?? lastCapture.current);
       lastCapture.current = { uri: photo.uri, capturedAt: new Date().toISOString() };
-      setShowDuplicate(captureCount.current === 3);
+      setShowDuplicate(captureCount.current === 2);
       setPendingAspectRatio(photo.width > 0 && photo.height > 0 ? photo.width / photo.height : 3 / 4);
       setPendingUri(photo.uri);
       setReady(false);
